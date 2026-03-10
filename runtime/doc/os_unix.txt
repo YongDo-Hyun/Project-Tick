@@ -1,13 +1,13 @@
-*os_unix.txt*   For Vim version 7.4.  Last change: 2005 Mar 29
+*os_unix.txt*   For uVim version 7.4.  Last change: 2005 Mar 29
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
 
 
 							*unix* *Unix*
-This file contains the particularities for the Unix version of Vim.
+This file contains the particularities for the Unix version of uVim.
 
-For compiling Vim on Unix see "INSTALL" and "Makefile" in the src directory.
+For compiling uVim on Unix see "INSTALL" and "Makefile" in the src directory.
 
 The default help file name is "/usr/local/lib/vim/help.txt"
 The files "$HOME/.vimrc" and "$HOME/.exrc" are used instead of "s:.vimrc" and
@@ -33,7 +33,7 @@ terminal, shell window in suntools), the 'showcmd' and 'ruler' options
 are default off.  If you have a fast terminal, try setting them on.  You might
 also want to set 'ttyfast'.
 
-When using Vim in an xterm the mouse clicks can be used by Vim by setting
+When using uVim in an xterm the mouse clicks can be used by uVim by setting
 'mouse' to "a".  If there is access to an X-server gui style copy/paste will
 be used and visual feedback will be provided while dragging with the mouse.
 If you then still want the xterm copy/paste with the mouse, press the shift
@@ -41,7 +41,7 @@ key when using the mouse.  See |mouse-using|.  Visual feedback while dragging
 can also be achieved via the 'ttymouse' option if your xterm is new enough.
 
 							*terminal-colors*
-To use colors in Vim you can use the following example (if your terminal
+To use colors in uVim you can use the following example (if your terminal
 supports colors, but "T_Co" is empty or zero): >
    :set t_me=^[[0;1;36m     " normal mode (undoes t_mr and t_md)
    :set t_mr=^[[0;1;33;44m  " reverse (invert) mode
@@ -54,7 +54,7 @@ supports colors, but "T_Co" is empty or zero): >
 
 For real color terminals the ":highlight" command can be used.
 
-The file "tools/vim132" is a shell script that can be used to put Vim in 132
+The file "tools/vim132" is a shell script that can be used to put uVim in 132
 column mode on a vt100 and lookalikes.
 
  vim:tw=78:ts=8:ft=help:norl:

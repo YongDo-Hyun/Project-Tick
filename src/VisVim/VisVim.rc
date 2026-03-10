@@ -116,7 +116,7 @@ END
 
 IDD_ADDINMAIN DIALOG DISCARDABLE  0, 0, 178, 124
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Vim Add-In 1.4"
+CAPTION "uVim Add-In 1.4"
 FONT 8, "MS Sans Serif"
 BEGIN
     CONTROL         "&Open file in DevStudio editor simultaneously",
@@ -164,13 +164,13 @@ END
 
 STRINGTABLE DISCARDABLE 
 BEGIN
-    IDS_VISVIM_LONGNAME     "Vim Developer Studio Add-In"
-    IDS_VISVIM_DESCRIPTION  "Allows integration of Vim as the text editor in Developer Studio."
-    IDS_CMD_DIALOG          "\nVim Add-In Dialog\nDisplays the options dialog box of the Vim Add-In\nVim Add-In Dialog"
-    IDS_CMD_ENABLE          "\nEnable Vim Add-In\nEnables Vim as Visual Studio editor\nEnable Vim Add-In"
-    IDS_CMD_DISABLE         "\nDisable Vim Add-In\nDisables Vim as Visual Studio editor\nDisable Vim Add-In"
-    IDS_CMD_TOGGLE          "\nToggle Vim Add-In State\nToggles the enable state of the Vim Add-In\nToggle Vim Add-In State"
-    IDS_CMD_LOAD            "\nVim Add-In Load Document\nLoads the current document in Vim\nVim Add-In Load Document"
+    IDS_VISVIM_LONGNAME     "uVim Developer Studio Add-In"
+    IDS_VISVIM_DESCRIPTION  "Allows integration of uVim as the text editor in Developer Studio."
+    IDS_CMD_DIALOG          "\nVim Add-In Dialog\nDisplays the options dialog box of the uVim Add-In\nVim Add-In Dialog"
+    IDS_CMD_ENABLE          "\nEnable uVim Add-In\nEnables uVim as Visual Studio editor\nEnable uVim Add-In"
+    IDS_CMD_DISABLE         "\nDisable uVim Add-In\nDisables uVim as Visual Studio editor\nDisable uVim Add-In"
+    IDS_CMD_TOGGLE          "\nToggle uVim Add-In State\nToggles the enable state of the uVim Add-In\nToggle uVim Add-In State"
+    IDS_CMD_LOAD            "\nVim Add-In Load Document\nLoads the current document in uVim\nVim Add-In Load Document"
 END
 
 #endif    // Englisch (USA) resources

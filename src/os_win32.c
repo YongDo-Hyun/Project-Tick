@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 /*
  * os_win32.c
@@ -17,7 +17,7 @@
  * NetHack 3.1.3, GNU Emacs 19.30, and Vile 5.5.
  *
  * George V. Reilly <george@reilly.org> wrote most of this.
- * Roger Knobbe <rogerk@wonderware.com> did the initial port of Vim 3.0.
+ * Roger Knobbe <rogerk@wonderware.com> did the initial port of uVim 3.0.
  */
 
 #include "vim.h"
@@ -809,7 +809,7 @@ win32ssynch_cb(HWND hwnd, LPARAM lparam)
 
 /* When uChar.AsciiChar is 0, then we need to look at wVirtualKeyCode.
  * We map function keys to their ANSI terminal equivalents, as produced
- * by ANSI.SYS, for compatibility with the MS-DOS version of Vim.  Any
+ * by ANSI.SYS, for compatibility with the MS-DOS version of uVim.  Any
  * ANSI key with a value >= '\300' is nonstandard, but provided anyway
  * so that the user can have access to all SHIFT-, CTRL-, and ALT-
  * combinations of function/arrow/etc keys.
@@ -966,7 +966,7 @@ win32_kbd_patch_key(
 
 # if (_MSC_VER < 1100)
 /* MUST turn off global optimisation for this next function, or
- * pressing ctrl-minus in insert mode crashes Vim when built with
+ * pressing ctrl-minus in insert mode crashes uVim when built with
  * VC4.1. -- negri. */
 #  pragma optimize("g", off)
 # endif
@@ -2456,7 +2456,7 @@ SetConsoleIcon(
  *  restoration.  Also, attempts to obtain a handle to the console window,
  *  and use it to save the small and big icons currently in use by the
  *  console window.  This is not always possible on some versions of Windows;
- *  nor is it possible when running Vim remotely using Telnet (since the
+ *  nor is it possible when running uVim remotely using Telnet (since the
  *  console window the user sees is owned by a remote process).
  */
     static void
@@ -2489,7 +2489,7 @@ SaveConsoleTitleAndIcon(void)
     if (g_hOrigIconSmall == NULL || g_hOrigIcon == NULL)
 	return;
 
-    /* Extract the first icon contained in the Vim executable. */
+    /* Extract the first icon contained in the uVim executable. */
     if (mch_icon_load((HANDLE *)&g_hVimIcon) == FAIL || g_hVimIcon == NULL)
 	g_hVimIcon = ExtractIcon(NULL, (LPCSTR)exe_name, 0);
     if (g_hVimIcon != NULL)
@@ -2557,8 +2557,8 @@ mch_init(void)
 #ifdef FEAT_TITLE
     SaveConsoleTitleAndIcon();
     /*
-     * Set both the small and big icons of the console window to Vim's icon.
-     * Note that Vim presently only has one size of icon (32x32), but it
+     * Set both the small and big icons of the console window to uVim's icon.
+     * Note that uVim presently only has one size of icon (32x32), but it
      * automatically gets scaled down to 16x16 when setting the small icon.
      */
     if (g_fCanChangeIcon)
@@ -2618,7 +2618,7 @@ mch_exit(int r)
 	/*
 	 * Restore both the small and big icons of the console window to
 	 * what they were at startup.  Don't do this when the window is
-	 * closed, Vim would hang here.
+	 * closed, uVim would hang here.
 	 */
 	if (g_fCanChangeIcon && !g_fForceExit)
 	    SetConsoleIcon(g_hWnd, g_hOrigIconSmall, g_hOrigIcon);
@@ -3014,7 +3014,7 @@ mch_get_host_name(
     }
 #endif
     if (!GetComputerName((LPSTR)s, &cch))
-	vim_strncpy(s, (char_u *)"PC (Win32 Vim)", len - 1);
+	vim_strncpy(s, (char_u *)"PC (Win32 uVim)", len - 1);
 }
 
 
@@ -3532,7 +3532,7 @@ mch_nodetype(char_u *name)
 #endif
 
     /* We can't open a file with a name "\\.\con" or "\\.\prn" and trying to
-     * read from it later will cause Vim to hang.  Thus return NODE_WRITABLE
+     * read from it later will cause uVim to hang.  Thus return NODE_WRITABLE
      * here. */
     if (STRNCMP(name, "\\\\.\\", 4) == 0)
 	return NODE_WRITABLE;
@@ -3830,7 +3830,7 @@ handler_routine(
 	windgoto((int)Rows - 1, 0);
 	g_fForceExit = TRUE;
 
-	vim_snprintf((char *)IObuff, IOSIZE, _("Vim: Caught %s event\n"),
+	vim_snprintf((char *)IObuff, IOSIZE, _("uVim: Caught %s event\n"),
 		(dwCtrlType == CTRL_CLOSE_EVENT
 		     ? _("close")
 		     : dwCtrlType == CTRL_LOGOFF_EVENT
@@ -3911,7 +3911,7 @@ mch_get_shellsize(void)
 	/*
 	 * For some reason, we are trying to get the screen dimensions
 	 * even though we are not in termcap mode.  The 'Rows' and 'Columns'
-	 * variables are really intended to mean the size of Vim screen
+	 * variables are really intended to mean the size of uVim screen
 	 * while in termcap mode.
 	 */
 	Rows = g_cbTermcap.Info.dwSize.Y;
@@ -4141,7 +4141,7 @@ mch_system_classic(char *cmd, int options)
      * It's nicer to run a filter command in a minimized window, but in
      * Windows 95 this makes the command MUCH slower.  We can't do it under
      * Win32s either as it stops the synchronous spawn workaround working.
-     * Don't activate the window to keep focus on Vim.
+     * Don't activate the window to keep focus on uVim.
      */
     if ((options & SHELL_DOOUT) && !mch_windows95())
 	si.wShowWindow = SW_SHOWMINNOACTIVE;
@@ -4974,13 +4974,13 @@ mch_call_shell(
 			    _("VIMRUN.EXE not found in your $PATH.\n"
 				"External commands will not pause after completion.\n"
 				"See  :help win32-vimrun  for more information."),
-			    _("Vim Warning"),
+			    _("uVim Warning"),
 			    MB_ICONWARNING);
 		    need_vimrun_warning = FALSE;
 		}
 		if (!s_dont_use_vimrun && (!allowPiping || p_stmp))
 		    /* Use vimrun to execute the command.  It opens a console
-		     * window, which can be closed without killing Vim. */
+		     * window, which can be closed without killing uVim. */
 		    vim_snprintf((char *)newcmd, cmdlen, "%s%s%s %s %s",
 			    vimrun_path,
 			    (msg_silent != 0 || (options & SHELL_DOOUT))

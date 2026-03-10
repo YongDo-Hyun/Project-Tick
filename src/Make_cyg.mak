@@ -3,7 +3,7 @@
 #
 # Also read INSTALLpc.txt!
 #
-# This compiles Vim as a Windows application.  If you want Vim to run as a
+# This compiles uVim as a Windows application.  If you want uVim to run as a
 # Cygwin application use the Makefile (just like on Unix).
 #
 # The old Make_cyg.mak (maintained by Dan Sharp et al.) was merged into

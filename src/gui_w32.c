@@ -1,11 +1,11 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved		by Bram Moolenaar
+ * VIM - Micro Vi IMproved		by Bram Moolenaar
  *				GUI support by Robert Webb
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 /*
  * Windows GUI.
@@ -2346,7 +2346,7 @@ CenterWindow(
     wChild = rChild.right - rChild.left;
     hChild = rChild.bottom - rChild.top;
 
-    /* If Vim is minimized put the window in the middle of the screen. */
+    /* If uVim is minimized put the window in the middle of the screen. */
     if (hwndParent == NULL || IsMinimized(hwndParent))
 	SystemParametersInfo(SPI_GETWORKAREA, 0, &rParent, 0);
     else
@@ -3605,7 +3605,7 @@ gui_mch_browseW(
     fileStruct.lpstrFile = fileBuf;
     fileStruct.nMaxFile = MAXPATHL;
     fileStruct.lpstrFilter = filterp;
-    fileStruct.hwndOwner = s_hwnd;		/* main Vim window is owner*/
+    fileStruct.hwndOwner = s_hwnd;		/* main uVim window is owner*/
     /* has an initial dir been specified? */
     if (initdir != NULL && *initdir != NUL)
     {
@@ -3623,10 +3623,10 @@ gui_mch_browseW(
     /*
      * TODO: Allow selection of multiple files.  Needs another arg to this
      * function to ask for it, and need to use OFN_ALLOWMULTISELECT below.
-     * Also, should we use OFN_FILEMUSTEXIST when opening?  Vim can edit on
+     * Also, should we use OFN_FILEMUSTEXIST when opening?  uVim can edit on
      * files that don't exist yet, so I haven't put it in.  What about
      * OFN_PATHMUSTEXIST?
-     * Don't use OFN_OVERWRITEPROMPT, Vim has its own ":confirm" dialog.
+     * Don't use OFN_OVERWRITEPROMPT, uVim has its own ":confirm" dialog.
      */
     fileStruct.Flags = (OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_HIDEREADONLY);
 #ifdef FEAT_SHORTCUT
@@ -3761,7 +3761,7 @@ gui_mch_browse(
     fileStruct.lpstrFile = (LPSTR)fileBuf;
     fileStruct.nMaxFile = MAXPATHL;
     fileStruct.lpstrFilter = (LPSTR)filterp;
-    fileStruct.hwndOwner = s_hwnd;		/* main Vim window is owner*/
+    fileStruct.hwndOwner = s_hwnd;		/* main uVim window is owner*/
     /* has an initial dir been specified? */
     if (initdir != NULL && *initdir != NUL)
     {
@@ -3777,10 +3777,10 @@ gui_mch_browse(
     /*
      * TODO: Allow selection of multiple files.  Needs another arg to this
      * function to ask for it, and need to use OFN_ALLOWMULTISELECT below.
-     * Also, should we use OFN_FILEMUSTEXIST when opening?  Vim can edit on
+     * Also, should we use OFN_FILEMUSTEXIST when opening?  uVim can edit on
      * files that don't exist yet, so I haven't put it in.  What about
      * OFN_PATHMUSTEXIST?
-     * Don't use OFN_OVERWRITEPROMPT, Vim has its own ":confirm" dialog.
+     * Don't use OFN_OVERWRITEPROMPT, uVim has its own ":confirm" dialog.
      */
     fileStruct.Flags = (OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_HIDEREADONLY);
 #ifdef FEAT_SHORTCUT
@@ -4411,8 +4411,8 @@ static UINT	s_menu_id = 100;
 #define USE_SYSMENU_FONT
 
 #define VIM_NAME	"vim"
-#define VIM_CLASS	"Vim"
-#define VIM_CLASSW	L"Vim"
+#define VIM_CLASS	"uVim"
+#define VIM_CLASSW	L"uVim"
 
 /* Initial size for the dialog template.  For gui_mch_dialog() it's fixed,
  * thus there should be room for every dialog.  For tearoffs it's made bigger
@@ -4558,7 +4558,7 @@ gui_mswin_get_menu_height(
     {
 	/* The height of the menu cannot be determined while the window is
 	 * minimized.  Take the previous height if the menu is changed in that
-	 * state, to avoid that Vim's vertical window size accidentally
+	 * state, to avoid that uVim's vertical window size accidentally
 	 * increases due to the unaccounted-for menu height. */
 	menu_height = old_menu_height == -1 ? 0 : old_menu_height;
     }
@@ -5307,7 +5307,7 @@ gui_mch_prepare(int *argc, char **argv)
 	else
 	    idx = 1;
 
-	/* Register Vim as an OLE Automation server */
+	/* Register uVim as an OLE Automation server */
 	if (STRICMP(argv[idx] + 1, "register") == 0)
 	{
 #ifdef FEAT_OLE
@@ -5320,7 +5320,7 @@ gui_mch_prepare(int *argc, char **argv)
 #endif
 	}
 
-	/* Unregister Vim as an OLE Automation server */
+	/* Unregister uVim as an OLE Automation server */
 	if (STRICMP(argv[idx] + 1, "unregister") == 0)
 	{
 #ifdef FEAT_OLE
@@ -5520,7 +5520,7 @@ gui_mch_init(void)
 	     * structure. */
 	    s_hwnd = CreateWindowEx(
 		WS_EX_MDICHILD,
-		szVimWndClass, "Vim MSWindows GUI",
+		szVimWndClass, "uVim MSWindows GUI",
 		WS_OVERLAPPEDWINDOW | WS_CHILD
 				 | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | 0xC000,
 		gui_win_x == -1 ? CW_USEDEFAULT : gui_win_x,
@@ -5552,7 +5552,7 @@ gui_mch_init(void)
 	/* Create a window.  If win_socket_id is not zero without border and
 	 * titlebar, it will be reparented below. */
 	s_hwnd = CreateWindow(
-		szVimWndClass, "Vim MSWindows GUI",
+		szVimWndClass, "uVim MSWindows GUI",
 		(win_socket_id == 0 ? WS_OVERLAPPEDWINDOW : WS_POPUP)
 					  | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
 		gui_win_x == -1 ? CW_USEDEFAULT : gui_win_x,
@@ -5619,7 +5619,7 @@ gui_mch_init(void)
     }
     s_textArea = CreateWindowEx(
 	0,
-	szTextAreaClass, "Vim text area",
+	szTextAreaClass, "uVim text area",
 	WS_CHILD | WS_VISIBLE, 0, 0,
 	100,				/* Any value will do for now */
 	100,				/* Any value will do for now */
@@ -5819,7 +5819,7 @@ gui_mch_set_shellsize(int width, int height,
 #endif
 			;
 
-    /* The following should take care of keeping Vim on the same monitor, no
+    /* The following should take care of keeping uVim on the same monitor, no
      * matter if the secondary monitor is left or right of the primary
      * monitor. */
     wndpl.rcNormalPosition.right = wndpl.rcNormalPosition.left + win_width;
@@ -7501,7 +7501,7 @@ gui_mch_dialog(
     /* copy the title of the dialog */
     nchar = nCopyAnsiToWideChar(p, (title ?
 				    (LPSTR)title :
-				    (LPSTR)("Vim "VIM_VERSION_MEDIUM)));
+				    (LPSTR)("uVim "VIM_VERSION_MEDIUM)));
     p += nchar;
 
     if (s_usenewlook)
@@ -7583,7 +7583,7 @@ gui_mch_dialog(
     }
     *pnumitems += numButtons;
 
-    /* Vim icon */
+    /* uVim icon */
     p = add_dialog_element(p, SS_ICON,
 	    PixelToDialogX(dlgPaddingX),
 	    PixelToDialogY(dlgPaddingY),
@@ -7783,7 +7783,7 @@ nCopyAnsiToWideChar(
 #ifdef FEAT_TEAROFF
 /*
  * The callback function for all the modeless dialogs that make up the
- * "tearoff menus" Very simple - forward button presses (to fool Vim into
+ * "tearoff menus" Very simple - forward button presses (to fool uVim into
  * thinking its menus have been clicked), and go away when closed.
  */
     static LRESULT CALLBACK
@@ -7823,7 +7823,7 @@ tearoff_callback(
 	    }
 	}
 	else
-	    /* Pass on messages to the main Vim window */
+	    /* Pass on messages to the main uVim window */
 	    PostMessage(s_hwnd, WM_COMMAND, LOWORD(wParam), 0);
 	/*
 	 * Give main window the focus back: this is so after
@@ -8079,7 +8079,7 @@ gui_mch_tearoff(
     /* copy the title of the dialog */
     nchar = nCopyAnsiToWideChar(p, ((*title)
 				    ? (LPSTR)title
-				    : (LPSTR)("Vim "VIM_VERSION_MEDIUM)));
+				    : (LPSTR)("uVim "VIM_VERSION_MEDIUM)));
     p += nchar;
 
     if (s_usenewlook)
@@ -8363,7 +8363,7 @@ initialise_tabline(void)
 {
     InitCommonControls();
 
-    s_tabhwnd = CreateWindow(WC_TABCONTROL, "Vim tabline",
+    s_tabhwnd = CreateWindow(WC_TABCONTROL, "uVim tabline",
 	    WS_CHILD|TCS_FOCUSNEVER|TCS_TOOLTIPS,
 	    CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 	    CW_USEDEFAULT, s_hwnd, NULL, s_hinst, NULL);

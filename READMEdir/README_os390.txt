@@ -1,9 +1,9 @@
-README_zOS.txt for version 7.4 of Vim: Vi IMproved.
+README_zOS.txt for version 7.4 of uVim: Micro Vi IMproved.
 
-This readme explains how to build Vim on z/OS.  Formerly called OS/390.
-See "README.txt" for general information about Vim.
+This readme explains how to build uVim on z/OS.  Formerly called OS/390.
+See "README.txt" for general information about uVim.
 
-Most likely there are not many users out there using Vim on z/OS. So chances
+Most likely there are not many users out there using uVim on z/OS. So chances
 are good, that some bugs are still undiscovered.
 
 Getting the source to z/OS:
@@ -21,7 +21,7 @@ z/OS Unix you might have the command "jar" from java to uncompress a zip. Use:
 Unpack the tar file on z/OS with 
         pax -o from=ISO8859-1,to=IBM-1047 -rf vim.tar
 
-Note: The Vim source contains a few bitmaps etc which will be destroyed by
+Note: The uVim source contains a few bitmaps etc which will be destroyed by
 this command, but these files are not needed on zOS (at least not for the
 console version).
 
@@ -29,9 +29,9 @@ console version).
 Compiling:
 ==========
 
-Vim can be compiled with or without GUI support. For 7.4 only the compilation
+uVim can be compiled with or without GUI support. For 7.4 only the compilation
 without GUI was tested. Below is a section about compiling with X11 but this
-is from an earlier version of Vim.
+is from an earlier version of uVim.
 
 Console only:
 -------------
@@ -78,7 +78,7 @@ Change to the vim directory and do:
 With X11:
 ---------
 
-WARNING: This instruction was not tested with Vim 7.4.
+WARNING: This instruction was not tested with uVim 7.4.
 
 There are two ways for building VIM with X11 support. The first way is simple
 and results in a big executable (~13 Mb), the second needs a few additional
@@ -110,7 +110,7 @@ you want Motif.
     $ rm vim
     $ make
 
-    Now Vim is linked with the X11-DLLs.
+    Now uVim is linked with the X11-DLLs.
 
     See the Makefile and the file link.sh on how link.sed is used.
 

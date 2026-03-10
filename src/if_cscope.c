@@ -1,12 +1,12 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * CSCOPE support for Vim added by Andy Kahn <kahn@zk3.dec.com>
+ * CSCOPE support for uVim added by Andy Kahn <kahn@zk3.dec.com>
  * Ported to Win32 by Sergey Khorev <sergey.khorev@gmail.com>
  *
- * The basic idea/structure of cscope for Vim was borrowed from Nvi.  There
+ * The basic idea/structure of cscope for uVim was borrowed from Nvi.  There
  * might be a few lines of code that look similar to what Nvi has.
  *
- * See README.txt for an overview of the Vim source code.
+ * See README.txt for an overview of the uVim source code.
  */
 
 #include "vim.h"
@@ -2503,7 +2503,7 @@ cs_resolve_file(int i, char *name)
     /*
      * Ppath is freed when we destroy the cscope connection.
      * Fullname is freed after cs_make_vim_style_matches, after it's been
-     * copied into the tag buffer used by Vim.
+     * copied into the tag buffer used by uVim.
      */
     len = (int)(strlen(name) + 2);
     if (csinfo[i].ppath != NULL)

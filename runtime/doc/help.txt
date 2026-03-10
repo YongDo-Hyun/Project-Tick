@@ -1,11 +1,11 @@
-*help.txt*	For Vim version 7.4.  Last change: 2016 Mar 31
+*help.txt*	For uVim version 7.4.  Last change: 2016 Mar 31
 
 			VIM - main help file
 									 k
       Move around:  Use the cursor keys, or "h" to go left,	       h   l
 		    "j" to go down, "k" to go up, "l" to go right.	 j
 Close this window:  Use ":q<Enter>".
-   Get out of Vim:  Use ":qa!<Enter>" (careful, all changes are lost!).
+   Get out of uVim:  Use ":qa!<Enter>" (careful, all changes are lost!).
 
 Jump to a subject:  Position the cursor on a tag (e.g. |bars|) and hit CTRL-].
    With the mouse:  ":set mouse=a" to enable the mouse (in xterm or GUI).
@@ -22,7 +22,7 @@ Get specific help:  It is possible to go directly to whatever you want help
 		      Insert mode command	  i_	   :help i_<Esc>
 		      Command-line command	  :	   :help :quit
 		      Command-line editing	  c_	   :help c_<Del>
-		      Vim command argument	  -	   :help -r
+		      uVim command argument	  -	   :help -r
 		      Option			  '	   :help 'textwidth'
 		      Regular expression	  /	   :help /[
 		    See |help-summary| for more contexts and an explanation.
@@ -31,7 +31,7 @@ Get specific help:  It is possible to go directly to whatever you want help
 		    help entries for "word".
 		    Or use ":helpgrep word". |:helpgrep|
 
-VIM stands for Vi IMproved.  Most of VIM was made by Bram Moolenaar, but only
+VIM stands for Micro Vi IMproved.  Most of VIM was made by Bram Moolenaar, but only
 through the help of many others.  See |credits|.
 ------------------------------------------------------------------------------
 						*doc-file-list* *Q_ct*
@@ -39,9 +39,7 @@ BASIC:
 |quickref|	Overview of the most common commands you will use
 |tutor|		30 minutes training course for beginners
 |copying|	About copyrights
-|iccf|		Helping poor children in Uganda
-|sponsor|	Sponsor Vim development, become a registered Vim user
-|www|		Vim on the World Wide Web
+|www|		uVim on the World Wide Web
 |bugs|		Where to send bug reports
 
 USER MANUAL: These files explain how to accomplish an editing task.
@@ -50,7 +48,7 @@ USER MANUAL: These files explain how to accomplish an editing task.
 
 Getting Started ~
 |usr_01.txt|  About the manuals
-|usr_02.txt|  The first steps in Vim
+|usr_02.txt|  The first steps in uVim
 |usr_03.txt|  Moving around
 |usr_04.txt|  Making small changes
 |usr_05.txt|  Set your settings
@@ -77,37 +75,36 @@ Editing Effectively ~
 |usr_31.txt|  Exploiting the GUI
 |usr_32.txt|  The undo tree
 
-Tuning Vim ~
+Tuning uVim ~
 |usr_40.txt|  Make new commands
-|usr_41.txt|  Write a Vim script
+|usr_41.txt|  Write a uVim script
 |usr_42.txt|  Add new menus
 |usr_43.txt|  Using filetypes
 |usr_44.txt|  Your own syntax highlighted
 |usr_45.txt|  Select your language
 
-Making Vim Run ~
-|usr_90.txt|  Installing Vim
+Making uVim Run ~
+|usr_90.txt|  Installing uVim
 
 
-REFERENCE MANUAL: These files explain every detail of Vim.	*reference_toc*
+REFERENCE MANUAL: These files explain every detail of uVim.	*reference_toc*
 
 General subjects ~
-|intro.txt|	general introduction to Vim; notation used in help files
+|intro.txt|	general introduction to uVim; notation used in help files
 |help.txt|	overview and quick reference (this file)
 |helphelp.txt|	about using the help files
 |index.txt|	alphabetical index of all commands
 |help-tags|	all the tags you can jump to (index of tags)
 |howto.txt|	how to do the most common editing tasks
-|tips.txt|	various tips on using Vim
+|tips.txt|	various tips on using uVim
 |message.txt|	(error) messages and explanations
-|quotes.txt|	remarks from users of Vim
+|quotes.txt|	remarks from users of uVim
 |todo.txt|	known problems and desired extensions
-|develop.txt|	development of Vim
-|debug.txt|	debugging Vim itself
-|uganda.txt|	Vim distribution conditions and what to do with your money
+|develop.txt|	development of uVim
+|debug.txt|	debugging uVim itself
 
 Basic editing ~
-|starting.txt|	starting Vim, Vim command arguments, initialisation
+|starting.txt|	starting uVim, uVim command arguments, initialisation
 |editing.txt|	editing and writing files
 |motion.txt|	commands for moving around
 |scroll.txt|	scrolling the text in the window
@@ -115,7 +112,7 @@ Basic editing ~
 |change.txt|	deleting and replacing text
 |indent.txt|	automatic indenting for C and other languages
 |undo.txt|	Undo and Redo
-|repeat.txt|	repeating commands, Vim scripts and debugging
+|repeat.txt|	repeating commands, uVim scripts and debugging
 |visual.txt|	using the Visual mode (selecting a text area)
 |various.txt|	various remaining commands
 |recover.txt|	recovering from a crash
@@ -139,7 +136,7 @@ Advanced editing ~
 
 Special issues ~
 |print.txt|	printing
-|remote.txt|	using Vim as a server or client
+|remote.txt|	using uVim as a server or client
 |term.txt|	using different terminals and mice
 |digraph.txt|	list of available digraphs
 |mbyte.txt|	multi-byte text support
@@ -159,7 +156,7 @@ GUI ~
 |gui_x11.txt|	X11 GUI
 
 Interfaces ~
-|if_cscop.txt|	using Cscope with Vim
+|if_cscop.txt|	using Cscope with uVim
 |if_lua.txt|	Lua interface
 |if_mzsch.txt|	MzScheme interface
 |if_perl.txt|	Perl interface
@@ -173,12 +170,12 @@ Interfaces ~
 |sign.txt|	debugging signs
 
 Versions ~
-|vi_diff.txt|	Main differences between Vim and Vi
-|version4.txt|	Differences between Vim version 3.0 and 4.x
-|version5.txt|	Differences between Vim version 4.6 and 5.x
-|version6.txt|	Differences between Vim version 5.7 and 6.x
-|version7.txt|	Differences between Vim version 6.4 and 7.x
-|version8.txt|	Differences between Vim version 7.4 and 8.x
+|vi_diff.txt|	Main differences between uVim and Vi
+|version4.txt|	Differences between uVim version 3.0 and 4.x
+|version5.txt|	Differences between uVim version 4.6 and 5.x
+|version6.txt|	Differences between uVim version 5.7 and 6.x
+|version7.txt|	Differences between uVim version 6.4 and 7.x
+|version8.txt|	Differences between uVim version 7.4 and 8.x
 						*sys-file-list*
 Remarks about specific systems ~
 |os_390.txt|	OS/390 Unix
@@ -196,13 +193,13 @@ Remarks about specific systems ~
 |os_win32.txt|	MS-Windows 95/98/NT
 						*standard-plugin-list*
 Standard plugins ~
-|pi_getscript.txt| Downloading latest version of Vim scripts
+|pi_getscript.txt| Downloading latest version of uVim scripts
 |pi_gzip.txt|      Reading and writing compressed files
 |pi_logipat.txt|   Logical operators on patterns
 |pi_netrw.txt|     Reading and writing files over a network
 |pi_paren.txt|     Highlight matching parens
 |pi_tar.txt|       Tar file explorer
-|pi_vimball.txt|   Create a self-installing Vim script
+|pi_vimball.txt|   Create a self-installing uVim script
 |pi_zip.txt|       Zip archive explorer
 
 LOCAL ADDITIONS:				*local-additions*
@@ -216,7 +213,7 @@ CTRL-T, CTRL-O, g<RightMouse>, or <C-RightMouse> to go back to where you were.
 Note that tags are within | characters, but when highlighting is enabled these
 characters are hidden.  That makes it easier to read a command.
 
-Anyway, you can use CTRL-] on any word, also when it is not within |, and Vim
+Anyway, you can use CTRL-] on any word, also when it is not within |, and uVim
 will try to find help for it.  Especially for options in single quotes, e.g.
 'compatible'.
 

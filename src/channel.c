@@ -1,9 +1,9 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
  */
 
 /*
@@ -4395,7 +4395,7 @@ job_unref(job_T *job)
 				    && !channel_still_useful(job->jv_channel))
 	{
 	    /* Do remove the link to the channel, otherwise it hangs
-	     * around until Vim exits. See job_free() for refcount. */
+	     * around until uVim exits. See job_free() for refcount. */
 	    ch_log(job->jv_channel, "detaching channel from job");
 	    job->jv_channel->ch_job = NULL;
 	    channel_unref(job->jv_channel);
@@ -4501,7 +4501,7 @@ job_set_options(job_T *job, jobopt_T *opt)
 }
 
 /*
- * Called when Vim is exiting: kill all jobs that have the "stoponexit" flag.
+ * Called when uVim is exiting: kill all jobs that have the "stoponexit" flag.
  */
     void
 job_stop_on_exit(void)

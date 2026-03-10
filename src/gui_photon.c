@@ -1,10 +1,10 @@
 /* vi:set ts=8 sw=4 sts=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *			Photon GUI support by Julian Kinraid
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
  *
  *
  * Clipboard support is in os_qnx.c
@@ -691,7 +691,7 @@ gui_ph_handle_mouse(PtWidget_t *widget, void *data, PtCallbackInfo_t *info)
 	button = MOUSE_DRAG;
 
 #if 0
-    /* Vim doesn't use button repeats */
+    /* uVim doesn't use button repeats */
     if (info->event->type & Ph_EV_BUT_REPEAT)
 	button = MOUSE_DRAG;
 #endif
@@ -1534,7 +1534,7 @@ gui_mch_dialog(
     }
 
     if (title == NULL)
-	title = "Vim";
+	title = "uVim";
 
     buttons_copy = alloc(len + 1);
     button_array = (char_u **) alloc(button_count * sizeof(char_u *));
@@ -1715,7 +1715,7 @@ gui_mch_iconify(void)
 
 #if defined(FEAT_EVAL) || defined(PROTO)
 /*
- * Bring the Vim window to the foreground.
+ * Bring the uVim window to the foreground.
  */
     void
 gui_mch_set_foreground(void)

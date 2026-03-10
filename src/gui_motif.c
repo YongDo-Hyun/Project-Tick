@@ -1,11 +1,11 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved		by Bram Moolenaar
+ * VIM - Micro Vi IMproved		by Bram Moolenaar
  *				GUI/Motif support by Robert Webb
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 #include <Xm/Form.h>
@@ -495,7 +495,7 @@ gui_x11_create_widgets(void)
 #endif
 
 #ifdef FEAT_GUI_TABLINE
-    /* Create the Vim GUI tabline */
+    /* Create the uVim GUI tabline */
     n = 0;
     XtSetArg(args[n], XmNbindingType, XmNONE); n++;
     XtSetArg(args[n], XmNorientation, XmVERTICAL); n++;
@@ -506,7 +506,7 @@ gui_x11_create_widgets(void)
     XtSetArg(args[n], XmNshadowThickness, 0); n++;
     XtSetArg(args[n], XmNleftAttachment, XmATTACH_FORM); n++;
     XtSetArg(args[n], XmNrightAttachment, XmATTACH_FORM); n++;
-    tabLine = XmCreateNotebook(vimForm, "Vim tabline", args, n);
+    tabLine = XmCreateNotebook(vimForm, "uVim tabline", args, n);
 
     XtAddCallback(tabLine, XmNpageChangedCallback, (XtCallbackProc)tabline_cb,
 			NULL);
@@ -2542,7 +2542,7 @@ gui_mch_dialog(
 #endif
 
     if (title == NULL)
-	title = (char_u *)_("Vim dialog");
+	title = (char_u *)_("uVim dialog");
 
     /* if our pointer is currently hidden, then we should show it. */
     gui_mch_mousehide(FALSE);

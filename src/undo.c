@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -726,7 +726,7 @@ nomem:
 
 #if defined(FEAT_PERSISTENT_UNDO) || defined(PROTO)
 
-# define UF_START_MAGIC	    "Vim\237UnDo\345"  /* magic at start of undofile */
+# define UF_START_MAGIC	    "uVim\237UnDo\345"  /* magic at start of undofile */
 # define UF_START_MAGIC_LEN	9
 # define UF_HEADER_MAGIC	0x5fd0	/* magic at start of header */
 # define UF_HEADER_END_MAGIC	0xe7aa	/* magic after last header */

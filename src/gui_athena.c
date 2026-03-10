@@ -1,12 +1,12 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved		by Bram Moolenaar
+ * VIM - Micro Vi IMproved		by Bram Moolenaar
  *				GUI/Motif support by Robert Webb
  *				Athena port by Bill Foster
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 #include <X11/StringDefs.h>
@@ -2119,7 +2119,7 @@ gui_mch_dialog(
     int			vertical;
 
     if (title == NULL)
-	title = (char_u *)_("Vim dialog");
+	title = (char_u *)_("uVim dialog");
     dialogStatus = -1;
 
     /* if our pointer is currently hidden, then we should show it. */
@@ -2224,7 +2224,7 @@ gui_mch_dialog(
 
     XtRealizeWidget(dialogshell);
 
-    /* Setup for catching the close-window event, don't let it close Vim! */
+    /* Setup for catching the close-window event, don't let it close uVim! */
     dialogatom = XInternAtom(gui.dpy, "WM_DELETE_WINDOW", False);
     XSetWMProtocols(gui.dpy, XtWindow(dialogshell), &dialogatom, 1);
     XtAddEventHandler(dialogshell, NoEventMask, True, dialog_wm_handler, NULL);

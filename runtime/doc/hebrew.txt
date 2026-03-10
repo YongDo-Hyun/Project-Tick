@@ -1,10 +1,10 @@
-*hebrew.txt*    For Vim version 7.4.  Last change: 2007 Jun 14
+*hebrew.txt*    For uVim version 7.4.  Last change: 2007 Jun 14
 
 
 	   VIM REFERENCE MANUAL    by Ron Aaron (and Avner Lottem)
 
 
-Hebrew Language support (options & mapping) for Vim		*hebrew*
+Hebrew Language support (options & mapping) for uVim		*hebrew*
 
 The supporting 'rightleft' functionality was originally created by Avner
 Lottem. <alottem at gmail dot com>  Ron Aaron <ron at ronware dot org> is
@@ -55,7 +55,7 @@ Details
    +  You should prefer using UTF8, as it supports the combining-characters
       ('deco' does nothing if UTF8 encoding is not active).
 
-+  Vim arguments:
++  uVim arguments:
    +  'vim -H file' starts editing a Hebrew file, i.e. 'rightleft' and 'hkmap'
       are set.
 

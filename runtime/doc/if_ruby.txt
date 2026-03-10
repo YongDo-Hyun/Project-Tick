@@ -1,22 +1,22 @@
-*if_ruby.txt*   For Vim version 7.4.  Last change: 2015 Dec 03
+*if_ruby.txt*   For uVim version 7.4.  Last change: 2015 Dec 03
 
 
 		  VIM REFERENCE MANUAL    by Shugo Maeda
 
-The Ruby Interface to Vim				*ruby* *Ruby*
+The Ruby Interface to uVim				*ruby* *Ruby*
 
 
 1. Commands			|ruby-commands|
-2. The Vim module		|ruby-vim|
-3. Vim::Buffer objects		|ruby-buffer|
-4. Vim::Window objects		|ruby-window|
+2. The uVim module		|ruby-vim|
+3. uVim::Buffer objects		|ruby-buffer|
+4. uVim::Window objects		|ruby-window|
 5. Global variables		|ruby-globals|
 6. Dynamic loading		|ruby-dynamic|
 
 {Vi does not have any of these commands}
 			*E266* *E267* *E268* *E269* *E270* *E271* *E272* *E273*
 
-The Ruby interface only works when Vim was compiled with the |+ruby| feature.
+The Ruby interface only works when uVim was compiled with the |+ruby| feature.
 
 The home page for ruby is http://www.ruby-lang.org/.  You can find links for
 downloading Ruby there.
@@ -41,13 +41,13 @@ downloading Ruby there.
 			wasn't compiled in.  To avoid errors, see
 			|script-here|.
 
-Example Vim script: >
+Example uVim script: >
 
 	function! RedGem()
 	ruby << EOF
 	class Garnet
 		def initialize(s)
-			@buffer = Vim::Buffer.current
+			@buffer = uVim::Buffer.current
 			vimputs(s)
 		end
 		def vimputs(s)
@@ -74,19 +74,19 @@ Example Vim script: >
 Executing Ruby commands is not possible in the |sandbox|.
 
 ==============================================================================
-2. The Vim module					*ruby-vim*
+2. The uVim module					*ruby-vim*
 
-Ruby code gets all of its access to vim via the "Vim" module.
+Ruby code gets all of its access to vim via the "uVim" module.
 
 Overview: >
 	print "Hello"			      # displays a message
-	Vim.command(cmd)		      # execute an Ex command
-	num = Vim::Window.count		      # gets the number of windows
-	w = Vim::Window[n]		      # gets window "n"
-	cw = Vim::Window.current	      # gets the current window
-	num = Vim::Buffer.count		      # gets the number of buffers
-	b = Vim::Buffer[n]		      # gets buffer "n"
-	cb = Vim::Buffer.current	      # gets the current buffer
+	uVim.command(cmd)		      # execute an Ex command
+	num = uVim::Window.count		      # gets the number of windows
+	w = uVim::Window[n]		      # gets window "n"
+	cw = uVim::Window.current	      # gets the current window
+	num = uVim::Buffer.count		      # gets the number of buffers
+	b = uVim::Buffer[n]		      # gets buffer "n"
+	cb = uVim::Buffer.current	      # gets the current buffer
 	w.height = lines		      # sets the window height
 	w.cursor = [row, col]		      # sets the window cursor position
 	pos = w.cursor			      # gets an array [row, col]
@@ -96,42 +96,42 @@ Overview: >
 	b[n] = str			      # sets a line in the buffer
 	b.delete(n)			      # deletes a line
 	b.append(n, str)		      # appends a line after n
-	line = Vim::Buffer.current.line       # gets the current line
-	num = Vim::Buffer.current.line_number # gets the current line number
-	Vim::Buffer.current.line = "test"     # sets the current line number
+	line = uVim::Buffer.current.line       # gets the current line
+	num = uVim::Buffer.current.line_number # gets the current line number
+	uVim::Buffer.current.line = "test"     # sets the current line number
 <
 
 Module Functions:
 
 							*ruby-message*
-Vim::message({msg})
+uVim::message({msg})
 	Displays the message {msg}.
 
 							*ruby-set_option*
-Vim::set_option({arg})
+uVim::set_option({arg})
 	Sets a vim option.  {arg} can be any argument that the ":set" command
 	accepts.  Note that this means that no spaces are allowed in the
 	argument!  See |:set|.
 
 							*ruby-command*
-Vim::command({cmd})
+uVim::command({cmd})
 	Executes Ex command {cmd}.
 
 							*ruby-evaluate*
-Vim::evaluate({expr})
+uVim::evaluate({expr})
 	Evaluates {expr} using the vim internal expression evaluator (see
 	|expression|).  Returns the expression result as:
-	- a Integer if the Vim expression evaluates to a number
-	- a Float if the Vim expression evaluates to a float
-	- a String if the Vim expression evaluates to a string
-	- a Array if the Vim expression evaluates to a Vim list
-	- a Hash if the Vim expression evaluates to a Vim dictionary
+	- a Integer if the uVim expression evaluates to a number
+	- a Float if the uVim expression evaluates to a float
+	- a String if the uVim expression evaluates to a string
+	- a Array if the uVim expression evaluates to a uVim list
+	- a Hash if the uVim expression evaluates to a uVim dictionary
 	Dictionaries and lists are recursively expanded.
 
 ==============================================================================
-3. Vim::Buffer objects					*ruby-buffer*
+3. uVim::Buffer objects					*ruby-buffer*
 
-Vim::Buffer objects represent vim buffers.
+uVim::Buffer objects represent vim buffers.
 
 Class Methods:
 
@@ -159,9 +159,9 @@ line_number     Returns the number of the current line if the buffer is
 		active.
 
 ==============================================================================
-4. Vim::Window objects					*ruby-window*
+4. uVim::Window objects					*ruby-window*
 
-Vim::Window objects represent vim windows.
+uVim::Window objects represent vim windows.
 
 Class Methods:
 
@@ -195,9 +195,9 @@ $curbuf		The current buffer object.
 On MS-Windows and Unix the Ruby library can be loaded dynamically.  The
 |:version| output then includes |+ruby/dyn|.
 
-This means that Vim will search for the Ruby DLL file or shared library only
+This means that uVim will search for the Ruby DLL file or shared library only
 when needed.  When you don't use the Ruby interface you don't need it, thus
-you can use Vim even though this library file is not on your system.
+you can use uVim even though this library file is not on your system.
 
 
 MS-Windows ~
@@ -211,11 +211,11 @@ To use the Ruby interface the Ruby DLL must be in your search path.  In a
 console window type "path" to see what directories are used.  The 'rubydll'
 option can be also used to specify the Ruby DLL.
 
-The name of the DLL must match the Ruby version Vim was compiled with.
+The name of the DLL must match the Ruby version uVim was compiled with.
 Currently the name is "msvcrt-ruby191.dll".  That is for Ruby 1.9.1.  To know
 for sure edit "gvim.exe" and search for "ruby\d*.dll\c".
 
-If you want to build Vim with Ruby 1.9.1, you need to edit the config.h file
+If you want to build uVim with Ruby 1.9.1, you need to edit the config.h file
 and comment-out the check for _MSC_VER.
 You may also need to rename the include directory name to match the version,
 strangely for Ruby 1.9.3 the directory is called 1.9.1.
@@ -225,7 +225,7 @@ Unix ~
 
 The 'rubydll' option can be used to specify the Ruby shared library file
 instead of DYNAMIC_RUBY_DLL file what was specified at compile time.  The
-version of the shared library must match the Ruby version Vim was compiled
+version of the shared library must match the Ruby version uVim was compiled
 with.
 
 ==============================================================================

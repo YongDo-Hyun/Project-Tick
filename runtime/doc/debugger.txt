@@ -1,4 +1,4 @@
-*debugger.txt*  For Vim version 7.4.  Last change: 2005 Mar 29
+*debugger.txt*  For uVim version 7.4.  Last change: 2005 Mar 29
 
 
 		  VIM REFERENCE MANUAL    by Gordon Prieur
@@ -7,7 +7,7 @@
 Debugger Support Features				*debugger-support*
 
 1. Debugger Features		|debugger-features|
-2. Vim Compile Options		|debugger-compilation|
+2. uVim Compile Options		|debugger-compilation|
 3. Integrated Debuggers		|debugger-integration|
 
 {Vi does not have any of these features}
@@ -34,12 +34,12 @@ reliability of building for vim or non Motif GUI versions.
 
 1.1 Alternate Command Input				*alt-input*
 
-For Vim to work with a debugger there must be at least an input connection
+For uVim to work with a debugger there must be at least an input connection
 with a debugger or external tool.  In many cases there will also be an output
 connection but this isn't absolutely necessary.
 
 The purpose of the input connection is to let the external debugger send
-commands to Vim.  The commands sent by the debugger should give the debugger
+commands to uVim.  The commands sent by the debugger should give the debugger
 enough control to display the current debug environment and state.
 
 The current implementation is based on the X Toolkit dispatch loop and the
@@ -108,7 +108,7 @@ Another way to use the balloon is with the 'balloonexpr' option.  This is
 completely user definable.
 
 ==============================================================================
-2. Vim Compile Options					*debugger-compilation*
+2. uVim Compile Options					*debugger-compilation*
 
 The debugger features were added explicitly for use with Sun's Visual
 WorkShop Integrated Programming Environment (ipe).  However, they were done

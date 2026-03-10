@@ -1,16 +1,16 @@
-*farsi.txt*     For Vim version 7.4.  Last change: 2015 Aug 29
+*farsi.txt*     For uVim version 7.4.  Last change: 2015 Aug 29
 
 
 		  VIM REFERENCE MANUAL    by Mortaza Ghassab Shiran
 
 
-Right to Left and Farsi Mapping for Vim		*farsi* *Farsi*
+Right to Left and Farsi Mapping for uVim		*farsi* *Farsi*
 
 {Vi does not have any of these commands}
 
 						*E27*
 In order to use right-to-left and Farsi mapping support, it is necessary to
-compile Vim with the |+farsi| feature.
+compile uVim with the |+farsi| feature.
 
 These functions have been made by Mortaza G. Shiran <shiran@jps.net>
 
@@ -27,13 +27,13 @@ interface remains the standard Vi interface.
 
 Highlights
 ----------
-o  Editing left-to-right files as in the original Vim, no change.
+o  Editing left-to-right files as in the original uVim, no change.
 
 o  Viewing and editing files in right-to-left windows.   File orientation is
    per window, so it is possible to view the same file in right-to-left and
    left-to-right modes, simultaneously.
 
-o  Compatibility to the original Vim.   Almost all features work in
+o  Compatibility to the original uVim.   Almost all features work in
    right-to-left mode (see bugs below).
 
 o  Changing keyboard mapping and reverse insert modes using a single
@@ -54,7 +54,7 @@ o  Farsi keymapping on the command line in reverse insert mode.
 
 o  Toggling between left-to-right and right-to-left via F8 function key.
 
-o  Toggling between Farsi ISIR-3342 standard encoding and Vim Farsi via F9
+o  Toggling between Farsi ISIR-3342 standard encoding and uVim Farsi via F9
    function key.  Since this makes sense only for the text written in
    right-to-left mode, this function is also supported only in right-to-left
    mode.
@@ -110,13 +110,13 @@ o  Installation of ASCII screen fonts (Unix/Linux)
 
 o  Installation of ASCII screen fonts (DOS)
 
-   After system power on, prior to the first use of Vim, upload the Farsi
+   After system power on, prior to the first use of uVim, upload the Farsi
    fonts by executing the far-a01.com font uploading program.
 
 
 Usage
 -----
-Prior to starting Vim, the environment in which Vim can run in Farsi mode,
+Prior to starting uVim, the environment in which uVim can run in Farsi mode,
 must be set.  In addition to installation of Farsi fonts, following points
 refer to some of the system environments, which you may need to set:
 Key code mapping, loading graphic card in ASCII screen mode, setting the IO
@@ -124,26 +124,26 @@ driver in 8 bit clean mode ... .
 
 o  Setting the Farsi fonts
 
-   +  For Vim GUI set the 'guifont' to far-a01.  This is done by entering
-      ':set guifont=far-a01' in the Vim window.
+   +  For uVim GUI set the 'guifont' to far-a01.  This is done by entering
+      ':set guifont=far-a01' in the uVim window.
 
-      You can have 'guifont' set to far-a01 by Vim during the Vim startup
+      You can have 'guifont' set to far-a01 by uVim during the uVim startup
       by appending the ':set guifont=far-a01' into your .vimrc file
       (in case of NT/95/98 platforms _vimrc).
 
-      Under the X Window environment, you can also start Vim with the
+      Under the X Window environment, you can also start uVim with the
       '-fn far-a01' option.
 
-   +  For Vim within a xterm, start a xterm with the Farsi fonts (e.g.
-      kterm -fn far-a01).  Then start Vim inside the kterm.
+   +  For uVim within a xterm, start a xterm with the Farsi fonts (e.g.
+      kterm -fn far-a01).  Then start uVim inside the kterm.
 
-   +  For Vim under DOS, prior to the first usage of Vim, upload the Farsi
+   +  For uVim under DOS, prior to the first usage of uVim, upload the Farsi
       fonts by executing the far-a01.com fonts uploading program.
 
 o  Farsi Keymapping Activation
 
    To activate the Farsi keymapping, set either 'altkeymap' or 'fkmap'.
-   This is done by entering ':set akm' or ':set fk' in the Vim window.
+   This is done by entering ':set akm' or ':set fk' in the uVim window.
    You can have 'altkeymap' or 'fkmap' set as default by appending ':set akm'
    or ':set fk' in your .vimrc file or _vimrc in case of NT/95/98 platforms.
 
@@ -152,24 +152,24 @@ o  Farsi Keymapping Activation
 
 o  right-to-left Farsi Mode
 
-   By default Vim starts in Left-to-right mode.  Following are ways to change
+   By default uVim starts in Left-to-right mode.  Following are ways to change
    the window orientation:
 
-   + Start Vim with the -F option (e.g. vim -F ...).
+   + Start uVim with the -F option (e.g. vim -F ...).
 
    + Use the F8 function key to toggle between left-to-right and right-to-left.
 
    + While in Left-to-right mode, enter 'set rl' in the command line ('rl' is
      the abbreviation for rightleft).
 
-   + Put the 'set rl' line in your '.vimrc' file to start Vim in
+   + Put the 'set rl' line in your '.vimrc' file to start uVim in
      right-to-left mode permanently.
 
 Encoding
 --------
 
-The letter encoding used is the Vim extended ISIR-3342 standard with a built
-in function to convert between Vim extended ISIR-3342 and ISIR-3342 standard.
+The letter encoding used is the uVim extended ISIR-3342 standard with a built
+in function to convert between uVim extended ISIR-3342 and ISIR-3342 standard.
 
 For document portability reasons, the letter encoding is kept the same across
 different platforms (i.e. UNIX's, NT/95/98, MS DOS, ...).
@@ -187,7 +187,7 @@ o  Keyboard
 
    +  F8 - Toggles between left-to-right and right-to-left.
 
-   +  F9 - Toggles the encoding between ISIR-3342 standard and Vim extended
+   +  F9 - Toggles the encoding between ISIR-3342 standard and uVim extended
       ISIR-3342 (supported only in right-to-left mode).
 
    +  Keyboard mapping is based on the Iranian ISIRI-2901 standard.
@@ -195,34 +195,34 @@ o  Keyboard
 
 	-------------------------------------
 	`  1  2  3  4  5  6  7  8  9  0  -  =
-	¢  ±  ²  ³  ´  µ  ¶  ·  ¸  ¹  °  ­  ½
+	ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½
 	-------------------------------------
 	~  !  @  #  $  %  ^  &  *  (  )  _  +
-	~  £  §  ®  ¤  ¥  ª  ¬  è  ¨  ©  é  «
+	~  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½
 	-------------------------------------
 	q  w  e  r  t  z  u  i  o  p  [  ]
-	Ó  Ò  Æ  Ù  Ø  Õ  Ö  à  Ê  É  Ç  ˆ
+	ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½
 	-------------------------------------
 	Q  W  E  R  T  Z  U  I  O  P  {  }
-	÷  õ  ô  ó  ò  ý  ð  ö  [  ]  {  }
+	ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  [  ]  {  }
 	-------------------------------------
 	a  s  d  f  g  h  j  k  l  ;  '  \
-	Ñ  Ð  á  Ã  Ü  Á  Å  Þ  Ý  Ú  Û  ë
+	ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½
 	-------------------------------------
 	A  S  D  F  G  H  J  K  L  :  "  |
-	ù  û  þ  ú  ø  À  ü  æ  ç  º  »  ê
+	ï¿½  ï¿½ï¿½ ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½
 	-------------------------------------
 	<  y  x  c  v  b  n  m  ,  .  /
-	¾  ×  Ô  Î  Í  Ì  Ë  Ä  ß  ¦  ¯
+	ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½
 	-------------------------------------
 	>  Y  X  C  V  B  N  M  <  >  ?
-	¼  ñ  Ô  Ï  Í  ¡  Ë  Â  ¾  ¼  ¿
+	ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½  ï¿½
 	-------------------------------------
 
 Note:
-	¡  stands for Farsi PSP (break without space)
+	ï¿½  stands for Farsi PSP (break without space)
 
-	¢  stands for Farsi PCN (for HAMZE attribute)
+	ï¿½  stands for Farsi PCN (for HAMZE attribute)
 
 Restrictions
 ------------
@@ -247,12 +247,12 @@ o  In command mode there is no support for entering numbers from left
    to right and also for the sake of flexibility the keymapping logic is
    restricted.
 
-o  Under the X Window environment, if you want to run Vim within a xterm
+o  Under the X Window environment, if you want to run uVim within a xterm
    terminal emulator and Farsi mode set, you need to have an ANSI compatible
    xterm terminal emulator.  This is because the letter codes above 128 decimal
    have certain meanings in the standard xterm terminal emulator.
 
-   Note: Under X Window environment, Vim GUI works fine in Farsi mode.
+   Note: Under X Window environment, uVim GUI works fine in Farsi mode.
 	 This eliminates the need of any xterm terminal emulator.
 
 

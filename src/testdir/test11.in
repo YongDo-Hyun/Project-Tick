@@ -11,7 +11,7 @@ Tests for autocommands:
 Note: This test is skipped if "gzip" is not available.
 $GZIP is made empty, "-v" would cause trouble.
 Use a FileChangedShell autocommand to avoid a prompt for "Xtestfile.gz" being
-modified outside of Vim (noticed on Solaris).
+modified outside of uVim (noticed on Solaris).
 
 STARTTEST
 :so small.vim

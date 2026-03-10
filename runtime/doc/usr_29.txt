@@ -1,11 +1,11 @@
-*usr_29.txt*	For Vim version 7.4.  Last change: 2016 Feb 27
+*usr_29.txt*	For uVim version 7.4.  Last change: 2016 Feb 27
 
 		     VIM USER MANUAL - by Bram Moolenaar
 
 			    Moving through programs
 
 
-The creator of Vim is a computer programmer.  It's no surprise that Vim
+The creator of uVim is a computer programmer.  It's no surprise that uVim
 contains many features to aid in writing programs.  Jump around to find where
 identifiers are defined and used.  Preview declarations in a separate window.
 There is more in the next chapter.
@@ -25,7 +25,7 @@ Table of contents: |usr_toc.txt|
 
 What is a tag?  It is a location where an identifier is defined.  An example
 is a function definition in a C or C++ program.  A list of tags is kept in a
-tags file.  This can be used by Vim to directly jump from any place to the
+tags file.  This can be used by uVim to directly jump from any place to the
 tag, the place where an identifier is defined.
    To generate the tags file for all C files in the current directory, use the
 following command: >
@@ -37,7 +37,7 @@ If you do not have it yet, you can find Exuberant ctags here:
 
 	http://ctags.sf.net ~
 
-Now when you are in Vim and you want to go to a function definition, you can
+Now when you are in uVim and you want to go to a function definition, you can
 jump to it by using the following command: >
 
 	:tag startlist
@@ -106,7 +106,7 @@ SPLIT WINDOWS
 The ":tag" command replaces the file in the current window with the one
 containing the new function.  But suppose you want to see not only the old
 function but also the new one?  You can split the window using the ":split"
-command followed by the ":tag" command.  Vim has a shorthand command that does
+command followed by the ":tag" command.  uVim has a shorthand command that does
 both: >
 	:stag tagname
 
@@ -121,7 +121,7 @@ If a count is specified, the new window will be that many lines high.
 MORE TAGS FILES
 
 When you have files in many directories, you can create a tags file in each of
-them.  Vim will then only be able to jump to tags within that directory.
+them.  uVim will then only be able to jump to tags within that directory.
    To find more tags files, set the 'tags' option to include all the relevant
 tags files.  Example: >
 
@@ -131,7 +131,7 @@ This finds a tags file in the same directory as the current file, one
 directory level higher and in all subdirectories.
    This is quite a number of tags files, but it may still not be enough.  For
 example, when editing a file in "~/proj/src", you will not find the tags file
-"~/proj/sub/tags".  For this situation Vim offers to search a whole directory
+"~/proj/sub/tags".  For this situation uVim offers to search a whole directory
 tree for tags files.  Example: >
 
 	:set tags=~/proj/**/tags
@@ -139,7 +139,7 @@ tree for tags files.  Example: >
 
 ONE TAGS FILE
 
-When Vim has to search many places for tags files, you can hear the disk
+When uVim has to search many places for tags files, you can hear the disk
 rattling.  It may get a bit slow.  In that case it's better to spend this
 time while generating one big tags file.  You might do this overnight.
    This requires the Exuberant ctags program, mentioned above.  It offers an
@@ -150,8 +150,8 @@ argument to search a whole directory tree: >
 
 The nice thing about this is that Exuberant ctags recognizes various file
 types.  Thus this doesn't work just for C and C++ programs, also for Eiffel
-and even Vim scripts.  See the ctags documentation to tune this.
-   Now you only need to tell Vim where your big tags file is: >
+and even uVim scripts.  See the ctags documentation to tune this.
+   Now you only need to tell uVim where your big tags file is: >
 
 	:set tags=~/proj/tags
 
@@ -170,7 +170,7 @@ one to jump to: >
 
 	:tselect tagname
 
-Vim will present you with a list of choices:
+uVim will present you with a list of choices:
 
 	  # pri kind tag	       file ~
 	  1 F	f    mch_init	       os_amiga.c ~
@@ -208,15 +208,15 @@ You will get the first match.  If it's not the one you want, press <Tab> until
 you find the right one.
    Sometimes you only know part of the name of a function.  Or you have many
 tags that start with the same string, but end differently.  Then you can tell
-Vim to use a pattern to find the tag.
+uVim to use a pattern to find the tag.
    Suppose you want to jump to a tag that contains "block".  First type
 this: >
 
 	:tag /block
 
-Now use command line completion: press <Tab>.  Vim will find all tags that
+Now use command line completion: press <Tab>.  uVim will find all tags that
 contain "block" and use the first match.
-   The "/" before a tag name tells Vim that what follows is not a literal tag
+   The "/" before a tag name tells uVim that what follows is not a literal tag
 name, but a pattern.  You can use all the items for search patterns here.  For
 example, suppose you want to select a tag that starts with "write_": >
 
@@ -236,7 +236,7 @@ example.
 
 	ctags --c-types=f -f functions *.c
 
-Now start Vim without a file, and edit this file in Vim, in a vertically split
+Now start uVim without a file, and edit this file in uVim, in a vertically split
 window: >
 
 	vim
@@ -249,7 +249,7 @@ but you can ignore that.  Do ":setlocal ts=99" to clean it up a bit.
 	:nnoremap <buffer> <CR> 0ye<C-W>w:tag <C-R>"<CR>
 
 Move the cursor to the line that contains the function you want to go to.
-Now press <Enter>.  Vim will go to the other window and jump to the selected
+Now press <Enter>.  uVim will go to the other window and jump to the selected
 function.
 
 
@@ -262,7 +262,7 @@ The 'tagbsearch' option tells if the tags file is sorted or not.  The default
 is to assume a sorted tags file, which makes a tags search a lot faster, but
 doesn't work if the tags file isn't sorted.
 
-The 'taglength' option can be used to tell Vim the number of significant
+The 'taglength' option can be used to tell uVim the number of significant
 characters in a tag.
 
 Cscope is a free program.  It does not only find places where an identifier is
@@ -280,7 +280,7 @@ used.
 
 	:ptag write_char
 
-Vim will open a window, and jumps to the tag "write_char".  Then it takes you
+uVim will open a window, and jumps to the tag "write_char".  Then it takes you
 back to the original position.  Thus you can continue typing without the need
 to use a CTRL-W command.
    If the name of a function appears in the text, you can get its definition
@@ -318,7 +318,7 @@ You can specify the height of the preview window, when it is opened, with the
 ==============================================================================
 *29.3*	Moving through a program
 
-Since a program is structured, Vim can recognize items in it.  Specific
+Since a program is structured, uVim can recognize items in it.  Specific
 commands can be used to move around.
    C programs often contain constructs like this:
 
@@ -329,16 +329,16 @@ commands can be used to move around.
 	#endif ~
 
 But then much longer, and possibly nested.  Position the cursor on the
-"#ifdef" and press %.  Vim will jump to the "#else".  Pressing % again takes
+"#ifdef" and press %.  uVim will jump to the "#else".  Pressing % again takes
 you to the "#endif".  Another % takes you to the "#ifdef" again.
-   When the construct is nested, Vim will find the matching items.  This is a
+   When the construct is nested, uVim will find the matching items.  This is a
 good way to check if you didn't forget an "#endif".
    When you are somewhere inside a "#if" - "#endif", you can jump to the start
 of it with: >
 
 	[#
 
-If you are not after a "#if" or "#ifdef" Vim will beep.  To jump forward to
+If you are not after a "#if" or "#ifdef" uVim will beep.  To jump forward to
 the next "#else" or "#endif" use: >
 
 	]#
@@ -445,7 +445,7 @@ You are editing a C program and wonder if a variable is declared as "int" or
 
 	[I
 
-Vim will list the matching lines it can find.  Not only in the current file,
+uVim will list the matching lines it can find.  Not only in the current file,
 but also in all included files (and files included in them, etc.).  The result
 looks like this:
 
@@ -463,7 +463,7 @@ works for C and C++.  For other languages you will have to change it.
 
 LOCATING INCLUDED FILES
 
-   Vim will find included files in the places specified with the 'path'
+   uVim will find included files in the places specified with the 'path'
 option.  If a directory is missing, some include files will not be found.  You
 can discover this with this command: >
 
@@ -484,7 +484,7 @@ includes.  The "functions.h" and "clib/exec_protos.h" files, included by
 "vim.h" are not found.
 
 	Note:
-	Vim is not a compiler.  It does not recognize "#ifdef" statements.
+	uVim is not a compiler.  It does not recognize "#ifdef" statements.
 	This means every "#include" statement is used, also when it comes
 	after "#if NEVER".
 
@@ -520,7 +520,7 @@ command: >
 	:checkpath!
 
 You will get a (very long) list of included files, the files they include, and
-so on.  To shorten the list a bit, Vim shows "(Already listed)" for files that
+so on.  To shorten the list a bit, uVim shows "(Already listed)" for files that
 were found before and doesn't list the included files in there again.
 
 

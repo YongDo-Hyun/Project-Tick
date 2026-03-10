@@ -1,11 +1,11 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved		by Bram Moolenaar
+ * VIM - Micro Vi IMproved		by Bram Moolenaar
  *				GUI/Motif support by Robert Webb
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 #include "vim.h"
@@ -91,7 +91,7 @@ gui_start(void)
     /*
      * Quit the current process and continue in the child.
      * Makes "gvim file" disconnect from the shell it was started in.
-     * Don't do this when Vim was started with "-f" or the 'f' flag is present
+     * Don't do this when uVim was started with "-f" or the 'f' flag is present
      * in 'guioptions'.
      */
     if (gui.dofork && !vim_strchr(p_go, GO_FORG) && recursive <= 1)
@@ -278,7 +278,7 @@ gui_do_fork(void)
 # if defined(HAVE_SETSID) || defined(HAVE_SETPGID)
     /*
      * Change our process group.  On some systems/shells a CTRL-C in the
-     * shell where Vim was started would otherwise kill gvim!
+     * shell where uVim was started would otherwise kill gvim!
      */
 #  if defined(HAVE_SETSID)
     (void)setsid();
@@ -627,7 +627,7 @@ gui_init(void)
 	goto error;
 
     /* Avoid a delay for an error message that was printed in the terminal
-     * where Vim was started. */
+     * where uVim was started. */
     emsg_on_display = FALSE;
     msg_scrolled = 0;
     clear_sb_text();
@@ -801,9 +801,9 @@ gui_exit(int rc)
 # define NEED_GUI_UPDATE_SCREEN 1
 /*
  * Called when the GUI shell is closed by the user.  If there are no changed
- * files Vim exits, otherwise there will be a dialog to ask the user what to
+ * files uVim exits, otherwise there will be a dialog to ask the user what to
  * do.
- * When this function returns, Vim should NOT exit!
+ * When this function returns, uVim should NOT exit!
  */
     void
 gui_shell_closed(void)
@@ -1534,7 +1534,7 @@ gui_get_shellsize(void)
 }
 
 /*
- * Set the size of the Vim shell according to Rows and Columns.
+ * Set the size of the uVim shell according to Rows and Columns.
  * If "fit_to_display" is TRUE then the size may be reduced to fit the window
  * on the screen.
  */
@@ -1648,7 +1648,7 @@ gui_set_shellsize(
 
     if (fit_to_display && x >= 0 && y >= 0)
     {
-	/* Some window managers put the Vim window left of/above the screen.
+	/* Some window managers put the uVim window left of/above the screen.
 	 * Only change the position if it wasn't already negative before
 	 * (happens on MS-Windows with a secondary monitor). */
 	gui_mch_update();
@@ -3962,7 +3962,7 @@ gui_drag_scrollbar(scrollbar_T *sb, long value, int still_dragging)
 #ifdef USE_ON_FLY_SCROLL
     /* When not allowed to do the scrolling right now, return.
      * This also checked input_available(), but that causes the first click in
-     * a scrollbar to be ignored when Vim doesn't have focus. */
+     * a scrollbar to be ignored when uVim doesn't have focus. */
     if (dont_scroll)
 	return;
 #endif
@@ -4828,7 +4828,7 @@ gui_mouse_moved(int x, int y)
 	    && !need_mouse_correct	/* not moving the pointer */
 	    && gui.in_focus)		/* gvim in focus */
     {
-	/* Don't move the mouse when it's left or right of the Vim window */
+	/* Don't move the mouse when it's left or right of the uVim window */
 	if (x < 0 || x > Columns * gui.char_width)
 	    return;
 #ifndef FEAT_MOUSESHAPE
@@ -4893,7 +4893,7 @@ gui_mouse_correct(void)
 	return;
 
     gui_mch_getmouse(&x, &y);
-    /* Don't move the mouse when it's left or right of the Vim window */
+    /* Don't move the mouse when it's left or right of the uVim window */
     if (x < 0 || x > Columns * gui.char_width)
 	return;
     if (y >= 0

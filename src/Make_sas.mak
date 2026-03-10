@@ -259,15 +259,15 @@ PRO = \
 	proto/userfunc.pro \
 	proto/window.pro
 
-all: proto Vim
+all: proto uVim
 
-Vim: scoptions $(OBJ) version.c version.h
+uVim: scoptions $(OBJ) version.c version.h
 	$(CC) $(CFLAGS) version.c
-	$(CC) LINK $(COPTS) $(OBJ) version.o $(DBG) PNAME=Vim
+	$(CC) LINK $(COPTS) $(OBJ) version.o $(DBG) PNAME=uVim
 
 debug: scoptions $(OBJ) version.c version.h
 	$(CC) $(CFLAGS) version.c
-	$(CC) LINK $(COPTS) $(OBJ) version.o $(DBG) PNAME=Vim
+	$(CC) LINK $(COPTS) $(OBJ) version.o $(DBG) PNAME=uVim
 
 proto: $(GST) $(PRO)
 
@@ -277,7 +277,7 @@ tags:
 
 # can't use delete here, too many file names
 clean:
-	$(DEL) *.o Vim $(GST)
+	$(DEL) *.o uVim $(GST)
 
 # generate GlobalSymbolTable, which speeds up the compile time.
 #

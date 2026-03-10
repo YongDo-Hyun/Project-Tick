@@ -1,13 +1,13 @@
-*starting.txt*  For Vim version 7.4.  Last change: 2016 Aug 26
+*starting.txt*  For uVim version 7.4.  Last change: 2016 Aug 26
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
 
 
-Starting Vim						*starting*
+Starting uVim						*starting*
 
-1. Vim arguments		|vim-arguments|
-2. Vim on the Amiga		|starting-amiga|
+1. uVim arguments		|vim-arguments|
+2. uVim on the Amiga		|starting-amiga|
 3. Running eVim			|evim-keys|
 4. Initialization		|initialization|
 5. $VIM and $VIMRUNTIME		|$VIM|
@@ -18,13 +18,13 @@ Starting Vim						*starting*
 10. The viminfo file		|viminfo-file|
 
 ==============================================================================
-1. Vim arguments					*vim-arguments*
+1. uVim arguments					*vim-arguments*
 
-Most often, Vim is started to edit a single file with the command
+Most often, uVim is started to edit a single file with the command
 
 	vim filename					*-vim*
 
-More generally, Vim is started with:
+More generally, uVim is started with:
 
 	vim [option | filename] ..
 
@@ -86,7 +86,7 @@ filename	One or more file names.  The first one will be the current
 		for the file name.  See 'errorfile' for the default value.
 		{not in Vi}
 
-(nothing)	Without one of the four items above, Vim will start editing a
+(nothing)	Without one of the four items above, uVim will start editing a
 		new buffer.  It's empty and doesn't have a file name.
 
 
@@ -103,7 +103,7 @@ rvim	vim -Z	    Like "vim", but in restricted mode (see |-Z|)   *rvim*
 rview	vim -RZ	    Like "view", but in restricted mode.	  *rview*
 rgvim	vim -gZ	    Like "gvim", but in restricted mode.	  *rgvim*
 rgview	vim -RgZ    Like "gview", but in restricted mode.	  *rgview*
-evim    vim -y      Easy Vim: set 'insertmode' (see |-y|)	    *evim*
+evim    vim -y      Easy uVim: set 'insertmode' (see |-y|)	    *evim*
 eview   vim -yR     Like "evim" in read-only mode		  *eview*
 vimdiff vim -d	    Start in diff mode |diff-mode|
 gvimdiff vim -gd    Start in diff mode |diff-mode|
@@ -112,7 +112,7 @@ Additional characters may follow, they are ignored.  For example, you can have
 "gvim-5" to start the GUI.  You must have an executable by that name then, of
 course.
 
-On Unix, you would normally have one executable called Vim, and links from the
+On Unix, you would normally have one executable called uVim, and links from the
 different startup-names to that executable.  If your system does not support
 links and you do not want to have several copies of the executable, you could
 use an alias instead.  For example: >
@@ -156,7 +156,7 @@ a slash.  Thus "-R" means recovery and "-/R" readonly.
 
 							*--literal*
 --literal	Take file names literally, don't expand wildcards.  Not needed
-		for Unix, because Vim always takes file names literally (the
+		for Unix, because uVim always takes file names literally (the
 		shell expands wildcards).
 		Applies to all the names, also the ones that come before this
 		argument.
@@ -185,7 +185,7 @@ a slash.  Thus "-R" means recovery and "-/R" readonly.
 			vim  "+find stdio.h"
 			vim  -c "set ff=dos"  -c wq  mine.mak
 <
-		Note: You can use up to 10 "+" or "-c" arguments in a Vim
+		Note: You can use up to 10 "+" or "-c" arguments in a uVim
 		command.  They are executed in the order given.  A "-S"
 		argument counts as a "-c" argument as well.
 		{Vi only allows one command}
@@ -254,7 +254,7 @@ a slash.  Thus "-R" means recovery and "-/R" readonly.
 		{not in Vi}
 
 							*-g*
--g		Start Vim in GUI mode.  See |gui|. For the opposite see |-v|.
+-g		Start uVim in GUI mode.  See |gui|. For the opposite see |-v|.
 		{not in Vi}
 
 							*-v*
@@ -263,19 +263,19 @@ a slash.  Thus "-R" means recovery and "-/R" readonly.
 		started if possible.
 
 							*-e*
--e		Start Vim in Ex mode |Q|.  Only makes a difference when the
+-e		Start uVim in Ex mode |Q|.  Only makes a difference when the
 		executable is not called "ex".
 
 							*-E*
--E		Start Vim in improved Ex mode |gQ|.  Only makes a difference
+-E		Start uVim in improved Ex mode |gQ|.  Only makes a difference
 		when the executable is not called "exim".
 		{not in Vi}
 
 							*-s-ex*
--s		Silent or batch mode.  Only when Vim was started as "ex" or
+-s		Silent or batch mode.  Only when uVim was started as "ex" or
 		when preceded with the "-e" argument.  Otherwise see |-s|,
 		which does take an argument while this use of "-s" doesn't.
-		To be used when Vim is used to execute Ex commands from a file
+		To be used when uVim is used to execute Ex commands from a file
 		instead of a terminal.  Switches off most prompts and
 		informative messages.  Also warnings and error messages.
 		The output of these commands is displayed (to stdout):
@@ -286,8 +286,8 @@ a slash.  Thus "-R" means recovery and "-/R" readonly.
 		When 'verbose' is non-zero messages are printed (for
 		debugging, to stderr).
 		'term' and $TERM are not used.
-		If Vim appears to be stuck try typing "qa!<Enter>".  You don't
-		get a prompt thus you can't see Vim is waiting for you to type
+		If uVim appears to be stuck try typing "qa!<Enter>".  You don't
+		get a prompt thus you can't see uVim is waiting for you to type
 		something.
 		Initializations are skipped (except the ones given with the
 		"-u" argument).
@@ -308,18 +308,18 @@ a slash.  Thus "-R" means recovery and "-/R" readonly.
 							*-A*
 -A		Arabic mode.  Sets the 'arabic' option on.  (Only when
 		compiled with the |+arabic| features (which include
-		|+rightleft|), otherwise Vim gives an error message
+		|+rightleft|), otherwise uVim gives an error message
 		and exits.)  {not in Vi}
 
 							*-F*
 -F		Farsi mode.  Sets the 'fkmap' and 'rightleft' options on.
 		(Only when compiled with |+rightleft| and |+farsi| features,
-		otherwise Vim gives an error message and exits.)  {not in Vi}
+		otherwise uVim gives an error message and exits.)  {not in Vi}
 
 							*-H*
 -H		Hebrew mode.  Sets the 'hkmap' and 'rightleft' options on.
 		(Only when compiled with the |+rightleft| feature, otherwise
-		Vim gives an error message and exits.)  {not in Vi}
+		uVim gives an error message and exits.)  {not in Vi}
 
 							*-V* *verbose*
 -V[N]		Verbose.  Sets the 'verbose' option to [N] (default: 10).
@@ -412,12 +412,12 @@ a slash.  Thus "-R" means recovery and "-/R" readonly.
 
 							*-T*
 -T {terminal}	Set the terminal type to "terminal".  This influences the
-		codes that Vim will send to your terminal.  This is normally
-		not needed, because Vim will be able to find out what type
+		codes that uVim will send to your terminal.  This is normally
+		not needed, because uVim will be able to find out what type
 		of terminal you are using.  (See |terminal-info|.)  {not in Vi}
 
 							*--not-a-term*
---not-a-term	Tells Vim that the user knows that the input and/or output is
+--not-a-term	Tells uVim that the user knows that the input and/or output is
 		not connected to a terminal.  This will avoid the warning and
 		the two second delay that would happen. {not in Vi}
 
@@ -436,7 +436,7 @@ a slash.  Thus "-R" means recovery and "-/R" readonly.
 		"-d con:30/10/600/150".  But you can also use it to start
 		editing on another device, e.g., AUX:.  {not in Vi}
 							*-f*
--f		GUI: Do not disconnect from the program that started Vim.
+-f		GUI: Do not disconnect from the program that started uVim.
 		'f' stands for "foreground".  If omitted, the GUI forks a new
 		process and exits the current one.  "-f" should be used when
 		gvim is started by a program that will wait for the edit
@@ -445,13 +445,13 @@ a slash.  Thus "-R" means recovery and "-/R" readonly.
 		Careful: You can use "-gf" to start the GUI in the foreground,
 		but "-fg" is used to specify the foreground color.  |gui-fork|
 
-		Amiga: Do not restart Vim to open a new window.  This
-		option should be used when Vim is started by a program that
+		Amiga: Do not restart uVim to open a new window.  This
+		option should be used when uVim is started by a program that
 		will wait for the edit session to finish (e.g., mail or
 		readnews).  See |amiga-window|.
 
 		MS-Windows: This option is not supported.  However, when
-		running Vim with an installed vim.bat or gvim.bat file it
+		running uVim with an installed vim.bat or gvim.bat file it
 		works.
 		{not in Vi}
 
@@ -461,7 +461,7 @@ a slash.  Thus "-R" means recovery and "-/R" readonly.
 							*-u* *E282*
 -u {vimrc}	The file {vimrc} is read for initializations.  Most other
 		initializations are skipped; see |initialization|.  This can
-		be used to start Vim in a special mode, with special
+		be used to start uVim in a special mode, with special
 		mappings and settings.  A shell alias can be used to make
 		this easy to use.  For example: >
 			alias vimc vim -u ~/.c_vimrc !*
@@ -497,13 +497,13 @@ a slash.  Thus "-R" means recovery and "-/R" readonly.
 		which is then stored in the 'key' option.  All writes will
 		then use this key to encrypt the text.  The '-x' argument is
 		not needed when reading a file, because there is a check if
-		the file that is being read has been encrypted, and Vim asks
+		the file that is being read has been encrypted, and uVim asks
 		for a key automatically. |encryption|
 
 							*-X*
 -X		Do not try connecting to the X server to get the current
 		window title and copy/paste using the X clipboard.  This
-		avoids a long startup time when running Vim in a terminal
+		avoids a long startup time when running uVim in a terminal
 		emulator and the connection to the X server is slow.
 		See |--startuptime| to find out if affects you.
 		Only makes a difference on Unix or VMS, when compiled with the
@@ -533,7 +533,7 @@ a slash.  Thus "-R" means recovery and "-/R" readonly.
 
 							*-w*
 -w {scriptout}	All the characters that you type are recorded in the file
-		"scriptout", until you exit Vim.  This is useful if you want
+		"scriptout", until you exit uVim.  This is useful if you want
 		to create a script file to be used with "vim -s" or
 		":source!".  When the "scriptout" file already exists, new
 		characters are appended.  See also |complex-repeat|.
@@ -545,7 +545,7 @@ a slash.  Thus "-R" means recovery and "-/R" readonly.
 		{not in Vi}
 
 --remote [+{cmd}] {file} ...
-		Open the {file} in another Vim that functions as a server.
+		Open the {file} in another uVim that functions as a server.
 		Any non-file arguments must come before this.
 		See |--remote|. {not in Vi}
 
@@ -563,33 +563,33 @@ a slash.  Thus "-R" means recovery and "-/R" readonly.
 		See |--remote-wait-silent|. {not in Vi}
 
 --servername {name}
-		Specify the name of the Vim server to send to or to become.
+		Specify the name of the uVim server to send to or to become.
 		See |--servername|. {not in Vi}
 
 --remote-send {keys}
-		Send {keys} to a Vim server and exit.
+		Send {keys} to a uVim server and exit.
 		See |--remote-send|. {not in Vi}
 
 --remote-expr {expr}
-		Evaluate {expr} in another Vim that functions as a server.
+		Evaluate {expr} in another uVim that functions as a server.
 		The result is printed on stdout.
 		See |--remote-expr|. {not in Vi}
 
---serverlist	Output a list of Vim server names and exit.  See
+--serverlist	Output a list of uVim server names and exit.  See
 		|--serverlist|. {not in Vi}
 
 --socketid {id}						*--socketid*
-		GTK+ GUI Vim only.  Make gvim try to use GtkPlug mechanism, so
+		GTK+ GUI uVim only.  Make gvim try to use GtkPlug mechanism, so
 		that it runs inside another window.  See |gui-gtk-socketid|
 		for details. {not in Vi}
 
 --windowid {id}						*--windowid*
-		Win32 GUI Vim only.  Make gvim try to use the window {id} as a
+		Win32 GUI uVim only.  Make gvim try to use the window {id} as a
 		parent, so that it runs inside that window.  See
 		|gui-w32-windowid| for details. {not in Vi}
 
 --echo-wid						*--echo-wid*
-		GTK+ GUI Vim only.  Make gvim echo the Window ID on stdout,
+		GTK+ GUI uVim only.  Make gvim echo the Window ID on stdout,
 		which can be used to run gvim in a kpart widget.  The format
 		of the output is: >
 			WID: 12345\n
@@ -605,7 +605,7 @@ a slash.  Thus "-R" means recovery and "-/R" readonly.
 
 -P {parent-title}				*-P* *MDI* *E671* *E672*
 		Win32 only: Specify the title of the parent application.  When
-		possible, Vim will run in an MDI window inside the
+		possible, uVim will run in an MDI window inside the
 		application.
 		{parent-title} must appear in the window title of the parent
 		application.  Make sure that it is specific enough.
@@ -620,80 +620,80 @@ a slash.  Thus "-R" means recovery and "-/R" readonly.
 		from.  The third form specifies the hostname, address and
 		password for connecting to Netbeans. |netbeans-run|
 		{only available when compiled with the |+netbeans_intg|
-		feature; if not then -nb will make Vim exit}
+		feature; if not then -nb will make uVim exit}
 
-If the executable is called "view", Vim will start in Readonly mode.  This is
+If the executable is called "view", uVim will start in Readonly mode.  This is
 useful if you can make a hard or symbolic link from "view" to "vim".
 Starting in Readonly mode can also be done with "vim -R".
 
-If the executable is called "ex", Vim will start in "Ex" mode.  This means it
-will accept only ":" commands.  But when the "-v" argument is given, Vim will
+If the executable is called "ex", uVim will start in "Ex" mode.  This means it
+will accept only ":" commands.  But when the "-v" argument is given, uVim will
 start in Normal mode anyway.
 
 Additional arguments are available on unix like systems when compiled with
 X11 GUI support.  See |gui-resources|.
 
 ==============================================================================
-2. Vim on the Amiga					*starting-amiga*
+2. uVim on the Amiga					*starting-amiga*
 
-Starting Vim from the Workbench				*workbench*
+Starting uVim from the Workbench				*workbench*
 -------------------------------
 
-Vim can be started from the Workbench by clicking on its icon twice.  It will
+uVim can be started from the Workbench by clicking on its icon twice.  It will
 then start with an empty buffer.
 
-Vim can be started to edit one or more files by using a "Project" icon.  The
-"Default Tool" of the icon must be the full pathname of the Vim executable.
+uVim can be started to edit one or more files by using a "Project" icon.  The
+"Default Tool" of the icon must be the full pathname of the uVim executable.
 The name of the ".info" file must be the same as the name of the text file.
-By clicking on this icon twice, Vim will be started with the file name as
+By clicking on this icon twice, uVim will be started with the file name as
 current file name, which will be read into the buffer (if it exists).  You can
 edit multiple files by pressing the shift key while clicking on icons, and
 clicking twice on the last one.  The "Default Tool" for all these icons must
 be the same.
 
-It is not possible to give arguments to Vim, other than file names, from the
+It is not possible to give arguments to uVim, other than file names, from the
 workbench.
 
-Vim window						*amiga-window*
+uVim window						*amiga-window*
 ----------
 
-Vim will run in the CLI window where it was started.  If Vim was started with
-the "run" or "runback" command, or if Vim was started from the workbench, it
+uVim will run in the CLI window where it was started.  If uVim was started with
+the "run" or "runback" command, or if uVim was started from the workbench, it
 will open a window of its own.
 
 Technical detail:
-	To open the new window a little trick is used.  As soon as Vim
+	To open the new window a little trick is used.  As soon as uVim
 	recognizes that it does not run in a normal CLI window, it will
 	create a script file in "t:".  This script file contains the same
-	command as the one Vim was started with, and an "endcli" command.
+	command as the one uVim was started with, and an "endcli" command.
 	This script file is then executed with a "newcli" command (the "c:run"
 	and "c:newcli" commands are required for this to work).  The script
 	file will hang around until reboot, or until you delete it.  This
 	method is required to get the ":sh" and ":!" commands to work
-	correctly.  But when Vim was started with the -f option (foreground
+	correctly.  But when uVim was started with the -f option (foreground
 	mode), this method is not used.  The reason for this is that
-	when a program starts Vim with the -f option it will wait for Vim to
+	when a program starts uVim with the -f option it will wait for uVim to
 	exit.  With the script trick, the calling program does not know when
-	Vim exits.  The -f option can be used when Vim is started by a mail
+	uVim exits.  The -f option can be used when uVim is started by a mail
 	program which also waits for the edit session to finish.  As a
 	consequence, the ":sh" and ":!" commands are not available when the
 	-f option is used.
 
-Vim will automatically recognize the window size and react to window
+uVim will automatically recognize the window size and react to window
 resizing.  Under Amiga DOS 1.3, it is advised to use the fastfonts program,
 "FF", to speed up display redrawing.
 
 ==============================================================================
 3. Running eVim							*evim-keys*
 
-EVim runs Vim as click-and-type editor.  This is very unlike the original Vi
-idea.  But it helps for people that don't use Vim often enough to learn the
+EVim runs uVim as click-and-type editor.  This is very unlike the original Vi
+idea.  But it helps for people that don't use uVim often enough to learn the
 commands.  Hopefully they will find out that learning to use Normal mode
 commands will make their editing much more effective.
 
 In Evim these options are changed from their default value:
 
-	:set nocompatible	Use Vim improvements
+	:set nocompatible	Use uVim improvements
 	:set insertmode		Remain in Insert mode most of the time
 	:set hidden		Keep invisible buffers loaded
 	:set backup		Keep backup files (not for VMS)
@@ -738,11 +738,11 @@ commands, use CTRL-L. |i_CTRL-L|
 ==============================================================================
 4. Initialization				*initialization* *startup*
 
-This section is about the non-GUI version of Vim.  See |gui-fork| for
+This section is about the non-GUI version of uVim.  See |gui-fork| for
 additional initialization when starting the GUI.
 
-At startup, Vim checks environment variables and files and sets values
-accordingly.  Vim proceeds in this order:
+At startup, uVim checks environment variables and files and sets values
+accordingly.  uVim proceeds in this order:
 
 1. Set the 'shell' and 'term' option		*SHELL* *COMSPEC* *TERM*
 	The environment variable SHELL, if it exists, is used to set the
@@ -753,7 +753,7 @@ accordingly.  Vim proceeds in this order:
 	8 below).
 
 2. Process the arguments
-	The options and file names from the command that start Vim are
+	The options and file names from the command that start uVim are
 	inspected.  Buffers are created for all files (but not loaded yet).
 	The |-V| argument can be used to display or log what happens next,
 	useful for debugging the initializations.
@@ -765,7 +765,7 @@ accordingly.  Vim proceeds in this order:
 	A file that contains initialization commands is called a "vimrc" file.
 	Each line in a vimrc file is executed as an Ex command line.  It is
 	sometimes also referred to as "exrc" file.  They are the same type of
-	file, but "exrc" is what Vi always used, "vimrc" is a Vim specific
+	file, but "exrc" is what Vi always used, "vimrc" is a uVim specific
 	name.  Also see |vimrc-intro|.
 
 	Places for your personal initializations:
@@ -780,17 +780,17 @@ accordingly.  Vim proceeds in this order:
 	The files are searched in the order specified above and only the first
 	one that is found is read.
 
-	RECOMMENDATION: Put all your Vim configuration stuff in the
+	RECOMMENDATION: Put all your uVim configuration stuff in the
 	$HOME/.vim/ directory ($HOME/vimfiles/ for MS-Windows). That makes it
 	easy to copy it to another system.
 
-	If Vim was started with "-u filename", the file "filename" is used.
+	If uVim was started with "-u filename", the file "filename" is used.
 	All following initializations until 4. are skipped. $MYVIMRC is not
 	set.
 	"vim -u NORC" can be used to skip these initializations without
 	reading a file.  "vim -u NONE" also skips loading plugins.  |-u|
 
-	If Vim was started in Ex mode with the "-s" argument, all following
+	If uVim was started in Ex mode with the "-s" argument, all following
 	initializations until 4. are skipped.  Only the "-u" option is
 	interpreted.
 							*evim.vim*
@@ -864,7 +864,7 @@ accordingly.  Vim proceeds in this order:
 	- The 'loadplugins' option was reset in a vimrc file.
 	- The |--noplugin| command line argument is used.
 	- The "-u NONE" command line argument is used |-u|.
-	- When Vim was compiled without the |+eval| feature.
+	- When uVim was compiled without the |+eval| feature.
 	Note that using "-c 'set noloadplugins'" doesn't work, because the
 	commands from the command line have not been executed yet.  You can
 	use "--cmd 'set noloadplugins'" or "--cmd 'set loadplugins'" |--cmd|.
@@ -882,13 +882,13 @@ accordingly.  Vim proceeds in this order:
 5. Set 'shellpipe' and 'shellredir'
 	The 'shellpipe' and 'shellredir' options are set according to the
 	value of the 'shell' option, unless they have been set before.
-	This means that Vim will figure out the values of 'shellpipe' and
+	This means that uVim will figure out the values of 'shellpipe' and
 	'shellredir' for you, unless you have set them yourself.
 
 6. Set 'updatecount' to zero, if "-n" command argument used
 
 7. Set binary options
-	If the "-b" flag was given to Vim, the options for binary editing will
+	If the "-b" flag was given to uVim, the options for binary editing will
 	be set now.  See |-b|.
 
 8. Perform GUI initializations
@@ -900,8 +900,8 @@ accordingly.  Vim proceeds in this order:
 	|viminfo-file|.
 
 10. Read the quickfix file
-	If the "-q" flag was given to Vim, the quickfix file is read.  If this
-	fails, Vim exits.
+	If the "-q" flag was given to uVim, the quickfix file is read.  If this
+	fails, uVim exits.
 
 11. Open all windows
 	When the |-o| flag was given, windows will be opened (but not
@@ -909,11 +909,11 @@ accordingly.  Vim proceeds in this order:
 	When the |-p| flag was given, tab pages will be created (but not
 	displayed yet).
 	When switching screens, it happens now.  Redrawing starts.
-	If the "-q" flag was given to Vim, the first error is jumped to.
+	If the "-q" flag was given to uVim, the first error is jumped to.
 	Buffers for all windows will be loaded.
 
 12. Execute startup commands
-	If a "-t" flag was given to Vim, the tag is jumped to.
+	If a "-t" flag was given to uVim, the tag is jumped to.
 	The commands given with the |-c| and |+cmd| arguments are executed.
 	If the 'insertmode' option is set, Insert mode is entered.
 	The starting flag is reset, has("vim_starting") will now return zero.
@@ -938,7 +938,7 @@ by default.  See |compatible-default|.
 Local setup:
 Put all commands that you need for editing a specific directory only into a
 vimrc file and place it in that directory under the name ".vimrc" ("_vimrc"
-for MS-DOS and Win32).  NOTE: To make Vim look for these special files you
+for MS-DOS and Win32).  NOTE: To make uVim look for these special files you
 have to turn on the option 'exrc'.  See |trojan-horse| too.
 
 System setup:
@@ -948,7 +948,7 @@ for default settings and mappings and put it in the place that is given with
 the ":version" command.
 
 
-Saving the current state of Vim to a file ~
+Saving the current state of uVim to a file ~
 
 Whenever you have changed values of options or when you have created a
 mapping, then you may want to save them in a vimrc file for later use.  See
@@ -971,7 +971,7 @@ version 5.0) are not recognized.
 
 MS-DOS line separators ~
 
-On MS-DOS-like systems (MS-DOS itself, Win32, and OS/2), Vim assumes that all
+On MS-DOS-like systems (MS-DOS itself, Win32, and OS/2), uVim assumes that all
 the vimrc files have <CR> <NL> pairs as line separators.  This will give
 problems if you have a file with only <NL>s and have a line like
 ":map xx yy^M".  The trailing ^M will be ignored.
@@ -979,7 +979,7 @@ problems if you have a file with only <NL>s and have a line like
 
 Vi compatible default value ~
 						     *compatible-default*
-When Vim starts, the 'compatible' option is on.  This will be used when Vim
+When uVim starts, the 'compatible' option is on.  This will be used when uVim
 starts its initializations.  But as soon as:
 - a user vimrc file is found, or
 - a vimrc file in the current directory, or
@@ -995,14 +995,14 @@ Note that this does NOT happen when a system-wide vimrc file was found.
 This has the side effect of setting or resetting other options (see
 'compatible').  But only the options that have not been set or reset will be
 changed.  This has the same effect like the value of 'compatible' had this
-value when starting Vim.
+value when starting uVim.
 
 'compatible' is NOT reset, and |defaults.vim| is not loaded:
-- when Vim was started with the |-u| command line argument, especially with
+- when uVim was started with the |-u| command line argument, especially with
   "-u NONE", or
 - when started with the |-C| command line argument, or
 - when the name of the executable ends in "ex". (This has been done to make
-  Vim behave like "ex", when it is started as "ex")
+  uVim behave like "ex", when it is started as "ex")
 
 But there is a side effect of setting or resetting 'compatible' at the moment
 a .vimrc file is found: Mappings are interpreted the moment they are
@@ -1013,16 +1013,16 @@ giving the mapping.
 
 Defaults without a .vimrc file ~
 							*defaults.vim*
-If Vim is started normally and no user vimrc file is found, the
+If uVim is started normally and no user vimrc file is found, the
 $VIMRUTIME/defaults.vim script is loaded.  This will set 'compatible' off,
 switch on syntax highlighting and a few more things.  See the script for
-details.  NOTE: this is done since Vim 8.0, not in Vim 7.4. (it was added in
+details.  NOTE: this is done since uVim 8.0, not in uVim 7.4. (it was added in
 patch 7.4.2111 to be exact).
 
-This should work well for new Vim users.  If you create your own .vimrc, it is
+This should work well for new uVim users.  If you create your own .vimrc, it is
 recommended to add this line somewhere near the top: >
 	source $VIMRUNTIME/defaults.vim
-Then Vim works like before you had a .vimrc. Copying $VIMRUNTIME/vimrc_example
+Then uVim works like before you had a .vimrc. Copying $VIMRUNTIME/vimrc_example
 is way to do this.  Alternatively, you can copy defaults.vim to your .vimrc
 and modify it.
 
@@ -1040,14 +1040,14 @@ would be possible that you accidentally use a vimrc or tags file that somebody
 else created and contains nasty commands.  The disabled commands are the ones
 that start a shell, the ones that write to a file, and ":autocmd".  The ":map"
 commands are echoed, so you can see which keys are being mapped.
-	If you want Vim to execute all commands in a local vimrc file, you
+	If you want uVim to execute all commands in a local vimrc file, you
 can reset the 'secure' option in the EXINIT or VIMINIT environment variable or
 in the global "exrc" or "vimrc" file.  This is not possible in "vimrc" or
 "exrc" in the current directory, for obvious reasons.
 	On Unix systems, this only happens if you are not the owner of the
 vimrc file.  Warning: If you unpack an archive that contains a vimrc or exrc
 file, it will be owned by you.  You won't have the security protection.  Check
-the vimrc file before you start Vim in that directory, or reset the 'exrc'
+the vimrc file before you start uVim in that directory, or reset the 'exrc'
 option.  Some Unix systems allow a user to do "chown" on a file.  This makes
 it possible for another user to create a nasty vimrc and make you the owner.
 Be careful!
@@ -1056,9 +1056,9 @@ part of the line in the tags file) is always done in secure mode.  This works
 just like executing a command from a vimrc/exrc in the current directory.
 
 
-If Vim startup is slow ~
+If uVim startup is slow ~
 							*slow-start*
-If Vim takes a long time to start up, use the |--startuptime| argument to find
+If uVim takes a long time to start up, use the |--startuptime| argument to find
 out what happens.  There are a few common causes:
 - If the Unix version was compiled with the GUI and/or X11 (check the output
   of ":version" for "+GUI" and "+X11"), it may need to load shared libraries
@@ -1068,26 +1068,26 @@ out what happens.  There are a few common causes:
   running in a terminal.
 - If you have "viminfo" enabled, the loading of the viminfo file may take a
   while.  You can find out if this is the problem by disabling viminfo for a
-  moment (use the Vim argument "-i NONE", |-i|).  Try reducing the number of
+  moment (use the uVim argument "-i NONE", |-i|).  Try reducing the number of
   lines stored in a register with ":set viminfo='20,<50,s10".  |viminfo-file|.
 
 
 Intro message ~
 							*:intro*
-When Vim starts without a file name, an introductory message is displayed (for
-those who don't know what Vim is).  It is removed as soon as the display is
+When uVim starts without a file name, an introductory message is displayed (for
+those who don't know what uVim is).  It is removed as soon as the display is
 redrawn in any way.  To see the message again, use the ":intro" command (if
 there is not enough room, you will see only part of it).
    To avoid the intro message on startup, add the 'I' flag to 'shortmess'.
 
 							*info-message*
-The |--help| and |--version| arguments cause Vim to print a message and then
+The |--help| and |--version| arguments cause uVim to print a message and then
 exit.  Normally the message is sent to stdout, thus can be redirected to a
 file with: >
 
 	vim --help >file
 
-From inside Vim: >
+From inside uVim: >
 
 	:read !vim --help
 
@@ -1106,21 +1106,21 @@ though.
 ==============================================================================
 5. $VIM and $VIMRUNTIME
 								*$VIM*
-The environment variable "$VIM" is used to locate various user files for Vim,
+The environment variable "$VIM" is used to locate various user files for uVim,
 such as the user startup script ".vimrc".  This depends on the system, see
 |startup|.
 
-To avoid the need for every user to set the $VIM environment variable, Vim
+To avoid the need for every user to set the $VIM environment variable, uVim
 will try to get the value for $VIM in this order:
 1. The value defined by the $VIM environment variable.  You can use this to
-   make Vim look in a specific directory for its support files.  Example: >
+   make uVim look in a specific directory for its support files.  Example: >
 	setenv VIM /home/paul/vim
 2. The path from 'helpfile' is used, unless it contains some environment
    variable too (the default is "$VIMRUNTIME/doc/help.txt": chicken-egg
    problem).  The file name ("help.txt" or any other) is removed.  Then
    trailing directory names are removed, in this order: "doc", "runtime" and
    "vim{version}" (e.g., "vim54").
-3. For MSDOS, Win32 and OS/2 Vim tries to use the directory name of the
+3. For MSDOS, Win32 and OS/2 uVim tries to use the directory name of the
    executable.  If it ends in "/src", this is removed.  This is useful if you
    unpacked the .zip file in some directory, and adjusted the search path to
    find the vim executable.  Trailing directory names are removed, in this
@@ -1128,7 +1128,7 @@ will try to get the value for $VIM in this order:
 4. For Unix the compile-time defined installation directory is used (see the
    output of ":version").
 
-Once Vim has done this once, it will set the $VIM environment variable.  To
+Once uVim has done this once, it will set the $VIM environment variable.  To
 change it later, use a ":let" command like this: >
 	:let $VIM = "/home/paul/vim/"
 <
@@ -1137,12 +1137,12 @@ The environment variable "$VIMRUNTIME" is used to locate various support
 files, such as the on-line documentation and files used for syntax
 highlighting.  For example, the main help file is normally
 "$VIMRUNTIME/doc/help.txt".
-You don't normally set $VIMRUNTIME yourself, but let Vim figure it out.  This
+You don't normally set $VIMRUNTIME yourself, but let uVim figure it out.  This
 is the order used to find the value of $VIMRUNTIME:
 1. If the environment variable $VIMRUNTIME is set, it is used.  You can use
    this when the runtime files are in an unusual location.
 2. If "$VIM/vim{version}" exists, it is used.  {version} is the version
-   number of Vim, without any '-' or '.'.  For example: "$VIM/vim54".  This is
+   number of uVim, without any '-' or '.'.  For example: "$VIM/vim54".  This is
    the normal value for $VIMRUNTIME.
 3. If "$VIM/runtime" exists, it is used.
 4. The value of $VIM is used.  This is for backwards compatibility with older
@@ -1156,7 +1156,7 @@ default is used after step 5.  This means that the compiled-in default
 overrules the value of $VIM.  This is useful if $VIM is "/etc" and the runtime
 files are in "/usr/share/vim/vim54".
 
-Once Vim has done this once, it will set the $VIMRUNTIME environment variable.
+Once uVim has done this once, it will set the $VIMRUNTIME environment variable.
 To change it later, use a ":let" command like this: >
 	:let $VIMRUNTIME = "/home/piet/vim/vim54"
 
@@ -1169,46 +1169,46 @@ greps in the help files) you might be able to use this: >
 6. Suspending						*suspend*
 
 					*iconize* *iconise* *CTRL-Z* *v_CTRL-Z*
-CTRL-Z			Suspend Vim, like ":stop".
+CTRL-Z			Suspend uVim, like ":stop".
 			Works in Normal and in Visual mode.  In Insert and
 			Command-line mode, the CTRL-Z is inserted as a normal
-			character.  In Visual mode Vim goes back to Normal
+			character.  In Visual mode uVim goes back to Normal
 			mode.
 			Note: if CTRL-Z undoes a change see |mswin.vim|.
 
 
 :sus[pend][!]	or			*:sus* *:suspend* *:st* *:stop*
-:st[op][!]		Suspend Vim.
+:st[op][!]		Suspend uVim.
 			If the '!' is not given and 'autowrite' is set, every
 			buffer with changes and a file name is written out.
 			If the '!' is given or 'autowrite' is not set, changed
-			buffers are not written, don't forget to bring Vim
+			buffers are not written, don't forget to bring uVim
 			back to the foreground later!
 
 In the GUI, suspending is implemented as iconising gvim.  In Windows 95/NT,
 gvim is minimized.
 
-On many Unix systems, it is possible to suspend Vim with CTRL-Z.  This is only
-possible in Normal and Visual mode (see next chapter, |vim-modes|).  Vim will
+On many Unix systems, it is possible to suspend uVim with CTRL-Z.  This is only
+possible in Normal and Visual mode (see next chapter, |vim-modes|).  uVim will
 continue if you make it the foreground job again.  On other systems, CTRL-Z
-will start a new shell.  This is the same as the ":sh" command.  Vim will
+will start a new shell.  This is the same as the ":sh" command.  uVim will
 continue if you exit from the shell.
 
-In X-windows the selection is disowned when Vim suspends.  this means you
-can't paste it in another application (since Vim is going to sleep an attempt
+In X-windows the selection is disowned when uVim suspends.  this means you
+can't paste it in another application (since uVim is going to sleep an attempt
 to get the selection would make the program hang).
 
 ==============================================================================
 7. Exiting						*exiting*
 
-There are several ways to exit Vim:
+There are several ways to exit uVim:
 - Close the last window with `:quit`.  Only when there are no changes.
 - Close the last window with `:quit!`.  Also when there are changes.
 - Close all windows with `:qall`.  Only when there are no changes.
 - Close all windows with `:qall!`.  Also when there are changes.
 - Use `:cquit`.  Also when there are changes.
 
-When using `:cquit` or when there was an error message Vim exits with exit
+When using `:cquit` or when there was an error message uVim exits with exit
 code 1.  Errors can be avoided by using `:silent!`.
 
 ==============================================================================
@@ -1242,7 +1242,7 @@ dependent.  Note that the options 'binary', 'paste' and 'readonly' are
 included, this might not always be what you want.
 
 When special keys are used in mappings, The 'cpoptions' option will be
-temporarily set to its Vim default, to avoid the mappings to be
+temporarily set to its uVim default, to avoid the mappings to be
 misinterpreted.  This makes the file incompatible with Vi, but makes sure it
 can be used with different terminals.
 
@@ -1259,7 +1259,7 @@ autocommands |autocommand| and/or modelines |modeline|.
 						*vimrc-option-example*
 If you only want to add a single option setting to your vimrc, you can use
 these steps:
-1. Edit your vimrc file with Vim.
+1. Edit your vimrc file with uVim.
 2. Play with the option until it's right.  E.g., try out different values for
    'guifont'.
 3. Append a line to set the value of the option, using the expression register
@@ -1301,7 +1301,7 @@ All this is {not in Vi} and {not available when compiled without the
 |+mksession| feature}.
 
 							*:mks* *:mksession*
-:mks[ession][!] [file]	Write a Vim script that restores the current editing
+:mks[ession][!] [file]	Write a uVim script that restores the current editing
 			session.
 			When [!] is included an existing file is overwritten.
 			When [file] is omitted "Session.vim" is used.
@@ -1317,7 +1317,7 @@ resulting file, when executed with a ":source" command:
 4. Restores the current directory if 'sessionoptions' contains "curdir", or
    sets the current directory to where the Session file is if 'sessionoptions'
    contains "sesdir".
-5. Restores GUI Vim window position, if 'sessionoptions' contains "winpos".
+5. Restores GUI uVim window position, if 'sessionoptions' contains "winpos".
 6. Restores screen size, if 'sessionoptions' contains "resize".
 7. Reloads the buffer list, with the last cursor positions.  If
    'sessionoptions' contains "buffers" then all buffers are restored,
@@ -1353,7 +1353,7 @@ Plugins can use this to postpone some work until the SessionLoadPost event is
 triggered.
 
 							*:mkvie* *:mkview*
-:mkvie[w][!] [file]	Write a Vim script that restores the contents of the
+:mkvie[w][!] [file]	Write a uVim script that restores the contents of the
 			current window.
 			When [!] is included an existing file is overwritten.
 			When [file] is omitted or is a number from 1 to 9, a
@@ -1399,7 +1399,7 @@ Note that Views and Sessions are not perfect:
   may cause an error for ambiguity.
 - When storing manual folds and when storing manually opened/closed folds,
   changes in the file between saving and loading the view will mess it up.
-- The Vim script is not very efficient.  But still faster than typing the
+- The uVim script is not very efficient.  But still faster than typing the
   commands yourself!
 
 							*:lo* *:loadview*
@@ -1423,7 +1423,7 @@ To automatically save and restore views for *.c files: >
 ==============================================================================
 10. The viminfo file				*viminfo* *viminfo-file* *E136*
 						*E575* *E576* *E577*
-If you exit Vim and later start it again, you would normally lose a lot of
+If you exit uVim and later start it again, you would normally lose a lot of
 information.  The viminfo file can be used to remember that information, which
 enables you to continue where you left off.
 
@@ -1448,28 +1448,28 @@ does not depend on what you are working on.  There normally is only one
 viminfo file.  Session files are used to save the state of a specific editing
 Session.  You could have several Session files, one for each project you are
 working on.  Viminfo and Session files together can be used to effectively
-enter Vim and directly start working in your desired setup. |session-file|
+enter uVim and directly start working in your desired setup. |session-file|
 
 							*viminfo-read*
-When Vim is started and the 'viminfo' option is non-empty, the contents of
+When uVim is started and the 'viminfo' option is non-empty, the contents of
 the viminfo file are read and the info can be used in the appropriate places.
 The |v:oldfiles| variable is filled.  The marks are not read in at startup
 (but file marks are).  See |initialization| for how to set the 'viminfo'
 option upon startup.
 
 							*viminfo-write*
-When Vim exits and 'viminfo' is non-empty, the info is stored in the viminfo
+When uVim exits and 'viminfo' is non-empty, the info is stored in the viminfo
 file (it's actually merged with the existing one, if one exists).  The
 'viminfo' option is a string containing information about what info should be
 stored, and contains limits on how much should be stored (see 'viminfo').
 
 Merging happens in two ways.  Most items that have been changed or set in the
-current Vim session are stored, and what was not changed is filled from what
+current uVim session are stored, and what was not changed is filled from what
 is currently in the viminfo file.  For example:
-- Vim session A reads the viminfo, which contains variable START.
-- Vim session B does the same
-- Vim session A sets the variables AAA and BOTH and exits
-- Vim session B sets the variables BBB and BOTH and exits
+- uVim session A reads the viminfo, which contains variable START.
+- uVim session B does the same
+- uVim session A sets the variables AAA and BOTH and exits
+- uVim session B sets the variables BBB and BOTH and exits
 Now the viminfo will have:
    START - it was in the viminfo and wasn't changed in session A or B
    AAA   - value from session A, session B kept it
@@ -1478,7 +1478,7 @@ Now the viminfo will have:
 
 							*viminfo-timestamp*
 For some items a timestamp is used to keep the last changed version.  Here it
-doesn't matter in which sequence Vim sessions exit, the newest item(s) are
+doesn't matter in which sequence uVim sessions exit, the newest item(s) are
 always kept.  This is used for:
 - The command line history.
 - The search string history.
@@ -1486,9 +1486,9 @@ always kept.  This is used for:
 - Contents of non-empty registers.
 - The jump list
 - File marks
-The timestamp feature was added before Vim 8.0.  Older versions of Vim,
+The timestamp feature was added before uVim 8.0.  Older versions of uVim,
 starting with 7.4.1131, will keep the items with timestamp, but not use them.
-Thus when using both an older and a newer version of Vim the most recent data
+Thus when using both an older and a newer version of uVim the most recent data
 will be kept.
 
 Notes for Unix:
@@ -1497,18 +1497,18 @@ Notes for Unix:
   you have worked with.
 - If you want to share the viminfo file with other users (e.g. when you "su"
   to another user), you can make the file writable for the group or everybody.
-  Vim will preserve this when writing new viminfo files.  Be careful, don't
+  uVim will preserve this when writing new viminfo files.  Be careful, don't
   allow just anybody to read and write your viminfo file!
-- Vim will not overwrite a viminfo file that is not writable by the current
+- uVim will not overwrite a viminfo file that is not writable by the current
   "real" user.  This helps for when you did "su" to become root, but your
-  $HOME is still set to a normal user's home directory.  Otherwise Vim would
+  $HOME is still set to a normal user's home directory.  Otherwise uVim would
   create a viminfo file owned by root that nobody else can read.
 - The viminfo file cannot be a symbolic link.  This is to avoid security
   issues.
 
 Marks are stored for each file separately.  When a file is read and 'viminfo'
 is non-empty, the marks for that file are read from the viminfo file.  NOTE:
-The marks are only written when exiting Vim, which is fine because marks are
+The marks are only written when exiting uVim, which is fine because marks are
 remembered for all the files you have opened in the current editing session,
 unless ":bdel" is used.  If you want to save the marks for a file that you are
 about to abandon with ":bdel", use ":wv".  The '[' and ']' marks are not
@@ -1528,7 +1528,7 @@ position and file.  The old '0 is moved to '1, '1 to '2, etc.  This
 resembles what happens with the "1 to "9 delete registers.  If the current
 cursor position is already present in '0 to '9, it is moved to '0, to avoid
 having the same position twice.  The result is that with "'0", you can jump
-back to the file and line where you exited Vim.  To do that right away, try
+back to the file and line where you exited uVim.  To do that right away, try
 using this command: >
 
 	vim -c "normal '0"
@@ -1554,7 +1554,7 @@ VIMINFO FILE NAME					*viminfo-file-name*
   not set and $VIM is set.
 - The 'n' flag in the 'viminfo' option can be used to specify another viminfo
   file name |'viminfo'|.
-- The "-i" Vim argument can be used to set another file name, |-i|.  When the
+- The "-i" uVim argument can be used to set another file name, |-i|.  When the
   file name given is "NONE" (all uppercase), no viminfo file is ever read or
   written.  Also not for the commands below!
 - For the commands below, another file name can be given, overriding the
@@ -1570,26 +1570,26 @@ value for 'encoding' than what it was written with, some of the text
 (non-ASCII characters) may be invalid.  If this is unacceptable, add the 'c'
 flag to the 'viminfo' option: >
 	:set viminfo+=c
-Vim will then attempt to convert the text in the viminfo file from the
+uVim will then attempt to convert the text in the viminfo file from the
 'encoding' value it was written with to the current 'encoding' value.  This
-requires Vim to be compiled with the |+iconv| feature.  Filenames are not
+requires uVim to be compiled with the |+iconv| feature.  Filenames are not
 converted.
 
 
 MANUALLY READING AND WRITING				*viminfo-read-write*
 
 Two commands can be used to read and write the viminfo file manually.  This
-can be used to exchange registers between two running Vim programs: First
+can be used to exchange registers between two running uVim programs: First
 type ":wv" in one and then ":rv" in the other.  Note that if the register
 already contained something, then ":rv!" would be required.  Also note
 however that this means everything will be overwritten with information from
-the first Vim, including the command line history, etc.
+the first uVim, including the command line history, etc.
 
 The viminfo file itself can be edited by hand too, although we suggest you
 start with an existing one to get the format right.  It is reasonably
 self-explanatory once you're in there.  This can be useful in order to
 create a second file, say "~/.my_viminfo" which could contain certain
-settings that you always want when you first start Vim.  For example, you
+settings that you always want when you first start uVim.  For example, you
 can preload registers with particular data, or put certain commands in the
 command line history.  A line in your .vimrc file like >
 	:rviminfo! ~/.my_viminfo
@@ -1598,13 +1598,13 @@ for different types of files (e.g., C code) and load them based on the file
 name, using the ":autocmd" command (see |:autocmd|).
 
 							*viminfo-errors*
-When Vim detects an error while reading a viminfo file, it will not overwrite
-that file.  If there are more than 10 errors, Vim stops reading the viminfo
+When uVim detects an error while reading a viminfo file, it will not overwrite
+that file.  If there are more than 10 errors, uVim stops reading the viminfo
 file.  This was done to avoid accidentally destroying a file when the file
 name of the viminfo file is wrong.  This could happen when accidentally typing
 "vim -i file" when you wanted "vim -R file" (yes, somebody accidentally did
 that!).  If you want to overwrite a viminfo file with an error in it, you will
-either have to fix the error, or delete the file (while Vim is running, so
+either have to fix the error, or delete the file (while uVim is running, so
 most of the information will be restored).
 
 						   *:rv* *:rviminfo* *E195*

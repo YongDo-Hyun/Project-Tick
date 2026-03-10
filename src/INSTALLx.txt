@@ -1,4 +1,4 @@
-INSTALLx.txt - cross-compiling Vim on Unix
+INSTALLx.txt - cross-compiling uVim on Unix
 
 Content:
  1. Introduction

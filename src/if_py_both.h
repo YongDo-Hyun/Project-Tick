@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4 noet:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 /*
  * Python extensions by Paul Moore, David Leonard, Roland Puntaier, Nikolay
@@ -94,7 +94,7 @@ static PyObject *py_load_module;
 static PyObject *VimError;
 
 /*
- * obtain a lock on the Vim data structures
+ * obtain a lock on the uVim data structures
  */
     static void
 Python_Lock_Vim(void)
@@ -102,7 +102,7 @@ Python_Lock_Vim(void)
 }
 
 /*
- * release a lock on the Vim data structures
+ * release a lock on the uVim data structures
  */
     static void
 Python_Release_Vim(void)
@@ -568,7 +568,7 @@ static struct PyMethodDef LoaderMethods[] = {
     { NULL,	    NULL,				0,		NULL}
 };
 
-/* Check to see whether a Vim error has been reported, or a keyboard
+/* Check to see whether a uVim error has been reported, or a keyboard
  * interrupt has been detected.
  */
 
@@ -645,7 +645,7 @@ VimCheckInterrupt(void)
     return 0;
 }
 
-/* Vim module - Implementation
+/* uVim module - Implementation
  */
 
     static PyObject *
@@ -874,7 +874,7 @@ VimEval(PyObject *self UNUSED, PyObject *args)
 	return NULL;
     }
 
-    /* Convert the Vim type into a Python type.  Create a dictionary that's
+    /* Convert the uVim type into a Python type.  Create a dictionary that's
      * used to check for recursive loops. */
     if (!(lookup_dict = PyDict_New()))
 	ret = NULL;
@@ -1324,13 +1324,13 @@ VimPathHook(PyObject *self UNUSED, PyObject *args)
 }
 
 /*
- * Vim module - Definitions
+ * uVim module - Definitions
  */
 
 static struct PyMethodDef VimMethods[] = {
     /* name,	    function,			calling,			documentation */
-    {"command",	    VimCommand,			METH_O,				"Execute a Vim ex-mode command" },
-    {"eval",	    VimEval,			METH_VARARGS,			"Evaluate an expression using Vim evaluator" },
+    {"command",	    VimCommand,			METH_O,				"Execute a uVim ex-mode command" },
+    {"eval",	    VimEval,			METH_VARARGS,			"Evaluate an expression using uVim evaluator" },
     {"bindeval",    VimEvalPy,			METH_O,				"Like eval(), but returns objects attached to vim ones"},
     {"strwidth",    VimStrwidth,		METH_O,				"Screen string width, counts <Tab> as having width 1"},
     {"chdir",	    (PyCFunction)VimChdir,	METH_VARARGS|METH_KEYWORDS,	"Change directory"},
@@ -3032,7 +3032,7 @@ FunctionAttr(FunctionObject *self, char *name)
 /* Populate partial_T given function object.
  *
  * "exported" should be set to true when it is needed to construct a partial
- * that may be stored in a variable (i.e. may be freed by Vim).
+ * that may be stored in a variable (i.e. may be freed by uVim).
  */
     static void
 set_partial(FunctionObject *self, partial_T *pt, int exported)
@@ -4091,7 +4091,7 @@ WinListItem(WinListObject *self, PyInt n)
     return NULL;
 }
 
-/* Convert a Python string into a Vim line.
+/* Convert a Python string into a uVim line.
  *
  * The result is in allocated memory. All internal nulls are replaced by
  * newline characters. It is an error for the string to contain newline
@@ -4186,7 +4186,7 @@ StringToLine(PyObject *obj)
 }
 
 /* Get a line from the specified buffer. The line number is
- * in Vim format (1-based). The line is returned as a Python
+ * in uVim format (1-based). The line is returned as a Python
  * string object.
  */
     static PyObject *
@@ -4197,7 +4197,7 @@ GetBufferLine(buf_T *buf, PyInt n)
 
 
 /* Get a list of lines from the specified buffer. The line numbers
- * are in Vim format (1-based). The range is from lo up to, but not
+ * are in uVim format (1-based). The range is from lo up to, but not
  * including, hi. The list is returned as a Python list of string objects.
  */
     static PyObject *
@@ -4301,7 +4301,7 @@ restore_win_for_buf(
 
 /*
  * Replace a line in the specified buffer. The line number is
- * in Vim format (1-based). The replacement line is given as
+ * in uVim format (1-based). The replacement line is given as
  * a Python string object. The object is checked for validity
  * and correct format. Errors are returned as a value of FAIL.
  * The return value is OK on success.
@@ -4400,7 +4400,7 @@ SetBufferLine(buf_T *buf, PyInt n, PyObject *line, PyInt *len_change)
 }
 
 /* Replace a range of lines in the specified buffer. The line numbers are in
- * Vim format (1-based). The range is from lo up to, but not including, hi.
+ * uVim format (1-based). The range is from lo up to, but not including, hi.
  * The replacement lines are given as a Python list of string objects. The
  * list is checked for validity and correct format. Errors are returned as a
  * value of FAIL.  The return value is OK on success.
@@ -4606,7 +4606,7 @@ SetBufferLineList(
 }
 
 /* Insert a number of lines into the specified buffer after the specified line.
- * The line number is in Vim format (1-based). The lines to be inserted are
+ * The line number is in uVim format (1-based). The lines to be inserted are
  * given as a Python list of string objects or as a single string. The lines
  * to be added are checked for validity and correct format. Errors are
  * returned as a value of FAIL.  The return value is OK on success.
@@ -5044,7 +5044,7 @@ RangeRepr(RangeObject *self)
 
 static struct PyMethodDef RangeMethods[] = {
     /* name,	function,			calling,	documentation */
-    {"append",	(PyCFunction)RangeAppend,	METH_VARARGS,	"Append data to the Vim range" },
+    {"append",	(PyCFunction)RangeAppend,	METH_VARARGS,	"Append data to the uVim range" },
     {"__dir__",	(PyCFunction)RangeDir,		METH_NOARGS,	""},
     { NULL,	NULL,				0,		NULL}
 };
@@ -5294,7 +5294,7 @@ BufferRepr(BufferObject *self)
 
 static struct PyMethodDef BufferMethods[] = {
     /* name,	    function,			calling,	documentation */
-    {"append",	    (PyCFunction)BufferAppend,	METH_VARARGS,	"Append data to Vim buffer" },
+    {"append",	    (PyCFunction)BufferAppend,	METH_VARARGS,	"Append data to uVim buffer" },
     {"mark",	    (PyCFunction)BufferMark,	METH_O,		"Return (row,col) representing position of named mark" },
     {"range",	    (PyCFunction)BufferRange,	METH_VARARGS,	"Return a range object which represents the part of the given buffer between line numbers s and e" },
     {"__dir__",	    (PyCFunction)BufferDir,	METH_NOARGS,	""},
@@ -6567,7 +6567,7 @@ init_structs(void)
 #if PY_MAJOR_VERSION >= 3
     vim_memset(&vimmodule, 0, sizeof(vimmodule));
     vimmodule.m_name = "vim";
-    vimmodule.m_doc = "Vim Python interface\n";
+    vimmodule.m_doc = "uVim Python interface\n";
     vimmodule.m_size = -1;
     vimmodule.m_methods = VimMethods;
 #endif

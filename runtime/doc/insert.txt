@@ -1,4 +1,4 @@
-*insert.txt*    For Vim version 7.4.  Last change: 2016 Jan 31
+*insert.txt*    For uVim version 7.4.  Last change: 2016 Jan 31
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
@@ -306,7 +306,7 @@ character is written at the end of each line.  Thus if you want to insert a
 						*i_CTRL-X* *insert_expand*
 CTRL-X enters a sub-mode where several commands can be used.  Most of these
 commands do keyword completion; see |ins-completion|.  These are not available
-when Vim was compiled without the |+insert_expand| feature.
+when uVim was compiled without the |+insert_expand| feature.
 
 Two commands can be used to scroll the window up or down, without exiting
 insert mode:
@@ -629,7 +629,7 @@ Completion can be done for:
 6. tags							|i_CTRL-X_CTRL-]|
 7. file names						|i_CTRL-X_CTRL-F|
 8. definitions or macros				|i_CTRL-X_CTRL-D|
-9. Vim command-line					|i_CTRL-X_CTRL-V|
+9. uVim command-line					|i_CTRL-X_CTRL-V|
 10. User defined completion				|i_CTRL-X_CTRL-U|
 11. omni completion					|i_CTRL-X_CTRL-O|
 12. Spelling suggestions				|i_CTRL-X_s|
@@ -925,11 +925,11 @@ CTRL-X CTRL-D		Search in the current and included files for the
 			unless a double CTRL-X is used.
 
 
-Completing Vim commands					*compl-vim*
+Completing uVim commands					*compl-vim*
 
 Completion is context-sensitive.  It works like on the Command-line.  It
 completes an Ex command as well as its arguments.  This is useful when writing
-a Vim script.
+a uVim script.
 
 							*i_CTRL-X_CTRL-V*
 CTRL-X CTRL-V		Guess what kind of item is in front of the cursor and
@@ -944,7 +944,7 @@ CTRL-X CTRL-V		Guess what kind of item is in front of the cursor and
 			replaces the previous one.
 
 	CTRL-X CTRL-V	Further use of CTRL-X CTRL-V will do the same as
-			CTRL-V.  This allows mapping a key to do Vim command
+			CTRL-V.  This allows mapping a key to do uVim command
 			completion, for example: >
 				:imap <Tab> <C-X><C-V>
 
@@ -1186,7 +1186,7 @@ The same, but now pretending searching for matches is slow: >
 
 INSERT COMPLETION POPUP MENU				*ins-completion-menu*
 							*popupmenu-completion*
-Vim can display the matches in a simplistic popup menu.
+uVim can display the matches in a simplistic popup menu.
 
 The menu is used when:
 - The 'completeopt' option contains "menu" or "menuone".
@@ -1308,14 +1308,14 @@ from the tags file directly.  This works for any identifier, also function
 names.  If you want to complete a local variable name, which does not appear
 in the tags file, use CTRL-P instead.
 
-When using CTRL-X CTRL-O after something that has "." or "->" Vim will attempt
+When using CTRL-X CTRL-O after something that has "." or "->" uVim will attempt
 to recognize the type of the variable and figure out what members it has.
 This means only members valid for the variable will be listed.
 
 When a member name already was complete, CTRL-X CTRL-O will add a "." or
 "->" for composite types.
 
-Vim doesn't include a C compiler, only the most obviously formatted
+uVim doesn't include a C compiler, only the most obviously formatted
 declarations are recognized.  Preprocessor stuff may cause confusion.
 When the same structure name appears in multiple places all possible members
 are included.
@@ -1365,7 +1365,7 @@ choose DOCTYPE and the appropriate data file will be loaded and used for all
 next completions.
 
 More about format of data file in |xml-omni-datafile|. Some of the data files
-may be found on the Vim website (|www|).
+may be found on the uVim website (|www|).
 
 Note that b:html_omni_flavor may point to a file with any XML data.  This
 makes possible to mix PHP (|ft-php-omni|) completion with any XML dialect
@@ -1439,7 +1439,7 @@ Script completes:
 - class names after "new" declaration
 
 
-Note: when doing completion first time Vim will load all necessary data into
+Note: when doing completion first time uVim will load all necessary data into
 memory. It may take several seconds. After next use of completion delay
 should not be noticeable.
 
@@ -1470,19 +1470,19 @@ The completions provided by CTRL-X CTRL-O are sensitive to the context:
  4. After ':' or ':foo'		     Symbol name (beginning with 'foo')
 
 Notes:
- - Vim will load/evaluate code in order to provide completions.  This may
+ - uVim will load/evaluate code in order to provide completions.  This may
    cause some code execution, which may be a concern. This is no longer 
    enabled by default, to enable this feature add >
      let g:rubycomplete_buffer_loading = 1
-<- In context 1 above, Vim can parse the entire buffer to add a list of
+<- In context 1 above, uVim can parse the entire buffer to add a list of
    classes to the completion results. This feature is turned off by default,
    to enable it add >
      let g:rubycomplete_classes_in_global = 1
 <  to your vimrc
  - In context 2 above, anonymous classes are not supported.
- - In context 3 above, Vim will attempt to determine the methods supported by
+ - In context 3 above, uVim will attempt to determine the methods supported by
    the object.
- - Vim can detect and load the Rails environment for files within a rails
+ - uVim can detect and load the Rails environment for files within a rails
    project. The feature is disabled by default, to enable it add >
      let g:rubycomplete_rails = 1
 <  to your vimrc
@@ -1490,11 +1490,11 @@ Notes:
 
 SYNTAX							*ft-syntax-omni*
 
-Vim has the ability to color syntax highlight nearly 500 languages.  Part of
+uVim has the ability to color syntax highlight nearly 500 languages.  Part of
 this highlighting includes knowing what keywords are part of a language.  Many
 filetypes already have custom completion scripts written for them, the
 syntaxcomplete plugin provides basic completion for all other filetypes.  It
-does this by populating the omni completion list with the text Vim already
+does this by populating the omni completion list with the text uVim already
 knows how to color highlight.  It can be used for any filetype and provides a
 minimal language-sensitive completion.
 
@@ -1623,7 +1623,7 @@ PHP code and SQL code at the same time.
 
 XML							*ft-xml-omni*
 
-Vim 7 provides a mechanism for context aware completion of XML files.  It
+uVim 7 provides a mechanism for context aware completion of XML files.  It
 depends on a special |xml-omni-datafile| and two commands: |:XMLns| and
 |:XMLent|.  Features are:
 
@@ -1638,7 +1638,7 @@ depends on a special |xml-omni-datafile| and two commands: |:XMLns| and
 Format of XML data file					*xml-omni-datafile*
 
 XML data files are stored in the "autoload/xml" directory in 'runtimepath'.
-Vim distribution provides examples of data files in the
+uVim distribution provides examples of data files in the
 "$VIMRUNTIME/autoload/xml" directory.  They have a meaningful name which will
 be used in commands.  It should be a unique name which will not create
 conflicts.  For example, the name xhtml10s.vim means it is the data file for
@@ -1708,10 +1708,10 @@ Note: All data and functions are publicly available as global
 variables/functions and can be used for personal editing functions.
 
 
-DTD -> Vim							*dtd2vim*
+DTD -> uVim							*dtd2vim*
 
 On |www| is the script |dtd2vim| which parses DTD and creates an XML data file
-for Vim XML omni completion.
+for uVim XML omni completion.
 
     dtd2vim: http://www.vim.org/scripts/script.php?script_id=1462
 
@@ -1725,7 +1725,7 @@ Commands
 
 :XMLns {name} [{namespace}]					*:XMLns*
 
-Vim has to know which data file should be used and with which namespace.  For
+uVim has to know which data file should be used and with which namespace.  For
 loading of the data file and connecting data with the proper namespace use
 |:XMLns| command.  The first (obligatory) argument is the name of the data
 (xhtml10s, xsl).  The second argument is the code of namespace (h, xsl).  When
@@ -1957,7 +1957,7 @@ If 'fileformat' is "mac", a <NL> in the file is internally represented by a
 <CR>.  This is to avoid confusion with a <NL> which is used to represent a
 <NUL>.  See |CR-used-for-NL|.
 
-If the 'fileformats' option is not empty Vim tries to recognize the type of
+If the 'fileformats' option is not empty uVim tries to recognize the type of
 <EOL> (see |file-formats|).  However, the 'fileformat' option will not be
 changed, the detected format is only used while reading the file.
 A similar thing happens with 'fileencodings'.
@@ -1976,7 +1976,7 @@ buffer.  Useful when you are editing e-mail and want to include a binary
 file.
 
 							*read-messages*
-When reading a file Vim will display a message with information about the read
+When reading a file uVim will display a message with information about the read
 file.  In the table is an explanation for some of the items.  The others are
 self explanatory.  Using the long or the short version depends on the
 'shortmess' option.

@@ -1,14 +1,14 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved		by Bram Moolenaar
+ * VIM - Micro Vi IMproved		by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
  */
 
 /*
  * DESCRIPTION:
- * This module produces Global IME for Vim, on Windows with Internet
+ * This module produces Global IME for uVim, on Windows with Internet
  * Explorer 5.01 or higher.  You need three files "dimm.idl", "dimm.h", and
  * "dimm_i.c" when compile this module at your self.  "dimm.h", and
  * "dimm_i.c" are generated from "dimm.idl" by using MIDL.EXE as like
@@ -17,14 +17,14 @@
  *
  * WHAT IS THE GLOBAL IME?:
  * Global IME makes capability input Chinese, Japanese, and Korean text into
- * Vim buffer on any language version of Windows 98, Windows 95, and Windows
+ * uVim buffer on any language version of Windows 98, Windows 95, and Windows
  * NT 4.0.  See below URL for detail of Global IME.  You can also find
  * various language version of Global IME at same place.
  *
  * RUNTIME REQUIREMENTS:
  * - Internet Explorer 5.01 or higher.
  * - Global IME (with language pack?).
- * - Of course Vim for Windows.
+ * - Of course uVim for Windows.
  *
  * URLS:
  * - Where you can probably get "dimm.idl".

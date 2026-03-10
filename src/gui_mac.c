@@ -1,19 +1,19 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved		by Bram Moolenaar
+ * VIM - Micro Vi IMproved		by Bram Moolenaar
  *				GUI/Motif support by Robert Webb
  *				Macintosh port by Dany St-Amant
  *					      and Axel Kielhorn
  *				Port to MPW by Bernhard Pruemmer
  *				Initial Carbon port by Ammon Skidmore
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
- * NOTES: - Vim 7+ does not support classic MacOS. Please use Vim 6.x
+ * NOTES: - uVim 7+ does not support classic MacOS. Please use uVim 6.x
  *	  - Comments mentioning FAQ refer to the book:
  *	    "Macworld Mac Programming FAQs" from "IDG Books"
  */
@@ -39,14 +39,14 @@
 
 #define USE_CARBONIZED
 #define USE_AEVENT		/* Enable AEVENT */
-#undef USE_OFFSETED_WINDOW	/* Debugging feature: start Vim window OFFSETed */
+#undef USE_OFFSETED_WINDOW	/* Debugging feature: start uVim window OFFSETed */
 
 /* Compile as CodeWarrior External Editor */
 #if defined(FEAT_CW_EDITOR) && !defined(USE_AEVENT)
 # define USE_AEVENT /* Need Apple Event Support */
 #endif
 
-/* Vim's Scrap flavor. */
+/* uVim's Scrap flavor. */
 #define VIMSCRAPFLAVOR 'VIM!'
 #ifdef FEAT_MBYTE
 # define SCRAPTEXTFLAVOR kScrapFlavorTypeUnicode
@@ -1084,7 +1084,7 @@ HandleODocAE(const AppleEvent *theAEvent, AppleEvent *theReply, long refCon)
 	char_u *p;
 	int fnum = -1;
 
-	/* these are the initial files dropped on the Vim icon */
+	/* these are the initial files dropped on the uVim icon */
 	for (i = 0 ; i < numFiles; i++)
 	{
 	    if (ga_grow(&global_alist.al_ga, 1) == FAIL
@@ -1735,7 +1735,7 @@ gui_mac_doInContentClick(EventRecord *theEvent, WindowPtr whichWindow)
 	/* Is it a double click ? */
 	dblClick = ((theEvent->when - lastMouseTick) < GetDblTime());
 
-	/* Send the mouse click to Vim */
+	/* Send the mouse click to uVim */
 	gui_send_mouse_event(vimMouseButton, thePoint.h,
 					  thePoint.v, dblClick, vimModifiers);
 
@@ -1791,7 +1791,7 @@ gui_mac_doInGrowClick(Point where, WindowPtr whichWindow)
     resizeLimitsPtr = GetRegionBounds(GetGrayRgn(), &resizeLimits);
 
     /* Set the minimum size */
-    /* TODO: Should this come from Vim? */
+    /* TODO: Should this come from uVim? */
     resizeLimits.top = 100;
     resizeLimits.left = 100;
 
@@ -2551,7 +2551,7 @@ gui_mac_mouse_wheel(EventHandlerCallRef nextHandler, EventRef theEvent,
     if (noErr == GetEventParameter(theEvent, kEventParamMouseWheelAxis,
 			  typeMouseWheelAxis, NULL, sizeof(axis), NULL, &axis)
 	    && axis != kEventMouseWheelAxisY)
-	goto bail; /* Vim only does up-down scrolling */
+	goto bail; /* uVim only does up-down scrolling */
 
     if (noErr != GetEventParameter(theEvent, kEventParamMouseWheelDelta,
 			      typeSInt32, NULL, sizeof(SInt32), NULL, &delta))
@@ -2603,7 +2603,7 @@ gui_mch_mousehide(int hide)
 
 /*
  * This would be the normal way of invoking the contextual menu
- * but the Vim API doesn't seem to a support a request to get
+ * but the uVim API doesn't seem to a support a request to get
  * the menu that we should display
  */
     void
@@ -4182,7 +4182,7 @@ gui_mch_iconify(void)
 
 #if defined(FEAT_EVAL) || defined(PROTO)
 /*
- * Bring the Vim window to the foreground.
+ * Bring the uVim window to the foreground.
  */
     void
 gui_mch_set_foreground(void)
@@ -4750,7 +4750,7 @@ gui_mch_add_menu(vimmenu_T *menu, int idx)
 	/* Insert the menu */
 	InsertMenu(menu->submenu_handle, menu_after_me); /* insert before */
 #if 1
-	/* Vim should normally update it. TODO: verify */
+	/* uVim should normally update it. TODO: verify */
 	DrawMenuBar();
 #endif
     }
@@ -4781,7 +4781,7 @@ gui_mch_add_menu(vimmenu_T *menu, int idx)
 #endif
 
 #if 0
-    /* Done by Vim later on */
+    /* Done by uVim later on */
     DrawMenuBar();
 #endif
 }
@@ -4864,7 +4864,7 @@ gui_mch_add_menu_item(vimmenu_T *menu, int idx)
 	{
 	    int		valid = 1;
 	    char_u      mac_mods = kMenuNoModifiers;
-	    /* Convert Vim modifier codes to Menu Manager equivalents. */
+	    /* Convert uVim modifier codes to Menu Manager equivalents. */
 	    if (modifiers & MOD_MASK_SHIFT)
 		mac_mods |= kMenuShiftModifier;
 	    if (modifiers & MOD_MASK_CTRL)
@@ -4899,7 +4899,7 @@ gui_mch_add_menu_item(vimmenu_T *menu, int idx)
 #endif
 
 #if 0
-    /* Called by Vim */
+    /* Called by uVim */
     DrawMenuBar();
 #endif
 
@@ -4955,7 +4955,7 @@ gui_mch_destroy_menu(vimmenu_T *menu)
 	    DisposeMenu(menu->submenu_handle);
 	}
     }
-    /* Shouldn't this be already done by Vim. TODO: Check */
+    /* Shouldn't this be already done by uVim. TODO: Check */
     DrawMenuBar();
 }
 
@@ -5299,7 +5299,7 @@ typedef struct
     short   idx;
     short   width;	/* Size of the text in pixel */
     Rect    box;
-} vgmDlgItm; /* Vim Gui_Mac.c Dialog Item */
+} vgmDlgItm; /* uVim Gui_Mac.c Dialog Item */
 
 #define MoveRectTo(r,x,y) OffsetRect(r,x-r->left,y-r->top)
 
@@ -5883,7 +5883,7 @@ gui_mch_show_popupmenu(vimmenu_T *menu)
     LocalToGlobal(&where); /*OSX*/
     CntxMenu = menu->submenu_handle;
 
-    /* TODO: Get the text selection from Vim */
+    /* TODO: Get the text selection from uVim */
 
     /* Call to Handle Popup */
     status = ContextualMenuSelect(CntxMenu, where, false, kCMHelpItemRemoveHelp,
@@ -6042,7 +6042,7 @@ char_u *FullPathFromFSSpec_save(FSSpec file)
 
 #ifdef USE_UNIXFILENAME
     /* Get the default volume */
-    /* TODO: Remove as this only work if Vim is on the Boot Volume*/
+    /* TODO: Remove as this only work if uVim is on the Boot Volume*/
     error=HGetVol(NULL, &dfltVol_vRefNum, &dfltVol_dirID);
 
     if (error)

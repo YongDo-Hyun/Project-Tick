@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /* for debugging */
@@ -161,7 +161,7 @@ struct block0
 {
     char_u	b0_id[2];	/* id for block 0: BLOCK0_ID0 and BLOCK0_ID1,
 				 * BLOCK0_ID1_C0, BLOCK0_ID1_C1, etc. */
-    char_u	b0_version[10];	/* Vim version string */
+    char_u	b0_version[10];	/* uVim version string */
     char_u	b0_page_size[4];/* number of bytes per page */
     char_u	b0_mtime[4];	/* last modification time of file */
     char_u	b0_ino[4];	/* inode of b0_fname */
@@ -177,7 +177,7 @@ struct block0
 
 /*
  * Note: b0_dirty and b0_flags are put at the end of the file name.  For very
- * long file names in older versions of Vim they are invalid.
+ * long file names in older versions of uVim they are invalid.
  * The 'fileencoding' comes before b0_flags, with a NUL in front.  But only
  * when there is room, for very long file names it's omitted.
  */
@@ -185,18 +185,18 @@ struct block0
 #define b0_dirty	b0_fname[B0_FNAME_SIZE_ORG - 1]
 
 /*
- * The b0_flags field is new in Vim 7.0.
+ * The b0_flags field is new in uVim 7.0.
  */
 #define b0_flags	b0_fname[B0_FNAME_SIZE_ORG - 2]
 
 /*
- * Crypt seed goes here, 8 bytes.  New in Vim 7.3.
+ * Crypt seed goes here, 8 bytes.  New in uVim 7.3.
  * Without encryption these bytes may be used for 'fenc'.
  */
 #define b0_seed		b0_fname[B0_FNAME_SIZE_ORG - 2 - MF_SEED_LEN]
 
 /* The lowest two bits contain the fileformat.  Zero means it's not set
- * (compatible with Vim 6.x), otherwise it's EOL_UNIX + 1, EOL_DOS + 1 or
+ * (compatible with uVim 6.x), otherwise it's EOL_UNIX + 1, EOL_DOS + 1 or
  * EOL_MAC + 1. */
 #define B0_FF_MASK	3
 
@@ -781,7 +781,7 @@ ml_open_file(buf_T *buf)
 	if (*dirp == NUL)
 	    break;
 	/* There is a small chance that between choosing the swap file name
-	 * and creating it, another Vim creates the file.  In that case the
+	 * and creating it, another uVim creates the file.  In that case the
 	 * creation will fail and we will use another directory. */
 	fname = findswapname(buf, &dirp, NULL); /* allocates fname */
 	if (dirp == NULL)
@@ -1071,7 +1071,7 @@ add_b0_fenc(
     int		size = B0_FNAME_SIZE_NOCRYPT;
 
 # ifdef FEAT_CRYPT
-    /* Without encryption use the same offset as in Vim 7.2 to be compatible.
+    /* Without encryption use the same offset as in uVim 7.2 to be compatible.
      * With encryption it's OK to move elsewhere, the swap file is not
      * compatible anyway. */
     if (*buf->b_p_key != NUL)
@@ -1248,7 +1248,7 @@ ml_recover(void)
 	msg_start();
 	MSG_PUTS_ATTR(_("Unable to read block 0 from "), attr | MSG_HIST);
 	msg_outtrans_attr(mfp->mf_fname, attr | MSG_HIST);
-	MSG_PUTS_ATTR(_("\nMaybe no changes were made or Vim did not update the swap file."),
+	MSG_PUTS_ATTR(_("\nMaybe no changes were made or uVim did not update the swap file."),
 		attr | MSG_HIST);
 	msg_end();
 	goto theend;
@@ -1258,15 +1258,15 @@ ml_recover(void)
     {
 	msg_start();
 	msg_outtrans_attr(mfp->mf_fname, MSG_HIST);
-	MSG_PUTS_ATTR(_(" cannot be used with this version of Vim.\n"),
+	MSG_PUTS_ATTR(_(" cannot be used with this version of uVim.\n"),
 								    MSG_HIST);
-	MSG_PUTS_ATTR(_("Use Vim version 3.0.\n"), MSG_HIST);
+	MSG_PUTS_ATTR(_("Use uVim version 3.0.\n"), MSG_HIST);
 	msg_end();
 	goto theend;
     }
     if (ml_check_b0_id(b0p) == FAIL)
     {
-	EMSG2(_("E307: %s does not look like a Vim swap file"), mfp->mf_fname);
+	EMSG2(_("E307: %s does not look like a uVim swap file"), mfp->mf_fname);
 	goto theend;
     }
     if (b0_magic_wrong(b0p))
@@ -1275,7 +1275,7 @@ ml_recover(void)
 	msg_outtrans_attr(mfp->mf_fname, attr | MSG_HIST);
 #if defined(MSWIN)
 	if (STRNCMP(b0p->b0_hname, "PC ", 3) == 0)
-	    MSG_PUTS_ATTR(_(" cannot be used with this version of Vim.\n"),
+	    MSG_PUTS_ATTR(_(" cannot be used with this version of uVim.\n"),
 							     attr | MSG_HIST);
 	else
 #endif
@@ -1300,7 +1300,7 @@ ml_recover(void)
 #else
     if (b0p->b0_id[1] != BLOCK0_ID1)
     {
-	EMSG2(_("E833: %s is encrypted and this version of Vim does not support encryption"), mfp->mf_fname);
+	EMSG2(_("E833: %s is encrypted and this version of uVim does not support encryption"), mfp->mf_fname);
 	goto theend;
     }
 #endif
@@ -2090,11 +2090,11 @@ swapfile_info(char_u *fname)
 	{
 	    if (STRNCMP(b0.b0_version, "VIM 3.0", 7) == 0)
 	    {
-		MSG_PUTS(_("         [from Vim version 3.0]"));
+		MSG_PUTS(_("         [from uVim version 3.0]"));
 	    }
 	    else if (ml_check_b0_id(&b0) == FAIL)
 	    {
-		MSG_PUTS(_("         [does not look like a Vim swap file]"));
+		MSG_PUTS(_("         [does not look like a uVim swap file]"));
 	    }
 	    else
 	    {
@@ -2142,7 +2142,7 @@ swapfile_info(char_u *fname)
 		{
 #if defined(MSWIN)
 		    if (STRNCMP(b0.b0_hname, "PC ", 3) == 0)
-			MSG_PUTS(_("\n         [not usable with this version of Vim]"));
+			MSG_PUTS(_("\n         [not usable with this version of uVim]"));
 		    else
 #endif
 			MSG_PUTS(_("\n         [not usable on this computer]"));
@@ -4433,8 +4433,8 @@ findswapname(
 		    int		did_use_dummy = FALSE;
 
 		    /* Avoid getting a warning for the file being created
-		     * outside of Vim, it was created at the start of this
-		     * function.  Delete the file now, because Vim might exit
+		     * outside of uVim, it was created at the start of this
+		     * function.  Delete the file now, because uVim might exit
 		     * here if the window is closed. */
 		    if (dummyfd != NULL)
 		    {
@@ -4464,7 +4464,7 @@ findswapname(
 #ifdef FEAT_GUI
 			/* If we are supposed to start the GUI but it wasn't
 			 * completely started yet, start it now.  This makes
-			 * the messages displayed in the Vim window when
+			 * the messages displayed in the uVim window when
 			 * loading a session from the .gvimrc file. */
 			if (gui.starting && !gui.in_use)
 			    gui_start();

@@ -1,13 +1,13 @@
-*if_cscop.txt*  For Vim version 7.4.  Last change: 2011 Jun 12
+*if_cscop.txt*  For uVim version 7.4.  Last change: 2011 Jun 12
 
 
 		  VIM REFERENCE MANUAL    by Andy Kahn
 
 							*cscope* *Cscope*
-This document explains how to use Vim's cscope interface.
+This document explains how to use uVim's cscope interface.
 
 Cscope is a tool like ctags, but think of it as ctags on steroids since it
-does a lot more than what ctags provides.  In Vim, jumping to a result from
+does a lot more than what ctags provides.  In uVim, jumping to a result from
 a cscope query is just like jumping to any tag; it is saved on the tag stack
 so that with the right keyboard mappings, you can jump back and forth between
 functions as you normally would with |tags|.
@@ -15,7 +15,7 @@ functions as you normally would with |tags|.
 1. Cscope introduction		|cscope-intro|
 2. Cscope related commands	|cscope-commands|
 3. Cscope options		|cscope-options|
-4. How to use cscope in Vim	|cscope-howtouse|
+4. How to use cscope in uVim	|cscope-howtouse|
 5. Limitations			|cscope-limitations|
 6. Suggested usage		|cscope-suggestions|
 7. Availability & Information	|cscope-info|
@@ -76,7 +76,7 @@ text editor to edit the source file containing match, you cannot simply
 jump from tag to tag as you normally would with vi's Ctrl-] or :tag
 command.
 
-Vim's cscope interface is done by invoking cscope with its line-oriented
+uVim's cscope interface is done by invoking cscope with its line-oriented
 interface, and then parsing the output returned from a query.  The end
 result is that cscope query results become just like regular tags, so
 you can jump to them just like you do with normal tags (Ctrl-] or :tag)
@@ -150,7 +150,7 @@ The available subcommands are:
 
 	    :cscope find 0 DEFAULT_TERM
 <
-	    Executing this example on the source code for Vim 5.1 produces the
+	    Executing this example on the source code for uVim 5.1 produces the
 	    following output:
 
 	    Cscope tag: DEFAULT_TERM
@@ -296,7 +296,7 @@ If 'cscopeverbose' is not set (the default), messages will not be printed
 indicating success or failure when adding a cscope database.  Ideally, you
 should reset this option in your |.vimrc| before adding any cscope databases,
 and after adding them, set it.  From then on, when you add more databases
-within Vim, you will get a (hopefully) useful message should the database fail
+within uVim, you will get a (hopefully) useful message should the database fail
 to be added.  Examples: >
 	:set csverb
 	:set nocsverb
@@ -311,14 +311,14 @@ will display the last 3 components of the file's path, including the file
 name itself.
 
 ==============================================================================
-4. How to use cscope in Vim				*cscope-howtouse*
+4. How to use cscope in uVim				*cscope-howtouse*
 
 The first thing you need to do is to build a cscope database for your
 source files.  For the most basic case, simply do "cscope -b".  Please
 refer to the cscope man page for more details.
 
-Assuming you have a cscope database, you need to "add" the database to Vim.
-This establishes a cscope "connection" and makes it available for Vim to use.
+Assuming you have a cscope database, you need to "add" the database to uVim.
+This establishes a cscope "connection" and makes it available for uVim to use.
 You can do this in your .vimrc file, or you can do it manually after starting
 vim.  For example, to add the cscope database "cscope.out", you would do:
 
@@ -353,7 +353,7 @@ simply hit Ctrl-T to get back to the previous one.
 ==============================================================================
 5. Limitations						*cscope-limitations*
 
-Cscope support for Vim is only available on systems that support these four
+Cscope support for uVim is only available on systems that support these four
 system calls: fork(), pipe(), execl(), waitpid().  This means it is mostly
 limited to Unix systems.
 
@@ -363,7 +363,7 @@ cscope version for Win32 see:
 	http://iamphet.nm.ru/cscope/index.html
 
 The DJGPP-built version from http://cscope.sourceforge.net is known to not
-work with Vim.
+work with uVim.
 
 Hard-coded limitation: doing a |:tjump| when |:cstag| searches the tag files
 is not configurable (e.g., you can't do a tselect instead).
@@ -412,7 +412,7 @@ These mappings for Ctrl-] (right bracket) and Ctrl-\ (backslash) allow you to
 place your cursor over the function name or C symbol and quickly query cscope
 for any matches.
 
-Or you may use the following scheme, inspired by Vim/Cscope tutorial from
+Or you may use the following scheme, inspired by uVim/Cscope tutorial from
 Cscope Home Page (http://cscope.sourceforge.net/): >
 
 	nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
@@ -487,13 +487,13 @@ SGI developers can also get it.  Search for Cscope on this page:
 The second one is for those who have a password for the SGI toolbox.
 
 There is source to an older version of a cscope clone (called "cs") available
-on the net.  Due to various reasons, this is not supported with Vim.
+on the net.  Due to various reasons, this is not supported with uVim.
 
-The cscope interface/support for Vim was originally written by
+The cscope interface/support for uVim was originally written by
 Andy Kahn <ackahn@netapp.com>.  The original structure (as well as a tiny
 bit of code) was adapted from the cscope interface in nvi.  Please report
 any problems, suggestions, patches, et al., you have for the usage of
-cscope within Vim to him.
+cscope within uVim to him.
 							*cscope-win32*
 For a cscope version for Win32 see:
 	http://code.google.com/p/cscope-win32/

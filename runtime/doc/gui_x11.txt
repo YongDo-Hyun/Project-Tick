@@ -1,10 +1,10 @@
-*gui_x11.txt*   For Vim version 7.4.  Last change: 2016 Aug 21
+*gui_x11.txt*   For uVim version 7.4.  Last change: 2016 Aug 21
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
 
 
-Vim's Graphical User Interface				*gui-x11* *GUI-X11*
+uVim's Graphical User Interface				*gui-x11* *GUI-X11*
 							*Athena* *Motif*
 1. Starting the X11 GUI		|gui-x11-start|
 2. GUI Resources		|gui-resources|
@@ -24,7 +24,7 @@ Other relevant documentation:
 ==============================================================================
 1. Starting the X11 GUI					*gui-x11-start* *E665*
 
-Then you can run the GUI version of Vim in either of these ways:
+Then you can run the GUI version of uVim in either of these ways:
     gvim [options] [files...]
     vim -g [options] [files...]
 
@@ -36,8 +36,8 @@ You may also start up the GUI from within the terminal version by using one of
 these commands:
 	:gui [++opt] [+cmd] [-f|-b] [files...]			*:gu* *:gui*
 	:gvim [++opt] [+cmd] [-f|-b] [files...]			*:gv* *:gvim*
-The "-f" option runs Vim in the foreground.
-The "-b" option runs Vim in the background (this is the default).
+The "-f" option runs uVim in the foreground.
+The "-b" option runs uVim in the background (this is the default).
 Also see |++opt| and |+cmd|.
 
 							*gui-fork*
@@ -48,13 +48,13 @@ that waits for gvim to exit), start gvim with "gvim -f", "vim -gf" or use
 ":gui -f".  Don't use "vim -fg", because "-fg" specifies the foreground
 color.
 
-When using "gvim -f" and then ":gui", Vim will run in the foreground.  The
-"-f" argument will be remembered.  To force running Vim in the background use
+When using "gvim -f" and then ":gui", uVim will run in the foreground.  The
+"-f" argument will be remembered.  To force running uVim in the background use
 ":gui -b".
 
 "gvim --nofork" does the same as "gvim -f".
 								*E851* *E852*
-When starting the GUI fails Vim will try to continue running in the terminal.
+When starting the GUI fails uVim will try to continue running in the terminal.
 
 If you want the GUI to run in the foreground always, include the 'f'
 flag in 'guioptions'.  |-f|.
@@ -63,8 +63,8 @@ flag in 'guioptions'.  |-f|.
 2. GUI Resources			*gui-resources* *.Xdefaults*
 
 If using the Motif or Athena version of the GUI (not for the KDE, GTK+ or Win32
-version), a number of X resources are available.  You should use Vim's class
-"Vim" when setting these.  They are as follows:
+version), a number of X resources are available.  You should use uVim's class
+"uVim" when setting these.  They are as follows:
 
     Resource name	Meaning		~
 
@@ -109,50 +109,50 @@ Note that the colors can also be set with the ":highlight" command, using the
 <
 							*font-sizes*
 Note: All fonts (except for the menu and tooltip) must be of the same size!!!
-If you don't do this, text will disappear or mess up the display.  Vim does
+If you don't do this, text will disappear or mess up the display.  uVim does
 not check the font sizes.  It's the size in screen pixels that must be the
 same.  Note that some fonts that have the same point size don't have the same
 pixel size!  Additionally, the positioning of the fonts must be the same
 (ascent and descent).  You can check this with "xlsfonts -l {fontname}".
 
-If any of these things are also set with Vim commands, e.g. with
+If any of these things are also set with uVim commands, e.g. with
 ":set guifont=Screen15", then this will override the X resources (currently
 'guifont' is the only option that is supported).
 
 Here is an example of what you might put in your ~/.Xdefaults file: >
 
-	Vim*useSchemes:			all
-	Vim*sgiMode:			true
-	Vim*useEnhancedFSB:		true
-	Vim.foreground:			Black
-	Vim.background:			Wheat
-	Vim*fontList:			7x13
+	uVim*useSchemes:			all
+	uVim*sgiMode:			true
+	uVim*useEnhancedFSB:		true
+	uVim.foreground:			Black
+	uVim.background:			Wheat
+	uVim*fontList:			7x13
 
 The first three of these are standard resources on Silicon Graphics machines
 which make Motif applications look even better, highly recommended!
 
-The "Vim*fontList" is to set the menu font for Motif.  Example: >
-	Vim*menuBar*fontList:	     -*-courier-medium-r-*-*-10-*-*-*-*-*-*-*
+The "uVim*fontList" is to set the menu font for Motif.  Example: >
+	uVim*menuBar*fontList:	     -*-courier-medium-r-*-*-10-*-*-*-*-*-*-*
 With Athena: >
-	Vim*menuBar*SmeBSB*font:     -*-courier-medium-r-*-*-10-*-*-*-*-*-*-*
-	Vim*menuBar*MenuButton*font: -*-courier-medium-r-*-*-10-*-*-*-*-*-*-*
+	uVim*menuBar*SmeBSB*font:     -*-courier-medium-r-*-*-10-*-*-*-*-*-*-*
+	uVim*menuBar*MenuButton*font: -*-courier-medium-r-*-*-10-*-*-*-*-*-*-*
 
 NOTE: A more portable, and indeed more correct, way to specify the menu font
 in either Motif or Athena is through the resource: >
-	Vim.menuFont:	     -*-courier-medium-r-*-*-10-*-*-*-*-*-*-*
+	uVim.menuFont:	     -*-courier-medium-r-*-*-10-*-*-*-*-*-*-*
 Or, when compiled with the |+xfontset| feature: >
-	Vim.menuFontSet:     -*-courier-medium-r-*-*-10-*-*-*-*-*-*-*
+	uVim.menuFontSet:     -*-courier-medium-r-*-*-10-*-*-*-*-*-*-*
 
-Don't use "Vim*geometry" in the defaults.  This will break the menus.  Use
-"Vim.geometry" instead.
+Don't use "uVim*geometry" in the defaults.  This will break the menus.  Use
+"uVim.geometry" instead.
 
 If you get an error message "Cannot allocate colormap entry for "gray60",
-try adding this to your Vim resources (change the colors to your liking): >
+try adding this to your uVim resources (change the colors to your liking): >
 
-	Vim*scrollBackground:		Black
-	Vim*scrollForeground:		Blue
+	uVim*scrollBackground:		Black
+	uVim*scrollForeground:		Blue
 
-The resources can also be set with arguments to Vim:
+The resources can also be set with arguments to uVim:
 
     argument		meaning	~
 							*-gui*
@@ -187,7 +187,7 @@ The resources can also be set with arguments to Vim:
    +rv			idem				*-+rv*
    -xrm {resource}	Set the specified resource	*-xrm*
 
-Note about reverse video: Vim checks that the result is actually a light text
+Note about reverse video: uVim checks that the result is actually a light text
 on a dark background.  The reason is that some X11 versions swap the colors,
 and some don't.  These two examples will both give yellow text on a blue
 background:
@@ -215,7 +215,7 @@ The default is to use a pseudo-tty.  This should work best on most systems.
 Unfortunately, the implementation of the pseudo-tty is different on every Unix
 system.  And some systems require root permission.  To avoid running into
 problems with a pseudo-tty when you least expect it, test it when not editing
-a file.  Be prepared to "kill" the started command or Vim.  Commands like
+a file.  Be prepared to "kill" the started command or uVim.  Commands like
 ":r !cat" may hang!
 
 If using a pseudo-tty does not work for you, reset the 'guipty' option: >
@@ -253,8 +253,8 @@ For example: >
   :10vmenu File.Print :w !lpr -Php3
 <
 							*X11-icon*
-Vim uses a black&white icon by default when compiled with Motif or Athena.  A
-colored Vim icon is included as $VIMRUNTIME/vim32x32.xpm.  For GTK+, this is
+uVim uses a black&white icon by default when compiled with Motif or Athena.  A
+colored uVim icon is included as $VIMRUNTIME/vim32x32.xpm.  For GTK+, this is
 the builtin icon used.  Unfortunately, how you should install it depends on
 your window manager.  When you use this, remove the 'i' flag from
 'guioptions', to remove the black&white icon: >
@@ -274,15 +274,15 @@ drop the icon into one the pre-defined directories: >
 Note: older versions of fvwm use "IconPath" instead of "ImagePath".
 
 For CDE "dtwm" (a derivative of Motif) add this line in the .Xdefaults: >
-   Dtwm*Vim*iconImage: /usr/local/share/vim/vim32x32.xpm
+   Dtwm*uVim*iconImage: /usr/local/share/vim/vim32x32.xpm
 
 For "mwm" (Motif window manager) the line would be: >
-   Mwm*Vim*iconImage: /usr/local/share/vim/vim32x32.xpm
+   Mwm*uVim*iconImage: /usr/local/share/vim/vim32x32.xpm
 
 Mouse Pointers Available in X11				*X11_mouse_shapes*
 
 By using the |'mouseshape'| option, the mouse pointer can be automatically
-changed whenever Vim enters one of its various modes (e.g., Insert or
+changed whenever uVim enters one of its various modes (e.g., Insert or
 Command).  Currently, the available pointers are:
 
 	arrow			an arrow pointing northwest
@@ -344,8 +344,8 @@ These arguments are ignored when the |+netbeans_intg| feature is used:
 	-xrm
 	-mf
 
-As for colors, Vim's color settings (for syntax highlighting) is still
-done the traditional Vim way.  See |:highlight| for more help.
+As for colors, uVim's color settings (for syntax highlighting) is still
+done the traditional uVim way.  See |:highlight| for more help.
 
 If you want to set the colors of remaining gui components (e.g., the
 menubar, scrollbar, whatever), those are GTK specific settings and you
@@ -379,21 +379,21 @@ $HOME/.config/gtk-3.0/gtk.css):
 	}
 <
 
-Using Vim as a GTK+ plugin				*gui-gtk-socketid*
+Using uVim as a GTK+ plugin				*gui-gtk-socketid*
 
-When the GTK+ version of Vim starts up normally, it creates its own top level
+When the GTK+ version of uVim starts up normally, it creates its own top level
 window (technically, a 'GtkWindow').  GTK+ provides an embedding facility with
 its GtkSocket and GtkPlug widgets.  If one GTK+ application creates a
 GtkSocket widget in one of its windows, an entirely different GTK+ application
 may embed itself into the first application by creating a top-level GtkPlug
 widget using the socket's ID.
 
-If you pass Vim the command-line option '--socketid' with a decimal or
-hexadecimal value, Vim will create a GtkPlug widget using that value instead
-of the normal GtkWindow.  This enables Vim to act as a GTK+ plugin.
+If you pass uVim the command-line option '--socketid' with a decimal or
+hexadecimal value, uVim will create a GtkPlug widget using that value instead
+of the normal GtkWindow.  This enables uVim to act as a GTK+ plugin.
 
 This really is a programmer's interface, and is of no use without a supporting
-application to spawn the Vim correctly.  For more details on GTK+ sockets, see
+application to spawn the uVim correctly.  For more details on GTK+ sockets, see
 http://www.gtk.org/api/
 
 Note that this feature requires the latest GTK version.  GTK 1.2.10 still has
@@ -427,7 +427,7 @@ functionality mentioned above is consolidated in GTK+ 3.
 
 GNOME session support			*gui-gnome-session* *gnome-session*
 
-On logout, Vim shows the well-known exit confirmation dialog if any buffers
+On logout, uVim shows the well-known exit confirmation dialog if any buffers
 are modified.  Clicking [Cancel] will stop the logout process.  Otherwise the
 current session is stored to disk by using the |:mksession| command, and
 restored the next time you log in.
@@ -445,22 +445,22 @@ means in detail:
 - The internal variable |v:this_session| is not changed when storing the
   session.  Also, it is restored to its old value when logging in again.
 
-The position and size of the GUI window is not saved by Vim since doing so
-is the window manager's job.  But if compiled with GTK+ 2 support, Vim helps
+The position and size of the GUI window is not saved by uVim since doing so
+is the window manager's job.  But if compiled with GTK+ 2 support, uVim helps
 the WM to identify the window by restoring the window role (using the |--role|
 command line argument).
 
 ==============================================================================
 7. KDE version					*gui-kde* *kde* *KDE* *KVim*
 							*gui-x11-kde*
-There is no KDE version of Vim.  There has been some work on a port using the
+There is no KDE version of uVim.  There has been some work on a port using the
 Qt toolkit, but it never worked properly and it has been abandoned.  Work
 continues on Yzis: https://github.com/chrizel/Yzis.
 
 ==============================================================================
 8. Compiling						*gui-x11-compiling*
 
-If using X11, Vim's configure will by default first try to find the necessary
+If using X11, uVim's configure will by default first try to find the necessary
 GTK+ files on your system.  When both GTK+ 2 and GTK+ 3 are available, GTK+ 2
 will be chosen unless --enable-gui=gtk3 is passed explicitly to configure.
 
@@ -468,7 +468,7 @@ If the GTK+ files cannot be found, then the Motif files will be searched for.
 Finally, if this fails, the Athena files will be searched for.  If all three
 fail, the GUI will be disabled.
 
-For GTK+, Vim's configuration process uses pkg-config(1) to check if the
+For GTK+, uVim's configuration process uses pkg-config(1) to check if the
 GTK+ required for a specified build is properly installed and usable.
 Accordingly, it is a good idea to make sure before running configure that
 your system has a working pkg-config together with the .pc file of the
@@ -498,7 +498,7 @@ the names of the directories.  Search for "GUI_INC_LOC" for an example to set
 the Motif directories, "CONF_OPT_X" for Athena.
 
 							*gui-x11-gtk*
-Currently, Vim supports both GTK+ 2 and GTK+ 3.
+Currently, uVim supports both GTK+ 2 and GTK+ 3.
 
 The GTK+ 2 GUI requires GTK+ 2.2 or later.
 
@@ -518,7 +518,7 @@ reported to work fine too.
 The Athena version uses the Xaw widget set by default.  If you have the 3D
 version, you might want to link with Xaw3d instead.  This will make the
 menus look a bit better.  Edit the Makefile and look for "XAW_LIB".  The
-scrollbars will remain the same, because Vim has its own, which are already
+scrollbars will remain the same, because uVim has its own, which are already
 3D (in fact, they look more like Motif).
 
 							*gui-x11-neXtaw*
@@ -528,18 +528,18 @@ The neXtaw version is mostly like Athena, but uses different widgets.
 In general, do not try to mix files from different GTK+, Motif, Athena and X11
 versions.  This will cause problems.  For example, using header files for
 X11R5 with a library for X11R6 probably doesn't work (although the linking
-won't give an error message, Vim will crash later).
+won't give an error message, uVim will crash later).
 
 ==============================================================================
 9. X11 selection mechanism				*x11-selection*
 
-If using X11, in either the GUI or an xterm with an X11-aware Vim, then Vim
+If using X11, in either the GUI or an xterm with an X11-aware uVim, then uVim
 provides varied access to the X11 selection and clipboard.  These are accessed
 by using the two selection registers "* and "+.
 
 X11 provides two basic types of global store, selections and cut-buffers,
 which differ in one important aspect: selections are "owned" by an
-application, and disappear when that application (e.g., Vim) exits, thus
+application, and disappear when that application (e.g., uVim) exits, thus
 losing the data, whereas cut-buffers, are stored within the X-server itself
 and remain until written over or the X-server exits (e.g., upon logging out).
 
@@ -553,54 +553,54 @@ application.
 
 							*quoteplus* *quote+*
 There are three documented X selections: PRIMARY (which is expected to
-represent the current visual selection - as in Vim's Visual mode), SECONDARY
+represent the current visual selection - as in uVim's Visual mode), SECONDARY
 (which is ill-defined) and CLIPBOARD (which is expected to be used for
 cut, copy and paste operations).
 
-Of these three, Vim uses PRIMARY when reading and writing the "* register
-(hence when the X11 selections are available, Vim sets a default value for
+Of these three, uVim uses PRIMARY when reading and writing the "* register
+(hence when the X11 selections are available, uVim sets a default value for
 |'clipboard'| of "autoselect"), and CLIPBOARD when reading and writing the "+
-register.  Vim does not access the SECONDARY selection.
+register.  uVim does not access the SECONDARY selection.
 
 Examples: (assuming the default option values)
-- Select an URL in Visual mode in Vim.  Go to your browser and click the
+- Select an URL in Visual mode in uVim.  Go to your browser and click the
   middle mouse button in the URL text field.  The selected text will be
   inserted (hopefully!).  Note: in Firefox you can set the
   middlemouse.contentLoadURL preference to true in about:config, then the
   selected URL will be used when pressing middle mouse button in most places
   in the window.
-- Select some text in your browser by dragging with the mouse.  Go to Vim and
+- Select some text in your browser by dragging with the mouse.  Go to uVim and
   press the middle mouse button: The selected text is inserted.
-- Select some text in Vim and do "+y.  Go to your browser, select some text in
+- Select some text in uVim and do "+y.  Go to your browser, select some text in
   a textfield by dragging with the mouse.  Now use the right mouse button and
   select "Paste" from the popup menu.  The selected text is overwritten by the
-  text from Vim.
+  text from uVim.
 Note that the text in the "+ register remains available when making a Visual
 selection, which makes other text available in the "* register.  That allows
 overwriting selected text.
 							*x11-cut-buffer*
-There are, by default, 8 cut-buffers: CUT_BUFFER0 to CUT_BUFFER7.  Vim only
+There are, by default, 8 cut-buffers: CUT_BUFFER0 to CUT_BUFFER7.  uVim only
 uses CUT_BUFFER0, which is the one that xterm uses by default.
 
-Whenever Vim is about to become unavailable (either via exiting or becoming
+Whenever uVim is about to become unavailable (either via exiting or becoming
 suspended), and thus unable to respond to another application's selection
 request, it writes the contents of any owned selection to CUT_BUFFER0.  If the
-"+ CLIPBOARD selection is owned by Vim, then this is written in preference,
-otherwise if the "* PRIMARY selection is owned by Vim, then that is written.
+"+ CLIPBOARD selection is owned by uVim, then this is written in preference,
+otherwise if the "* PRIMARY selection is owned by uVim, then that is written.
 
-Similarly, when Vim tries to paste from "* or "+ (either explicitly, or, in
+Similarly, when uVim tries to paste from "* or "+ (either explicitly, or, in
 the case of the "* register, when the middle mouse button is clicked), if the
-requested X selection is empty or unavailable, Vim reverts to reading the
+requested X selection is empty or unavailable, uVim reverts to reading the
 current value of the CUT_BUFFER0.
 
 Note that when text is copied to CUT_BUFFER0 in this way, the type of
-selection (character, line or block) is always lost, even if it is a Vim which
+selection (character, line or block) is always lost, even if it is a uVim which
 later pastes it.
 
 Xterm, by default, always writes visible selections to both PRIMARY and
 CUT_BUFFER0.  When it pastes, it uses PRIMARY if this is available, or else
 falls back upon CUT_BUFFER0.  For this reason, when cutting and pasting
-between Vim and an xterm, you should use the "* register.  Xterm doesn't use
+between uVim and an xterm, you should use the "* register.  Xterm doesn't use
 CLIPBOARD, thus the "+ doesn't work with xterm.
 
 Most newer applications will provide their current selection via PRIMARY ("*)

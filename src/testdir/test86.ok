@@ -1,7 +1,7 @@
 start:
 [1, 'as''d', [1, 2, function('strlen'), {'a': 1}]]
 [1, 2, function('strlen'), {'a': 1}]
-Vim(put):E684:
+uVim(put):E684:
 [0, 'as''d', [1, 2, function('strlen'), {'a': 1}]]
 [0, function('strlen'), [1, 2, function('strlen'), {'a': 1}]]
 1
@@ -62,8 +62,8 @@ l[2] threw vim.error: error:('list is locked',)
 [function('New'), function('DictNew'), 'NewStart', 1, 2, 3, 'NewEnd']
 [function('New'), function('DictNew'), 'NewStart', 1, 2, 3, 'NewEnd', 'DictNewStart', 1, 2, 3, 'DictNewEnd', {'a': 'b'}]
 [function('New'), function('DictNew'), 'NewStart', 1, 2, 3, 'NewEnd', 'DictNewStart', 1, 2, 3, 'DictNewEnd', {'a': 'b'}, 'New']
-l[1](1, 2, 3):error:('Vim:E725: Calling dict function without Dictionary: DictNew',)
-f(1, 2, 3):error:('Vim:E117: Unknown function: New',)
+l[1](1, 2, 3):error:('uVim:E725: Calling dict function without Dictionary: DictNew',)
+f(1, 2, 3):error:('uVim:E117: Unknown function: New',)
 [0.0, 0.0]
 KeyError
 TypeError
@@ -89,10 +89,10 @@ ll:[1]
 ['d', ['e']]
 pyeval("None") = 0
 0.0
-"\0":	Vim(let):E859:
-{"\0": 1}:	Vim(let):E859:
-undefined_name:	Vim(let):Trace
-vim:	Vim(let):E859:
+"\0":	uVim(let):E859:
+{"\0": 1}:	uVim(let):E859:
+undefined_name:	uVim(let):Trace
+vim:	uVim(let):E859:
 [1]
 [1, 10, 11, 10, 11, 10, 11, 10, 11, 10, 11, 10, 1]
 [0, 1, 2, 3]
@@ -521,9 +521,9 @@ pa1(): !result: ['abcArgsPA1']
 pa2(): !result: []
 pa3(): !result: ['abcArgsPA3']
 pa4(): !result: []
-sa(): !exception: error:('Vim:E725: Calling dict function without Dictionary: SelfArgs',)
-psa1(): !exception: error:('Vim:E725: Calling dict function without Dictionary: SelfArgs',)
-psa2(): !exception: error:('Vim:E725: Calling dict function without Dictionary: SelfArgs',)
+sa(): !exception: error:('uVim:E725: Calling dict function without Dictionary: SelfArgs',)
+psa1(): !exception: error:('uVim:E725: Calling dict function without Dictionary: SelfArgs',)
+psa2(): !exception: error:('uVim:E725: Calling dict function without Dictionary: SelfArgs',)
 psa3(): !result: [['abcArgsPSA3'], {'abcSelfPSA3': 'abcSelfPSA3Val'}]
 psa4(): !result: [[], {'abcSelfPSA4': 'abcSelfPSA4Val'}]
 a(42, 43): !result: [42, 43]
@@ -531,9 +531,9 @@ pa1(42, 43): !result: ['abcArgsPA1', 42, 43]
 pa2(42, 43): !result: [42, 43]
 pa3(42, 43): !result: ['abcArgsPA3', 42, 43]
 pa4(42, 43): !result: [42, 43]
-sa(42, 43): !exception: error:('Vim:E725: Calling dict function without Dictionary: SelfArgs',)
-psa1(42, 43): !exception: error:('Vim:E725: Calling dict function without Dictionary: SelfArgs',)
-psa2(42, 43): !exception: error:('Vim:E725: Calling dict function without Dictionary: SelfArgs',)
+sa(42, 43): !exception: error:('uVim:E725: Calling dict function without Dictionary: SelfArgs',)
+psa1(42, 43): !exception: error:('uVim:E725: Calling dict function without Dictionary: SelfArgs',)
+psa2(42, 43): !exception: error:('uVim:E725: Calling dict function without Dictionary: SelfArgs',)
 psa3(42, 43): !result: [['abcArgsPSA3', 42, 43], {'abcSelfPSA3': 'abcSelfPSA3Val'}]
 psa4(42, 43): !result: [[42, 43], {'abcSelfPSA4': 'abcSelfPSA4Val'}]
 a(42, self={"20": 1}): !result: [42]
@@ -1435,10 +1435,10 @@ pythonx/topmodule/submodule/subsubmodule/subsubsubmodule.py
 vim.command("throw 'abcN'"):error:('abcN',)
 Exe("throw 'def'"):error:('def',)
 vim.eval("Exe('throw ''ghi''')"):error:('ghi',)
-vim.eval("Exe('echoerr ''jkl''')"):error:('Vim(echoerr):jkl',)
-vim.eval("Exe('xxx_non_existent_command_xxx')"):error:('Vim:E492: Not an editor command: xxx_non_existent_command_xxx',)
-vim.eval("xxx_unknown_function_xxx()"):error:('Vim:E117: Unknown function: xxx_unknown_function_xxx',)
-vim.bindeval("Exe('xxx_non_existent_command_xxx')"):error:('Vim:E492: Not an editor command: xxx_non_existent_command_xxx',)
+vim.eval("Exe('echoerr ''jkl''')"):error:('uVim(echoerr):jkl',)
+vim.eval("Exe('xxx_non_existent_command_xxx')"):error:('uVim:E492: Not an editor command: xxx_non_existent_command_xxx',)
+vim.eval("xxx_unknown_function_xxx()"):error:('uVim:E117: Unknown function: xxx_unknown_function_xxx',)
+vim.bindeval("Exe('xxx_non_existent_command_xxx')"):error:('uVim:E492: Not an editor command: xxx_non_existent_command_xxx',)
 Caught KeyboardInterrupt
 Running :put
 No exception

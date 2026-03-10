@@ -1,4 +1,4 @@
-# List of distributed Vim files.
+# List of distributed uVim files.
 # Used by Makefile and upload.aap.
 
 # source files for all source archives
@@ -669,7 +669,7 @@ ROOT_EXTRA =	\
 BIN_AMI =	\
 		README_amibin.txt \
 		README_amibin.txt.info \
-		Vim.info \
+		uVim.info \
 		Xxd.info \
 
 # files for DOS binary (also in extra archive)
@@ -741,7 +741,7 @@ IN_README_DIR = \
 		README_w32s.txt \
 		Contents \
 		Contents.info \
-		Vim.info \
+		uVim.info \
 		Xxd.info \
 		runtime.info \
 		src.info \

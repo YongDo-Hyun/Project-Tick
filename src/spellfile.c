@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -14,7 +14,7 @@
  */
 
 /*
- * Vim spell file format: <HEADER>
+ * uVim spell file format: <HEADER>
  *			  <SECTIONS>
  *			  <LWORDTREE>
  *			  <KWORDTREE>
@@ -212,7 +212,7 @@
  */
 
 /*
- * Vim .sug file format:  <SUGHEADER>
+ * uVim .sug file format:  <SUGHEADER>
  *			  <SUGWORDTREE>
  *			  <SUGTABLE>
  *
@@ -265,7 +265,7 @@
 #define SAL_COLLAPSE		2
 #define SAL_REM_ACCENTS		4
 
-#define VIMSPELLMAGIC "VIMspell"  /* string at start of Vim spell file */
+#define VIMSPELLMAGIC "VIMspell"  /* string at start of uVim spell file */
 #define VIMSPELLMAGICL 8
 #define VIMSPELLVERSION 50
 
@@ -416,7 +416,7 @@ spell_load_file(
     }
     else if (c > VIMSPELLVERSION)
     {
-	EMSG(_("E772: Spell file is for newer version of Vim"));
+	EMSG(_("E772: Spell file is for newer version of uVim"));
 	goto endFAIL;
     }
 
@@ -710,7 +710,7 @@ suggest_load_files(void)
 	    }
 	    else if (c > VIMSUGVERSION)
 	    {
-		EMSG2(_("E780: .sug file is for newer version of Vim: %s"),
+		EMSG2(_("E780: .sug file is for newer version of uVim: %s"),
 							     slang->sl_fname);
 		goto nextone;
 	    }
@@ -1239,7 +1239,7 @@ read_compound(FILE *fd, slang_T *slang, int len)
 
     c = getc(fd);					/* <compoptions> */
     if (c != 0)
-	ungetc(c, fd);	    /* be backwards compatible with Vim 7.0b */
+	ungetc(c, fd);	    /* be backwards compatible with uVim 7.0b */
     else
     {
 	--todo;
@@ -4901,7 +4901,7 @@ rep_compare(const void *s1, const void *s2)
 }
 
 /*
- * Write the Vim .spl file "fname".
+ * Write the uVim .spl file "fname".
  * Return FAIL or OK;
  */
     static int
@@ -5231,7 +5231,7 @@ write_vim_spell(spellinfo_T *spin, char_u *fname)
 	putc(spin->si_compmax, fd);			/* <compmax> */
 	putc(spin->si_compminlen, fd);			/* <compminlen> */
 	putc(spin->si_compsylmax, fd);			/* <compsylmax> */
-	putc(0, fd);		/* for Vim 7.0b compatibility */
+	putc(0, fd);		/* for uVim 7.0b compatibility */
 	putc(spin->si_compoptions, fd);			/* <compoptions> */
 	put_bytes(fd, (long_u)spin->si_comppat.ga_len, 2);
 							/* <comppatcount> */
@@ -5933,7 +5933,7 @@ theend:
 
 
 /*
- * Create a Vim spell file from one or more word lists.
+ * Create a uVim spell file from one or more word lists.
  * "fnames[0]" is the output file name.
  * "fnames[fcount - 1]" is the last input file name.
  * Exception: when "fnames[0]" ends in ".add" it's used as the input file name

@@ -4,21 +4,21 @@
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
 !IF "$(CFG)" == ""
-CFG=Vim - Win32 IDE for Make_mvc.mak
-!MESSAGE No configuration specified.  Defaulting to Vim - Win32 IDE for\
+CFG=uVim - Win32 IDE for Make_mvc.mak
+!MESSAGE No configuration specified.  Defaulting to uVim - Win32 IDE for\
  Make_mvc.mak.
 !ENDIF
 
-!IF "$(CFG)" != "Vim - Win32 IDE for Make_mvc.mak"
+!IF "$(CFG)" != "uVim - Win32 IDE for Make_mvc.mak"
 !MESSAGE Invalid configuration "$(CFG)" specified.
 !MESSAGE You can specify a configuration when running NMAKE on this makefile
 !MESSAGE by defining the macro CFG on the command line.  For example:
 !MESSAGE
-!MESSAGE NMAKE /f "Make_dvc.mak" CFG="Vim - Win32 IDE for Make_mvc.mak"
+!MESSAGE NMAKE /f "Make_dvc.mak" CFG="uVim - Win32 IDE for Make_mvc.mak"
 !MESSAGE
 !MESSAGE Possible choices for configuration are:
 !MESSAGE
-!MESSAGE "Vim - Win32 IDE for Make_mvc.mak" (based on\
+!MESSAGE "uVim - Win32 IDE for Make_mvc.mak" (based on\
  "Win32 (x86) Console Application")
 !MESSAGE 
 !ERROR An invalid configuration is specified.
@@ -31,7 +31,7 @@ NULL=nul
 !ENDIF
 ################################################################################
 # Begin Project
-# PROP Target_Last_Scanned "Vim - Win32 IDE for Make_mvc.mak"
+# PROP Target_Last_Scanned "uVim - Win32 IDE for Make_mvc.mak"
 CPP=cl.exe
 RSC=rc.exe
 # PROP Use_MFC 0
@@ -90,7 +90,7 @@ CPP_PROJ=/nologo /ML /c
 ################################################################################
 # Begin Target
 
-# Name "Vim - Win32 IDE for Make_mvc.mak"
+# Name "uVim - Win32 IDE for Make_mvc.mak"
 ################################################################################
 # Begin Source File
 

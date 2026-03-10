@@ -1,11 +1,11 @@
-*usr_12.txt*	For Vim version 7.4.  Last change: 2007 May 11
+*usr_12.txt*	For uVim version 7.4.  Last change: 2007 May 11
 
 		     VIM USER MANUAL - by Bram Moolenaar
 
 				Clever tricks
 
 
-By combining several commands you can make Vim do nearly everything.  In this
+By combining several commands you can make uVim do nearly everything.  In this
 chapter a number of useful combinations will be presented.  This uses the
 commands introduced in the previous chapters and a few more.
 
@@ -59,7 +59,7 @@ playback.
    Let's assume you have a directory with C++ files, all ending in ".cpp".
 There is a function called "GetResp" that you want to rename to "GetAnswer".
 
-	vim *.cpp		Start Vim, defining the argument list to
+	vim *.cpp		Start uVim, defining the argument list to
 				contain all the C++ files.  You are now in the
 				first file.
 	qq			Start recording into the q register
@@ -202,7 +202,7 @@ type: >
 ==============================================================================
 *12.5*	Count words
 
-Sometimes you have to write a text with a maximum number of words.  Vim can
+Sometimes you have to write a text with a maximum number of words.  uVim can
 count the words for you.
    When the whole file is what you want to count the words in, use this
 command: >
@@ -237,13 +237,13 @@ simple way: Move the cursor to the word you want to find help on and press >
 
 	K
 
-Vim will run the external "man" program on the word.  If the man page is
+uVim will run the external "man" program on the word.  If the man page is
 found, it is displayed.  This uses the normal pager to scroll through the text
 (mostly the "more" program).  When you get to the end pressing <Enter> will
-get you back into Vim.
+get you back into uVim.
 
 A disadvantage is that you can't see the man page and the text you are working
-on at the same time.  There is a trick to make the man page appear in a Vim
+on at the same time.  There is a trick to make the man page appear in a uVim
 window.  First, load the man filetype plugin: >
 
 	:runtime! ftplugin/man.vim
@@ -309,7 +309,7 @@ matches can be found.
 ==============================================================================
 *12.8*	Find where a word is used
 
-If you are a UNIX user, you can use a combination of Vim and the grep command
+If you are a UNIX user, you can use a combination of uVim and the grep command
 to edit all the files that contain a given word.  This is extremely useful if
 you are working on a program and want to view or edit all the files that
 contain a specific variable.
@@ -323,11 +323,11 @@ of files for a given word.  Because the -l argument is specified, the command
 will only list the files containing the word and not print the matching lines.
 The word it is searching for is "frame_counter".  Actually, this can be any
 regular expression.  (Note: What grep uses for regular expressions is not
-exactly the same as what Vim uses.)
+exactly the same as what uVim uses.)
    The entire command is enclosed in backticks (`).  This tells the UNIX shell
 to run this command and pretend that the results were typed on the command
 line.  So what happens is that the grep command is run and produces a list of
-files, these files are put on the Vim command line.  This results in Vim
+files, these files are put on the uVim command line.  This results in uVim
 editing the file list that is the output of grep.  You can then use commands
 like ":next" and ":first" to browse through the files.
 
@@ -336,13 +336,13 @@ FINDING EACH LINE
 
 The above command only finds the files in which the word is found.  You still
 have to find the word within the files.
-   Vim has a built-in command that you can use to search a set of files for a
+   uVim has a built-in command that you can use to search a set of files for a
 given string.  If you want to find all occurrences of "error_string" in all C
 program files, for example, enter the following command: >
 
 	:grep error_string *.c
 
-This causes Vim to search for the string "error_string" in all the specified
+This causes uVim to search for the string "error_string" in all the specified
 files (*.c).  The editor will now open the first file where a match is found
 and position the cursor on the first matching line.  To go to the next
 matching line (no matter in what file it is), use the ":cnext" command.  To go

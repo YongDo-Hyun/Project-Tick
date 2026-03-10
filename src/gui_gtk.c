@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved		by Bram Moolenaar
+ * VIM - Micro Vi IMproved		by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -484,7 +484,7 @@ gui_gtk_register_stock_icons(void)
 		 * won't prepare size variants for us out of a single
 		 * fixed-size image.
 		 *
-		 * Currently, Vim provides 24x24 images only while the
+		 * Currently, uVim provides 24x24 images only while the
 		 * icon size on the menu and the toolbar is set to 16x16
 		 * by default.
 		 *
@@ -534,7 +534,7 @@ gui_gtk_register_stock_icons(void)
 #if defined(FEAT_MENU) || defined(PROTO)
 
 /*
- * Translate Vim's mnemonic tagging to GTK+ style and convert to UTF-8
+ * Translate uVim's mnemonic tagging to GTK+ style and convert to UTF-8
  * if necessary.  The caller must vim_free() the returned string.
  *
  *	Input	Output
@@ -598,7 +598,7 @@ menu_item_new(vimmenu_T *menu, GtkWidget *parent_widget)
     int		use_mnemonic;
 
     /* It would be neat to have image menu items, but that would require major
-     * changes to Vim's menu system.  Not to mention that all the translations
+     * changes to uVim's menu system.  Not to mention that all the translations
      * had to be updated. */
     menu->id = gtk_menu_item_new();
 # if GTK_CHECK_VERSION(3,2,0)
@@ -1488,7 +1488,7 @@ create_message_dialog(int type, char_u *title, char_u *message)
 
 /*
  * Split up button_string into individual button labels by inserting
- * NUL bytes.  Also replace the Vim-style mnemonic accelerator prefix
+ * NUL bytes.  Also replace the uVim-style mnemonic accelerator prefix
  * '&' with '_'.  button_string must point to allocated memory!
  * Return an allocated array of pointers into button_string.
  */
@@ -1652,7 +1652,7 @@ dialog_add_buttons(GtkDialog *dialog, char_u *button_string)
 	 * button string to get things right.  Yes, this is hackish :/
 	 *
 	 * But even the common button labels aren't necessarily translated,
-	 * since anyone can create their own dialogs using Vim functions.
+	 * since anyone can create their own dialogs using uVim functions.
 	 * Thus we have to check for those too.
 	 */
 	if (ok != NULL && ync != NULL) /* almost impossible to fail */
@@ -1696,7 +1696,7 @@ dialog_add_buttons(GtkDialog *dialog, char_u *button_string)
  * Allow mnemonic accelerators to be activated without pressing <Alt>.
  * I'm not sure if it's a wise idea to do this.  However, the old GTK+ 1.2
  * GUI used to work this way, and I consider the impact on UI consistency
- * low enough to justify implementing this as a special Vim feature.
+ * low enough to justify implementing this as a special uVim feature.
  */
 typedef struct _DialogInfo
 {

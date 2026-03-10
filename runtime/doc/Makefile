@@ -1,5 +1,5 @@
 #
-# Makefile for the Vim documentation on Unix
+# Makefile for the uVim documentation on Unix
 #
 # If you get "don't know how to make scratch", first run make in the source
 # directory.  Or remove the include below.
@@ -94,7 +94,6 @@ DOCS = \
 	scroll.txt \
 	sign.txt \
 	spell.txt \
-	sponsor.txt \
 	starting.txt \
 	syntax.txt \
 	tabpage.txt \
@@ -102,7 +101,6 @@ DOCS = \
 	term.txt \
 	tips.txt \
 	todo.txt \
-	uganda.txt \
 	undo.txt \
 	usr_01.txt \
 	usr_02.txt \
@@ -228,7 +226,6 @@ HTMLS = \
 	scroll.html \
 	sign.html \
 	spell.html \
-	sponsor.html \
 	starting.html \
 	syntax.html \
 	tabpage.html \
@@ -236,7 +233,6 @@ HTMLS = \
 	term.html \
 	tips.html \
 	todo.html \
-	uganda.html \
 	undo.html \
 	usr_01.html \
 	usr_02.html \
@@ -310,7 +306,7 @@ CONVERTED = \
 
 all: tags vim.man evim.man vimdiff.man vimtutor.man xxd.man $(CONVERTED)
 
-# Use Vim to generate the tags file.  Can only be used when Vim has been
+# Use uVim to generate the tags file.  Can only be used when uVim has been
 # compiled and installed.  Supports multiple languages.
 vimtags: $(DOCS)
 	$(VIMEXE) -u NONE -esX -c "helptags ++t ." -c quit

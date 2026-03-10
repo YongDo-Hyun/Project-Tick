@@ -1,4 +1,4 @@
-*pi_netrw.txt*  For Vim version 7.4.  Last change: 2016 Apr 20
+*pi_netrw.txt*  For uVim version 7.4.  Last change: 2016 Apr 20
 
 	    ------------------------------------------------
 	    NETRW REFERENCE MANUAL    by Charles E. Campbell
@@ -81,7 +81,7 @@ Copyright: Copyright (C) 2016 Charles E Campbell    *netrw-copyright*
       Marking Files By Regular Expression.................|netrw-mr|
       Marked Files: Arbitrary Shell Command...............|netrw-mx|
       Marked Files: Arbitrary Shell Command, En Bloc......|netrw-mX|
-      Marked Files: Arbitrary Vim Command.................|netrw-mv|
+      Marked Files: Arbitrary uVim Command.................|netrw-mv|
       Marked Files: Argument List.........................|netrw-ma| |netrw-mA|
       Marked Files: Compression And Decompression.........|netrw-mz|
       Marked Files: Copying...............................|netrw-mc|
@@ -479,14 +479,14 @@ file using root-relative paths, use the full path:
 ==============================================================================
 4. Network-Oriented File Transfer			*netrw-xfer* {{{1
 
-Network-oriented file transfer under Vim is implemented by a VimL-based script
+Network-oriented file transfer under uVim is implemented by a VimL-based script
 (<netrw.vim>) using plugin techniques.  It currently supports both reading and
 writing across networks using rcp, scp, ftp or ftp+<.netrc>, scp, fetch,
 dav/cadaver, rsync, or sftp.
 
 http is currently supported read-only via use of wget or fetch.
 
-<netrw.vim> is a standard plugin which acts as glue between Vim and the
+<netrw.vim> is a standard plugin which acts as glue between uVim and the
 various file transfer programs.  It uses autocommand events (BufReadCmd,
 FileReadCmd, BufWriteCmd) to intercept reads/writes with url-like filenames. >
 
@@ -677,7 +677,7 @@ a work-around: see |netrw-windows-s|.
 PASSWORD						*netrw-passwd*
 
 The script attempts to get passwords for ftp invisibly using |inputsecret()|,
-a built-in Vim function.  See |netrw-userpass| for how to change the password
+a built-in uVim function.  See |netrw-userpass| for how to change the password
 after one has set it.
 
 Unfortunately there doesn't appear to be a way for netrw to feed a password to
@@ -688,7 +688,7 @@ However, |netrw-ssh-hack| can help with this problem.
 ==============================================================================
 5. Activation						*netrw-activate* {{{1
 
-Network-oriented file transfers are available by default whenever Vim's
+Network-oriented file transfers are available by default whenever uVim's
 |'nocompatible'| mode is enabled.  Netrw's script files reside in your
 system's plugin, autoload, and syntax directories; just the
 plugin/netrwPlugin.vim script is sourced automatically whenever you bring up
@@ -1547,7 +1547,7 @@ for it to be called!
 	endfun
 <
 These functions need to be defined in some file in your .vim/plugin
-(vimfiles\plugin) directory.  Vim's function names may not have punctuation
+(vimfiles\plugin) directory.  uVim's function names may not have punctuation
 characters (except for the underscore) in them.  To support suffices that
 contain such characters, netrw will first convert the suffix using the
 following table: >
@@ -2084,7 +2084,7 @@ track netrw's browsing directory.
 However, given the default setting for g:netrw_keepdir of 1 where netrw
 maintains its own separate notion of the current directory, in order to make
 the two directories the same, use the "c" map (just type c).  That map will
-set Vim's notion of the current directory to netrw's current browsing
+set uVim's notion of the current directory to netrw's current browsing
 directory.
 
 Associated setting variable: |g:netrw_keepdir|
@@ -2984,7 +2984,7 @@ your browsing preferences.  (see also: |netrw-settings|)
   *g:netrw_xstrlen*		Controls how netrw computes string lengths,
 				including multi-byte characters' string
 				length. (thanks to N Weibull, T Mechelynck)
-				=0: uses Vim's built-in strlen()
+				=0: uses uVim's built-in strlen()
 				=1: number of codepoints (Latin a + combining
 				    circumflex is two codepoints)  (DEFAULT)
 				=2: number of spacing codepoints (Latin a +
@@ -3045,10 +3045,10 @@ then show, on its right hand side, a message like "Obtaining filename".  The
 statusline will be restored after the transfer is complete.
 
 Netrw can also "obtain" a file using the local browser.  Netrw's display
-of a directory is not necessarily the same as Vim's "current directory",
+of a directory is not necessarily the same as uVim's "current directory",
 unless |g:netrw_keepdir| is set to 0 in the user's <.vimrc>.  One may select
 a file using the local browser (by putting the cursor on it) and pressing
-"O" will then "obtain" the file; ie. copy it to Vim's current directory.
+"O" will then "obtain" the file; ie. copy it to uVim's current directory.
 
 Related topics:
  * To see what the current directory is, use |:pwd|
@@ -3382,7 +3382,7 @@ Example: Clear netrw's marked file list via a mapping on gu >
 
 		(taken from an answer provided by Wu Yongwei on the vim
 		mailing list)
-		I now see the problem. Your code page is not 936, right? Vim
+		I now see the problem. Your code page is not 936, right? uVim
 		seems only able to open files with names that are valid in the
 		current code page, as are many other applications that do not
 		use the Unicode version of Windows APIs. This is an OS-related
@@ -3435,7 +3435,7 @@ Example: Clear netrw's marked file list via a mapping on gu >
 			- Click "Add..."
 			- Set External Editor (adjust path as needed, include
 			  the quotes and !.! at the end):
-			    "c:\Program Files\Vim\vim70\gvim.exe" !.!
+			    "c:\Program Files\uVim\vim70\gvim.exe" !.!
 			- Check that the filetype in the box below is
 			  {asterisk}.{asterisk} (all files), or whatever types
 			  you want (cec: change {asterisk} to * ; I had to
@@ -3489,7 +3489,7 @@ Example: Clear netrw's marked file list via a mapping on gu >
 	P10. I'm being pestered with "[something] is a directory" and
 	     "Press ENTER or type command to continue" prompts...
 
-		The "[something] is a directory" prompt is issued by Vim,
+		The "[something] is a directory" prompt is issued by uVim,
 		not by netrw, and there appears to be no way to work around
 		it.  Coupled with the default cmdheight of 1, this message
 		causes the "Press ENTER..." prompt.  So:  read |hit-enter|;
@@ -3575,7 +3575,7 @@ Example: Clear netrw's marked file list via a mapping on gu >
 
 		 ssh -N host.domain.com
 
-<	     Now remotely open a file with Vim's Netrw and enjoy the
+<	     Now remotely open a file with uVim's Netrw and enjoy the
 	     zippiness: >
 
 		vim scp://host.domain.com//home/user/.bashrc
@@ -3598,7 +3598,7 @@ Example: Clear netrw's marked file list via a mapping on gu >
 	     under Windows I get an |E303| message complaining that its unable
 	     to open a swap file.
 
-	     (romainl) It looks like you are starting Vim from a protected
+	     (romainl) It looks like you are starting uVim from a protected
 	     directory.  Start netrw from your $HOME or other writable
 	     directory.
 
@@ -3620,7 +3620,7 @@ Example: Clear netrw's marked file list via a mapping on gu >
 	P18. How to locally edit a file that's only available via
 	     another server accessible via ssh?
 	     See http://stackoverflow.com/questions/12469645/
-	     "Using Vim to Remotely Edit A File on ServerB Only
+	     "Using uVim to Remotely Edit A File on ServerB Only
 	      Accessible From ServerA"
 
 								*netrw-P19*
@@ -4079,7 +4079,7 @@ netrw:
 ==============================================================================
 14. Credits						*netrw-credits* {{{1
 
-	Vim editor	by Bram Moolenaar (Thanks, Bram!)
+	uVim editor	by Bram Moolenaar (Thanks, Bram!)
 	dav		support by C Campbell
 	fetch		support by Bram Moolenaar and C Campbell
 	ftp		support by C Campbell <NdrOchip@ScampbellPfamily.AbizM>

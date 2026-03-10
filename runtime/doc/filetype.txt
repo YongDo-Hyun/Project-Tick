@@ -1,4 +1,4 @@
-*filetype.txt*  For Vim version 7.4.  Last change: 2016 Jun 20
+*filetype.txt*  For uVim version 7.4.  Last change: 2016 Jun 20
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
@@ -17,14 +17,14 @@ Also see |autocmd.txt|.
 ==============================================================================
 1. Filetypes					*filetypes* *file-types*
 
-Vim can detect the type of file that is edited.  This is done by checking the
+uVim can detect the type of file that is edited.  This is done by checking the
 file name and sometimes by inspecting the contents of the file for specific
 text.
 
 							*:filetype* *:filet*
 To enable file type detection, use this command in your vimrc: >
 	:filetype on
-Each time a new or existing file is edited, Vim will try to recognize the type
+Each time a new or existing file is edited, uVim will try to recognize the type
 of the file and set the 'filetype' option.  This will trigger the FileType
 event, which can be used to set the syntax highlighting, set options, etc.
 
@@ -36,10 +36,10 @@ Detail: The ":filetype on" command will load one of these files:
 		Amiga	    $VIMRUNTIME/filetype.vim
 		Mac	    $VIMRUNTIME:filetype.vim
 		MS-DOS	    $VIMRUNTIME\filetype.vim
-		RiscOS	    Vim:Filetype
+		RiscOS	    uVim:Filetype
 		Unix	    $VIMRUNTIME/filetype.vim
 		VMS	    $VIMRUNTIME/filetype.vim
-	This file is a Vim script that defines autocommands for the
+	This file is a uVim script that defines autocommands for the
 	BufNewFile and BufRead events.  If the file type is not found by the
 	name, the file $VIMRUNTIME/scripts.vim is used to detect it from the
 	contents of the file.
@@ -135,7 +135,7 @@ shell script: "#!/bin/csh".
 argument was used.
 
 							*filetype-overrule*
-When the same extension is used for two filetypes, Vim tries to guess what
+When the same extension is used for two filetypes, uVim tries to guess what
 kind of file it is.  This doesn't always work.  A number of global variables
 can be used to overrule the filetype used for certain extensions:
 
@@ -161,7 +161,7 @@ This means that the contents of compressed files are not inspected.
 							*new-filetype*
 If a file type that you want to use is not detected yet, there are four ways
 to add it.  In any way, it's better not to modify the $VIMRUNTIME/filetype.vim
-file.  It will be overwritten when installing a new version of Vim.
+file.  It will be overwritten when installing a new version of uVim.
 
 A. If you want to overrule all default file type checks.
    This works by writing one file for each filetype.  The disadvantage is that
@@ -184,7 +184,7 @@ A. If you want to overrule all default file type checks.
       runtime directory.  For example, for Unix: >
 	:w ~/.vim/ftdetect/mine.vim
 
-<  3. To use the new filetype detection you must restart Vim.
+<  3. To use the new filetype detection you must restart uVim.
 
    The files in the "ftdetect" directory are used after all the default
    checks, thus they can overrule a previously detected file type.  But you
@@ -221,7 +221,7 @@ C. If your file type can be detected by the file name.
       example, for Unix: >
 	:w ~/.vim/filetype.vim
 
-<  3. To use the new filetype detection you must restart Vim.
+<  3. To use the new filetype detection you must restart uVim.
 
    Your filetype.vim will be sourced before the default FileType autocommands
    have been installed.  Your autocommands will match first, and the
@@ -249,7 +249,7 @@ D. If your filetype can only be detected by inspecting the contents of the
       example, for Unix: >
 	:w ~/.vim/scripts.vim
 <
-   3. The detection will work right away, no need to restart Vim.
+   3. The detection will work right away, no need to restart uVim.
 
    Your scripts.vim is loaded before the default checks for file types, which
    means that your rules override the default rules in
@@ -277,7 +277,7 @@ On operating systems which support storing a file type with the file, you can
 specify that an autocommand should only be executed if the file is of a
 certain type.
 
-The actual type checking depends on which platform you are running Vim
+The actual type checking depends on which platform you are running uVim
 on; see your system's documentation for details.
 
 To use osfiletype checking in an autocommand you should put a list of types to
@@ -289,7 +289,7 @@ This will match:
 
 - Any file whose name ends in ".html"
 - Any file whose type is "&faf" or "HTML", where the meaning of these types
-  depends on which version of Vim you are using.
+  depends on which version of uVim you are using.
   Unknown types are considered NOT to match.
 
 You can also specify a type and a pattern at the same time (in which case they
@@ -311,7 +311,7 @@ produces this output:
 
 	runtimepath=/etc/vim,~/.vim,/usr/local/share/vim/vim60 ~
 
-then Vim will load all plugins in these directories and below:
+then uVim will load all plugins in these directories and below:
 
 	/etc/vim/plugin/  ~
 	~/.vim/plugin/  ~
@@ -320,7 +320,7 @@ then Vim will load all plugins in these directories and below:
 Note that the last one is the value of $VIMRUNTIME which has been expanded.
 
 What if it looks like your plugin is not being loaded?  You can find out what
-happens when Vim starts up by using the |-V| argument: >
+happens when uVim starts up by using the |-V| argument: >
 
 	vim -V2
 
@@ -329,7 +329,7 @@ plugins.  It starts with:
 
 	Searching for "plugin/**/*.vim" in ~
 
-There you can see where Vim looks for your plugin scripts.
+There you can see where uVim looks for your plugin scripts.
 
 ==============================================================================
 2. Filetype plugin					*filetype-plugins*
@@ -539,7 +539,7 @@ MAIL							*ft-mail-plugin*
 
 Options:
 'modeline'	is switched off to avoid the danger of trojan horses, and to
-		avoid that a Subject line with "Vim:" in it will cause an
+		avoid that a Subject line with "uVim:" in it will cause an
 		error message.
 'textwidth'	is set to 72.  This is often recommended for e-mail.
 'formatoptions'  is set to break text lines and to repeat the comment leader
@@ -591,13 +591,13 @@ folding style instead.  For example: >
         autocmd FileType man setlocal foldmethod=indent foldenable
 
 You may also want to set 'keywordprg' to make the |K| command open a manual
-page in a Vim window: >
+page in a uVim window: >
 	set keywordprg=:Man
 
 
 MANPAGER				      *manpager.vim*
 
-The :Man command allows you to turn Vim into a manpager (that syntax highlights
+The :Man command allows you to turn uVim into a manpager (that syntax highlights
 manpages and follows linked manpages on hitting CTRL-]).
 
 Works on:

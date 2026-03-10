@@ -1,17 +1,17 @@
 ===============================
-Visual Studio - Vim Integration
+Visual Studio - uVim Integration
 ===============================
 
 Copyright (C) 1997 Heiko Erhardt
 
-VisVim is a Visual Studio Add-In that allows Vim to be integrated
+VisVim is a Visual Studio Add-In that allows uVim to be integrated
 as the default text editor. It will be used instead of the Visual
 Studio built-in editor when you double-click on a file or press F4
-after compiling (it will go to the proper line in the Vim buffer).
-The file can be loaded exclusively by Vim or additionally to the
+after compiling (it will go to the proper line in the uVim buffer).
+The file can be loaded exclusively by uVim or additionally to the
 builtin Visual Studio editor (this option can be set in the VisVim
 configuration dialog inside Visual Studio).
-Vim does not replace the Visual Studio editor, it still runs in its
+uVim does not replace the Visual Studio editor, it still runs in its
 own window.
 
 VisVim is based upon VisEmacs by Christopher Payne
@@ -24,8 +24,8 @@ Created: 23 Oct 1997
 Date: 23 Oct 1997
 
 VisVim was originally GNU GPL licensed, as stated below.  On March 21 2012
-Heiko Erhardt declared this work to be relicensed under the Vim license, as
-stated in ../../runtime/doc/uganda.txt (or ":help uganda" in Vim).
+Heiko Erhardt declared this work to be relicensed under the uVim license, as
+stated in ../../runtime/doc/uganda.txt (or ":help uganda" in uVim).
 
 VisVim is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -41,10 +41,10 @@ GNU General Public License for more details.
 Requirements
 ------------
 
-VisVim works with the *OLE-enabled* version of Vim version 5.0 and higher
+VisVim works with the *OLE-enabled* version of uVim version 5.0 and higher
 only!!!  You must download the extra archive containing the OLE-enabled
-executable from your Vim download site.  When building your own Vim
-executable, use the if_ole_vc.mak makefile (Vim 5.1 and higher).
+executable from your uVim download site.  When building your own uVim
+executable, use the if_ole_vc.mak makefile (uVim 5.1 and higher).
 VisVim needs DevStudio 5.0 or higher. It does not work with DevStudio 4.2.
 
 
@@ -79,7 +79,7 @@ Installation
 6) Click the checkbox to indicate that you want to use the Add-In, and
    Close the Customize dialog box.
 
-7) You should notice the VisVim Toolbar with the Vim Icon.
+7) You should notice the VisVim Toolbar with the uVim Icon.
    Click the first item of the toolbar to get to the options dialog.
 
 
@@ -106,30 +106,30 @@ The following functions are visible on the toolbar (from left to right):
    The settings you adjust here will be saved in the registry and
    will be reloaded on program startup.
 
-2. Enable Vim
-   Enables Vim as Visual Studio editor. Control will be switched to Vim when:
+2. Enable uVim
+   Enables uVim as Visual Studio editor. Control will be switched to uVim when:
    - Clicking a file in the file view
    - Clicking a compiler error message line
    - Using the 'File-Open' Dialog
    - Showing the current source line when encountering a debugger breakpoint.
    - Using File-New
 
-3. Disable Vim
+3. Disable uVim
    The internal Visual Studio editor will be used to edit files.
 
 4. Toggle enable state
    Toggles the enable state of VisVim. Use this function if you want to have
-   one button only to activate/deactivate Vim.
+   one button only to activate/deactivate uVim.
 
-5. Load current file in Vim
-   Loads the file shown in the internal editor into Vim. Use this function if
-   you want the internal editor to stay active and just edit one file in Vim.
-   This command works always whether Vim is enabled as default editor or not.
+5. Load current file in uVim
+   Loads the file shown in the internal editor into uVim. Use this function if
+   you want the internal editor to stay active and just edit one file in uVim.
+   This command works always whether uVim is enabled as default editor or not.
 
-You cannot use DevStudio's debugger commands from inside Vim, so you should
-disable Vim before running the debugger.
+You cannot use DevStudio's debugger commands from inside uVim, so you should
+disable uVim before running the debugger.
 
-You can customize the Vim toolbar itself or add the Vim buttons to other
+You can customize the uVim toolbar itself or add the uVim buttons to other
 toolbars.
 To have fast access to the VisVim options dialog I suggest to create keyboard
 shortcuts:
@@ -150,11 +150,11 @@ shortcuts:
 
 Now a typical debugging example:
 
-Using "Alt+Shift+d" you turn off Vim before starting the debugger.
+Using "Alt+Shift+d" you turn off uVim before starting the debugger.
 After hitting the breakpoint you single step through your application
 using the internal source code editor and examine variables.
 When you stumble across the line with the null pointer
-assignment, just press "Alt+Shift+g", and correct the error in Vim.
+assignment, just press "Alt+Shift+g", and correct the error in uVim.
 Save the file, press Alt+Tab to return to DevStudio and press F7 to compile.
 That's it.
 
@@ -163,17 +163,17 @@ Troubleshooting
 ---------------
 
 1. When opening a file in DevStudio the file is opened in the DevStudio
-   editor and immediately vanishes. No Vim shows up.
-   Cause:       Probably you don't have the OLE-enabled Vim or you didn't
+   editor and immediately vanishes. No uVim shows up.
+   Cause:       Probably you don't have the OLE-enabled uVim or you didn't
 		register it.
    Explanation: VisVim is notified by DevStudio if an 'open document' event
 		occurs. It then closes the document in the internal editor
-		and tries to start Vim. If Vim isn't properly OLE-registered,
+		and tries to start uVim. If uVim isn't properly OLE-registered,
 		this won't work.
-   Workaround:  Download and install the OLE-enable version of Vim and
+   Workaround:  Download and install the OLE-enable version of uVim and
 		execute "gvim -register".
 
-2. Sometimes when clicking on a file, the file won't be opened by Vim but
+2. Sometimes when clicking on a file, the file won't be opened by uVim but
    instead the Visual Studio editor comes up.
    Cause:       The file was already loaded by the DevStudio editor.
    Explanation: VisVim works by hooks exposed by Visual Studio.
@@ -183,7 +183,7 @@ Troubleshooting
 		file in the file list.
    Workaround:  Close the document in Visual Studio first.
 
-3. I can't get VisVim to work. Either the Vim toolbar does not appear at all
+3. I can't get VisVim to work. Either the uVim toolbar does not appear at all
    or weird crashes happen.
    Cause:       The Visual Studio installation is messed up.
    Explanation: I can't give you one. Ask M$.
@@ -191,18 +191,18 @@ Troubleshooting
 		it helped). There was one case where the service pack 1 had
 		to be installed, too.
 
-4. If an instance of Vim is already running, VisVim will use that instance
+4. If an instance of uVim is already running, VisVim will use that instance
    and not start a new one.
    Cause:	 This is proper OLE behaviour
    Explanation:  Some call it a bug, some a feature. That's just the way OLE
 		 works.
 
-5. When being in insert mode in Vim and selecting a file in Visual Studio,
-   the Vim command :e ... is inserted as text instead of being executed.
+5. When being in insert mode in uVim and selecting a file in Visual Studio,
+   the uVim command :e ... is inserted as text instead of being executed.
    Cause:	 You probably know...
-   Explanation:  The Vim OLE automation interface interprets the VisVim
+   Explanation:  The uVim OLE automation interface interprets the VisVim
 		 commands as if they were typed in by the user.
-		 So if you're in insert mode Vim considers it to be text.
+		 So if you're in insert mode uVim considers it to be text.
 		 I decided against sending an ESC before the command because
 		 it may cause a beep or at least a screen flash when noeb is
 		 set.
@@ -215,7 +215,7 @@ Troubleshooting
    Explanation:  M$ just didn't put a 'delete' button in the dialog box.
 		 Unfortunately there is no DEL key accellerator as well...
    Workaround:	 You can't kill it, but you can knock it out:
-		 1. Uncheck the check box in front of 'Vim Developer Studio
+		 1. Uncheck the check box in front of 'uVim Developer Studio
 		    Add-in'.
 		 2. Close Visual Studio.
 		 3. Delete VisVim.dll or move it somewhere it can't be found.
@@ -234,21 +234,21 @@ Change history
 -----------
 
 - All settings in the VisVim dialog are remembered between DevStudio sessions
-  by keeping them in the registry (HKEY_CURRENT_USER\Software\Vim\VisVim).
+  by keeping them in the registry (HKEY_CURRENT_USER\Software\uVim\VisVim).
 - Added an option to do a :cd before opening the file (having a file opened
   by clicking it but finding out to be still in C:\Windows\system when trying to
   open another file by ":e" can be annoying). Change directory can be
   done to the source file's directory or it's parent directory.
 - Added some explanations to the error message for the CO_E_CLASSSTRING error
-  ("Use OLE Vim and make sure to register...").
+  ("Use OLE uVim and make sure to register...").
 
 1.0 to 1.1a
 -----------
 
-- The VisVim toolbar button now shows the new Vim icon instead of the old one.
+- The VisVim toolbar button now shows the new uVim icon instead of the old one.
 - Made some changes to the documentation, added the troubleshooting chapter
   and ToDo list.
-- File-New-* now invokes Vim instead of the builtin editor if enabled.
+- File-New-* now invokes uVim instead of the builtin editor if enabled.
 
 1.1 to 1.1b
 -----------
@@ -269,9 +269,9 @@ No new features, just some fine tuning:
   (Clark Morgan)
 - Fixed a memory leak (Clark Morgan)
 - Added an option in the VisVim dialog to prepend ESC before the first command
-  that is sent to Vim. This will avoid inserting the command as text when Vim
+  that is sent to uVim. This will avoid inserting the command as text when uVim
   is still in insert mode.
-- An :update command is sent to Vim before any other command to update the
+- An :update command is sent to uVim before any other command to update the
   current file if it is modified, or else the following :cd or :e command will fail.
 
 1.2 to 1.3a
@@ -281,8 +281,8 @@ No new features, just some fine tuning:
   This seems to reduce VisVim crashing DevStudio on some systems (it
   occasionally still seems to happen, but it's more stable now).
   (Vince Negri)
-- Added support for the new CTRL-\ CTRL-N command of Vim 5.4a.
-  This prevents Vim from beeping when a VisVim command is executed and Vim is
+- Added support for the new CTRL-\ CTRL-N command of uVim 5.4a.
+  This prevents uVim from beeping when a VisVim command is executed and uVim is
   not in insert mode.
 
 
@@ -292,19 +292,19 @@ ToDo List
 P1 is highest priority, P10 lowest
 
 P9  Switching to DevStudio using ALT-TAB may get annoying. Would be nice to
-    have the option to map ActivateApplication("Visual Studio") in Vim.
-    Vim DLLs would solve that problem.
+    have the option to map ActivateApplication("Visual Studio") in uVim.
+    uVim DLLs would solve that problem.
 
-P8  Execute :tag command in Vim for word under cursor in DevStudio
+P8  Execute :tag command in uVim for word under cursor in DevStudio
 
-P7  Controlling the Visual Studio Debugger from inside Vim
+P7  Controlling the Visual Studio Debugger from inside uVim
     See message above. Also a 'Debug' highlight group and a
     command to highlight a certain line would be necessary.
 
 P6  Provide an option to open the current file in VisVim in
     Visual Studio editor
     Same as above message. A kind of two way OLE automation would have to be
-    established between VisVim and Vim. Also a 'Debug' highlight group and a
+    established between VisVim and uVim. Also a 'Debug' highlight group and a
     command to highlight a certain line would be necessary.
 
 

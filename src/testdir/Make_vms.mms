@@ -1,5 +1,5 @@
 #
-# Makefile to run all tests for Vim on VMS
+# Makefile to run all tests for uVim on VMS
 #
 # Authors:	Zoltan Arpadffy, <arpadffy@polarhome.com>
 #		Sandor Kopanyi,  <sandor.kopanyi@mailbox.hu>
@@ -88,15 +88,15 @@ SCRIPT = $(SCRIPTS_ALL) $(SCRIPTS_MORE3)
 #
 # test30: bug, most probably - a problem around mac format
 #
-# test32: VMS is not case sensitive and all filenames are lowercase within Vim
+# test32: VMS is not case sensitive and all filenames are lowercase within uVim
 # (this should be changed in order to preserve the original filename) - should
 # be fixed. VMS allows just one dot in the filename
 #
 # test58, test59: Failed/Hangs - VMS does not support spell files (file names
 # with too many dots).
 #
-# test72: bug - Vim hangs at :rename (while rename works well otherwise)
-# test78: bug - Vim dies at :recover Xtest 
+# test72: bug - uVim hangs at :rename (while rename works well otherwise)
+# test78: bug - uVim dies at :recover Xtest 
 # test83: ?
 # test85: no Lua interface
 # test89: bug - findfile() does not work on VMS (just in the current directory) 
@@ -188,7 +188,7 @@ nolog :
 	-@ write sys$output "           Standard VIM test cases"
 	-@ write sys$output "-----------------------------------------------"
 	-@ write sys$output " OpenVMS version: ''F$GETSYI("VERSION")'"
-	-@ write sys$output " Vim version:"
+	-@ write sys$output " uVim version:"
 	-@ mcr $(VIMPROG) --version
 	-@ write sys$output " Test date:"
 	-@ show time

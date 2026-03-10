@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 /*
  * dosinst.h: Common code for dosinst.c and uninstal.c
@@ -89,7 +89,7 @@ char *searchpath(char *name);
 #  define KEY_WOW64_64KEY 0x0100
 # endif
 
-#define VIM_STARTMENU "Programs\\Vim " VIM_VERSION_SHORT
+#define VIM_STARTMENU "Programs\\uVim " VIM_VERSION_SHORT
 
 int	interactive;		/* non-zero when running interactively */
 
@@ -365,7 +365,7 @@ retry:
 
 struct
 {
-    char	*name;		/* Vim exe name (without .exe) */
+    char	*name;		/* uVim exe name (without .exe) */
     char	*batname;	/* batch file name */
     char	*lnkname;	/* shortcut file name */
     char	*exename;	/* exe file name */
@@ -378,21 +378,21 @@ struct
 } targets[TARGET_COUNT] =
 {
     {"all",	"batch files"},
-    {"vim",	"vim.bat",	"Vim.lnk",
+    {"vim",	"vim.bat",	"uVim.lnk",
 					"vim.exe",    "vim.exe",  ""},
     {"gvim",	"gvim.bat",	"gVim.lnk",
 					"gvim.exe",   "gvim.exe", ""},
     {"evim",	"evim.bat",	"gVim Easy.lnk",
 					"evim.exe",   "gvim.exe", "-y"},
-    {"view",	"view.bat",	"Vim Read-only.lnk",
+    {"view",	"view.bat",	"uVim Read-only.lnk",
 					"view.exe",   "vim.exe",  "-R"},
     {"gview",	"gview.bat",	"gVim Read-only.lnk",
 					"gview.exe",  "gvim.exe", "-R"},
-    {"vimdiff", "vimdiff.bat",	"Vim Diff.lnk",
+    {"vimdiff", "vimdiff.bat",	"uVim Diff.lnk",
 					"vimdiff.exe","vim.exe",  "-d"},
     {"gvimdiff","gvimdiff.bat",	"gVim Diff.lnk",
 					"gvimdiff.exe","gvim.exe", "-d"},
-    {"vimtutor","vimtutor.bat", "Vim tutor.lnk",
+    {"vimtutor","vimtutor.bat", "uVim tutor.lnk",
 					"vimtutor.bat",  "vimtutor.bat", ""},
 };
 
@@ -648,7 +648,7 @@ do_inits(char **argv)
     /* change to the installdir */
     mch_chdir(installdir);
 
-    /* Find the system drive.  Only used for searching the Vim executable, not
+    /* Find the system drive.  Only used for searching the uVim executable, not
      * very important. */
     sysdrive = getenv("SYSTEMDRIVE");
     if (sysdrive == NULL || *sysdrive == NUL)

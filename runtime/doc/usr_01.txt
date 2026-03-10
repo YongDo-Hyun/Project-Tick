@@ -1,32 +1,32 @@
-*usr_01.txt*	For Vim version 7.4.  Last change: 2010 Nov 03
+*usr_01.txt*	For uVim version 7.4.  Last change: 2010 Nov 03
 
 		     VIM USER MANUAL - by Bram Moolenaar
 
 			      About the manuals
 
 
-This chapter introduces the manuals available with Vim.  Read this to know the
+This chapter introduces the manuals available with uVim.  Read this to know the
 conditions under which the commands are explained.
 
 |01.1|	Two manuals
-|01.2|	Vim installed
-|01.3|	Using the Vim tutor
+|01.2|	uVim installed
+|01.3|	Using the uVim tutor
 |01.4|	Copyright
 
-     Next chapter: |usr_02.txt|  The first steps in Vim
+     Next chapter: |usr_02.txt|  The first steps in uVim
 Table of contents: |usr_toc.txt|
 
 ==============================================================================
 *01.1*	Two manuals
 
-The Vim documentation consists of two parts:
+The uVim documentation consists of two parts:
 
 1. The User manual
    Task oriented explanations, from simple to complex.  Reads from start to
    end like a book.
 
 2. The Reference manual
-   Precise description of how everything in Vim works.
+   Precise description of how everything in uVim works.
 
 The notation used in these manuals is explained here: |notation|
 
@@ -55,17 +55,17 @@ make them visible with: >
 	:hi link HelpStar Normal
 
 ==============================================================================
-*01.2*	Vim installed
+*01.2*	uVim installed
 
-Most of the manuals assume that Vim has been properly installed.  If you
-didn't do that yet, or if Vim doesn't run properly (e.g., files can't be found
+Most of the manuals assume that uVim has been properly installed.  If you
+didn't do that yet, or if uVim doesn't run properly (e.g., files can't be found
 or in the GUI the menus do not show up) first read the chapter on
 installation: |usr_90.txt|.
 							*not-compatible*
-The manuals often assume you are using Vim with Vi-compatibility switched
+The manuals often assume you are using uVim with Vi-compatibility switched
 off.  For most commands this doesn't matter, but sometimes it is important,
 e.g., for multi-level undo.  An easy way to make sure you are using a nice
-setup is to copy the example vimrc file.  By doing this inside Vim you don't
+setup is to copy the example vimrc file.  By doing this inside uVim you don't
 have to check out where it is located.  How to do this depends on the system
 you are using:
 
@@ -78,7 +78,7 @@ Amiga: >
 
 If the file already exists you probably want to keep it.
 
-If you start Vim now, the 'compatible' option should be off.  You can check it
+If you start uVim now, the 'compatible' option should be off.  You can check it
 with this command: >
 
 	:set compatible?
@@ -97,25 +97,25 @@ back on.
 For more info see |vimrc| and |compatible-default|.
 
 	Note:
-	This manual is about using Vim in the normal way.  There is an
-	alternative called "evim" (easy Vim).  This is still Vim, but used in
+	This manual is about using uVim in the normal way.  There is an
+	alternative called "evim" (easy uVim).  This is still uVim, but used in
 	a way that resembles a click-and-type editor like Notepad.  It always
 	stays in Insert mode, thus it feels very different.  It is not
 	explained in the user manual, since it should be mostly self
 	explanatory.  See |evim-keys| for details.
 
 ==============================================================================
-*01.3*	Using the Vim tutor				*tutor* *vimtutor*
+*01.3*	Using the uVim tutor				*tutor* *vimtutor*
 
 Instead of reading the text (boring!) you can use the vimtutor to learn your
-first Vim commands.  This is a 30 minute tutorial that teaches the most basic
-Vim functionality hands-on.
+first uVim commands.  This is a 30 minute tutorial that teaches the most basic
+uVim functionality hands-on.
 
-On Unix, if Vim has been properly installed, you can start it from the shell:
+On Unix, if uVim has been properly installed, you can start it from the shell:
 >
 	vimtutor
 
-On MS-Windows you can find it in the Program/Vim menu.  Or execute
+On MS-Windows you can find it in the Program/uVim menu.  Or execute
 vimtutor.bat in the $VIMRUNTIME directory.
 
 This will make a copy of the tutor file, so that you can edit it without
@@ -125,10 +125,10 @@ available, use the two-letter language code.  For French: >
 
 	vimtutor fr
 
-On Unix, if you prefer using the GUI version of Vim, use "gvimtutor" or
+On Unix, if you prefer using the GUI version of uVim, use "gvimtutor" or
 "vimtutor -g" instead of "vimtutor".
 
-For OpenVMS, if Vim has been properly installed, you can start vimtutor from a
+For OpenVMS, if uVim has been properly installed, you can start vimtutor from a
 VMS prompt with: >
 
 	@VIM:vimtutor
@@ -138,7 +138,7 @@ Optionally add the two-letter language code as above.
 
 On other systems, you have to do a little work:
 
-1. Copy the tutor file.  You can do this with Vim (it knows where to find it):
+1. Copy the tutor file.  You can do this with uVim (it knows where to find it):
 >
 	vim -u NONE -c 'e $VIMRUNTIME/tutor/tutor' -c 'w! TUTORCOPY' -c 'q'
 <
@@ -148,11 +148,11 @@ filename.  For French:
 >
 	vim -u NONE -c 'e $VIMRUNTIME/tutor/tutor.fr' -c 'w! TUTORCOPY' -c 'q'
 <
-2. Edit the copied file with Vim:
+2. Edit the copied file with uVim:
 >
 	vim -u NONE -c "set nocp" TUTORCOPY
 <
-   The extra arguments make sure Vim is started in a good mood.
+   The extra arguments make sure uVim is started in a good mood.
 
 3. Delete the copied file when you are finished with it:
 >
@@ -161,7 +161,7 @@ filename.  For French:
 ==============================================================================
 *01.4*	Copyright					*manual-copyright*
 
-The Vim user manual and reference manual are Copyright (c) 1988-2003 by Bram
+The uVim user manual and reference manual are Copyright (c) 1988-2003 by Bram
 Moolenaar.  This material may be distributed only subject to the terms and
 conditions set forth in the Open Publication License, v1.0 or later.  The
 latest version is presently available at:
@@ -170,11 +170,11 @@ latest version is presently available at:
 People who contribute to the manuals must agree with the above copyright
 notice.
 							*frombook*
-Parts of the user manual come from the book "Vi IMproved - Vim" by Steve
+Parts of the user manual come from the book "Micro Vi IMproved - uVim" by Steve
 Oualline (published by New Riders Publishing, ISBN: 0735710015).  The Open
 Publication License applies to this book.  Only selected parts are included
 and these have been modified (e.g., by removing the pictures, updating the
-text for Vim 6.0 and later, fixing mistakes).  The omission of the |frombook|
+text for uVim 6.0 and later, fixing mistakes).  The omission of the |frombook|
 tag does not mean that the text does not come from the book.
 
 Many thanks to Steve Oualline and New Riders for creating this book and
@@ -183,10 +183,10 @@ manual.  Not only by providing literal text, but also by setting the tone and
 style.
 
 If you make money through selling the manuals, you are strongly encouraged to
-donate part of the profit to help AIDS victims in Uganda.  See |iccf|.
+donate part of the profit to help AIDS victims in Uganda.  See |copying|.
 
 ==============================================================================
 
-Next chapter: |usr_02.txt|  The first steps in Vim
+Next chapter: |usr_02.txt|  The first steps in uVim
 
 Copyright: see |manual-copyright|  vim:tw=78:ts=8:ft=help:norl:

@@ -1,4 +1,4 @@
-*visual.txt*    For Vim version 7.4.  Last change: 2014 Mar 23
+*visual.txt*    For uVim version 7.4.  Last change: 2014 Mar 23
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
@@ -22,7 +22,7 @@ This is introduced in section |04.4| of the user manual.
 
 {Vi has no Visual mode, the name "visual" is used for Normal mode, to
 distinguish it from Ex mode}
-{Since Vim 7.4.200 the |+visual| feature is always included}
+{Since uVim 7.4.200 the |+visual| feature is always included}
 
 ==============================================================================
 1. Using Visual mode					*visual-use*
@@ -479,7 +479,7 @@ Entering Select mode:
 
 Commands in Select mode:
 - Printable characters, <NL> and <CR> cause the selection to be deleted, and
-  Vim enters Insert mode.  The typed character is inserted.
+  uVim enters Insert mode.  The typed character is inserted.
 - Non-printable movement commands, with the Shift key pressed, extend the
   selection.  'keymodel' must include "startsel".
 - Non-printable movement commands, with the Shift key NOT pressed, stop Select
@@ -499,7 +499,7 @@ Mappings and menus in Select mode.			*Select-mode-mapping*
 
 When mappings and menus are defined with the |:vmap| or |:vmenu| command they
 work both in Visual mode and in Select mode.  When these are used in Select
-mode Vim automatically switches to Visual mode, so that the same behavior as
+mode uVim automatically switches to Visual mode, so that the same behavior as
 in Visual mode is effective.  If you don't want this use |:xmap| or |:smap|.
 
 Users will expect printable characters to replace the selected area.

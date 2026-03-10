@@ -78,7 +78,7 @@ endfunction
     let test_cases += [['+autoprint', 0]]
 
     " Existing environment variable
-    let $EDITOR_NAME = 'Vim Editor'
+    let $EDITOR_NAME = 'uVim Editor'
     let test_cases += [['$EDITOR_NAME', 1]]
     " Non-existing environment variable
     let test_cases += [['$NON_ENV_VAR', 0]]
@@ -532,7 +532,7 @@ endfunction
     " Script-local tests
     source test60.vim
 
-    " Existing Vim internal variable
+    " Existing uVim internal variable
     echo 'v:version: 1'
     if exists('v:version')
 	echo "OK"
@@ -540,7 +540,7 @@ endfunction
 	echo "FAILED"
     endif
 
-    " Non-existing Vim internal variable
+    " Non-existing uVim internal variable
     echo 'v:non_exists_var: 0'
     if !exists('v:non_exists_var')
 	echo "OK"

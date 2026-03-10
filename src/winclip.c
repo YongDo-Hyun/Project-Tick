@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved by Bram Moolenaar
+ * VIM - Micro Vi IMproved by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -192,7 +192,7 @@ win_clip_init(void)
     clip_init(TRUE);
 
     /*
-     * Vim's own clipboard format recognises whether the text is char, line,
+     * uVim's own clipboard format recognises whether the text is char, line,
      * or rectangular block.  Only useful for copying between two Vims.
      * "VimClipboard" was used for previous versions, using the first
      * character to specify MCHAR, MLINE or MBLOCK.
@@ -201,7 +201,7 @@ win_clip_init(void)
     clip_star.format_raw = RegisterClipboardFormat("VimRawBytes");
 }
 
-/* Type used for the clipboard type of Vim's data. */
+/* Type used for the clipboard type of uVim's data. */
 typedef struct
 {
     int type;		/* MCHAR, MBLOCK or MLINE */
@@ -342,7 +342,7 @@ clip_mch_request_selection(VimClipboard *cbd)
     }
 
 #ifdef FEAT_MBYTE
-    /* Check for Vim's raw clipboard format first.  This is used without
+    /* Check for uVim's raw clipboard format first.  This is used without
      * conversion, but only if 'encoding' matches. */
     if (IsClipboardFormatAvailable(cbd->format_raw)
 				      && metadata.rawlen > (int)STRLEN(p_enc))
@@ -503,7 +503,7 @@ clip_mch_set_selection(VimClipboard *cbd)
 
 #ifdef FEAT_MBYTE
     /* Always set the raw bytes: 'encoding', NUL and the text.  This is used
-     * when copy/paste from/to Vim with the same 'encoding', so that illegal
+     * when copy/paste from/to uVim with the same 'encoding', so that illegal
      * bytes can also be copied and no conversion is needed. */
     {
 	LPSTR lpszMemRaw;
@@ -593,7 +593,7 @@ clip_mch_set_selection(VimClipboard *cbd)
 
     /*
      * Open the clipboard, clear it and put our text on it.
-     * Always set our Vim format.  Put Unicode and plain text on it.
+     * Always set our uVim format.  Put Unicode and plain text on it.
      *
      * Don't pass GetActiveWindow() as an argument to OpenClipboard()
      * because then we can't paste back into the same window for some

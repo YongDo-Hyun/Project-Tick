@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -4379,7 +4379,7 @@ ExpandMappings(
  * characters or all non-id characters. This allows for abbr. "#i" to
  * "#include".
  *
- * Vim addition: Allow for abbreviations that end in a non-keyword character.
+ * uVim addition: Allow for abbreviations that end in a non-keyword character.
  * Then there must be white space before the abbr.
  *
  * return TRUE if there is an abbreviation, FALSE if not
@@ -4429,7 +4429,7 @@ check_abbr(
 
 	p = mb_prevptr(ptr, ptr + col);
 	if (!vim_iswordp(p))
-	    vim_abbr = TRUE;			/* Vim added abbr. */
+	    vim_abbr = TRUE;			/* uVim added abbr. */
 	else
 	{
 	    vim_abbr = FALSE;			/* vi compatible abbr. */
@@ -4453,7 +4453,7 @@ check_abbr(
 #endif
     {
 	if (!vim_iswordc(ptr[col - 1]))
-	    vim_abbr = TRUE;			/* Vim added abbr. */
+	    vim_abbr = TRUE;			/* uVim added abbr. */
 	else
 	{
 	    vim_abbr = FALSE;			/* vi compatible abbr. */
@@ -4874,7 +4874,7 @@ makemap(
 		do	/* do this twice if c2 is set, 3 times with c3 */
 		{
 		    /* When outputting <> form, need to make sure that 'cpo'
-		     * is set to the Vim default. */
+		     * is set to the uVim default. */
 		    if (!did_cpo)
 		    {
 			if (*mp->m_str == NUL)		/* will use <Nop> */

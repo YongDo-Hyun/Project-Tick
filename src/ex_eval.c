@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -58,7 +58,7 @@ static char_u	*get_end_emsg(struct condstack *cstack);
 # define THROW_ON_INTERRUPT	(!eval_to_number("$VIMNOINTTHROW"))
 # define THROW_TEST
 #else
-/* Values used for the Vim release. */
+/* Values used for the uVim release. */
 # define THROW_ON_ERROR		TRUE
 # define THROW_ON_ERROR_TRUE
 # define THROW_ON_INTERRUPT	TRUE
@@ -281,9 +281,9 @@ cause_errthrow(
 		    {
 			char_u	    *tmsg;
 
-			/* Skip the extra "Vim " prefix for message "E458". */
+			/* Skip the extra "uVim " prefix for message "E458". */
 			tmsg = elem->msg;
-			if (STRNCMP(tmsg, "Vim E", 5) == 0
+			if (STRNCMP(tmsg, "uVim E", 5) == 0
 				&& VIM_ISDIGIT(tmsg[5])
 				&& VIM_ISDIGIT(tmsg[6])
 				&& VIM_ISDIGIT(tmsg[7])
@@ -409,7 +409,7 @@ do_intthrow(struct condstack *cstack)
 	    /* An interrupt exception replaces any user or error exception. */
 	    discard_current_exception();
 	}
-	if (throw_exception("Vim:Interrupt", ET_INTERRUPT, NULL) != FAIL)
+	if (throw_exception("uVim:Interrupt", ET_INTERRUPT, NULL) != FAIL)
 	    do_throw(cstack);
     }
 
@@ -437,7 +437,7 @@ get_exception_string(
 	if (cmdname != NULL && *cmdname != NUL)
 	{
 	    cmdlen = (int)STRLEN(cmdname);
-	    ret = vim_strnsave((char_u *)"Vim(",
+	    ret = vim_strnsave((char_u *)"uVim(",
 					   4 + cmdlen + 2 + (int)STRLEN(mesg));
 	    if (ret == NULL)
 		return ret;
@@ -447,7 +447,7 @@ get_exception_string(
 	}
 	else
 	{
-	    ret = vim_strnsave((char_u *)"Vim:", 4 + (int)STRLEN(mesg));
+	    ret = vim_strnsave((char_u *)"uVim:", 4 + (int)STRLEN(mesg));
 	    if (ret == NULL)
 		return ret;
 	    val = ret + 4;
@@ -515,11 +515,11 @@ throw_exception(void *value, int type, char_u *cmdname)
      */
     if (type == ET_USER)
     {
-	if (STRNCMP((char_u *)value, "Vim", 3) == 0
+	if (STRNCMP((char_u *)value, "uVim", 3) == 0
 		&& (((char_u *)value)[3] == NUL || ((char_u *)value)[3] == ':'
 		    || ((char_u *)value)[3] == '('))
 	{
-	    EMSG(_("E608: Cannot :throw exceptions with 'Vim' prefix"));
+	    EMSG(_("E608: Cannot :throw exceptions with 'uVim' prefix"));
 	    goto fail;
 	}
     }
@@ -530,7 +530,7 @@ throw_exception(void *value, int type, char_u *cmdname)
 
     if (type == ET_ERROR)
 	/* Store the original message and prefix the exception value with
-	 * "Vim:" or, if a command name is given, "Vim(cmdname):". */
+	 * "uVim:" or, if a command name is given, "uVim(cmdname):". */
 	excp->messages = (struct msglist *)value;
 
     excp->value = get_exception_string(value, type, cmdname, &should_free);

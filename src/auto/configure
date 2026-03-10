@@ -1519,7 +1519,7 @@ Optional Packages:
   --with-developer-dir=PATH    use PATH as location for Xcode developer tools
   --with-local-dir=PATH   search PATH instead of /usr/local for local libraries.
   --without-local-dir     do not search /usr/local for local libraries.
-  --with-vim-name=NAME    what to call the Vim executable
+  --with-vim-name=NAME    what to call the uVim executable
   --with-ex-name=NAME     what to call the Ex executable
   --with-view-name=NAME   what to call the View executable
   --with-global-runtime=DIR    global runtime directory in 'runtimepath'
@@ -8754,7 +8754,7 @@ $as_echo_n "checking for Carbon GUI... " >&6; }
 $as_echo "yes" >&6; };
   GUITYPE=CARBONGUI
   if test "$VIMNAME" = "vim"; then
-    VIMNAME=Vim
+    VIMNAME=uVim
   fi
 
   if test "x$MACARCH" = "xboth"; then
@@ -8767,7 +8767,7 @@ $as_echo "yes" >&6; };
     prefix=/Applications
   fi
 
-    datadir='${prefix}/Vim.app/Contents/Resources'
+    datadir='${prefix}/uVim.app/Contents/Resources'
 
     SKIP_GTK2=YES;
   SKIP_GNOME=YES;

@@ -1,13 +1,13 @@
-*usr_21.txt*	For Vim version 7.4.  Last change: 2012 Nov 02
+*usr_21.txt*	For uVim version 7.4.  Last change: 2012 Nov 02
 
 		     VIM USER MANUAL - by Bram Moolenaar
 
 			   Go away and come back
 
 
-This chapter goes into mixing the use of other programs with Vim.  Either by
-executing program from inside Vim or by leaving Vim and coming back later.
-Furthermore, this is about the ways to remember the state of Vim and restore
+This chapter goes into mixing the use of other programs with uVim.  Either by
+executing program from inside uVim or by leaving uVim and coming back later.
+Furthermore, this is about the ways to remember the state of uVim and restore
 it later.
 
 |21.1|	Suspend and resume
@@ -24,37 +24,37 @@ Table of contents: |usr_toc.txt|
 ==============================================================================
 *21.1*	Suspend and resume
 
-Like most Unix programs Vim can be suspended by pressing CTRL-Z.  This stops
-Vim and takes you back to the shell it was started in.  You can then do any
-other commands until you are bored with them.  Then bring back Vim with the
+Like most Unix programs uVim can be suspended by pressing CTRL-Z.  This stops
+uVim and takes you back to the shell it was started in.  You can then do any
+other commands until you are bored with them.  Then bring back uVim with the
 "fg" command. >
 
 	CTRL-Z
 	{any sequence of shell commands}
 	fg
 
-You are right back where you left Vim, nothing has changed.
+You are right back where you left uVim, nothing has changed.
    In case pressing CTRL-Z doesn't work, you can also use ":suspend".
-Don't forget to bring Vim back to the foreground, you would lose any changes
+Don't forget to bring uVim back to the foreground, you would lose any changes
 that you made!
 
-Only Unix has support for this.  On other systems Vim will start a shell for
+Only Unix has support for this.  On other systems uVim will start a shell for
 you.  This also has the functionality of being able to execute shell commands.
-But it's a new shell, not the one that you started Vim from.
-   When you are running the GUI you can't go back to the shell where Vim was
-started.  CTRL-Z will minimize the Vim window instead.
+But it's a new shell, not the one that you started uVim from.
+   When you are running the GUI you can't go back to the shell where uVim was
+started.  CTRL-Z will minimize the uVim window instead.
 
 ==============================================================================
 *21.2*	Executing shell commands
 
-To execute a single shell command from Vim use ":!{command}".  For example, to
+To execute a single shell command from uVim use ":!{command}".  For example, to
 see a directory listing: >
 
 	:!ls
 	:!dir
 
 The first one is for Unix, the second one for MS-Windows.
-   Vim will execute the program.  When it ends you will get a prompt to hit
+   uVim will execute the program.  When it ends you will get a prompt to hit
 <Enter>.  This allows you to have a look at the output from the command before
 returning to the text you were editing.
    The "!" is also used in other places where a program is run.  Let's take
@@ -74,11 +74,11 @@ better at it.  You can start a new shell this way: >
 
 	:shell
 
-This is similar to using CTRL-Z to suspend Vim.  The difference is that a new
+This is similar to using CTRL-Z to suspend uVim.  The difference is that a new
 shell is started.
 
-When using the GUI the shell will be using the Vim window for its input and
-output.  Since Vim is not a terminal emulator, this will not work perfectly.
+When using the GUI the shell will be using the uVim window for its input and
+output.  Since uVim is not a terminal emulator, this will not work perfectly.
 If you have trouble, try toggling the 'guipty' option.  If this still doesn't
 work well enough, start a new terminal to run the shell in.  For example with:
 >
@@ -89,7 +89,7 @@ work well enough, start a new terminal to run the shell in.  For example with:
 
 After editing for a while you will have text in registers, marks in various
 files, a command line history filled with carefully crafted commands.  When
-you exit Vim all of this is lost.  But you can get it back!
+you exit uVim all of this is lost.  But you can get it back!
 
 The viminfo file is designed to store status information:
 
@@ -99,8 +99,8 @@ The viminfo file is designed to store status information:
 	The buffer list
 	Global variables
 
-Each time you exit Vim it will store this information in a file, the viminfo
-file.  When Vim starts again, the viminfo file is read and the information
+Each time you exit uVim it will store this information in a file, the viminfo
+file.  When uVim starts again, the viminfo file is read and the information
 restored.
 
 The 'viminfo' option is set by default to restore a limited number of items.
@@ -128,7 +128,7 @@ the marks are stored.  You want this feature, so now you have this: >
 The < option controls how many lines are saved for each of the registers.  By
 default, all the lines are saved.  If 0, nothing is saved.  To avoid adding
 thousands of lines to your viminfo file (which might never get used and makes
-starting Vim slower) you use a maximum of 500 lines: >
+starting uVim slower) you use a maximum of 500 lines: >
 
 	:set viminfo='1000,f1,<500
 <
@@ -141,14 +141,14 @@ Other options you might want to use:
 	!	global variables that start with an uppercase letter and
 		don't contain lowercase letters
 	h	disable 'hlsearch' highlighting when starting
-	%	the buffer list (only restored when starting Vim without file
+	%	the buffer list (only restored when starting uVim without file
 		arguments)
 	c	convert the text using 'encoding'
 	n	name used for the viminfo file (must be the last option)
 
 See the 'viminfo' option and |viminfo-file| for more information.
 
-When you run Vim multiple times, the last one exiting will store its
+When you run uVim multiple times, the last one exiting will store its
 information.  This may cause information that previously exiting Vims stored
 to be lost.  Each item can be remembered only once.
 
@@ -156,13 +156,13 @@ to be lost.  Each item can be remembered only once.
 GETTING BACK TO WHERE YOU STOPPED VIM
 
 You are halfway editing a file and it's time to leave for holidays.  You exit
-Vim and go enjoy yourselves, forgetting all about your work.  After a couple
-of weeks you start Vim, and type:
+uVim and go enjoy yourselves, forgetting all about your work.  After a couple
+of weeks you start uVim, and type:
 >
 	'0
 
-And you are right back where you left Vim.  So you can get on with your work.
-   Vim creates a mark each time you exit Vim.  The last one is '0.  The
+And you are right back where you left uVim.  So you can get on with your work.
+   uVim creates a mark each time you exit uVim.  The last one is '0.  The
 position that '0 pointed to is made '1.  And '1 is made to '2, and so forth.
 Mark '9 is lost.
    The |:marks| command is useful to find out where '0 to '9 will take you.
@@ -171,7 +171,7 @@ Mark '9 is lost.
 GETTING BACK TO SOME FILE
 
 If you want to go back to a file that you edited recently, but not when
-exiting Vim, there is a slightly more complicated way.  You can see a list of
+exiting uVim, there is a slightly more complicated way.  You can see a list of
 files by typing the command: >
 
 	:oldfiles
@@ -213,12 +213,12 @@ More info at |:oldfiles|, |v:oldfiles| and |c_#<|.
 MOVE INFO FROM ONE VIM TO ANOTHER
 
 You can use the ":wviminfo" and ":rviminfo" commands to save and restore the
-information while still running Vim.  This is useful for exchanging register
-contents between two instances of Vim, for example.  In the first Vim do: >
+information while still running uVim.  This is useful for exchanging register
+contents between two instances of uVim, for example.  In the first uVim do: >
 
 	:wviminfo! ~/tmp/viminfo
 
-And in the second Vim do: >
+And in the second uVim do: >
 
 	:rviminfo! ~/tmp/viminfo
 
@@ -239,7 +239,7 @@ different purpose.
 Suppose you are editing along, and it is the end of the day.  You want to quit
 work and pick up where you left off the next day.  You can do this by saving
 your editing session and restoring it the next day.
-   A Vim session contains all the information about what you are editing.
+   A uVim session contains all the information about what you are editing.
 This includes things such as the file list, window layout, global variables,
 options and other information.  (Exactly what is remembered is controlled by
 the 'sessionoptions' option, described below.)
@@ -251,13 +251,13 @@ Later if you want to restore this session, you can use this command: >
 
 	:source vimbook.vim
 
-If you want to start Vim and restore a specific session, you can use the
+If you want to start uVim and restore a specific session, you can use the
 following command: >
 
 	vim -S vimbook.vim
 
-This tells Vim to read a specific file on startup.  The 'S' stands for
-session (actually, you can source any Vim script with -S, thus it might as
+This tells uVim to read a specific file on startup.  The 'S' stands for
+session (actually, you can source any uVim script with -S, thus it might as
 well stand for "source").
 
 The windows that were open are restored, with the same position and size as
@@ -273,7 +273,7 @@ default value is "blank,buffers,curdir,folds,help,options,winsize".
 	options		all options and mappings
 	winsize		window sizes
 
-Change this to your liking.  To also restore the size of the Vim window, for
+Change this to your liking.  To also restore the size of the uVim window, for
 example, use: >
 
 	:set sessionoptions+=resize
@@ -325,10 +325,10 @@ you want.
 	+----------------------------------------+
 
 This has a help window at the top, so that you can read this text.  The narrow
-vertical window on the left contains a file explorer.  This is a Vim plugin
+vertical window on the left contains a file explorer.  This is a uVim plugin
 that lists the contents of a directory.  You can select files to edit there.
 More about this in the next chapter.
-   Create this from a just started Vim with: >
+   Create this from a just started uVim with: >
 
 	:help
 	CTRL-W w
@@ -338,7 +338,7 @@ You can resize the windows a bit to your liking.  Then save the session with:
 >
 	:mksession ~/.vim/mine.vim
 
-Now you can start Vim with this layout: >
+Now you can start uVim with this layout: >
 
 	vim -S ~/.vim/mine.vim
 
@@ -356,10 +356,10 @@ be used on both systems.  This is the command to put in your vimrc file: >
 
 	:set sessionoptions+=unix,slash
 
-Vim will use the Unix format then, because the MS-Windows Vim can read and
-write Unix files, but Unix Vim can't read MS-Windows format session files.
-Similarly, MS-Windows Vim understands file names with / to separate names, but
-Unix Vim doesn't understand \.
+uVim will use the Unix format then, because the MS-Windows uVim can read and
+write Unix files, but Unix uVim can't read MS-Windows format session files.
+Similarly, MS-Windows uVim understands file names with / to separate names, but
+Unix uVim doesn't understand \.
 
 
 SESSIONS AND VIMINFO
@@ -385,20 +385,20 @@ And to restore this again: >
 ==============================================================================
 *21.5*	Views
 
-A session stores the looks of the whole of Vim.  When you want to store the
+A session stores the looks of the whole of uVim.  When you want to store the
 properties for one window only, use a view.
    The use of a view is for when you want to edit a file in a specific way.
 For example, you have line numbers enabled with the 'number' option and
 defined a few folds.  Just like with sessions, you can remember this view on
 the file and restore it later.  Actually, when you store a session, it stores
 the view of each window.
-   There are two basic ways to use views.  The first is to let Vim pick a name
+   There are two basic ways to use views.  The first is to let uVim pick a name
 for the view file.  You can restore the view when you later edit the same
 file.  To store the view for the current window: >
 
 	:mkview
 
-Vim will decide where to store the view.  When you later edit the same file
+uVim will decide where to store the view.  When you later edit the same file
 you get the view back with this command: >
 
 	:loadview
@@ -423,7 +423,7 @@ and nine numbered 1 to 9.
 A VIEW WITH A NAME
 
 The second basic way to use views is by storing the view in a file with a name
-you choose.  This view can be loaded while editing another file.  Vim will
+you choose.  This view can be loaded while editing another file.  uVim will
 then switch to editing the file specified in the view.  Thus you can use this
 to quickly switch to editing another file, with all its options set as you
 saved them.
@@ -442,7 +442,7 @@ When editing a specific file, you might set options specifically for that
 file.  Typing these commands each time is boring.  Using a session or view for
 editing a file doesn't work when sharing the file between several people.
    The solution for this situation is adding a modeline to the file.  This is
-a line of text that tells Vim the values of options, to be used in this file
+a line of text that tells uVim the values of options, to be used in this file
 only.
    A typical example is a C program where you make indents by a multiple of 4
 spaces.  This requires setting the 'shiftwidth' option to 4.  This modeline
@@ -473,9 +473,9 @@ Use this format for the modeline:
 	any-text vim:set {option}={value} ... : any-text ~
 
 The "any-text" indicates that you can put any text before and after the part
-that Vim will use.  This allows making it look like a comment, like what was
+that uVim will use.  This allows making it look like a comment, like what was
 done above with /* and */.
-   The " vim:" part is what makes Vim recognize this line.  There must be
+   The " vim:" part is what makes uVim recognize this line.  There must be
 white space before "vim", or "vim" must be at the start of the line.  Thus
 using something like "gvim:" will not work.
    The part between the colons is a ":set" command.  It works the same way as

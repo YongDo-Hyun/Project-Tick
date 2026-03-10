@@ -1,4 +1,4 @@
-*quickfix.txt*  For Vim version 7.4.  Last change: 2016 Jul 17
+*quickfix.txt*  For uVim version 7.4.  Last change: 2016 Jul 17
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
@@ -24,21 +24,21 @@ disabled at compile time.
 =============================================================================
 1. Using QuickFix commands			*quickfix* *Quickfix* *E42*
 
-Vim has a special mode to speedup the edit-compile-edit cycle.  This is
+uVim has a special mode to speedup the edit-compile-edit cycle.  This is
 inspired by the quickfix option of the Manx's Aztec C compiler on the Amiga.
-The idea is to save the error messages from the compiler in a file and use Vim
+The idea is to save the error messages from the compiler in a file and use uVim
 to jump to the errors one by one.  You can examine each problem and fix it,
 without having to remember all the error messages.
 
-In Vim the quickfix commands are used more generally to find a list of
+In uVim the quickfix commands are used more generally to find a list of
 positions in files.  For example, |:vimgrep| finds pattern matches.  You can
 use the positions in a script with the |getqflist()| function.  Thus you can
 do a lot more than the edit/compile/fix cycle!
 
-If you have the error messages in a file you can start Vim with: >
+If you have the error messages in a file you can start uVim with: >
 	vim -q filename
 
-From inside Vim an easy way to run a command and handle the output is with the
+From inside uVim an easy way to run a command and handle the output is with the
 |:make| command (see below).
 
 The 'errorformat' option should be set to match the error messages from your
@@ -151,17 +151,17 @@ processing a quickfix or location list command, it will be aborted.
 			current window is used instead of the quickfix list.
 
 							*:cq* *:cquit*
-:cq[uit][!]		Quit Vim with an error code, so that the compiler
+:cq[uit][!]		Quit uVim with an error code, so that the compiler
 			will not compile the same file again.
 			WARNING: All changes in files are lost!  Also when the
 			[!] is not used.  It works like ":qall!" |:qall|,
-			except that Vim returns a non-zero exit code.
+			except that uVim returns a non-zero exit code.
 
 							*:cf* *:cfile*
 :cf[ile][!] [errorfile]	Read the error file and jump to the first error.
-			This is done automatically when Vim is started with
+			This is done automatically when uVim is started with
 			the -q option.  You can use this command when you
-			keep Vim running while compiling.  If you give the
+			keep uVim running while compiling.  If you give the
 			name of the errorfile, the 'errorfile' option will
 			be set to [errorfile].  See |:cc| for [!].
 
@@ -300,7 +300,7 @@ processing a quickfix or location list command, it will be aborted.
 If you insert or delete lines, mostly the correct error location is still
 found because hidden marks are used.  Sometimes, when the mark has been
 deleted for some reason, the message "line changed" is shown to warn you that
-the error location may not be correct.  If you quit Vim and start again the
+the error location may not be correct.  If you quit uVim and start again the
 marks are lost and the error locations may not be correct anymore.
 
 If vim is built with |+autocmd| support, two autocommands are available for
@@ -309,7 +309,7 @@ on) is executed. See |QuickFixCmdPre| and |QuickFixCmdPost| for details.
 
 						*QuickFixCmdPost-example*
 When 'encoding' differs from the locale, the error messages may have a
-different encoding from what Vim is using.  To convert the messages you can
+different encoding from what uVim is using.  To convert the messages you can
 use this code: >
 	function QfMakeConv()
 	   let qflist = getqflist()
@@ -631,7 +631,7 @@ for compilers that write to an errorfile themselves (e.g., Manx's Amiga C).
 Using QuickFixCmdPost to fix the encoding ~
 
 It may be that 'encoding' is set to an encoding that differs from the messages
-your build program produces.  This example shows how to fix this after Vim has
+your build program produces.  This example shows how to fix this after uVim has
 read the error messages: >
 
 	function QfMakeConv()
@@ -649,20 +649,20 @@ read the error messages: >
 ==============================================================================
 5. Using :vimgrep and :grep				*grep* *lid*
 
-Vim has two ways to find matches for a pattern: Internal and external.  The
+uVim has two ways to find matches for a pattern: Internal and external.  The
 advantage of the internal grep is that it works on all systems and uses the
-powerful Vim search patterns.  An external grep program can be used when the
-Vim grep does not do what you want.
+powerful uVim search patterns.  An external grep program can be used when the
+uVim grep does not do what you want.
 
 The internal method will be slower, because files are read into memory.  The
 advantages are:
 - Line separators and encoding are automatically recognized, as if a file is
   being edited.
-- Uses Vim search patterns.  Multi-line patterns can be used.
+- Uses uVim search patterns.  Multi-line patterns can be used.
 - When plugins are enabled: compressed and remote files can be searched.
 	|gzip| |netrw|
 
-To be able to do this Vim loads each file as if it is being edited.  When
+To be able to do this uVim loads each file as if it is being edited.  When
 there is no match in the file the associated buffer is wiped out again.  The
 'hidden' option is ignored here to avoid running out of memory or file
 descriptors when searching many files.  However, when the |:hide| command
@@ -678,7 +678,7 @@ commands can be combined to create a NewGrep command: >
         command! -nargs=+ NewGrep execute 'silent grep! <args>' | copen 42
 
 
-5.1 using Vim's internal grep
+5.1 using uVim's internal grep
 
 					*:vim* *:vimgrep* *E682* *E683*
 :vim[grep][!] /{pattern}/[g][j] {file} ...
@@ -689,7 +689,7 @@ commands can be combined to create a NewGrep command: >
 			Without the 'g' flag each line is added only once.
 			With 'g' every match is added.
 
-			{pattern} is a Vim search pattern.  Instead of
+			{pattern} is a uVim search pattern.  Instead of
 			enclosing it in / any non-ID character (see
 			|'isident'|) can be used, so long as it does not
 			appear in {pattern}.
@@ -705,7 +705,7 @@ commands can be combined to create a NewGrep command: >
 			Useful if you only want to check if there is a match
 			and quit quickly when it's found.
 
-			Without the 'j' flag Vim jumps to the first match.
+			Without the 'j' flag uVim jumps to the first match.
 			With 'j' only the quickfix list is updated.
 			With the [!] any changes in the current buffer are
 			abandoned.
@@ -747,7 +747,7 @@ commands can be combined to create a NewGrep command: >
 
 5.2 External grep
 
-Vim can interface with "grep" and grep-like programs (such as the GNU
+uVim can interface with "grep" and grep-like programs (such as the GNU
 id-utils) in a similar way to its compiler integration (see |:make| above).
 
 [Unix trivia: The name for the Unix "grep" command comes from ":g/re/p", where
@@ -808,13 +808,13 @@ b)	You have to call grep with a full path
 c)	You want to pass other options automatically (e.g. case insensitive
 	search.)
 
-Once "grep" has executed, Vim parses the results using the 'grepformat'
+Once "grep" has executed, uVim parses the results using the 'grepformat'
 option.  This option works in the same way as the 'errorformat' option - see
 that for details.  You may need to change 'grepformat' from the default if
 your grep outputs in a non-standard format, or you are using some other
 program with a special format.
 
-Once the results are parsed, Vim loads the first file containing a match and
+Once the results are parsed, uVim loads the first file containing a match and
 jumps to the appropriate line, in the same way that it jumps to a compiler
 error in |quickfix| mode.  You can then use the |:cnext|, |:clist|, etc.
 commands to see the other matches.
@@ -836,7 +836,7 @@ works just as you'd expect.
 
 5.5 Browsing source code with :vimgrep or :grep
 
-Using the stack of error lists that Vim keeps, you can browse your files to
+Using the stack of error lists that uVim keeps, you can browse your files to
 look for functions and the functions they call.  For example, suppose that you
 have to add an argument to the read_file() function.  You enter this command: >
 
@@ -871,17 +871,17 @@ need to write down a "todo" list.
 				current buffer.  With "!" global options are
 				set.
 				If you use ":compiler foo" in "file.foo" and
-				then ":compiler! bar" in another buffer, Vim
+				then ":compiler! bar" in another buffer, uVim
 				will keep on using "foo" in "file.foo".
 				{not available when compiled without the
 				|+eval| feature}
 
 
-The Vim plugins in the "compiler" directory will set options to use the
+The uVim plugins in the "compiler" directory will set options to use the
 selected compiler.  For ":compiler" local options are set, for ":compiler!"
 global options.
 							*current_compiler*
-To support older Vim versions, the plugins always use "current_compiler" and
+To support older uVim versions, the plugins always use "current_compiler" and
 not "b:current_compiler".  What the command actually does is the following:
 
 - Delete the "current_compiler" and "b:current_compiler" variables.
@@ -911,15 +911,15 @@ g:compiler_gcc_ignore_unmatched_lines
 
 MANX AZTEC C				*quickfix-manx* *compiler-manx*
 
-To use Vim with Manx's Aztec C compiler on the Amiga you should do the
+To use uVim with Manx's Aztec C compiler on the Amiga you should do the
 following:
 - Set the CCEDIT environment variable with the command: >
 	mset "CCEDIT=vim -q"
-- Compile with the -qf option.  If the compiler finds any errors, Vim is
+- Compile with the -qf option.  If the compiler finds any errors, uVim is
   started and the cursor is positioned on the first error.  The error message
   will be displayed on the last line.  You can go to other errors with the
   commands mentioned above.  You can fix the errors and write the file(s).
-- If you exit Vim normally the compiler will re-compile the same file.  If you
+- If you exit uVim normally the compiler will re-compile the same file.  If you
   exit with the :cq command, the compiler will terminate.  Do this if you
   cannot fix the error, or if another file needs to be compiled first.
 
@@ -929,8 +929,8 @@ documentation does not say how to get more).  If you want to find the others,
 you will have to fix a few errors and exit the editor.  After recompiling,
 up to 25 remaining errors will be found.
 
-If Vim was started from the compiler, the :sh and some :!  commands will not
-work, because Vim is then running in the same process as the compiler and
+If uVim was started from the compiler, the :sh and some :!  commands will not
+work, because uVim is then running in the same process as the compiler and
 stdin (standard input) will not be interactive.
 
 
@@ -954,7 +954,7 @@ starting from version 2.0.  For older versions, you can get it from
 http://pyunit.sourceforge.net.
 
 When you run your tests with the help of the framework, possible errors
-are parsed by Vim and presented for you in quick-fix mode.
+are parsed by uVim and presented for you in quick-fix mode.
 
 Unfortunately, there is no standard way to run the tests.
 The alltests.py script seems to be used quite often, that's all.
@@ -1015,7 +1015,7 @@ multiple compilers.  See |efm-entries|.
 
 Each entry in 'errorformat' is a scanf-like string that describes the format.
 First, you need to know how scanf works.  Look in the documentation of your
-C compiler.  Below you find the % items that Vim understands.  Others are
+C compiler.  Below you find the % items that uVim understands.  Others are
 invalid.
 
 Special characters in 'errorformat' are comma and backslash.  See
@@ -1089,7 +1089,7 @@ internal directory stack.					*E379*
 	%X		"leave directory" format string; expects following %f
 
 When defining an "enter directory" or "leave directory" format, the "%D" or
-"%X" has to be given at the start of that substring.  Vim tracks the directory
+"%X" has to be given at the start of that substring.  uVim tracks the directory
 changes and prepends the current directory to each erroneous file found with a
 relative path.  See |quickfix-directory-stack| for details, tips and
 limitations.
@@ -1239,8 +1239,8 @@ other headers that can be skipped.
 Pattern matching
 
 The scanf()-like "%*[]" notation is supported for backward-compatibility
-with previous versions of Vim.  However, it is also possible to specify
-(nearly) any Vim supported regular expression in format strings.
+with previous versions of uVim.  However, it is also possible to specify
+(nearly) any uVim supported regular expression in format strings.
 Since meta characters of the regular expression language can be part of
 ordinary matching strings or file names (and therefore internally have to
 be escaped), meta symbols have to be written with leading '%':
@@ -1284,7 +1284,7 @@ whole line is put in the error message and the entry is marked "not valid"
 These lines are skipped with the ":cn" and ":cp" commands (unless there is
 no valid line at all).  You can use ":cl!" to display all the error messages.
 
-If the error format does not contain a file name Vim cannot switch to the
+If the error format does not contain a file name uVim cannot switch to the
 correct file.  You will have to do this by hand.
 
 
@@ -1357,19 +1357,19 @@ special problem here is that it doesn't print information on leaving the
 directory and that it doesn't print the absolute path.
 
 To solve the problem with relative paths and missing "leave directory"
-messages Vim uses following algorithm:
+messages uVim uses following algorithm:
 
 1) Check if the given directory is a subdirectory of the current directory.
    If this is true, store it as the current directory.
 2) If it is not a subdir of the current directory, try if this is a
    subdirectory of one of the upper directories.
 3) If the directory still isn't found, it is assumed to be a subdirectory
-   of Vim's current directory.
+   of uVim's current directory.
 
 Additionally it is checked for every file, if it really exists in the
 identified directory.  If not, it is searched in all other directories of the
 directory stack (NOT the directory subtree!).  If it is still not found, it is
-assumed that it is in Vim's current directory.
+assumed that it is in uVim's current directory.
 
 There are limitations in this algorithm.  These examples assume that make just
 prints information about entering a directory in the form "Making all in dir".
@@ -1381,7 +1381,7 @@ prints information about entering a directory in the form "Making all in dir".
 
    If make processes the directory "./dir1" before the current directory and
    there is an error in the file "./file1.c", you will end up with the file
-   "./dir1/file.c" loaded by Vim.
+   "./dir1/file.c" loaded by uVim.
 
    This can only be solved with a "leave directory" message.
 
@@ -1392,7 +1392,7 @@ prints information about entering a directory in the form "Making all in dir".
 
    You get the following:
 
-   Make output			  Directory interpreted by Vim
+   Make output			  Directory interpreted by uVim
    ------------------------	  ----------------------------
    Making all in dir1		  ./dir1
    Making all in dir2		  ./dir1/dir2
@@ -1417,7 +1417,7 @@ Add
     %DEntering\ dir\ '%f',%XLeaving\ dir
 to your 'errorformat' to handle the above output.
 
-Note that Vim doesn't check if the directory name in a "leave directory"
+Note that uVim doesn't check if the directory name in a "leave directory"
 messages is the current directory.  This is why you could just use the message
 "Leaving dir".
 
@@ -1429,7 +1429,7 @@ Jikes(TM), a source-to-bytecode Java compiler published by IBM Research,
 produces simple multi-line error messages.
 
 An 'errorformat' string matching the produced messages is shown below.
-The following lines can be placed in the user's |vimrc| to overwrite Vim's
+The following lines can be placed in the user's |vimrc| to overwrite uVim's
 recognized default formats, or see |:set+=| how to install this format
 additionally to the default. >
 
@@ -1496,7 +1496,7 @@ multi-lines in a single line, leading white space is removed.
 It should be easy to adopt the above LaTeX errorformat to any compiler output
 consisting of multi-line errors.
 
-The commands can be placed in a |vimrc| file or some other Vim script file,
+The commands can be placed in a |vimrc| file or some other uVim script file,
 e.g. a script containing LaTeX related stuff which is loaded only when editing
 LaTeX sources.
 Make sure to copy all lines of the example (in the given order), afterwards
@@ -1571,7 +1571,7 @@ to directly read the *.log file that is produced by the [La]TeX compiler.
 This contains even more useful information about possible error causes.
 However, to properly parse such a complex file, an external filter should
 be used.  See the description further above how to make such a filter known
-by Vim.
+by uVim.
 
 						*errorformat-Perl*
 In $VIMRUNTIME/tools you can find the efm_perl.pl script, which filters Perl

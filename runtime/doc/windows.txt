@@ -1,4 +1,4 @@
-*windows.txt*   For Vim version 7.4.  Last change: 2016 Aug 23
+*windows.txt*   For uVim version 7.4.  Last change: 2016 Aug 23
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
@@ -14,7 +14,7 @@ The basics are explained in chapter 7 and 8 of the user manual |usr_07.txt|
 |usr_08.txt|.
 
 1.  Introduction				|windows-intro|
-2.  Starting Vim				|windows-starting|
+2.  Starting uVim				|windows-starting|
 3.  Opening and closing a window		|opening-window|
 4.  Moving cursor to other windows		|window-move-cursor|
 5.  Moving windows around			|window-moving|
@@ -73,25 +73,25 @@ inactive	  no		 no		  ' '
 Note: All CTRL-W commands can also be executed with |:wincmd|, for those
 places where a Normal mode command can't be used or is inconvenient.
 
-The main Vim window can hold several split windows.  There are also tab pages
+The main uVim window can hold several split windows.  There are also tab pages
 |tab-page|, each of which can hold multiple windows.
 					*window-ID* *winid* *windowid*
 Each window has a unique identifier called the window ID.  This identifier
-will not change within a Vim session. The |win_getid()| and |win_id2tabwin()|
+will not change within a uVim session. The |win_getid()| and |win_id2tabwin()|
 functions can be used to convert between the window/tab number and the
 identifier.  There is also the window number, which may change whenever
 windows are opened or closed, see |winnr()|.
 
-Each buffer has a unique number and the number will not change within a Vim
+Each buffer has a unique number and the number will not change within a uVim
 session.  The |bufnr()| and |bufname()| functions can be used to convert
 between a buffer name and the buffer number.
 
 ==============================================================================
-2. Starting Vim						*windows-starting*
+2. Starting uVim						*windows-starting*
 
-By default, Vim starts with one window, just like Vi.
+By default, uVim starts with one window, just like Vi.
 
-The "-o" and "-O" arguments to Vim can be used to open a window for each file
+The "-o" and "-O" arguments to uVim can be used to open a window for each file
 in the argument list.  The "-o" argument will split the windows horizontally;
 the "-O" argument will split the windows vertically.  If both "-o" and "-O"
 are given, the last one encountered will be used to determine the split
@@ -250,24 +250,24 @@ window will appear.
 						*:topleft* *E442*
 :to[pleft] {cmd}
 		Execute {cmd}.  If it contains a command that splits a window,
-		it will appear at the top and occupy the full width of the Vim
+		it will appear at the top and occupy the full width of the uVim
 		window.  When the split is vertical the window appears at the
-		far left and occupies the full height of the Vim window.
+		far left and occupies the full height of the uVim window.
 		Doesn't work for |:execute| and |:normal|.
 
 						*:bo* *:botright*
 :bo[tright] {cmd}
 		Execute {cmd}.  If it contains a command that splits a window,
 		it will appear at the bottom and occupy the full width of the
-		Vim window.  When the split is vertical the window appears at
-		the far right and occupies the full height of the Vim window.
+		uVim window.  When the split is vertical the window appears at
+		the far right and occupies the full height of the uVim window.
 		Doesn't work for |:execute| and |:normal|.
 
 These command modifiers can be combined to make a vertically split window
 occupy the full height.  Example: >
 	:vertical topleft split tags
 Opens a vertically split, full-height window on the "tags" file at the far
-left of the Vim window.
+left of the uVim window.
 
 
 Closing a window
@@ -281,7 +281,7 @@ CTRL-W CTRL-Q						*CTRL-W_CTRL-Q*
 		given quit the {count} window.
 
 		When quitting the last window (not counting a help window),
-		exit Vim.
+		exit uVim.
 		
 		When 'hidden' is set, and there is only one window for the
 		current buffer, it becomes hidden.  When 'hidden' is not set,
@@ -307,7 +307,7 @@ CTRL-W CTRL-Q						*CTRL-W_CTRL-Q*
 
 		If this was the last window for a buffer, any changes to that
 		buffer are lost.  When quitting the last window (not counting
-		help windows), exit Vim.  The contents of the buffer are lost,
+		help windows), exit uVim.  The contents of the buffer are lost,
 		even when 'hidden' is set.
 
 :clo[se][!]
@@ -547,7 +547,7 @@ CTRL-W |	Set current window width to N (default: widest possible).
 
 You can also resize a window by dragging a status line up or down with the
 mouse.  Or by dragging a vertical separator line left or right.  This only
-works if the version of Vim that is being used supports the mouse and the
+works if the version of uVim that is being used supports the mouse and the
 'mouse' option has been set to enable it.
 
 The option 'winheight' ('wh') is used to set the minimal window height of the
@@ -698,7 +698,7 @@ can also get to them with the buffer list commands, like ":bnext".
 		  the window is split first.
 		The |argument-list| is set, like with the |:next| command.
 		The purpose of this command is that it can be used from a
-		program that wants Vim to edit another file, e.g., a debugger.
+		program that wants uVim to edit another file, e.g., a debugger.
 		When using the |:tab| modifier each argument is opened in a
 		tab page.  The last window is used if it's empty.
 		Also see |++opt| and |+cmd|.
@@ -989,8 +989,8 @@ values:
 	delete		Delete the buffer.
 
 							*hidden-quit*
-When you try to quit Vim while there is a hidden, modified buffer, you will
-get an error message and Vim will make that buffer the current buffer.  You
+When you try to quit uVim while there is a hidden, modified buffer, you will
+get an error message and uVim will make that buffer the current buffer.  You
 can then decide to write this buffer (":wq") or quit without writing (":q!").
 Be careful: there may be more hidden, modified buffers!
 

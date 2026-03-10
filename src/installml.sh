@@ -1,5 +1,5 @@
 #! /bin/sh
-# installml.sh --- install or uninstall manpage links for Vim
+# installml.sh --- install or uninstall manpage links for uVim
 #
 # arguments:
 # 1  what: "install" or "uninstall"
@@ -117,7 +117,7 @@ if test $what = "install" -a \( -f $destdir/$vimname.1 -o -f $destdir/$vimdiffna
 fi
 
 if test $what = "uninstall"; then
-   echo Checking for Vim manual page links in $destdir...
+   echo Checking for uVim manual page links in $destdir...
 
    if test -L $destdir/$exname.1; then
       echo deleting $destdir/$exname.1

@@ -3,7 +3,7 @@
  * Load XPM image.
  *
  * This function is placed in separate file because Xpm headers conflict with
- * Vim ones :(
+ * uVim ones :(
  *
  * Written by Sergey Khorev.
  * http://iamphet.nm.ru/vim/index.html

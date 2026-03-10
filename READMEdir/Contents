@@ -1,4 +1,4 @@
-Vim		Vi IMproved.  A clone of the UNIX text editor Vi.  Very useful
+uVim		Micro Vi IMproved.  A clone of the UNIX text editor Vi.  Very useful
 		for editing programs and other plain ASCII text.  Full Vi
 		compatibility and includes all Ex commands.  Extra features
 		above Vi: Multilevel undo, multiple windows, syntax

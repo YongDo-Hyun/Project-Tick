@@ -1,18 +1,18 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved    by Bram Moolenaar
+ * VIM - Micro Vi IMproved    by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
  *
  * File MOTIF_REDEFINES.H originally delivers together with
  * OpenVMS Porting Library
  * http://www.openvms.compaq.com/openvms/products/ips/porting.html
  *
- * This file has been modified for Vim development.
+ * This file has been modified for uVim development.
  * Original file contains just defines that GTK for OpenVMS uses,
  * but not all functions that DECW library has. Therefore it has been expanded
- * with necessary defines for Vim on OpenVMS with GTK GUI.
+ * with necessary defines for uVim on OpenVMS with GTK GUI.
  *
  * Zoltan Arpadffy <arpadffy@polarhome.com>
  */

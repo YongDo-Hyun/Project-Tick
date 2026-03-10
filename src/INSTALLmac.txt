@@ -1,7 +1,7 @@
-INSTALLmac.txt - Installation of Vim on Macintosh
+INSTALLmac.txt - Installation of uVim on Macintosh
 
-This file contains instructions for compiling Vim. If you already have an
-executable version of Vim, you don't need this.
+This file contains instructions for compiling uVim. If you already have an
+executable version of uVim, you don't need this.
 
 First, make sure you've installed Xcode or CommandLineToots.  If not, open a
 terminal and do
@@ -19,7 +19,7 @@ Summary
  1.1. Carbon interface
  1.2. X (Athena, GTK, Motif) or plain text.
 
-MacOS Classic is no longer supported.  If you really want it use Vim 6.4.
+MacOS Classic is no longer supported.  If you really want it use uVim 6.4.
 
 ----------------------------------------------------------------------------
 1 MacOS X
@@ -37,11 +37,11 @@ MacOS Classic is no longer supported.  If you really want it use Vim 6.4.
    make test
    sudo make install
 
- "make" will create a working Vim.app application bundle in the src
- directory.  You can move this bundle (the Vim.app directory) anywhere
+ "make" will create a working uVim.app application bundle in the src
+ directory.  You can move this bundle (the uVim.app directory) anywhere
  you want.  Or use "make install" to move it to /Applications.
 
- You need at least Xcode 1.5 to compile Vim 7.0.
+ You need at least Xcode 1.5 to compile uVim 7.0.
 
  Configure will create a universal binary if possible.  This requires
  installing the universal SDK (currently for 10.4).

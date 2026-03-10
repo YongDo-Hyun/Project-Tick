@@ -3,7 +3,7 @@ VIMDIFF(1)                                                          VIMDIFF(1)
 
 
 NAME
-       vimdiff  - edit two, three or four versions of a file with Vim and show
+       vimdiff  - edit two, three or four versions of a file with uVim and show
        differences
 
 SYNOPSIS
@@ -12,12 +12,12 @@ SYNOPSIS
        gvimdiff
 
 DESCRIPTION
-       Vimdiff starts Vim on two (or three or four) files.  Each file gets its
+       Vimdiff starts uVim on two (or three or four) files.  Each file gets its
        own  window.   The differences between the files are highlighted.  This
        is a nice way to inspect changes and to move changes from  one  version
        to another version of the same file.
 
-       See vim(1) for details about Vim itself.
+       See vim(1) for details about uVim itself.
 
        When started as gvimdiff the GUI will be started, if available.
 
@@ -38,8 +38,8 @@ SEE ALSO
        vim(1)
 
 AUTHOR
-       Most of Vim was made by Bram Moolenaar, with a lot of help from others.
-       See ":help credits" in Vim.
+       Most of uVim was made by Bram Moolenaar, with a lot of help from others.
+       See ":help credits" in uVim.
 
 
 

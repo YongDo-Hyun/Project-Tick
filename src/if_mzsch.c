@@ -7,11 +7,11 @@
  * This consists of six parts:
  * 1. MzScheme interpreter main program
  * 2. Routines that handle the external interface between MzScheme and
- *    Vim.
+ *    uVim.
  * 3. MzScheme input/output handlers: writes output via [e]msg().
- * 4. Implementation of the Vim Features for MzScheme
- * 5. Vim Window-related Manipulation Functions.
- * 6. Vim Buffer-related Manipulation Functions
+ * 4. Implementation of the uVim Features for MzScheme
+ * 5. uVim Window-related Manipulation Functions.
+ * 6. uVim Buffer-related Manipulation Functions
  *
  * NOTES
  * 1. Memory, allocated with scheme_malloc*, need not to be freed explicitly,
@@ -84,7 +84,7 @@ typedef struct
 #define INVALID_WINDOW_VALUE ((win_T *)(-1))
 
 /*
- * Prims that form MzScheme Vim interface
+ * Prims that form MzScheme uVim interface
  */
 typedef struct
 {
@@ -102,7 +102,7 @@ typedef struct
 
 /*
  *========================================================================
- *  Vim-Control Commands
+ *  uVim-Control Commands
  *========================================================================
  */
 /*
@@ -154,7 +154,7 @@ static Scheme_Object *set_cursor(void *, int, Scheme_Object **);
 static Scheme_Object *get_window_list(void *, int, Scheme_Object **);
 static vim_mz_window *get_vim_curr_window(void);
 
-/*  Vim-related commands */
+/*  uVim-related commands */
 static Scheme_Object *mzscheme_beep(void *, int, Scheme_Object **);
 static Scheme_Object *get_option(void *, int, Scheme_Object **);
 static Scheme_Object *set_option(void *, int, Scheme_Object **);
@@ -836,7 +836,7 @@ static Scheme_Object *curerr = NULL;
 static Scheme_Object *exn_catching_apply = NULL;
 static Scheme_Object *exn_p = NULL;
 static Scheme_Object *exn_message = NULL;
-static Scheme_Object *vim_exn = NULL; /* Vim Error exception */
+static Scheme_Object *vim_exn = NULL; /* uVim Error exception */
 
 #if !defined(MZ_PRECISE_GC) || MZSCHEME_VERSION_MAJOR < 400
 static void *stack_base = NULL;
@@ -1508,7 +1508,7 @@ do_load(void *data, int noargc UNUSED, Scheme_Object **noargv UNUSED)
     file = (char *)scheme_malloc_fail_ok(scheme_malloc_atomic, MAXPATHL + 1);
     MZ_GC_CHECK();
 
-    /* make Vim expansion */
+    /* make uVim expansion */
     expand_env((char_u *)pinfo->name, (char_u *)file, MAXPATHL);
     pinfo->port = scheme_open_input_file(file, "mzfile");
     MZ_GC_CHECK();
@@ -1683,7 +1683,7 @@ do_flush(void)
 
 /*
  *========================================================================
- *  4. Implementation of the Vim Features for MzScheme
+ *  4. Implementation of the uVim Features for MzScheme
  *========================================================================
  */
 
@@ -1897,7 +1897,7 @@ set_option(void *data, int argc, Scheme_Object **argv)
 
 /*
  *===========================================================================
- *  5. Vim Window-related Manipulation Functions
+ *  5. uVim Window-related Manipulation Functions
  *===========================================================================
  */
 
@@ -2151,7 +2151,7 @@ set_cursor(void *data, int argc, Scheme_Object **argv)
 }
 /*
  *===========================================================================
- *  6. Vim Buffer-related Manipulation Functions
+ *  6. uVim Buffer-related Manipulation Functions
  *===========================================================================
  */
 
@@ -2355,7 +2355,7 @@ get_buffer_size(void *data, int argc, Scheme_Object **argv)
  * (get-buff-line {linenr} [buffer])
  *
  * Get a line from the specified buffer. The line number is
- * in Vim format (1-based). The line is returned as a MzScheme
+ * in uVim format (1-based). The line is returned as a MzScheme
  * string object.
  */
     static Scheme_Object *
@@ -2379,7 +2379,7 @@ get_buffer_line(void *data, int argc, Scheme_Object **argv)
  * (get-buff-line-list {start} {end} [buffer])
  *
  * Get a list of lines from the specified buffer. The line numbers
- * are in Vim format (1-based). The range is from lo up to, but not
+ * are in uVim format (1-based). The range is from lo up to, but not
  * including, hi. The list is returned as a list of string objects.
  */
     static Scheme_Object *
@@ -2430,7 +2430,7 @@ get_buffer_line_list(void *data, int argc, Scheme_Object **argv)
  * (set-buff-line {linenr} {string/#f} [buffer])
  *
  * Replace a line in the specified buffer. The line number is
- * in Vim format (1-based). The replacement line is given as
+ * in uVim format (1-based). The replacement line is given as
  * an MzScheme string object. The object is checked for validity
  * and correct format. An exception is thrown if the values are not
  * the correct format.
@@ -2546,7 +2546,7 @@ free_array(char **array)
  * (set-buff-line-list {start} {end} {string-list/#f/null} [buffer])
  *
  * Replace a range of lines in the specified buffer. The line numbers are in
- * Vim format (1-based). The range is from lo up to, but not including, hi.
+ * uVim format (1-based). The range is from lo up to, but not including, hi.
  * The replacement lines are given as a Scheme list of string objects. The
  * list is checked for validity and correct format.
  *
@@ -2743,7 +2743,7 @@ set_buffer_line_list(void *data, int argc, Scheme_Object **argv)
  * (insert-buff-line-list {linenr} {string/string-list} [buffer])
  *
  * Insert a number of lines into the specified buffer after the specified line.
- * The line number is in Vim format (1-based). The lines to be inserted are
+ * The line number is in uVim format (1-based). The lines to be inserted are
  * given as an MzScheme list of string objects or as a single string. The lines
  * to be added are checked for validity and correct format. Errors are
  * returned as a value of FAIL.  The return value is OK on success.
@@ -2926,12 +2926,12 @@ vim_window_validp(void *data UNUSED, int argc UNUSED, Scheme_Object **argv)
  */
 
 /*
- * Convert an MzScheme string into a Vim line.
+ * Convert an MzScheme string into a uVim line.
  *
  * All internal nulls are replaced by newline characters.
  * It is an error for the string to contain newline characters.
  *
- * Returns pointer to Vim allocated memory
+ * Returns pointer to uVim allocated memory
  */
     static char *
 string_to_line(Scheme_Object *obj)
@@ -2971,7 +2971,7 @@ string_to_line(Scheme_Object *obj)
 
 #ifdef FEAT_EVAL
 /*
- * Convert Vim value into MzScheme, adopted from if_python.c
+ * Convert uVim value into MzScheme, adopted from if_python.c
  */
     static Scheme_Object *
 vim_to_mzscheme(typval_T *vim_value)
@@ -3368,7 +3368,7 @@ mzscheme_to_vim_impl(Scheme_Object *obj, typval_T *tv, int depth,
 		    /* generate item for `display'ed Scheme key */
 		    dictitem_T  *item = dictitem_alloc((char_u *)string_to_line(
 				((Scheme_Hash_Table *) obj)->keys[i]));
-		    /* convert Scheme val to Vim and add it to the dict */
+		    /* convert Scheme val to uVim and add it to the dict */
 		    if (mzscheme_to_vim_impl(((Scheme_Hash_Table *) obj)->vals[i],
 				    &item->di_tv, depth + 1, visited) == FAIL
 			    || dict_add(dict, item) == FAIL)
@@ -3393,7 +3393,7 @@ mzscheme_to_vim_impl(Scheme_Object *obj, typval_T *tv, int depth,
     return status;
 }
 
-/* Scheme prim procedure wrapping Vim funcref */
+/* Scheme prim procedure wrapping uVim funcref */
     static Scheme_Object *
 vim_funcref(void *name, int argc, Scheme_Object **argv)
 {
@@ -3446,7 +3446,7 @@ vim_funcref(void *name, int argc, Scheme_Object **argv)
     clear_tv(&args);
     MZ_GC_UNREG();
     if (status != OK)
-	raise_vim_exn(_("error converting Scheme values to Vim"));
+	raise_vim_exn(_("error converting Scheme values to uVim"));
     else
 	raise_if_error();
     return result;
@@ -3476,7 +3476,7 @@ do_mzeval(char_u *str, typval_T *rettv)
 #endif
 
 /*
- * Check to see whether a Vim error has been reported, or a keyboard
+ * Check to see whether a uVim error has been reported, or a keyboard
  * interrupt (from vim --> got_int) has been detected.
  */
     static int
@@ -3549,7 +3549,7 @@ register_vim_exn(void)
     void
 raise_vim_exn(const char *add_info)
 {
-    char	    *fmt = _("Vim error: ~a");
+    char	    *fmt = _("uVim error: ~a");
     Scheme_Object   *argv[2] = {NULL, NULL};
     Scheme_Object   *exn = NULL;
     Scheme_Object   *byte_string = NULL;
@@ -3582,7 +3582,7 @@ raise_vim_exn(const char *add_info)
     }
     else
     {
-	byte_string = scheme_make_byte_string(_("Vim error"));
+	byte_string = scheme_make_byte_string(_("uVim error"));
 	MZ_GC_CHECK();
 	argv[0] = scheme_byte_string_to_char_string(byte_string);
 	MZ_GC_CHECK();
@@ -3646,7 +3646,7 @@ get_window_arg(const char *fname, int argnum, int argc, Scheme_Object **argv)
     return w;
 }
 
-/* get valid Vim buffer from Scheme_Object* */
+/* get valid uVim buffer from Scheme_Object* */
 buf_T *get_valid_buffer(void *obj)
 {
     buf_T *buf = ((vim_mz_buffer *)obj)->buf;
@@ -3656,7 +3656,7 @@ buf_T *get_valid_buffer(void *obj)
     return buf;
 }
 
-/* get valid Vim window from Scheme_Object* */
+/* get valid uVim window from Scheme_Object* */
 win_T *get_valid_window(void *obj)
 {
     win_T *win = ((vim_mz_window *)obj)->win;
@@ -3686,7 +3686,7 @@ check_line_range(linenr_T lnum, buf_T *buf)
 
 /*
  * Check if deleting lines made the cursor position invalid
- * (or you'll get msg from Vim about invalid linenr).
+ * (or you'll get msg from uVim about invalid linenr).
  * Changed the lines from "lo" to "hi" and added "extra" lines (negative if
  * deleted). Got from if_python.c
  */
@@ -3752,7 +3752,7 @@ static Vim_Prim prims[]=
     {set_cursor, "set-cursor", 1, 2},
     {get_window_list, "get-win-list", 0, 1},
     /*
-     * Vim-related commands
+     * uVim-related commands
      */
     {vim_command, "command", 1, 1},
     {vim_eval, "eval", 1, 1},
@@ -3832,10 +3832,10 @@ static Scheme_Object *M_delete = NULL;
 sandbox_check(void)
 {
     if (sandbox)
-	raise_vim_exn(_("not allowed in the Vim sandbox"));
+	raise_vim_exn(_("not allowed in the uVim sandbox"));
 }
 
-/* security guards to force Vim's sandbox restrictions on MzScheme level */
+/* security guards to force uVim's sandbox restrictions on MzScheme level */
     static Scheme_Object *
 sandbox_file_guard(int argc UNUSED, Scheme_Object **argv)
 {
@@ -3874,7 +3874,7 @@ sandbox_file_guard(int argc UNUSED, Scheme_Object **argv)
 	    if (scheme_eq(item, M_write) || scheme_eq(item, M_read)
 		    || scheme_eq(item, M_execute) || scheme_eq(item, M_delete))
 	    {
-		raise_vim_exn(_("not allowed in the Vim sandbox"));
+		raise_vim_exn(_("not allowed in the uVim sandbox"));
 	    }
 	    requested_access = SCHEME_CDR(requested_access);
 	}

@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -149,7 +149,7 @@ ui_inchar(
     /* Don't wait for character input when the window hasn't been opened yet.
      * Do try reading, this works when redirecting stdin from a file.
      * Must return something, otherwise we'll loop forever.  If we run into
-     * this very often we probably got stuck, exit Vim. */
+     * this very often we probably got stuck, exit uVim. */
     if (no_console_input())
     {
 	static int count = 0;
@@ -288,7 +288,7 @@ suspend_shell(void)
 #endif
 
 /*
- * Try to get the current Vim shell size.  Put the result in Rows and Columns.
+ * Try to get the current uVim shell size.  Put the result in Rows and Columns.
  * Use the new sizes as defaults for 'columns' and 'lines'.
  * Return OK when size could be determined, FAIL otherwise.
  */
@@ -316,7 +316,7 @@ ui_get_shellsize(void)
 }
 
 /*
- * Set the size of the Vim shell according to Rows and Columns, if possible.
+ * Set the size of the uVim shell according to Rows and Columns, if possible.
  * The gui_set_shellsize() or mch_set_shellsize() function will try to set the
  * new size.  If this is not possible, it will adjust Rows and Columns.
  */
@@ -548,7 +548,7 @@ clip_copy_selection(VimClipboard *clip)
 
 /*
  * Save and restore clip_unnamed before doing possibly many changes. This
- * prevents accessing the clipboard very often which might slow down Vim
+ * prevents accessing the clipboard very often which might slow down uVim
  * considerably.
  */
 static int global_change_count = 0; /* if set, inside a start_global_changes */
@@ -1460,7 +1460,7 @@ clip_gen_set_selection(VimClipboard *cbd)
     if (!clip_did_set_selection)
     {
 	/* Updating postponed, so that accessing the system clipboard won't
-	 * hang Vim when accessing it many times (e.g. on a :g comand). */
+	 * hang uVim when accessing it many times (e.g. on a :g comand). */
 	if ((cbd == &clip_plus && (clip_unnamed_saved & CLIP_UNNAMED_PLUS))
 		|| (cbd == &clip_star && (clip_unnamed_saved & CLIP_UNNAMED)))
 	{
@@ -1767,7 +1767,7 @@ fill_input_buf(int exit_on_error UNUSED)
      * Fill_input_buf() is only called when we really need a character.
      * If we can't get any, but there is some in the buffer, just return.
      * If we can't get any, and there isn't any in the buffer, we give up and
-     * exit Vim.
+     * exit uVim.
      */
 # ifdef __BEOS__
     /*
@@ -1906,7 +1906,7 @@ read_error_exit(void)
 {
     if (silent_mode)	/* Normal way to exit for "ex -s" */
 	getout(0);
-    STRCPY(IObuff, _("Vim: Error reading input, exiting...\n"));
+    STRCPY(IObuff, _("uVim: Error reading input, exiting...\n"));
     preserve_exit();
 }
 
@@ -1985,9 +1985,9 @@ open_app_context(void)
     }
 }
 
-static Atom	vim_atom;	/* Vim's own special selection format */
+static Atom	vim_atom;	/* uVim's own special selection format */
 #ifdef FEAT_MBYTE
-static Atom	vimenc_atom;	/* Vim's extended selection format */
+static Atom	vimenc_atom;	/* uVim's extended selection format */
 static Atom	utf8_atom;
 #endif
 static Atom	compound_text_atom;
@@ -3195,7 +3195,7 @@ ui_focus_change(
     static time_t	last_time = (time_t)0;
     int			need_redraw = FALSE;
 
-    /* When activated: Check if any file was modified outside of Vim.
+    /* When activated: Check if any file was modified outside of uVim.
      * Only do this when not done within the last two seconds (could get
      * several events in a row). */
     if (in_focus && last_time + 2 < time(NULL))

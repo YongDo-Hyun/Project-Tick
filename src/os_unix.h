@@ -1,9 +1,9 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
  */
 
 /*
@@ -423,7 +423,7 @@ typedef struct dsc$descriptor   DESC;
 #  define DFLT_MAXMEM	(5*1024)	 /* use up to 5 Mbyte for a buffer */
 # endif
 # ifndef DFLT_MAXMEMTOT
-#  define DFLT_MAXMEMTOT	(10*1024)    /* use up to 10 Mbyte for Vim */
+#  define DFLT_MAXMEMTOT	(10*1024)    /* use up to 10 Mbyte for uVim */
 # endif
 #endif
 

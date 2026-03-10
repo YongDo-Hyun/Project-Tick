@@ -1,14 +1,14 @@
-README_vms.txt for version 7.4 of Vim: Vi IMproved.
+README_vms.txt for version 7.4 of uVim: Micro Vi IMproved.
 
-This file explains the installation of Vim on VMS systems.
-See "README.txt" in the runtime archive for information about Vim.
+This file explains the installation of uVim on VMS systems.
+See "README.txt" in the runtime archive for information about uVim.
 
 
 Most information can be found in the on-line documentation.  Use ":help vms"
-inside Vim.  Or get the runtime files and read runtime/doc/os_vms.txt to find
-out how to install and configure Vim with runtime files etc.
+inside uVim.  Or get the runtime files and read runtime/doc/os_vms.txt to find
+out how to install and configure uVim with runtime files etc.
 
-To compile Vim yourself you need three archives:
+To compile uVim yourself you need three archives:
   vim-X.X-rt.tar.gz	runtime files
   vim-X.X-src.tar.gz	source files
   vim-X.X-extra.tar.gz	extra source files

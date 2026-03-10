@@ -1,4 +1,4 @@
-*cmdline.txt*   For Vim version 7.4.  Last change: 2016 Aug 27
+*cmdline.txt*   For uVim version 7.4.  Last change: 2016 Aug 27
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
@@ -275,7 +275,7 @@ CTRL-_		a - switch between Hebrew and English keyboard mode, which is
 		private to the command-line and not related to hkmap.
 		This is useful when Hebrew text entry is required in the
 		command-line, searches, abbreviations, etc.  Applies only if
-		Vim is compiled with the |+rightleft| feature and the
+		uVim is compiled with the |+rightleft| feature and the
 		'allowrevins' option is set.
 		See |rileft.txt|.
 
@@ -284,7 +284,7 @@ CTRL-_		a - switch between Hebrew and English keyboard mode, which is
 		Farsi keyboard mode the characters are inserted in reverse
 		insert manner.  This is useful when Farsi text entry is
 		required in the command-line, searches, abbreviations, etc.
-		Applies only if Vim is compiled with the |+farsi| feature.
+		Applies only if uVim is compiled with the |+farsi| feature.
 		See |farsi.txt|.
 
 							*c_CTRL-^*
@@ -381,7 +381,7 @@ word before the cursor.  This is available for:
 - Mappings: Only after a ":map" or similar command.
 - Variable and function names: Only after a ":if", ":call" or similar command.
 
-When Vim was compiled without the |+cmdline_compl| feature only file names,
+When uVim was compiled without the |+cmdline_compl| feature only file names,
 directories and help items can be completed.  The number of help item matches
 is limited (currently to 300) to avoid a long delay when there are very many
 matches.
@@ -526,7 +526,7 @@ argument.  This is mentioned where the command is explained.
 line.  If you want to use '|' in an argument, precede it with '\'.
 
 These commands see the '|' as their argument, and can therefore not be
-followed by another Vim command:
+followed by another uVim command:
     :argdo
     :autocmd
     :bufdo
@@ -721,7 +721,7 @@ closed fold.  See |fold-behavior|.
 
 Reverse Range						*E493*
 
-A range should have the lower line number first.  If this is not the case, Vim
+A range should have the lower line number first.  If this is not the case, uVim
 will ask you if it should swap the line numbers.
 	Backwards range given, OK to swap ~
 This is not done within the global command ":g".
@@ -773,7 +773,7 @@ to insert special things while typing you can use the CTRL-R command.  For
 example, "%" stands for the current file name, while CTRL-R % inserts the
 current file name right away.  See |c_CTRL-R|.
 
-Note:  If you want to avoid the effects of special characters in a Vim script
+Note:  If you want to avoid the effects of special characters in a uVim script
 you may want to use |fnameescape()|.  Also see |`=|.
 
 
@@ -853,7 +853,7 @@ Note: these are typed literally, they are not special keys!
      *%:8* *%:p* *%:.* *%:~* *%:h* *%:t* *%:r* *%:e* *%:s* *%:gs* *%:S*
 The file name modifiers can be used after "%", "#", "#n", "<cfile>", "<sfile>",
 "<afile>" or "<abuf>".  They are also used with the |fnamemodify()| function.
-These are not available when Vim has been compiled without the |+modify_fname|
+These are not available when uVim has been compiled without the |+modify_fname|
 feature.
 These modifiers can be given, in this order:
 	:p	Make file name a full path.  Must be the first modifier.  Also
@@ -1024,7 +1024,7 @@ line contains the command as typed so far.  The left column will show a
 character that indicates the type of command-line being edited, see
 |cmdwin-char|.
 
-Vim will be in Normal mode when the editor is opened, except when 'insertmode'
+uVim will be in Normal mode when the editor is opened, except when 'insertmode'
 is set.
 
 The height of the window is specified with 'cmdwinheight' (or smaller if there
@@ -1060,8 +1060,8 @@ CTRL-C		Continue in Command-line mode.  The command-line under the
 		thus the window will remain visible.
 :quit		Discard the command line and go back to Normal mode.
 		":exit", ":xit" and CTRL-\ CTRL-N also work.
-:qall		Quit Vim, unless there are changes in some buffer.
-:qall!		Quit Vim, discarding changes to any buffer.
+:qall		Quit uVim, unless there are changes in some buffer.
+:qall!		Quit uVim, discarding changes to any buffer.
 
 Once the command-line window is closed the old window sizes are restored.  The
 executed command applies to the window and buffer where the command-line was
@@ -1081,10 +1081,10 @@ VARIOUS
 The command-line window cannot be used:
 - when there already is a command-line window (no nesting)
 - for entering an encryption key or when using inputsecret()
-- when Vim was not compiled with the |+vertsplit| feature
+- when uVim was not compiled with the |+vertsplit| feature
 
 Some options are set when the command-line window is opened:
-'filetype'	"vim", when editing an Ex command-line; this starts Vim syntax
+'filetype'	"vim", when editing an Ex command-line; this starts uVim syntax
 		highlighting if it was enabled
 'rightleft'	off
 'modifiable'	on
@@ -1128,7 +1128,7 @@ Example: >
 This sets 'complete' to use completion in the current window for |i_CTRL-N|.
 Another example: >
 	:au CmdwinEnter [/?]  startinsert
-This will make Vim start in Insert mode in the command-line window.
+This will make uVim start in Insert mode in the command-line window.
 
 						*cmdwin-char*
 The character used for the pattern indicates the type of command-line:

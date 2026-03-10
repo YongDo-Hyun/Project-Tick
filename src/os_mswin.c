@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -1936,7 +1936,7 @@ mch_resolve_shortcut(char_u *fname)
 		hr = ppf->lpVtbl->Load(ppf, p, STGM_READ);
 		if (hr != S_OK)
 		    goto shortcut_errorw;
-#  if 0  // This makes Vim wait a long time if the target does not exist.
+#  if 0  // This makes uVim wait a long time if the target does not exist.
 		hr = pslw->lpVtbl->Resolve(pslw, NULL, SLR_NO_UI);
 		if (hr != S_OK)
 		    goto shortcut_errorw;
@@ -1976,7 +1976,7 @@ shortcut_errorw:
     hr = ppf->lpVtbl->Load(ppf, wsz, STGM_READ);
     if (hr != S_OK)
 	goto shortcut_end;
-# if 0  // This makes Vim wait a long time if the target doesn't exist.
+# if 0  // This makes uVim wait a long time if the target doesn't exist.
     hr = psl->lpVtbl->Resolve(psl, NULL, SLR_NO_UI);
     if (hr != S_OK)
 	goto shortcut_end;
@@ -2021,7 +2021,7 @@ win32_set_foreground(void)
 
 #if defined(FEAT_CLIENTSERVER) || defined(PROTO)
 /*
- * Client-server code for Vim
+ * Client-server code for uVim
  *
  * Originally written by Paul Moore
  */
@@ -2104,14 +2104,14 @@ static int save_reply(HWND server, char_u *reply, int expr);
  * is started (in the GUI) is careful to pump messages when it needs
  * to. Features which require message delivery during normal use will
  * not work in the console version - this basically means those
- * features which allow Vim to act as a server, rather than a client.
+ * features which allow uVim to act as a server, rather than a client.
  */
     static LRESULT CALLBACK
 Messaging_WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     if (msg == WM_COPYDATA)
     {
-	/* This is a message from another Vim. The dwData member of the
+	/* This is a message from another uVim. The dwData member of the
 	 * COPYDATASTRUCT determines the type of message:
 	 *   COPYDATA_ENCODING:
 	 *	The encoding that the client uses. Following messages will
@@ -2282,9 +2282,9 @@ serverInitMessaging(void)
 static char_u *altname_buf_ptr = NULL;
 
 /*
- * Get the title of the window "hwnd", which is the Vim server name, in
+ * Get the title of the window "hwnd", which is the uVim server name, in
  * "name[namelen]" and return the length.
- * Returns zero if window "hwnd" is not a Vim server.
+ * Returns zero if window "hwnd" is not a uVim server.
  */
     static int
 getVimServerName(HWND hwnd, char *name, int namelen)
@@ -2292,7 +2292,7 @@ getVimServerName(HWND hwnd, char *name, int namelen)
     int		len;
     char	buffer[VIM_CLASSNAME_LEN + 1];
 
-    /* Ignore windows which aren't Vim message windows */
+    /* Ignore windows which aren't uVim message windows */
     len = GetClassName(hwnd, buffer, sizeof(buffer));
     if (len != VIM_CLASSNAME_LEN || STRCMP(buffer, VIM_CLASSNAME) != 0)
 	return 0;
@@ -2398,7 +2398,7 @@ serverSetName(char_u *name)
 	/* Remember the name */
 	serverName = ok_name;
 #ifdef FEAT_TITLE
-	need_maketitle = TRUE;	/* update Vim window title later */
+	need_maketitle = TRUE;	/* update uVim window title later */
 #endif
 
 	/* Update the message window title */

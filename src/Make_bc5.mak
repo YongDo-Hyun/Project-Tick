@@ -1,5 +1,5 @@
 #
-# Makefile for Vim.
+# Makefile for uVim.
 # Compiler: Borland C++ 5.0 and later 32-bit compiler
 #  Targets: Win32 (Windows NT and Windows 95) (with/without GUI)
 #
@@ -75,7 +75,7 @@
 # CPUNR		1 through 6: select -CPU argument to compile with (3)
 #		3 for 386, 4 for 486, 5 for pentium, 6 for pentium pro.
 # USEDLL	no or yes: set to yes to use the Runtime library DLL (no)
-#		For USEDLL=yes the cc3250.dll is required to run Vim.
+#		For USEDLL=yes the cc3250.dll is required to run uVim.
 # VIMDLL	no or yes: create vim32.dll, and stub (g)vim.exe (no)
 # ALIGN		1, 2 or 4: Alignment to use (4 for Win32)
 # FASTCALL	no or yes: set to yes to use register-based function protocol (yes)

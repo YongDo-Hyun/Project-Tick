@@ -1,5 +1,5 @@
 #
-# Makefile to run all tests for Vim, on Dos-like machines.
+# Makefile to run all tests for uVim, on Dos-like machines.
 #
 # Requires a set of Unix tools: echo, diff, etc.
 
@@ -107,7 +107,7 @@ bench_re_freeze.out: bench_re_freeze.vim
 	$(VIMPROG) -u dos.vim $(NO_PLUGIN) $*.in
 	@IF EXIST benchmark.out ( type benchmark.out )
 
-# New style of tests uses Vim script with assert calls.  These are easier
+# New style of tests uses uVim script with assert calls.  These are easier
 # to write and a lot easier to read and debug.
 # Limitation: Only works with the +eval feature.
 

@@ -1,4 +1,4 @@
-# A-A-P recipe for building Vim
+# A-A-P recipe for building uVim
 #
 # There are no user choices in here!
 # Put configure arguments in the file config.arg.
@@ -253,7 +253,7 @@ LIBS = $GUI_LIBS1 $GUI_X_LIBS $GUI_LIBS2 $X_PRE_LIBS $X_LIBS $X_EXTRA_LIBS $CONF
 
 Target = $VIMNAME
 
-# reconfig target also builds Vim (reconfiguration is handled above).
+# reconfig target also builds uVim (reconfiguration is handled above).
 reconfig {virtual}: $Target
 
 distclean: clean
@@ -261,7 +261,7 @@ distclean: clean
     :del {force} auto/config.cache auto/config.status
 
 
-# Execute the test scripts.  Run these after compiling Vim, before installing.
+# Execute the test scripts.  Run these after compiling uVim, before installing.
 #
 # This will produce a lot of garbage on your screen, including a few error
 # messages.  Don't worry about that.
@@ -368,7 +368,7 @@ $Target : version.c
 # Some sources are to be found in the "auto" directory.
 SRCPATH += auto
 
-# When building Vim always compile version.c to get the timestamp.
+# When building uVim always compile version.c to get the timestamp.
 :filetype
     declare my_prog
 :attr {filetype = my_prog} $Target
@@ -465,7 +465,7 @@ DESTDIR ?=
 ### Location of man pages under $MANTOPDIR
 MAN1DIR = /man1
 
-### Location of Vim files (should not need to be changed, and
+### Location of uVim files (should not need to be changed, and
 ### some things might not work when they are changed!)
 VIMDIR = /vim
 @r = re.compile('.*VIM_VERSION_NODOT\\s*"(vim\\d\\d[^"]*)".*', re.S)
@@ -487,8 +487,8 @@ SPELLSUBDIR = /spell
 PRINTSUBDIR = /print
 PODIR = po
 
-### VIMLOC      common root of the Vim files (all versions)
-### VIMRTLOC    common root of the runtime Vim files (this version)
+### VIMLOC      common root of the uVim files (all versions)
+### VIMRTLOC    common root of the runtime uVim files (this version)
 ### VIMRCLOC    compiled-in location for global [g]vimrc files (all versions)
 ### VIMRUNTIMEDIR  compiled-in location for runtime files (optional)
 ### HELPSUBLOC  location for help files
@@ -581,7 +581,7 @@ HELPMOD = 644
 ### Permissions for Perl and shell scripts
 SCRIPTMOD = 755
 
-### Permission for Vim script files (menu.vim, bugreport.vim, ..)
+### Permission for uVim script files (menu.vim, bugreport.vim, ..)
 VIMSCRIPTMOD = 644
 
 ### Permissions for all directories that are created
@@ -1141,7 +1141,7 @@ uninstall_runtime {virtual}{force}:
     :del {force} $DEST_AUTO/*.vim $DEST_AUTO/README.txt $DEST_AUTO/xml/*.vim
     :del {force} $DEST_PLUG/*.vim $DEST_PLUG/README.txt
     :deldir {force} $DEST_FTP $DEST_AUTO/xml $DEST_AUTO $DEST_PLUG $DEST_PRINT $DEST_RT
-#       This will fail when other Vim versions are installed, no worries.
+#       This will fail when other uVim versions are installed, no worries.
     @try:
         :deldir $DEST_VIM
     @except:
@@ -1150,7 +1150,7 @@ uninstall_runtime {virtual}{force}:
 ###############################################################################
 ### MacOS X installation
 ###
-### This installs a runnable Vim.app in $(prefix)
+### This installs a runnable uVim.app in $(prefix)
 
 REZ    = /Developer/Tools/Rez
 RESDIR = $(APPDIR)/Contents/Resources
@@ -1203,8 +1203,8 @@ bundle-resource {virtual}: bundle-dir bundle-rsrc
         :copy {force} $(RSRC_DIR)/*.icns $(RESDIR)
 
 ### Classic resources
-# Resource fork (in the form of a .rsrc file) for Classic Vim (Mac OS 9)
-# This file is also required for OS X Vim.
+# Resource fork (in the form of a .rsrc file) for Classic uVim (Mac OS 9)
+# This file is also required for OS X uVim.
 bundle-rsrc {virtual}: os_mac.rsr.hqx
     :print Creating resource fork
     :sys python dehqx.py $source
@@ -1213,7 +1213,7 @@ bundle-rsrc {virtual}: os_mac.rsr.hqx
 
 # po/Make_osx.pl says something about generating a Mac message file
 # for Ukrainian.  Would somebody using Mac OS X in Ukrainian
-# *really* be upset that Carbon Vim was not localised in
+# *really* be upset that Carbon uVim was not localised in
 # Ukrainian?
 #
 #bundle-language: bundle-dir po/Make_osx.pl

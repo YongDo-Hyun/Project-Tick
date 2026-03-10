@@ -1,10 +1,10 @@
-*if_tcl.txt*    For Vim version 7.4.  Last change: 2016 Jan 01
+*if_tcl.txt*    For uVim version 7.4.  Last change: 2016 Jan 01
 
 
 		  VIM REFERENCE MANUAL    by Ingo Wilken
 
 
-The Tcl Interface to Vim				*tcl* *Tcl* *TCL*
+The Tcl Interface to uVim				*tcl* *Tcl* *TCL*
 
 1. Commands				|tcl-ex-commands|
 2. Tcl commands				|tcl-commands|
@@ -18,7 +18,7 @@ The Tcl Interface to Vim				*tcl* *Tcl* *TCL*
 
 {Vi does not have any of these commands} *E280*
 
-The Tcl interface only works when Vim was compiled with the |+tcl| feature.
+The Tcl interface only works when uVim was compiled with the |+tcl| feature.
 
 WARNING: There are probably still some bugs.  Please send bug reports,
 comments, ideas etc to <Ingo.Wilken@informatik.uni-oldenburg.de>
@@ -42,7 +42,7 @@ comments, ideas etc to <Ingo.Wilken@informatik.uni-oldenburg.de>
 {endmarker} must NOT be preceded by any white space.  If {endmarker} is
 omitted from after the "<<", a dot '.' must be used after {script}, like for
 the |:append| and |:insert| commands.
-This form of the |:tcl| command is mainly useful for including tcl code in Vim
+This form of the |:tcl| command is mainly useful for including tcl code in uVim
 scripts.
 
 Example: >
@@ -86,7 +86,7 @@ The following commands are implemented: >
 	::vim::buffer {n}		# Create Tcl command for one buffer.
 	::vim::buffer list		# Create Tcl commands for all buffers.
 	::vim::command [-quiet] {cmd}	# Execute an Ex command.
-	::vim::expr {expr}		# Use Vim's expression evaluator.
+	::vim::expr {expr}		# Use uVim's expression evaluator.
 	::vim::option {opt}		# Get vim option.
 	::vim::option {opt} {val}	# Set vim option.
 	::vim::window list		# Create Tcl commands for all windows.
@@ -518,9 +518,9 @@ startup file (usually "~/.vimrc" on Unix):
 On MS-Windows and Unix the Tcl library can be loaded dynamically.  The
 |:version| output then includes |+tcl/dyn|.
 
-This means that Vim will search for the Tcl DLL or shared library file only
+This means that uVim will search for the Tcl DLL or shared library file only
 when needed.  When you don't use the Tcl interface you don't need it, thus you
-can use Vim without this file.
+can use uVim without this file.
 
 
 MS-Windows ~
@@ -529,7 +529,7 @@ To use the Tcl interface the Tcl DLL must be in your search path.  In a
 console window type "path" to see what directories are used.  The 'tcldll'
 option can be also used to specify the Tcl DLL.
 
-The name of the DLL must match the Tcl version Vim was compiled with.
+The name of the DLL must match the Tcl version uVim was compiled with.
 Currently the name is "tcl86.dll".  That is for Tcl 8.6.  To know for sure
 edit "gvim.exe" and search for "tcl\d*.dll\c".
 
@@ -538,7 +538,7 @@ Unix ~
 
 The 'tcldll' option can be used to specify the Tcl shared library file instead
 of DYNAMIC_TCL_DLL file what was specified at compile time.  The version of
-the shared library must match the Tcl version Vim was compiled with.
+the shared library must match the Tcl version uVim was compiled with.
 
 ==============================================================================
  vim:tw=78:ts=8:ft=help:norl:

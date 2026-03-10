@@ -1,4 +1,4 @@
-*autocmd.txt*   For Vim version 7.4.  Last change: 2016 Jul 29
+*autocmd.txt*   For uVim version 7.4.  Last change: 2016 Jul 29
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
@@ -27,7 +27,7 @@ For a basic explanation, see section |40.3| in the user manual.
 1. Introduction						*autocmd-intro*
 
 You can specify commands to be executed automatically when reading or writing
-a file, when entering or leaving a buffer or window, and when exiting Vim.
+a file, when entering or leaving a buffer or window, and when exiting uVim.
 For example, you can create an autocommand to set the 'cindent' option for
 files matching *.c.  You can also use autocommands to implement advanced
 features, such as editing compressed files (see |gzip-example|).  The usual
@@ -40,7 +40,7 @@ effects.  Be careful not to destroy your text.
   For example: If you use autocommands to decompress a file when starting to
   edit it, make sure that the autocommands for compressing when writing work
   correctly.
-- Be prepared for an error halfway through (e.g., disk full).  Vim will mostly
+- Be prepared for an error halfway through (e.g., disk full).  uVim will mostly
   be able to undo the changes to the buffer, but you may have to clean up the
   changes to other files by hand (e.g., compress a file that has been
   decompressed).
@@ -54,10 +54,10 @@ effects.  Be careful not to destroy your text.
 
 							*:au* *:autocmd*
 :au[tocmd] [group] {event} {pat} [nested] {cmd}
-			Add {cmd} to the list of commands that Vim will
+			Add {cmd} to the list of commands that uVim will
 			execute automatically on {event} for a file matching
 			{pat} |autocmd-patterns|.
-			Vim always adds the {cmd} after existing autocommands,
+			uVim always adds the {cmd} after existing autocommands,
 			so that the autocommands execute in the order in which
 			they were given.  See |autocmd-nested| for [nested].
 
@@ -77,7 +77,7 @@ exception is that "<sfile>" is expanded when the autocmd is defined.  Example:
 >
 	:au BufNewFile,BufRead *.html so <sfile>:h/html.vim
 
-Here Vim expands <sfile> to the name of the file containing this line.
+Here uVim expands <sfile> to the name of the file containing this line.
 
 When your .vimrc file is sourced twice, the autocommands will appear twice.
 To avoid this, put this command in your .vimrc file, before defining
@@ -86,21 +86,21 @@ autocommands: >
 	:autocmd!	" Remove ALL autocommands for the current group.
 
 If you don't want to remove all autocommands, you can instead use a variable
-to ensure that Vim includes the autocommands only once: >
+to ensure that uVim includes the autocommands only once: >
 
 	:if !exists("autocommands_loaded")
 	:  let autocommands_loaded = 1
 	:  au ...
 	:endif
 
-When the [group] argument is not given, Vim uses the current group (as defined
-with ":augroup"); otherwise, Vim uses the group defined with [group].  Note
+When the [group] argument is not given, uVim uses the current group (as defined
+with ":augroup"); otherwise, uVim uses the group defined with [group].  Note
 that [group] must have been defined before.  You cannot define a new group
 with ":au group ..."; use ":augroup" for that.
 
 While testing autocommands, you might find the 'verbose' option to be useful: >
 	:set verbose=9
-This setting makes Vim echo the autocommands as it executes them.
+This setting makes uVim echo the autocommands as it executes them.
 
 When defining an autocommand in a script, it will be able to call functions
 local to the script and use mappings local to the script.  When the event is
@@ -133,8 +133,8 @@ prompt.  When one command outputs two messages this can happen anyway.
 
 :au[tocmd]! [group]	Remove ALL autocommands.
 
-When the [group] argument is not given, Vim uses the current group (as defined
-with ":augroup"); otherwise, Vim uses the group defined with [group].
+When the [group] argument is not given, uVim uses the current group (as defined
+with ":augroup"); otherwise, uVim uses the group defined with [group].
 
 ==============================================================================
 4. Listing autocommands					*autocmd-list*
@@ -152,8 +152,8 @@ with ":augroup"); otherwise, Vim uses the group defined with [group].
 
 :au[tocmd] [group]	Show all autocommands.
 
-If you provide the [group] argument, Vim lists only the autocommands for
-[group]; otherwise, Vim lists the autocommands for ALL groups.  Note that this
+If you provide the [group] argument, uVim lists only the autocommands for
+[group]; otherwise, uVim lists the autocommands for ALL groups.  Note that this
 argument behavior differs from that for defining and removing autocommands.
 
 In order to list buffer-local autocommands, use a pattern in the form <buffer>
@@ -181,7 +181,7 @@ For READING FILES there are four kinds of events possible:
 	BufReadPre	BufReadPost	starting to edit an existing file
 	FilterReadPre	FilterReadPost	read the temp file with filter output
 	FileReadPre	FileReadPost	any other file read
-Vim uses only one of these four kinds when reading a file.  The "Pre" and
+uVim uses only one of these four kinds when reading a file.  The "Pre" and
 "Post" events are both triggered, before and after reading the file.
 
 Note that the autocommands for the *ReadPre events and all the Filter events
@@ -195,7 +195,7 @@ autocommands, this doesn't happen.
 You can use the 'eventignore' option to ignore a number of events or all
 events.
 					*autocommand-events* *{event}*
-Vim recognizes the following events.  Vim ignores the case of event names
+uVim recognizes the following events.  uVim ignores the case of event names
 (e.g., you can use "BUFread" or "bufread" instead of "BufRead").
 
 First an overview by function with a short explanation.  Then the list
@@ -271,11 +271,11 @@ Name			triggered by ~
 |TermResponse|		after the terminal response to |t_RV| is received
 
 |QuitPre|		when using `:quit`, before deciding whether to quit
-|VimLeavePre|		before exiting Vim, before writing the viminfo file
-|VimLeave|		before exiting Vim, after writing the viminfo file
+|VimLeavePre|		before exiting uVim, before writing the viminfo file
+|VimLeave|		before exiting uVim, after writing the viminfo file
 
 	Various
-|FileChangedShell|	Vim notices that a file changed since editing started
+|FileChangedShell|	uVim notices that a file changed since editing started
 |FileChangedShellPost|	After handling a file changed since editing started
 |FileChangedRO|		before making the first change to a read-only file
 
@@ -285,12 +285,12 @@ Name			triggered by ~
 |CmdUndefined|		a user command is used but it isn't defined
 |FuncUndefined|		a user function is used but it isn't defined
 |SpellFileMissing|	a spell file is used but it can't be found
-|SourcePre|		before sourcing a Vim script
-|SourceCmd|		before sourcing a Vim script |Cmd-event|
+|SourcePre|		before sourcing a uVim script
+|SourceCmd|		before sourcing a uVim script |Cmd-event|
 
-|VimResized|		after the Vim window size changed
-|FocusGained|		Vim got input focus
-|FocusLost|		Vim lost input focus
+|VimResized|		after the uVim window size changed
+|FocusGained|		uVim got input focus
+|FocusLost|		uVim lost input focus
 |CursorHold|		the user doesn't press a key for a while
 |CursorHoldI|		the user doesn't press a key for a while in Insert mode
 |CursorMoved|		the cursor was moved in Normal mode
@@ -317,7 +317,7 @@ Name			triggered by ~
 
 |ColorScheme|		after loading a color scheme
 
-|RemoteReply|		a reply from a server Vim was received
+|RemoteReply|		a reply from a server uVim was received
 
 |QuickFixCmdPre|	before a quickfix command is run
 |QuickFixCmdPost|	after a quickfix command is run
@@ -369,7 +369,7 @@ BufHidden			Just after a buffer has become hidden.  That
 				is, when there are no longer windows that show
 				the buffer, but the buffer is not unloaded or
 				deleted.  Not used for ":qa" or ":q" when
-				exiting Vim.
+				exiting uVim.
 				NOTE: When this autocommand is executed, the
 				current buffer "%" may be different from the
 				buffer being unloaded "<afile>".
@@ -377,7 +377,7 @@ BufHidden			Just after a buffer has become hidden.  That
 BufLeave			Before leaving to another buffer.  Also when
 				leaving or closing the current window and the
 				new current window is not for the same buffer.
-				Not used for ":qa" or ":q" when exiting Vim.
+				Not used for ":qa" or ":q" when exiting uVim.
 							*BufNew*
 BufNew				Just after creating a new buffer.  Also used
 				just after a buffer has been renamed.  When
@@ -415,7 +415,7 @@ BufUnload			Before unloading a buffer.  This is when the
 				text in the buffer is going to be freed.  This
 				may be after a BufWritePost and before a
 				BufDelete.  Also used for all buffers that are
-				loaded when Vim is going to exit.
+				loaded when uVim is going to exit.
 				NOTE: When this autocommand is executed, the
 				current buffer "%" may be different from the
 				buffer being unloaded "<afile>".
@@ -519,7 +519,7 @@ CompleteDone			After Insert mode completion is done.  Either
 CursorHold			When the user doesn't press a key for the time
 				specified with 'updatetime'.  Not re-triggered
 				until the user has pressed a key (i.e. doesn't
-				fire every 'updatetime' ms if you leave Vim to
+				fire every 'updatetime' ms if you leave uVim to
 				make some coffee. :)  See |CursorHold-example|
 				for previewing tags.
 				This event is only triggered in Normal mode.
@@ -594,7 +594,7 @@ FileChangedRO			Before making the first change to a read-only
 				If the number of lines changes saving for undo
 				may fail and the change will be aborted.
 							*FileChangedShell*
-FileChangedShell		When Vim notices that the modification time of
+FileChangedShell		When uVim notices that the modification time of
 				a file has changed since editing started.
 				Also when the file attributes of the file
 				change or when the size of the file changes.
@@ -609,7 +609,7 @@ FileChangedShell		When Vim notices that the modification time of
 				warning message and prompt is not given.
 				The |v:fcs_reason| variable is set to indicate
 				what happened and |v:fcs_choice| can be used
-				to tell Vim what to do next.
+				to tell uVim what to do next.
 				NOTE: When this autocommand is executed, the
 				current buffer "%" may be different from the
 				buffer that was changed "<afile>".
@@ -623,7 +623,7 @@ FileChangedShell		When Vim notices that the modification time of
 				triggered.
 							*FileChangedShellPost*
 FileChangedShellPost		After handling a file that was changed outside
-				of Vim.  Can be used to update the statusline.
+				of uVim.  Can be used to update the statusline.
 							*FileEncoding*
 FileEncoding			Obsolete.  It still works and is equivalent
 				to |EncodingChanged|.
@@ -632,7 +632,7 @@ FileReadCmd			Before reading a file with a ":read" command.
 				Should do the reading of the file. |Cmd-event|
 							*FileReadPost*
 FileReadPost			After reading a file with a ":read" command.
-				Note that Vim sets the '[ and '] marks to the
+				Note that uVim sets the '[ and '] marks to the
 				first and last line of the read.  This can be
 				used to operate on the lines just read.
 							*FileReadPre*
@@ -659,12 +659,12 @@ FileWritePre			Before writing to a file, when not writing the
 				range of lines.
 							*FilterReadPost*
 FilterReadPost			After reading a file from a filter command.
-				Vim checks the pattern against the name of
+				uVim checks the pattern against the name of
 				the current buffer as with FilterReadPre.
 				Not triggered when 'shelltemp' is off.
 							*FilterReadPre* *E135*
 FilterReadPre			Before reading a file from a filter command.
-				Vim checks the pattern against the name of
+				uVim checks the pattern against the name of
 				the current buffer, not the name of the
 				temporary file that is the output of the
 				filter command.
@@ -672,23 +672,23 @@ FilterReadPre			Before reading a file from a filter command.
 							*FilterWritePost*
 FilterWritePost			After writing a file for a filter command or
 				making a diff.
-				Vim checks the pattern against the name of
+				uVim checks the pattern against the name of
 				the current buffer as with FilterWritePre.
 				Not triggered when 'shelltemp' is off.
 							*FilterWritePre*
 FilterWritePre			Before writing a file for a filter command or
 				making a diff.
-				Vim checks the pattern against the name of
+				uVim checks the pattern against the name of
 				the current buffer, not the name of the
 				temporary file that is the output of the
 				filter command.
 				Not triggered when 'shelltemp' is off.
 							*FocusGained*
-FocusGained			When Vim got input focus.  Only for the GUI
+FocusGained			When uVim got input focus.  Only for the GUI
 				version and a few console versions where this
 				can be detected.
 							*FocusLost*
-FocusLost			When Vim lost input focus.  Only for the GUI
+FocusLost			When uVim lost input focus.  Only for the GUI
 				version and a few console versions where this
 				can be detected.  May also happen when a
 				dialog pops up.
@@ -698,7 +698,7 @@ FuncUndefined			When a user function is used but it isn't
 				when it's used.  The pattern is matched
 				against the function name.  Both <amatch> and
 				<afile> are set to the name of the function.
-				NOTE: When writing Vim scripts a better
+				NOTE: When writing uVim scripts a better
 				alternative is to use an autoloaded function.
 				See |autoload-functions|.
 							*GUIEnter*
@@ -708,10 +708,10 @@ GUIEnter			After starting the GUI successfully, and after
 				position the window from a .gvimrc file: >
 	:autocmd GUIEnter * winpos 100 50
 <							*GUIFailed*
-GUIFailed			After starting the GUI failed.  Vim may
+GUIFailed			After starting the GUI failed.  uVim may
 				continue to run in the terminal, if possible
 				(only on Unix and alikes, when connecting the
-				X server fails).  You may want to quit Vim: >
+				X server fails).  You may want to quit uVim: >
 	:autocmd GUIFailed * qall
 <							*InsertChange*
 InsertChange			When typing <Insert> while in Insert or
@@ -802,11 +802,11 @@ QuickFixCmdPost			Like QuickFixCmdPre, but after a quickfix
 							*QuitPre*
 QuitPre				When using `:quit`, `:wq` or `:qall`, before
 				deciding whether it closes the current window
-				or quits Vim.  Can be used to close any
+				or quits uVim.  Can be used to close any
 				non-essential window if the current window is
 				the last ordinary window.
 							*RemoteReply*
-RemoteReply			When a reply from a Vim that functions as
+RemoteReply			When a reply from a uVim that functions as
 				server was received |server2client()|.  The
 				pattern is matched against the {serverid}.
 				<amatch> is equal to the {serverid} from which
@@ -827,10 +827,10 @@ ShellFilterPost			After executing a shell command with
 				":{range}!cmd", ":w !cmd" or ":r !cmd".
 				Can be used to check for any changed files.
 							*SourcePre*
-SourcePre			Before sourcing a Vim script. |:source|
+SourcePre			Before sourcing a uVim script. |:source|
 				<afile> is the name of the file being sourced.
 							*SourceCmd*
-SourceCmd			When sourcing a Vim script. |:source|
+SourceCmd			When sourcing a uVim script. |:source|
 				<afile> is the name of the file being sourced.
 				The autocommand must source this file.
 				|Cmd-event|
@@ -843,16 +843,16 @@ SpellFileMissing		When trying to load a spell checking file and
 							*StdinReadPost*
 StdinReadPost			After reading from the stdin into the buffer,
 				before executing the modelines.  Only used
-				when the "-" argument was used when Vim was
+				when the "-" argument was used when uVim was
 				started |--|.
 							*StdinReadPre*
 StdinReadPre			Before reading from stdin into the buffer.
 				Only used when the "-" argument was used when
-				Vim was started |--|.
+				uVim was started |--|.
 							*SwapExists*
 SwapExists			Detected an existing swap file when starting
 				to edit a file.  Only when it is possible to
-				select a way to handle the situation, when Vim
+				select a way to handle the situation, when uVim
 				would ask the user what to do.
 				The |v:swapname| variable holds the name of
 				the swap file found, <afile> the file being
@@ -860,7 +860,7 @@ SwapExists			Detected an existing swap file when starting
 				to be executed in the opened file.
 				The commands should set the |v:swapchoice|
 				variable to a string with one character to
-				tell Vim what should be done next:
+				tell uVim what should be done next:
 					'o'	open read-only
 					'e'	edit the file anyway
 					'r'	recover
@@ -942,14 +942,14 @@ VimEnter			After doing all the startup stuff, including
  	  			     au VimEnter * call s:init()
 				   endif
 <							*VimLeave*
-VimLeave			Before exiting Vim, just after writing the
+VimLeave			Before exiting uVim, just after writing the
 				.viminfo file.  Executed only once, like
 				VimLeavePre.
 				To detect an abnormal exit use |v:dying|.
 				When v:dying is 2 or more this event is not
 				triggered.
 							*VimLeavePre*
-VimLeavePre			Before exiting Vim, just before writing the
+VimLeavePre			Before exiting uVim, just before writing the
 				.viminfo file.  This is executed only once,
 				if there is a match with the name of what
 				happens to be the current buffer when exiting.
@@ -959,14 +959,14 @@ VimLeavePre			Before exiting Vim, just before writing the
 				When v:dying is 2 or more this event is not
 				triggered.
 							*VimResized*
-VimResized			After the Vim window was resized, thus 'lines'
+VimResized			After the uVim window was resized, thus 'lines'
 				and/or 'columns' changed.  Not when starting
 				up though.
 							*WinEnter*
 WinEnter			After entering another window.  Not done for
-				the first window, when Vim has just started.
+				the first window, when uVim has just started.
 				Useful for setting the window height.
-				If the window is for another buffer, Vim
+				If the window is for another buffer, uVim
 				executes the BufEnter autocommands after the
 				WinEnter autocommands.
 				Note: When using ":split fname" the WinEnter
@@ -974,14 +974,14 @@ WinEnter			After entering another window.  Not done for
 				the file "fname" is loaded.
 							*WinLeave*
 WinLeave			Before leaving a window.  If the window to be
-				entered next is for a different buffer, Vim
+				entered next is for a different buffer, uVim
 				executes the BufLeave autocommands before the
 				WinLeave autocommands (but not for ":new").
-				Not used for ":qa" or ":q" when exiting Vim.
+				Not used for ":qa" or ":q" when exiting uVim.
 
 							*WinNew*
 WinNew				When a new window was created.  Not done for
-				the fist window, when Vim has just started.
+				the fist window, when uVim has just started.
 				Before a WinEnter event.
 
 ==============================================================================
@@ -996,9 +996,9 @@ Is equivalent to: >
 
 The file pattern {pat} is tested for a match against the file name in one of
 two ways:
-1. When there is no '/' in the pattern, Vim checks for a match against only
+1. When there is no '/' in the pattern, uVim checks for a match against only
    the tail part of the file name (without its leading directory path).
-2. When there is a '/' in the pattern, Vim checks for a match against both the
+2. When there is a '/' in the pattern, uVim checks for a match against both the
    short file name (as you typed it) and the full file name (after expanding
    it to a full path and resolving symbolic links).
 
@@ -1074,7 +1074,7 @@ change which autocommands will be executed.  Example: >
 	au BufEnter *.foo  set modified
 
 This will delete the current buffer and then set 'modified' in what has become
-the current buffer instead.  Vim doesn't take into account that "*.foo"
+the current buffer instead.  uVim doesn't take into account that "*.foo"
 doesn't match with that buffer name.  It matches "*.foo" with the name of the
 buffer at the moment the event was triggered.
 
@@ -1140,12 +1140,12 @@ executing a group of autocommands.  For example, all the autocommands for
 syntax highlighting are put in the "highlight" group, to be able to execute
 ":doautoall highlight BufRead" when the GUI starts.
 
-When no specific group is selected, Vim uses the default group.  The default
+When no specific group is selected, uVim uses the default group.  The default
 group does not have a name.  You cannot execute the autocommands from the
 default group separately; you can execute them only by executing autocommands
 for all groups.
 
-Normally, when executing autocommands automatically, Vim uses the autocommands
+Normally, when executing autocommands automatically, uVim uses the autocommands
 for all groups.  The group only matters when executing autocommands with
 ":doautocmd" or ":doautoall", or when defining or deleting autocommands.
 
@@ -1187,8 +1187,8 @@ This prevents having the autocommands defined twice (e.g., after sourcing the
 ==============================================================================
 9. Executing autocommands				*autocmd-execute*
 
-Vim can also execute Autocommands non-automatically.  This is useful if you
-have changed autocommands, or when Vim has executed the wrong autocommands
+uVim can also execute Autocommands non-automatically.  This is useful if you
+have changed autocommands, or when uVim has executed the wrong autocommands
 (e.g., the file pattern match was wrong).
 
 Note that the 'eventignore' option applies here too.  Events listed in this
@@ -1209,11 +1209,11 @@ option will not cause any commands to be executed.
 <			Be careful to avoid endless loops.  See
 			|autocmd-nested|.
 
-			When the [group] argument is not given, Vim executes
+			When the [group] argument is not given, uVim executes
 			the autocommands for all groups.  When the [group]
-			argument is included, Vim executes only the matching
+			argument is included, uVim executes only the matching
 			autocommands for that group.  Note: if you use an
-			undefined group name, Vim gives you an error message.
+			undefined group name, uVim gives you an error message.
 							*<nomodeline>*
 			After applying the autocommands the modelines are
 			processed, so that their settings overrule the
@@ -1240,7 +1240,7 @@ option will not cause any commands to be executed.
 ==============================================================================
 10. Using autocommands					*autocmd-use*
 
-For WRITING FILES there are four possible sets of events.  Vim uses only one
+For WRITING FILES there are four possible sets of events.  uVim uses only one
 of these sets for a write command:
 
 BufWriteCmd	BufWritePre	BufWritePost	writing the whole buffer
@@ -1321,7 +1321,7 @@ instead of ":q!".
 
 							*autocmd-nested* *E218*
 By default, autocommands do not nest.  If you use ":e" or ":w" in an
-autocommand, Vim does not execute the BufRead and BufWrite autocommands for
+autocommand, uVim does not execute the BufRead and BufWrite autocommands for
 those commands.  If you do want this, use the "nested" flag for those commands
 in which you want nesting.  For example: >
   :autocmd FileChangedShell *.c nested e!
@@ -1335,9 +1335,9 @@ If you want to skip autocommands for one command, use the |:noautocmd| command
 modifier or the 'eventignore' option.
 
 Note: When reading a file (with ":read file" or with a filter command) and the
-last line in the file does not have an <EOL>, Vim remembers this.  At the next
+last line in the file does not have an <EOL>, uVim remembers this.  At the next
 write (with ":write file" or with a filter command), if the same line is
-written again as the last line in a file AND 'binary' is set, Vim does not
+written again as the last line in a file AND 'binary' is set, uVim does not
 supply an <EOL>.  This makes a filter command on the just read lines write the
 same file as was read, and makes a write command on just filtered lines write
 the same file as was read from the filter.  For example, another way to write
@@ -1391,7 +1391,7 @@ To insert the current date and time in a *.html file when writing it: >
   :endfun
 
 You need to have a line "Last modified: <date time>" in the first 20 lines
-of the file for this to work.  Vim replaces <date time> (and anything in the
+of the file for this to work.  uVim replaces <date time> (and anything in the
 same line after it) with the current date and time.  Explanation:
 	ks		mark current position with mark 's'
 	call LastMod()  call the LastMod() function to do the work
@@ -1406,7 +1406,7 @@ function.  You can change its argument to get another date string.
 When entering :autocmd on the command-line, completion of events and command
 names may be done (with <Tab>, CTRL-D, etc.) where appropriate.
 
-Vim executes all matching autocommands in the order that you specify them.
+uVim executes all matching autocommands in the order that you specify them.
 It is recommended that your first autocommand be used for all files by using
 "*" as the file pattern.  This means that you can define defaults you like
 here for any settings, and if there is another matching autocommand it will
@@ -1416,7 +1416,7 @@ which autocommands did match).  Note that "*" will also match files starting
 with ".", unlike Unix shells.
 
 						    *autocmd-searchpat*
-Autocommands do not change the current search patterns.  Vim saves the current
+Autocommands do not change the current search patterns.  uVim saves the current
 search patterns before executing autocommands then restores them after the
 autocommands finish.  This means that autocommands do not affect the strings
 highlighted with the 'hlsearch' option.  Within autocommands, you can still
@@ -1425,7 +1425,7 @@ If you want an autocommand to set the search pattern, such that it is used
 after the autocommand finishes, use the ":let @/ =" command.
 The search-highlighting cannot be switched off with ":nohlsearch" in an
 autocommand.  Use the 'h' flag in the 'viminfo' option to disable search-
-highlighting when starting Vim.
+highlighting when starting uVim.
 
 							*Cmd-event*
 When using one of the "*Cmd" events, the matching autocommands are expected to
@@ -1436,8 +1436,8 @@ making it impossible to read or write the matching files!  Make sure you test
 your autocommands properly.  Best is to use a pattern that will never match a
 normal file name, for example "ftp://*".
 
-When defining a BufReadCmd it will be difficult for Vim to recover a crashed
-editing session.  When recovering from the original file, Vim reads only those
+When defining a BufReadCmd it will be difficult for uVim to recover a crashed
+editing session.  When recovering from the original file, uVim reads only those
 parts of a file that are not found in the swap file.  Since that is not
 possible with a BufReadCmd, use the |:preserve| command to make sure the
 original file isn't needed for recovery.  You might want to do this only when

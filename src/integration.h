@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *			Visual Workshop integration by Gordon Prieur
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
  */
 /*
   THIS IS AN UNSTABLE INTERFACE! It is unsupported and will likely
@@ -48,7 +48,7 @@ extern "C" {
 /*
  * This string is recognized by eserve and should be all lower case.
  * This is how the editor detects that it is talking to NEdit instead
- * of Vim, for example, when the connection is initiated from the editor.
+ * of uVim, for example, when the connection is initiated from the editor.
  * Examples: "nedit", "gvim"
  */
 char *workshop_get_editor_name();

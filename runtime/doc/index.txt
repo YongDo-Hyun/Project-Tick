@@ -1,4 +1,4 @@
-*index.txt*     For Vim version 7.4.  Last change: 2016 Aug 27
+*index.txt*     For uVim version 7.4.  Last change: 2016 Aug 27
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
@@ -23,7 +23,7 @@ to look for deleting something, use: "/delete".
 
 For an overview of options see help.txt |option-list|.
 For an overview of built-in functions see |functions|.
-For a list of Vim variables see |vim-variable|.
+For a list of uVim variables see |vim-variable|.
 For a complete listing of all help items see |help-tags|.
 
 ==============================================================================
@@ -92,7 +92,7 @@ tag		char		action in Insert mode	~
 |i_CTRL-W|	CTRL-W		delete word before the cursor
 |i_CTRL-X|	CTRL-X {mode}	enter CTRL-X sub mode, see |i_CTRL-X_index|
 |i_CTRL-Y|	CTRL-Y		insert the character which is above the cursor
-|i_CTRL-Z|	CTRL-Z		when 'insertmode' set: suspend Vim
+|i_CTRL-Z|	CTRL-Z		when 'insertmode' set: suspend uVim
 |i_<Esc>|	<Esc>		end insert mode (unless 'insertmode' set)
 |i_CTRL-[|	CTRL-[		same as <Esc>
 |i_CTRL-\_CTRL-N| CTRL-\ CTRL-N	go to Normal mode
@@ -728,7 +728,7 @@ tag		char	      note action in Normal mode	~
 				   search pattern and Visually select it
 |gP|		["x]gP		2  put the text [from register x] before the
 				   cursor N times, leave the cursor after it
-|gQ|		gQ		    switch to "Ex" mode with Vim editing
+|gQ|		gQ		    switch to "Ex" mode with uVim editing
 |gR|		gR		2  enter Virtual Replace mode
 |gT|		gT		   go to the previous tab page
 |gU|		gU{motion}	2  make Nmove text uppercase
@@ -1182,7 +1182,7 @@ tag	      command	      action ~
 |:copen|	:cope[n]	open quickfix window
 |:cprevious|	:cp[revious]	go to previous error
 |:cpfile|	:cpf[ile]	go to last error in previous file
-|:cquit|	:cq[uit]	quit Vim with an error code
+|:cquit|	:cq[uit]	quit uVim with an error code
 |:crewind|	:cr[ewind]	go to the specified error, default first one
 |:cscope|	:cs[cope]	execute cscope command
 |:cstag|	:cst[ag]	use cscope to jump to a tag
@@ -1242,7 +1242,7 @@ tag	      command	      action ~
 |:filter|	:filt[er]	filter output of following command
 |:find|		:fin[d]		find file in 'path' and edit it
 |:finally|	:fina[lly]	part of a :try command
-|:finish|	:fini[sh]	quit sourcing a Vim script
+|:finish|	:fini[sh]	quit sourcing a uVim script
 |:first|	:fir[st]	go to the first file in the argument list
 |:fixdel|	:fix[del]	set key code of <Del>
 |:fold|		:fo[ld]		create a fold
@@ -1440,9 +1440,9 @@ tag	      command	      action ~
 |:python|	:py[thon]	execute Python command
 |:pydo|		:pyd[o]		execute Python command for each line
 |:pyfile|	:pyf[ile]	execute Python script file
-|:quit|		:q[uit]		quit current window (when one window quit Vim)
-|:quitall|	:quita[ll]	quit Vim
-|:qall|		:qa[ll]		quit Vim
+|:quit|		:q[uit]		quit current window (when one window quit uVim)
+|:quitall|	:quita[ll]	quit uVim
+|:qall|		:qa[ll]		quit uVim
 |:read|		:r[ead]		read file into the text
 |:recover|	:rec[over]	recover a file from a swap file
 |:redo|		:red[o]		redo one undone change
@@ -1487,8 +1487,8 @@ tag	      command	      action ~
 				buffer list
 |:sbrewind|	:sbr[ewind]	split window and go to first file in the
 				buffer list
-|:scriptnames|	:scr[iptnames]	list names of all sourced Vim scripts
-|:scriptencoding| :scripte[ncoding]	encoding used in sourced Vim script
+|:scriptnames|	:scr[iptnames]	list names of all sourced uVim scripts
+|:scriptencoding| :scripte[ncoding]	encoding used in sourced uVim script
 |:scscope|	:scs[cope]	split window and execute cscope command
 |:set|		:se[t]		show or set options
 |:setfiletype|	:setf[iletype]	set 'filetype', unless it was set already
@@ -1515,7 +1515,7 @@ tag	      command	      action ~
 |:snoremap|	:snor[emap]	like ":noremap" but for Select mode
 |:snoremenu|	:snoreme[nu]	like ":noremenu" but for Select mode
 |:sort|		:sor[t]		sort lines
-|:source|	:so[urce]	read Vim or Ex commands from a file
+|:source|	:so[urce]	read uVim or Ex commands from a file
 |:spelldump|	:spelld[ump]	split window and fill with all correct words
 |:spellgood|	:spe[llgood]	add good word for spelling
 |:spellinfo|	:spelli[nfo]	show info about loaded spell files
@@ -1623,12 +1623,12 @@ tag	      command	      action ~
 				argument list
 |:wprevious|	:wp[revious]	write to a file and go to previous file in
 				argument list
-|:wq|		:wq		write to a file and quit window or Vim
-|:wqall|	:wqa[ll]	write all changed buffers and quit Vim
+|:wq|		:wq		write to a file and quit window or uVim
+|:wqall|	:wqa[ll]	write all changed buffers and quit uVim
 |:wsverb|	:ws[verb]	pass the verb to workshop over IPC
 |:wundo|	:wu[ndo]	write undo information to a file
 |:wviminfo|	:wv[iminfo]	write to viminfo file
-|:xit|		:x[it]		write if buffer changed and quit window or Vim
+|:xit|		:x[it]		write if buffer changed and quit window or uVim
 |:xall|		:xa[ll]		same as ":wqall"
 |:xmapclear|	:xmapc[lear]	remove all mappings for Visual mode
 |:xmap|		:xm[ap]		like ":map" but for Visual mode

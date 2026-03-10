@@ -1,10 +1,10 @@
-*pi_spec.txt*   For Vim version 7.4.  Last change: 2006 Apr 24
+*pi_spec.txt*   For uVim version 7.4.  Last change: 2006 Apr 24
 
 by Gustavo Niemeyer ~
 
 This is a filetype plugin to work with rpm spec files.
 
-Currently, this Vim plugin allows you to easily update the %changelog
+Currently, this uVim plugin allows you to easily update the %changelog
 section in RPM spec files.  It will even create a section for you if it
 doesn't exist yet.  If you've already inserted an entry today, it will
 give you the opportunity to just add a new item in today's entry.  If you
@@ -37,7 +37,7 @@ done so.
 Setting a map					*spec-setting-a-map*
 -------------
 
-As you should know, you can easily set a map to access any Vim command (or
+As you should know, you can easily set a map to access any uVim command (or
 anything, for that matter).  If you don't like the default map of
 <LocalLeader>c, you may just set up your own key.  The following line
 shows you how you could do this in your .vimrc file, mapping the plugin to

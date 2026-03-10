@@ -1,11 +1,11 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *			Netbeans integration by David Weatherford
  *			Adopted for Win32 by Sergey Khorev
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
  */
 
 /*
@@ -16,8 +16,8 @@
  * See ":help netbeans-protocol" for explanation.
  *
  * The Netbeans messages are received and queued in the gui event loop, or in
- * the select loop when Vim runs in a terminal. These messages are processed
- * by netbeans_parse_messages() which is invoked in the idle loop when Vim is
+ * the select loop when uVim runs in a terminal. These messages are processed
+ * by netbeans_parse_messages() which is invoked in the idle loop when uVim is
  * waiting for user input. The function netbeans_parse_messages() is also
  * called from the ":sleep" command, to allow the execution of test cases that
  * may not invoke the idle loop.
@@ -636,12 +636,12 @@ isNetbeansBuffer(buf_T *bufp)
 }
 
 /*
- * NetBeans and Vim have different undo models. In Vim, the file isn't
+ * NetBeans and uVim have different undo models. In uVim, the file isn't
  * changed if changes are undone via the undo command. In NetBeans, once
  * a change has been made the file is marked as modified until saved. It
  * doesn't matter if the change was undone.
  *
- * So this function is for the corner case where Vim thinks a buffer is
+ * So this function is for the corner case where uVim thinks a buffer is
  * unmodified but NetBeans thinks it IS modified.
  */
     int
@@ -1013,7 +1013,7 @@ nb_do_cmd(
 	}
 	else if (streq((char *)cmd, "saveAndExit"))
 	{
-	    /* Note: this will exit Vim if successful. */
+	    /* Note: this will exit uVim if successful. */
 	    coloncmd(":confirm qall");
 
 	    /* We didn't exit: return the number of changed buffers. */
@@ -1558,7 +1558,7 @@ nb_do_cmd(
 		else
 		{
 		    /* NetBeans uses stopDocumentListen when it stops editing
-		     * a file.  It then expects the buffer in Vim to
+		     * a file.  It then expects the buffer in uVim to
 		     * disappear. */
 		    do_bufdel(DOBUF_DEL, (char_u *)"", 1,
 				  buf->bufp->b_fnum, buf->bufp->b_fnum, TRUE);
@@ -2728,7 +2728,7 @@ netbeans_file_killed(buf_T *bufp)
 }
 
 /*
- * Get a pointer to the Netbeans buffer for Vim buffer "bufp".
+ * Get a pointer to the Netbeans buffer for uVim buffer "bufp".
  * Return NULL if there is no such buffer or changes are not to be reported.
  * Otherwise store the buffer number in "*bufnop".
  */

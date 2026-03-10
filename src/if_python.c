@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4 noet:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 /*
  * Python extensions by Paul Moore.
@@ -13,8 +13,8 @@
  * This consists of four parts:
  * 1. Python interpreter main program
  * 2. Python output stream: writes output via [e]msg().
- * 3. Implementation of the Vim module for Python
- * 4. Utility functions for handling the interface between Vim and Python.
+ * 3. Implementation of the uVim module for Python
+ * 4. Utility functions for handling the interface between uVim and Python.
  */
 
 #include "vim.h"
@@ -685,7 +685,7 @@ python_runtime_link_init(char *libname, int verbose)
     if (python3_loaded())
     {
 	if (verbose)
-	    EMSG(_("E836: This Vim cannot execute :python after using :py3"));
+	    EMSG(_("E836: This uVim cannot execute :python after using :py3"));
 	return FAIL;
     }
 #endif
@@ -941,7 +941,7 @@ Python_Init(void)
 	init_structs();
 
 #if defined(PY_VERSION_HEX) && PY_VERSION_HEX >= 0x02070000
-	/* Disable implicit 'import site', because it may cause Vim to exit
+	/* Disable implicit 'import site', because it may cause uVim to exit
 	 * when it can't be found. */
 	Py_NoSiteFlag++;
 #endif
@@ -1138,7 +1138,7 @@ ex_pyfile(exarg_T *eap)
     char *p;
 
     /* Have to do it like this. PyRun_SimpleFile requires you to pass a
-     * stdio file pointer, but Vim and the Python DLL are compiled with
+     * stdio file pointer, but uVim and the Python DLL are compiled with
      * different options under Windows, meaning that stdio pointers aren't
      * compatible between the two. Yuk.
      *
@@ -1203,7 +1203,7 @@ OutputGetattr(PyObject *self, char *name)
 }
 
 /******************************************************
- * 3. Implementation of the Vim module for Python
+ * 3. Implementation of the uVim module for Python
  */
 
 /* Window type - Implementation functions
@@ -1474,10 +1474,10 @@ PythonMod_Init(void)
 }
 
 /*************************************************************************
- * 4. Utility functions for handling the interface between Vim and Python.
+ * 4. Utility functions for handling the interface between uVim and Python.
  */
 
-/* Convert a Vim line into a Python string.
+/* Convert a uVim line into a Python string.
  * All internal newlines are replaced by null characters.
  *
  * On errors, the Python exception data is set, and NULL is returned.

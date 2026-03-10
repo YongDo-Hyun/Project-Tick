@@ -1,20 +1,20 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
- * uninstal.c:	Minimalistic uninstall program for Vim on MS-Windows
+ * uninstal.c:	Minimalistic uninstall program for uVim on MS-Windows
  *		Removes:
- *		- the "Edit with Vim" popup menu entry
- *		- the Vim "Open With..." popup menu entry
- *		- any Vim Batch files in the path
- *		- icons for Vim on the Desktop
- *		- the Vim entry in the Start Menu
+ *		- the "Edit with uVim" popup menu entry
+ *		- the uVim "Open With..." popup menu entry
+ *		- any uVim Batch files in the path
+ *		- icons for uVim on the Desktop
+ *		- the uVim entry in the Start Menu
  */
 
 /* Include common code for dosinst.c and uninstal.c. */
@@ -70,7 +70,7 @@ popup_gvim_path(char *buf)
     int		r;
 
     /* Open the key where the path to gvim.exe is stored. */
-    if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Vim\\Gvim", 0,
+    if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\uVim\\Gvim", 0,
 		    KEY_WOW64_64KEY | KEY_READ, &key_handle) != ERROR_SUCCESS)
 	return 0;
 
@@ -128,17 +128,17 @@ remove_popup(void)
 	    ++fail;
 	RegCloseKey(kh);
     }
-    if (reg_delete_key(HKEY_LOCAL_MACHINE, "Software\\Vim\\Gvim") != ERROR_SUCCESS)
+    if (reg_delete_key(HKEY_LOCAL_MACHINE, "Software\\uVim\\Gvim") != ERROR_SUCCESS)
 	++fail;
-    if (reg_delete_key(HKEY_LOCAL_MACHINE, "Software\\Vim") != ERROR_SUCCESS)
+    if (reg_delete_key(HKEY_LOCAL_MACHINE, "Software\\uVim") != ERROR_SUCCESS)
 	++fail;
 
     if (fail == 6)
-	printf("No Vim popup registry entries could be removed\n");
+	printf("No uVim popup registry entries could be removed\n");
     else if (fail > 0)
-	printf("Some Vim popup registry entries could not be removed\n");
+	printf("Some uVim popup registry entries could not be removed\n");
     else
-	printf("The Vim popup registry entries have been removed\n");
+	printf("The uVim popup registry entries have been removed\n");
 }
 
     static void
@@ -162,11 +162,11 @@ remove_openwith(void)
 	++fail;
 
     if (fail == 7)
-	printf("No Vim open-with registry entries could be removed\n");
+	printf("No uVim open-with registry entries could be removed\n");
     else if (fail > 0)
-	printf("Some Vim open-with registry entries could not be removed\n");
+	printf("Some uVim open-with registry entries could not be removed\n");
     else
-	printf("The Vim open-with registry entries have been removed\n");
+	printf("The uVim open-with registry entries have been removed\n");
 }
 #endif
 
@@ -274,9 +274,9 @@ remove_start_menu(void)
 	remove_if_exists(path, "uninstall.lnk");
 	remove_if_exists(path, "Help.lnk");
 	/* Win95 uses .pif, WinNT uses .lnk */
-	remove_if_exists(path, "Vim tutor.pif");
-	remove_if_exists(path, "Vim tutor.lnk");
-	remove_if_exists(path, "Vim online.url");
+	remove_if_exists(path, "uVim tutor.pif");
+	remove_if_exists(path, "uVim tutor.lnk");
+	remove_if_exists(path, "uVim online.url");
 	if (stat(path, &st) == 0)
 	{
 	    printf("removing %s\n", path);
@@ -289,7 +289,7 @@ remove_start_menu(void)
     static void
 delete_uninstall_key(void)
 {
-    reg_delete_key(HKEY_LOCAL_MACHINE, "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Vim " VIM_VERSION_SHORT);
+    reg_delete_key(HKEY_LOCAL_MACHINE, "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\uVim " VIM_VERSION_SHORT);
 }
 
     int
@@ -319,7 +319,7 @@ main(int argc, char *argv[])
 #ifdef WIN3264
     if (popup_gvim_path(popup_path))
     {
-	printf(" - the \"Edit with Vim\" entry in the popup menu\n");
+	printf(" - the \"Edit with uVim\" entry in the popup menu\n");
 	printf("   which uses \"%s\"\n", popup_path);
 	if (interactive)
 	    printf("\nRemove it (y/n)? ");
@@ -333,7 +333,7 @@ main(int argc, char *argv[])
     }
     else if (openwith_gvim_path(popup_path))
     {
-	printf(" - the Vim \"Open With...\" entry in the popup menu\n");
+	printf(" - the uVim \"Open With...\" entry in the popup menu\n");
 	printf("   which uses \"%s\"\n", popup_path);
 	printf("\nRemove it (y/n)? ");
 	if (confirm())
@@ -394,7 +394,7 @@ main(int argc, char *argv[])
 
     if (interactive)
     {
-	printf("\nYou may now want to delete the Vim executables and runtime files.\n");
+	printf("\nYou may now want to delete the uVim executables and runtime files.\n");
 	printf("(They are still where you unpacked them.)\n");
     }
 

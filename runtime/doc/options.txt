@@ -1,4 +1,4 @@
-*options.txt*	For Vim version 7.4.  Last change: 2016 Aug 26
+*options.txt*	For uVim version 7.4.  Last change: 2016 Aug 26
 
 
 		  VIM REFERENCE MANUAL	  by Bram Moolenaar
@@ -12,7 +12,7 @@ Options							*options*
 
 For an overview of options see help.txt |option-list|.
 
-Vim has a number of internal variables and switches which can be set to
+uVim has a number of internal variables and switches which can be set to
 achieve special effects.  These options come in three forms:
 	boolean		can only be on or off		*boolean* *toggle*
 	number		has a numeric value
@@ -48,7 +48,7 @@ achieve special effects.  These options come in three forms:
 :se[t] {option}&	Reset option to its default value.  May depend on the
 			current value of 'compatible'. {not in Vi}
 :se[t] {option}&vi	Reset option to its Vi default value. {not in Vi}
-:se[t] {option}&vim	Reset option to its Vim default value. {not in Vi}
+:se[t] {option}&vim	Reset option to its uVim default value. {not in Vi}
 
 :se[t] all&		Set all options to their default value.  The values of 
 			these options are not changed:
@@ -175,7 +175,7 @@ security reasons.
 
 The listing from ":set" looks different from Vi.  Long string options are put
 at the end of the list.  The number of options is quite large.  The output of
-"set all" probably does not fit on the screen, causing Vim to give the
+"set all" probably does not fit on the screen, causing uVim to give the
 |more-prompt|.
 
 							*option-backslash*
@@ -247,7 +247,7 @@ allows you to set 'list' in one window but not in another.  And set
 'shiftwidth' to 3 in one buffer and 4 in another.
 
 The following explains what happens to these local options in specific
-situations.  You don't really need to know all of this, since Vim mostly uses
+situations.  You don't really need to know all of this, since uVim mostly uses
 the option values you would expect.  Unfortunately, doing what the user
 expects is a bit complicated...
 
@@ -268,7 +268,7 @@ last closed window where the buffer was edited last are used.
 
 It's possible to set a local window option specifically for a type of buffer.
 When you edit another buffer in the same window, you don't want to keep
-using these local window options.  Therefore Vim keeps a global value of the
+using these local window options.  Therefore uVim keeps a global value of the
 local window options, which is used when editing another buffer.  Each window
 has its own copy of these values.  Thus these are local to the window, but
 global to all buffers in the window.  With this you can do: >
@@ -411,7 +411,7 @@ contain non-id characters then.  Note that if you want to use this for the
 "gf" command, you need to add the '{' and '}' characters to 'isfname'.
 
 On MS-Windows, if $HOME is not defined as an environment variable, then
-at runtime Vim will set it to the expansion of $HOMEDRIVE$HOMEPATH.
+at runtime uVim will set it to the expansion of $HOMEDRIVE$HOMEPATH.
 
 NOTE: expanding environment variables and "~/" is only done with the ":set"
 command, not when assigning a value to an option with ":let".
@@ -474,9 +474,9 @@ the system, mostly it is something like 256 or 1024 characters.
 Besides changing options with the ":set" command, there are three alternatives
 to set options automatically for one or more files:
 
-1. When starting Vim initializations are read from various places.  See
+1. When starting uVim initializations are read from various places.  See
    |initialization|.  Most of them are performed for all editing sessions,
-   and some of them depend on the directory where Vim is started.
+   and some of them depend on the directory where uVim is started.
    You can create an initialization file with |:mkvimrc|, |:mkview| and
    |:mksession|.
 2. If you start editing a new file, the automatic commands are executed.
@@ -504,14 +504,14 @@ Examples:
 
 The second form (this is compatible with some versions of Vi):
 
-	[text]{white}{vi:|vim:|Vim:|ex:}[white]se[t] {options}:[text]
+	[text]{white}{vi:|vim:|uVim:|ex:}[white]se[t] {options}:[text]
 
 [text]			any text or empty
 {white}			at least one blank character (<Space> or <Tab>)
-{vi:|vim:|Vim:|ex:}	the string "vi:", "vim:", "Vim:" or "ex:"
+{vi:|vim:|uVim:|ex:}	the string "vi:", "vim:", "uVim:" or "ex:"
 [white]			optional white space
 se[t]			the string "set " or "se " (note the space); When
-			"Vim" is used it must be "set".
+			"uVim" is used it must be "set".
 {options}		a list of options, separated with white space, which
 			is the argument for a ":set" command
 :			a colon
@@ -519,9 +519,9 @@ se[t]			the string "set " or "se " (note the space); When
 
 Examples:
    /* vim: set ai tw=75: */ ~
-   /* Vim: set ai tw=75: */ ~
+   /* uVim: set ai tw=75: */ ~
 
-The white space before {vi:|vim:|Vim:|ex:} is required.  This minimizes the
+The white space before {vi:|vim:|uVim:|ex:} is required.  This minimizes the
 chance that a normal word like "lex:" is caught.  There is one exception:
 "vi:" and "vim:" can also be at the start of the line (for compatibility with
 version 3.0).  Using "ex:" at the start of the line will be ignored (this
@@ -540,16 +540,16 @@ option after opening the file, it won't be changed if you edit the same buffer
 in another window.  But window-local options will be set.
 
 							*modeline-version*
-If the modeline is only to be used for some versions of Vim, the version
-number can be specified where "vim:" or "Vim:" is used:
+If the modeline is only to be used for some versions of uVim, the version
+number can be specified where "vim:" or "uVim:" is used:
 	vim{vers}:	version {vers} or later
 	vim<{vers}:	version before {vers}
 	vim={vers}:	version {vers}
 	vim>{vers}:	version after {vers}
-{vers} is 700 for Vim 7.0 (hundred times the major version plus minor).
-For example, to use a modeline only for Vim 7.0:
+{vers} is 700 for uVim 7.0 (hundred times the major version plus minor).
+For example, to use a modeline only for uVim 7.0:
 	/* vim700: set foldmethod=marker */ ~
-To use a modeline for Vim after version 7.2:
+To use a modeline for uVim after version 7.2:
 	/* vim>702: set cole=2: */ ~
 There can be no blanks between "vim" and the ":".
 
@@ -595,7 +595,7 @@ an abbreviation if there is one.  Both forms may be used.
 In this document when a boolean option is "set" that means that ":set option"
 is entered.  When an option is "reset", ":set nooption" is used.
 
-For some options there are two default values: The "Vim default", which is
+For some options there are two default values: The "uVim default", which is
 used when 'compatible' is not set, and the "Vi default", which is used when
 'compatible' is set.
 
@@ -674,7 +674,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	the keyboard map between Farsi and English, when 'allowrevins' set.
 
 	When off, the keyboard map toggles between Hebrew and English.  This
-	is useful to start the Vim in native mode i.e. English (left-to-right
+	is useful to start the uVim in native mode i.e. English (left-to-right
 	mode) and have default second language Farsi or Hebrew (right-to-left
 	mode).  See |farsi.txt|.
 
@@ -685,7 +685,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			{only available when compiled with the |+multi_byte|
 			feature}
 	Only effective when 'encoding' is "utf-8" or another Unicode encoding.
-	Tells Vim what to do with characters with East Asian Width Class
+	Tells uVim what to do with characters with East Asian Width Class
 	Ambiguous (such as Euro, Registered Sign, Copyright Sign, Greek
 	letters, Cyrillic letters).
 
@@ -703,16 +703,16 @@ A jump table for the options with a short description can be found at |Q_op|.
 	Registered sign, Greek/Cyrillic letters are represented by two octets,
 	therefore those fonts have "wide" glyphs for them.  This is also
 	true of some line drawing characters used to make tables in text
-	file.  Therefore, when a CJK font is used for GUI Vim or
-	Vim is running inside a terminal (emulators) that uses a CJK font
-	(or Vim is run inside an xterm invoked with "-cjkwidth" option.),
+	file.  Therefore, when a CJK font is used for GUI uVim or
+	uVim is running inside a terminal (emulators) that uses a CJK font
+	(or uVim is run inside an xterm invoked with "-cjkwidth" option.),
 	this option should be set to "double" to match the width perceived
-	by Vim with the width of glyphs in the font.  Perhaps it also has
+	by uVim with the width of glyphs in the font.  Perhaps it also has
 	to be set to "double" under CJK Windows 9x/ME or Windows 2k/XP
 	when the system locale is set to one of CJK locales.  See Unicode
 	Standard Annex #11 (http://www.unicode.org/reports/tr11).
 
-	Vim may set this option automatically at startup time when Vim is
+	uVim may set this option automatically at startup time when uVim is
 	compiled with the |+termresponse| feature and if |t_u7| is set to the
 	escape sequence to request cursor position report.
 
@@ -722,8 +722,8 @@ A jump table for the options with a short description can be found at |Q_op|.
 			{not in Vi}
 			{only available when compiled with GUI enabled
 			on Mac OS X}
-	This option only has an effect in the GUI version of Vim on Mac OS X
-	v10.2 or later.  When on, Vim will use smooth ("antialiased") fonts,
+	This option only has an effect in the GUI version of uVim on Mac OS X
+	v10.2 or later.  When on, uVim will use smooth ("antialiased") fonts,
 	which can be easier to read at certain sizes on certain displays.
 	Setting this option can sometimes cause problems if 'guifont' is set
 	to its default (empty string).
@@ -734,7 +734,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			{not in Vi}
 			{only available when compiled with it, use
 			exists("+autochdir") to check}
-	When on, Vim will change the current working directory whenever you
+	When on, uVim will change the current working directory whenever you
 	open a file, switch buffers, delete a buffer or open/close a window.
 	It will change to the directory containing the file which was opened
 	or selected.
@@ -806,8 +806,8 @@ A jump table for the options with a short description can be found at |Q_op|.
 'autoread' 'ar'		boolean	(default off)
 			global or local to buffer |global-local|
 			{not in Vi}
-	When a file has been detected to have been changed outside of Vim and
-	it has not been changed inside of Vim, automatically read it again.
+	When a file has been detected to have been changed outside of uVim and
+	it has not been changed inside of uVim, automatically read it again.
 	When the file has been deleted this is not done.  |timestamp|
 	If this option has a local value, use this command to switch back to
 	using the global value: >
@@ -828,24 +828,24 @@ A jump table for the options with a short description can be found at |Q_op|.
 			global
 			{not in Vi}
 	Like 'autowrite', but also used for commands ":edit", ":enew", ":quit",
-	":qall", ":exit", ":xit", ":recover" and closing the Vim window.
-	Setting this option also implies that Vim behaves like 'autowrite' has
+	":qall", ":exit", ":xit", ":recover" and closing the uVim window.
+	Setting this option also implies that uVim behaves like 'autowrite' has
 	been set.
 
 							*'background'* *'bg'*
 'background' 'bg'	string	(default "dark" or "light", see below)
 			global
 			{not in Vi}
-	When set to "dark", Vim will try to use colors that look good on a
-	dark background.  When set to "light", Vim will try to use colors that
+	When set to "dark", uVim will try to use colors that look good on a
+	dark background.  When set to "light", uVim will try to use colors that
 	look good on a light background.  Any other value is illegal.
-	Vim tries to set the default value according to the terminal used.
+	uVim tries to set the default value according to the terminal used.
 	This will not always be correct.
-	Setting this option does not change the background color, it tells Vim
+	Setting this option does not change the background color, it tells uVim
 	what the background color looks like.  For changing the background
 	color, see |:hi-normal|.
 
-	When 'background' is set Vim will adjust the default color groups for
+	When 'background' is set uVim will adjust the default color groups for
 	the new value.  But the colors used for syntax highlighting will not
 	change.					*g:colors_name*
 	When a color scheme is loaded (the "g:colors_name" variable is set)
@@ -856,11 +856,11 @@ A jump table for the options with a short description can be found at |Q_op|.
 
 	When setting 'background' to the default value with: >
 		:set background&
-<	Vim will guess the value.  In the GUI this should work correctly,
-	in other cases Vim might not be able to guess the right value.
+<	uVim will guess the value.  In the GUI this should work correctly,
+	in other cases uVim might not be able to guess the right value.
 
 	When starting the GUI, the default value for 'background' will be
-	"light".  When the value is not set in the .gvimrc, and Vim detects
+	"light".  When the value is not set in the .gvimrc, and uVim detects
 	that the background is actually quite dark, 'background' is set to
 	"dark".  But this happens only AFTER the .gvimrc file has been read
 	(because the window needs to be opened to find the actual background
@@ -956,14 +956,14 @@ A jump table for the options with a short description can be found at |Q_op|.
 	  file.
 	- When the file is a link the new file will not be a link.
 
-	The "auto" value is the middle way: When Vim sees that renaming file
+	The "auto" value is the middle way: When uVim sees that renaming file
 	is possible without side effects (the attributes can be passed on and
 	the file is not a link) that is used.  When problems are expected, a
 	copy will be made.
 
 	The "breaksymlink" and "breakhardlink" values can be used in
 	combination with any of "yes", "no" and "auto".  When included, they
-	force Vim to always break either symbolic or hard links by doing
+	force uVim to always break either symbolic or hard links by doing
 	exactly what the "no" option does, renaming the original file to
 	become the backup and writing a new file in its place.  This can be
 	useful for example in source trees where all the files are symbolic or
@@ -971,7 +971,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	be propagated back to the original source.
 							*crontab*
 	One situation where "no" and "auto" will cause problems: A program
-	that opens a file, invokes Vim to edit that file, and then tests if
+	that opens a file, invokes uVim to edit that file, and then tests if
 	the open file was changed (through the file descriptor) will check the
 	backup file instead of the newly created file.  "crontab -e" is an
 	example.
@@ -1001,7 +1001,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			{not in Vi}
 	List of directories for the backup file, separated with commas.
 	- The backup file will be created in the first directory in the list
-	  where this is possible.  The directory must exist, Vim will not
+	  where this is possible.  The directory must exist, uVim will not
 	  create it for you.
 	- Empty means that no backup file will be created ('patchmode' is
 	  impossible!).  Writing may fail because of this.
@@ -1020,7 +1020,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	- Careful with '\' characters, type one before a space, type two to
 	  get one in the option (see |option-backslash|), for example: >
 	    :set bdir=c:\\tmp,\ dir\\,with\\,commas,\\\ dir\ with\ spaces
-<	- For backwards compatibility with Vim version 3.0 a '>' at the start
+<	- For backwards compatibility with uVim version 3.0 a '>' at the start
 	  of the option is removed.
 	See also 'backup' and 'writebackup' options.
 	If you want to hide your backup files on Unix, consider this value: >
@@ -1064,8 +1064,8 @@ A jump table for the options with a short description can be found at |Q_op|.
 	When $TMPDIR, $TMP or $TEMP is not defined, it is not used for the
 	default value.  "/tmp/*" is only used for Unix.
 
-	WARNING: Not having a backup file means that when Vim fails to write
-	your buffer correctly and then, for whatever reason, Vim exits, you
+	WARNING: Not having a backup file means that when uVim fails to write
+	your buffer correctly and then, for whatever reason, uVim exits, you
 	lose both the original file and what you were writing.  Only disable
 	backups if you don't care about losing the file.
 
@@ -1122,7 +1122,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 <
 	NOTE: The balloon is displayed only if the cursor is on a text
 	character.  If the result of evaluating 'balloonexpr' is not empty,
-	Vim does not try to send a message to an external debugger (Netbeans
+	uVim does not try to send a message to an external debugger (Netbeans
 	or Sun Workshop).
 
 	The expression will be evaluated in the |sandbox| when set from a
@@ -1183,7 +1183,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			local to buffer
 			{not in Vi}
 	This option should be set before editing a binary file.  You can also
-	use the |-b| Vim argument.  When this option is switched on a few
+	use the |-b| uVim argument.  When this option is switched on a few
 	options will be changed (also when it already was on):
 		'textwidth'  will be set to 0
 		'wrapmargin' will be set to 0
@@ -1205,7 +1205,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	This avoids you have to do ":set bin", which would have effect for all
 	files you edit.
 	When writing a file the <EOL> for the last line is only written if
-	there was one in the original file (normally Vim appends an <EOL> to
+	there was one in the original file (normally uVim appends an <EOL> to
 	the last line if there is none; this would make the file longer).  See
 	the 'endofline' option.
 
@@ -1231,7 +1231,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	Often used for UCS-2 files on MS-Windows.  For other applications it
 	causes trouble, for example: "cat file1 file2" makes the BOM of file2
 	appear halfway the resulting file.  Gcc doesn't accept a BOM.
-	When Vim reads a file and 'fileencodings' starts with "ucs-bom", a
+	When uVim reads a file and 'fileencodings' starts with "ucs-bom", a
 	check for the presence of the BOM is done and 'bomb' set accordingly.
 	Unless 'binary' is set, it is removed from the first line, so that you
 	don't see it when editing.  When you don't change the options, the BOM
@@ -1323,8 +1323,8 @@ A jump table for the options with a short description can be found at |Q_op|.
 			{not in Vi}
 	When this option is set, the buffer shows up in the buffer list.  If
 	it is reset it is not used for ":bnext", "ls", the Buffers menu, etc.
-	This option is reset by Vim for buffers that are only used to remember
-	a file name or marks.  Vim sets it when starting to edit a buffer.
+	This option is reset by uVim for buffers that are only used to remember
+	a file name or marks.  uVim sets it when starting to edit a buffer.
 	But not when moving to a buffer with ":buffer".
 
 						*'buftype'* *'bt'* *E382*
@@ -1360,7 +1360,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			work (":w filename" does work though).
 	both:		The buffer is never considered to be |'modified'|.
 			There is no warning when the changes will be lost, for
-			example when you quit Vim.
+			example when you quit uVim.
 	both:		A swap file is only created when using too much memory
 			(when 'swapfile' has been reset there is never a swap
 			file).
@@ -1418,7 +1418,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	(parts of 'cdpath' can be passed to the shell to expand file names).
 
 						*'cedit'*
-'cedit'			string	(Vi default: "", Vim default: CTRL-F)
+'cedit'			string	(Vi default: "", uVim default: CTRL-F)
 			global
 			{not in Vi}
 			{not available when compiled without the |+vertsplit|
@@ -1453,7 +1453,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	Additionally, names given in 'fileencodings' and 'fileencoding' are
 	used.
 	Conversion between "latin1", "unicode", "ucs-2", "ucs-4" and "utf-8"
-	is done internally by Vim, 'charconvert' is not used for this.
+	is done internally by uVim, 'charconvert' is not used for this.
 	'charconvert' is also used to convert the viminfo file, if the 'c'
 	flag is present in 'viminfo'.  Also used for Unicode conversion.
 	Example: >
@@ -1464,15 +1464,15 @@ A jump table for the options with a short description can be found at |Q_op|.
 			\ . " <" . v:fname_in . " >" v:fname_out)
 		  return v:shell_error
 		endfun
-<	The related Vim variables are:
+<	The related uVim variables are:
 		v:charconvert_from	name of the current encoding
 		v:charconvert_to	name of the desired encoding
 		v:fname_in		name of the input file
 		v:fname_out		name of the output file
 	Note that v:fname_in and v:fname_out will never be the same.
 	Note that v:charconvert_from and v:charconvert_to may be different
-	from 'encoding'.  Vim internally uses UTF-8 instead of UCS-2 or UCS-4.
-	Encryption is not done by Vim when using 'charconvert'.  If you want
+	from 'encoding'.  uVim internally uses UTF-8 instead of UCS-2 or UCS-4.
+	Encryption is not done by uVim when using 'charconvert'.  If you want
 	to encrypt the file after conversion, 'charconvert' should take care
 	of this.
 	This option cannot be set from a |modeline| or in the |sandbox|, for
@@ -1544,7 +1544,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	These names are recognized:
 
 						*clipboard-unnamed*
-	unnamed		When included, Vim will use the clipboard register '*'
+	unnamed		When included, uVim will use the clipboard register '*'
 			for all yank, delete, change and put operations which
 			would normally go to the unnamed register.  When a
 			register is explicitly specified, it will always be
@@ -1569,7 +1569,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 						*clipboard-autoselect*
 	autoselect	Works like the 'a' flag in 'guioptions': If present,
 			then whenever Visual mode is started, or the Visual
-			area extended, Vim tries to become the owner of the
+			area extended, uVim tries to become the owner of the
 			windowing system's global selection or put the
 			selected text on the clipboard used by the selection
 			register "*.  See |guioptions_a| and |quotestar| for
@@ -1591,8 +1591,8 @@ A jump table for the options with a short description can be found at |Q_op|.
 	html		When the clipboard contains HTML, use this when
 			pasting.  When putting text on the clipboard, mark it
 			as HTML.  This works to copy rendered HTML from
-			Firefox, paste it as raw HTML in Vim, select the HTML
-			in Vim and paste it in a rich edit box in Firefox.
+			Firefox, paste it as raw HTML in uVim, select the HTML
+			in uVim and paste it in a rich edit box in Firefox.
 			You probably want to add this only temporarily,
 			possibly use BufEnter autocommands.
 			Only supported for GTK version 2 and later.
@@ -1604,7 +1604,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			the terminal 'term'.  If there is a match, no
 			connection will be made to the X server.  This is
 			useful in this situation:
-			- Running Vim in a console.
+			- Running uVim in a console.
 			- $DISPLAY is set to start applications on another
 			  display.
 			- You do not want to connect to the X server in the
@@ -1663,12 +1663,12 @@ A jump table for the options with a short description can be found at |Q_op|.
 	Number of columns of the screen.  Normally this is set by the terminal
 	initialization and does not have to be set by hand.  Also see
 	|posix-screen-size|.
-	When Vim is running in the GUI or in a resizable window, setting this
+	When uVim is running in the GUI or in a resizable window, setting this
 	option will cause the window size to be changed.  When you only want
 	to use the size for the GUI, put the command in your |gvimrc| file.
-	When you set this option and Vim is unable to change the physical
+	When you set this option and uVim is unable to change the physical
 	number of columns of the display, the display may be messed up.  For
-	the GUI it is always possible and Vim limits the number of columns to
+	the GUI it is always possible and uVim limits the number of columns to
 	what fits on the screen.  You can use this command to get the widest
 	window possible: >
 		:set columns=9999
@@ -1700,8 +1700,8 @@ A jump table for the options with a short description can be found at |Q_op|.
 					file is found, reset in |defaults.vim|)
 			global
 			{not in Vi}
-	This option has the effect of making Vim either more Vi-compatible, or
-	make Vim behave in a more useful way.
+	This option has the effect of making uVim either more Vi-compatible, or
+	make uVim behave in a more useful way.
 	This is a special kind of option, because when it's set or reset,
 	other options are also changed as a side effect.  CAREFUL: Setting or
 	resetting this option can have a lot of unexpected effects: Mappings
@@ -1709,24 +1709,24 @@ A jump table for the options with a short description can be found at |Q_op|.
 	set this option in your vimrc file, you should probably put it at the
 	very start.
 	By default this option is on and the Vi defaults are used for the
-	options.  This default was chosen for those people who want to use Vim
+	options.  This default was chosen for those people who want to use uVim
 	just like Vi, and don't even (want to) know about the 'compatible'
 	option.
-	When a |vimrc| or |gvimrc| file is found while Vim is starting up,
+	When a |vimrc| or |gvimrc| file is found while uVim is starting up,
 	this option is switched off, and all options that have not been
-	modified will be set to the Vim defaults.  Effectively, this means
-	that when a |vimrc| or |gvimrc| file exists, Vim will use the Vim
+	modified will be set to the uVim defaults.  Effectively, this means
+	that when a |vimrc| or |gvimrc| file exists, uVim will use the uVim
 	defaults, otherwise it will use the Vi defaults.  (Note: This doesn't
 	happen for the system-wide vimrc or gvimrc file, nor for a file given
 	with the |-u| argument).  Also see |compatible-default| and
 	|posix-compliance|.
 	You can also set this option with the "-C" argument, and reset it with
 	"-N".  See |-C| and |-N|.
-	Switching this option off makes the Vim defaults be used for options
-	that have a different Vi and Vim default value.  See the options
+	Switching this option off makes the uVim defaults be used for options
+	that have a different Vi and uVim default value.  See the options
 	marked with a '+' below.  Other options are not modified.
 	At the moment this option is set, several other options will be set
-	or reset to make Vim as Vi-compatible as possible.  See the table
+	or reset to make uVim as Vi-compatible as possible.  See the table
 	below.  This can be used if you want to revert to Vi compatible
 	editing.
 	See also 'cpoptions'.
@@ -1963,7 +1963,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	Also see 'preserveindent'.
 
 						*'cpoptions'* *'cpo'* *cpo*
-'cpoptions' 'cpo'	string	(Vim default: "aABceFs",
+'cpoptions' 'cpo'	string	(uVim default: "aABceFs",
 				 Vi default:  all flags)
 			global
 			{not in Vi}
@@ -1975,10 +1975,10 @@ A jump table for the options with a short description can be found at |Q_op|.
 	To avoid problems with flags that are added in the future, use the
 	"+=" and "-=" feature of ":set" |add-option-flags|.
 	NOTE: This option is set to the Vi default value when 'compatible' is
-	set and to the Vim default value when 'compatible' is reset.
+	set and to the uVim default value when 'compatible' is reset.
 	NOTE: This option is set to the POSIX default value at startup when
 	the Vi default value would be used and the $VIM_POSIX environment
-	variable exists |posix|.  This means Vim tries to behave like the
+	variable exists |posix|.  This means uVim tries to behave like the
 	POSIX specification.
 
 	    contains	behavior	~
@@ -2131,7 +2131,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			marks are kept like |:keepmarks| was used.
 								*cpo-s*
 		s	Set buffer options when entering the buffer for the
-			first time.  This is like it is in Vim version 3.0.
+			first time.  This is like it is in uVim version 3.0.
 			And it is the default.  If not present the options are
 			set when the buffer is created.
 								*cpo-S*
@@ -2149,7 +2149,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			 X     yes     each time when buffer entered (vi comp.)
 								*cpo-t*
 		t	Search pattern for the tag command is remembered for
-			"n" command.  Otherwise Vim only puts the pattern in
+			"n" command.  Otherwise uVim only puts the pattern in
 			the history for search pattern, but doesn't change the
 			last used search pattern.
 								*cpo-u*
@@ -2169,7 +2169,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			overwrites a readonly file, if possible.
 								*cpo-x*
 		x	<Esc> on the command-line executes the command-line.
-			The default in Vim is to abandon the command-line,
+			The default in uVim is to abandon the command-line,
 			because <Esc> normally aborts a command.  |c_<Esc>|
 								*cpo-X*
 		X	When using a count with "R" the replaced text is
@@ -2263,7 +2263,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			at the start of a line.
 								*cpo-.*
 		.	The ":chdir" and ":cd" commands fail if the current
-			buffer is modified, unless ! is used.  Vim doesn't
+			buffer is modified, unless ! is used.  uVim doesn't
 			need this, since it remembers the full path of an
 			opened file.
 								*cpo-bar*
@@ -2279,16 +2279,16 @@ A jump table for the options with a short description can be found at |Q_op|.
 	Method used for encryption when the buffer is written to a file:
 							*pkzip*
 	   zip		PkZip compatible method.  A weak kind of encryption.
-			Backwards compatible with Vim 7.2 and older.
+			Backwards compatible with uVim 7.2 and older.
 							*blowfish*
 	   blowfish	Blowfish method.  Medium strong encryption but it has
-			an implementation flaw.  Requires Vim 7.3 or later,
-			files can NOT be read by Vim 7.2 and older.  This adds
+			an implementation flaw.  Requires uVim 7.3 or later,
+			files can NOT be read by uVim 7.2 and older.  This adds
 			a "seed" to the file, every time you write the file
 			the encrypted bytes will be different.
 							*blowfish2*
 	   blowfish2	Blowfish method.  Medium strong encryption.  Requires
-			Vim 7.4.401 or later, files can NOT be read by Vim 7.3
+			uVim 7.4.401 or later, files can NOT be read by uVim 7.3
 			and older.  This adds a "seed" to the file, every time
 			you write the file the encrypted bytes will be
 			different.  The whole undo file is encrypted, not just
@@ -2307,9 +2307,9 @@ A jump table for the options with a short description can be found at |Q_op|.
 	the value "zip".  When setting the local value to an empty string the
 	buffer will use the global value.
 
-	When a new encryption method is added in a later version of Vim, and
+	When a new encryption method is added in a later version of uVim, and
 	the current version does not recognize it, you will get	*E821* .
-	You need to edit this file with the later version of Vim.
+	You need to edit this file with the later version of uVim.
 
 
 						*'cscopepathcomp'* *'cspc'*
@@ -2601,7 +2601,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	- Careful with '\' characters, type one before a space, type two to
 	  get one in the option (see |option-backslash|), for example: >
 	    :set dir=c:\\tmp,\ dir\\,with\\,commas,\\\ dir\ with\ spaces
-<	- For backwards compatibility with Vim version 3.0 a '>' at the start
+<	- For backwards compatibility with uVim version 3.0 a '>' at the start
 	  of the option is removed.
 	Using "." first in the list is recommended.  This means that editing
 	the same file twice will result in a warning.  Using "/tmp" on Unix is
@@ -2670,14 +2670,14 @@ A jump table for the options with a short description can be found at |Q_op|.
 			{only available when compiled with the |+multi_byte|
 			feature}
 			{not in Vi}
-	Sets the character encoding used inside Vim.  It applies to text in
+	Sets the character encoding used inside uVim.  It applies to text in
 	the buffers, registers, Strings in expressions, text stored in the
-	viminfo file, etc.  It sets the kind of characters which Vim can work
+	viminfo file, etc.  It sets the kind of characters which uVim can work
 	with.  See |encoding-names| for the possible values.
 
 	NOTE: Changing this option will not change the encoding of the
-	existing text in Vim.  It may cause non-ASCII text to become invalid.
-	It should normally be kept at its default value, or set when Vim
+	existing text in uVim.  It may cause non-ASCII text to become invalid.
+	It should normally be kept at its default value, or set when uVim
 	starts up.  See |multibyte|.  To reload the menus see |:menutrans|.
 
 	This option cannot be set from a |modeline|.  It would most likely
@@ -2700,7 +2700,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 		if has("multi_byte_encoding")
 <
 	Normally 'encoding' will be equal to your current locale.  This will
-	be the default if Vim recognizes your environment settings.  If
+	be the default if uVim recognizes your environment settings.  If
 	'encoding' is not set to the current locale, 'termencoding' must be
 	set to convert typed and displayed text.  See |encoding-table|.
 
@@ -2720,9 +2720,9 @@ A jump table for the options with a short description can be found at |Q_op|.
 	'fileencodings' are empty.  When conversion is needed, switch to using
 	utf-8.
 
-	When "unicode", "ucs-2" or "ucs-4" is used, Vim internally uses utf-8.
+	When "unicode", "ucs-2" or "ucs-4" is used, uVim internally uses utf-8.
 	You don't notice this while editing, but it does matter for the
-	|viminfo-file|.  And Vim expects the terminal to use utf-8 too.  Thus
+	|viminfo-file|.  And uVim expects the terminal to use utf-8 too.  Thus
 	setting 'encoding' to one of these values instead of utf-8 only has
 	effect for encoding used for files when 'fileencoding' is empty.
 
@@ -2770,7 +2770,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			{not in Vi}
 	External program to use for "=" command.  When this option is empty
 	the internal formatting functions are used; either 'lisp', 'cindent'
-	or 'indentexpr'.  When Vim was compiled without internal formatting,
+	or 'indentexpr'.  When uVim was compiled without internal formatting,
 	the "indent" program is used.
 	Environment variables are expanded |:set_env|.  See |option-backslash|
 	about including spaces and backslashes.
@@ -2813,7 +2813,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	(see |errorformat|).
 
 				     *'esckeys'* *'ek'* *'noesckeys'* *'noek'*
-'esckeys' 'ek'		boolean	(Vim default: on, Vi default: off)
+'esckeys' 'ek'		boolean	(uVim default: on, Vi default: off)
 			global
 			{not in Vi}
 	Function keys that start with an <Esc> are recognized in Insert
@@ -2825,7 +2825,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	when 'esckeys' is off, you can still map anything, but the cursor keys
 	won't work by default.
 	NOTE: This option is set to the Vi default value when 'compatible' is
-	set and to the Vim default value when 'compatible' is reset.
+	set and to the uVim default value when 'compatible' is reset.
 
 						*'eventignore'* *'ei'*
 'eventignore' 'ei'	string	(default "")
@@ -2913,7 +2913,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 
 							*'fe'*
 	NOTE: Before version 6.0 this option specified the encoding for the
-	whole of Vim, this was a mistake.  Now use 'encoding' instead.  The
+	whole of uVim, this was a mistake.  Now use 'encoding' instead.  The
 	old short name was 'fe', which is no longer used.
 
 					*'fileencodings'* *'fencs'*
@@ -2925,7 +2925,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			feature}
 			{not in Vi}
 	This is a list of character encodings considered when starting to edit
-	an existing file.  When a file is read, Vim tries to use the first
+	an existing file.  When a file is read, uVim tries to use the first
 	mentioned character encoding.  If an error is detected, the next one
 	in the list is tried.  When an encoding is found that works,
 	'fileencoding' is set to it.  If all fail, 'fileencoding' is set to
@@ -2957,7 +2957,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	(Byte Order Mark) at the start of the file.  It must not be preceded
 	by "utf-8" or another Unicode encoding for this to work properly.
 	An entry for an 8-bit encoding (e.g., "latin1") should be the last,
-	because Vim cannot detect an error, thus the encoding is always
+	because uVim cannot detect an error, thus the encoding is always
 	accepted.
 	The special value "default" can be used for the encoding from the
 	environment.  This is the default value for 'encoding'.  It is useful
@@ -3002,9 +3002,9 @@ A jump table for the options with a short description can be found at |Q_op|.
 
 					*'fileformats'* *'ffs'*
 'fileformats' 'ffs'	string (default:
-				Vim+Vi	MS-DOS, MS-Windows OS/2: "dos,unix",
-				Vim	Unix: "unix,dos",
-				Vim	Mac: "mac,unix,dos",
+				uVim+Vi	MS-DOS, MS-Windows OS/2: "dos,unix",
+				uVim	Unix: "unix,dos",
+				uVim	Mac: "mac,unix,dos",
 				Vi	Cygwin: "unix,dos",
 				Vi	others: "")
 			global
@@ -3041,7 +3041,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	  file only, the option is not changed.
 	When 'binary' is set, the value of 'fileformats' is not used.
 
-	When Vim starts up with an empty buffer the first item is used.  You
+	When uVim starts up with an empty buffer the first item is used.  You
 	can overrule this by setting 'fileformat' in your .vimrc.
 
 	For systems with a Dos-like <EOL> (<CR><NL>), when reading files that
@@ -3058,7 +3058,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	string or one format (no comma is included), 'textauto' is reset,
 	otherwise 'textauto' is set.
 	NOTE: This option is set to the Vi default value when 'compatible' is
-	set and to the Vim default value when 'compatible' is reset.
+	set and to the uVim default value when 'compatible' is reset.
 
 		*'fileignorecase'* *'fic'* *'nofileignorecase'* *'nofic'*
 'fileignorecase' 'fic'	boolean	(default on for systems where case in file
@@ -3373,7 +3373,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	same spot relative to the text then!  The |mode()| function will
 	return "i" or "R" in this situation.
 	
-	When the expression evaluates to non-zero Vim will fall back to using
+	When the expression evaluates to non-zero uVim will fall back to using
 	the internal format mechanism.
 
 	The expression will be evaluated in the |sandbox| when set from a
@@ -3381,7 +3381,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	since changing the buffer text is not allowed.
 
 					*'formatoptions'* *'fo'*
-'formatoptions' 'fo'	string (Vim default: "tcq", Vi default: "vt")
+'formatoptions' 'fo'	string (uVim default: "tcq", Vi default: "vt")
 			local to buffer
 			{not in Vi}
 	This is a sequence of letters which describes how automatic
@@ -3391,7 +3391,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	To avoid problems with flags that are added in the future, use the
 	"+=" and "-=" feature of ":set" |add-option-flags|.
 	NOTE: This option is set to the Vi default value when 'compatible' is
-	set and to the Vim default value when 'compatible' is reset.
+	set and to the uVim default value when 'compatible' is reset.
 
 					*'formatlistpat'* *'flp'*
 'formatlistpat' 'flp'	string (default: "^\s*\d\+[\]:.)}\t ]\s*")
@@ -3501,7 +3501,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			{not in Vi}
 			{only available when compiled with GUI enabled, and
 			for MS-DOS and Win32 console}
-	This option tells Vim what the cursor should look like in different
+	This option tells uVim what the cursor should look like in different
 	modes.  It fully works in the GUI.  In an MSDOS or Win32 console, only
 	the height of the cursor can be changed.  This can be done by
 	specifying a block cursor, or a percentage for a vertical or
@@ -3542,7 +3542,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			These numbers are used for a missing entry.  This
 			means that blinking is enabled by default.  To switch
 			blinking off you can use "blinkon0".  The cursor only
-			blinks when Vim is waiting for input, not while
+			blinks when uVim is waiting for input, not while
 			executing a command.
 			To make the cursor blink in an xterm, see
 			|xterm-blink|.
@@ -3579,7 +3579,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			global
 			{not in Vi}
 			{only available when compiled with GUI enabled}
-	This is a list of fonts which will be used for the GUI version of Vim.
+	This is a list of fonts which will be used for the GUI version of uVim.
 	In its simplest form the value is just one font name.  When
 	the font cannot be found you will get an error message.  To try other
 	font names a list can be specified, font names separated with commas.
@@ -3593,14 +3593,14 @@ A jump table for the options with a short description can be found at |Q_op|.
 	backslash before a space and a backslash.  See also
 	|option-backslash|.  For example: >
 	    :set guifont=Screen15,\ 7x13,font\\,with\\,commas
-<	will make Vim try to use the font "Screen15" first, and if it fails it
+<	will make uVim try to use the font "Screen15" first, and if it fails it
 	will try to use "7x13" and then "font,with,commas" instead.
 
-	If none of the fonts can be loaded, Vim will keep the current setting.
-	If an empty font list is given, Vim will try using other resource
-	settings (for X, it will use the Vim.font resource), and finally it
+	If none of the fonts can be loaded, uVim will keep the current setting.
+	If an empty font list is given, uVim will try using other resource
+	settings (for X, it will use the uVim.font resource), and finally it
 	will try some builtin default which should always be there ("7x13" in
-	the case of X).  The font names given should be "normal" fonts.  Vim
+	the case of X).  The font names given should be "normal" fonts.  uVim
 	will try to find the related bold and italic fonts.
 
 	For Win32, GTK, Motif, Mac OS and Photon: >
@@ -3697,14 +3697,14 @@ A jump table for the options with a short description can be found at |Q_op|.
 	'guifontwide' is only used when 'encoding' is set to "utf-8" and
 	'guifontset' is empty or invalid.
 	When 'guifont' is set and a valid font is found in it and
-	'guifontwide' is empty Vim will attempt to find a matching
+	'guifontwide' is empty uVim will attempt to find a matching
 	double-width font and set 'guifontwide' to it.
 
 	GTK+ 2 GUI only:			*guifontwide_gtk2*
 
 	If set and valid, 'guifontwide' is always used for double width
 	characters, even if 'encoding' is not set to "utf-8".
-	Vim does not attempt to find an appropriate value for 'guifontwide'
+	uVim does not attempt to find an appropriate value for 'guifontwide'
 	automatically.  If 'guifontwide' is empty Pango/Xft will choose the
 	font for characters not available in 'guifont'.  Thus you do not need
 	to set 'guifontwide' at all unless you want to override the choice
@@ -3734,7 +3734,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			global
 			{not in Vi}
 			{only available when compiled with GUI enabled}
-	This option only has an effect in the GUI version of Vim.  It is a
+	This option only has an effect in the GUI version of uVim.  It is a
 	sequence of letters which describes what components and options of the
 	GUI should be used.
 	To avoid problems with flags that are added in the future, use the
@@ -3743,16 +3743,16 @@ A jump table for the options with a short description can be found at |Q_op|.
 	Valid letters are as follows:
 							*guioptions_a* *'go-a'*
 	  'a'	Autoselect:  If present, then whenever VISUAL mode is started,
-		or the Visual area extended, Vim tries to become the owner of
+		or the Visual area extended, uVim tries to become the owner of
 		the windowing system's global selection.  This means that the
 		Visually highlighted text is available for pasting into other
-		applications as well as into Vim itself.  When the Visual mode
+		applications as well as into uVim itself.  When the Visual mode
 		ends, possibly due to an operation on the text, or when an
 		application wants to paste the selection, the highlighted text
 		is automatically yanked into the "* selection register.
 		Thus the selection is still available for pasting into other
 		applications after the VISUAL mode has ended.
-		    If not present, then Vim won't become the owner of the
+		    If not present, then uVim won't become the owner of the
 		windowing system's global selection unless explicitly told to
 		by a yank or delete operation for the "* register.
 		The same applies to the modeless selection.
@@ -3787,7 +3787,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 		Note: Set this option in the vimrc file.  The forking may have
 		happened already when the |gvimrc| file is read.
 								*'go-i'*
-	  'i'	Use a Vim icon.  For GTK with KDE it is used in the left-upper
+	  'i'	Use a uVim icon.  For GTK with KDE it is used in the left-upper
 		corner of the window.  It's black&white on non-GTK, because of
 		limitations of X11.  For a color icon, see |X11-icon|.
 								*'go-m'*
@@ -3858,7 +3858,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			{only available when compiled with GUI enabled and
 			with the |+windows| feature}
 	When nonempty describes the text to use in a label of the GUI tab
-	pages line.  When empty and when the result is empty Vim will use a
+	pages line.  When empty and when the result is empty uVim will use a
 	default label.  See |setting-guitablabel| for more info.
 
 	The format of this option is like that of 'statusline'.
@@ -3875,7 +3875,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			{only available when compiled with GUI enabled and
 			with the |+windows| feature}
 	When nonempty describes the text to use in a tooltip for the GUI tab
-	pages line.  When empty Vim will use a default tooltip.
+	pages line.  When empty uVim will use a default tooltip.
 	This option is otherwise just like 'guitablabel' above.
 	You can include a line break.  Simplest method is to use |:let|: >
 		:let &guitabtooltip = "line one\nline two"
@@ -3914,7 +3914,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			{only available when compiled with the |+multi_lang|
 			feature}
 			{not in Vi}
-	Comma separated list of languages.  Vim will use the first language
+	Comma separated list of languages.  uVim will use the first language
 	for which the desired help can be found.  The English help will always
 	be used as a last resort.  You can add "en" to prefer English over
 	another language, but that will only find tags that exist in that
@@ -3923,7 +3923,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 		:set helplang=de,it
 <	This will first search German, then Italian and finally English help
 	files.
-	When using |CTRL-]| and ":help!" in a non-English help file Vim will
+	When using |CTRL-]| and ":help!" in a non-English help file uVim will
 	try to find the tag in the current language before using this option.
 	See |help-translated|.
 
@@ -3984,7 +3984,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	|hl-Title|	 t  Titles for output from ":set all", ":autocmd" etc.
 	|hl-VertSplit|	 c  column used to separate vertically split windows
 	|hl-Visual|	 v  Visual mode
-	|hl-VisualNOS|	 V  Visual mode when Vim does is "Not Owning the
+	|hl-VisualNOS|	 V  Visual mode when uVim does is "Not Owning the
 			    Selection" Only X11 Gui's |gui-x11| and
 			    |xterm-clipboard|.
 	|hl-WarningMsg|	 w  warning messages
@@ -4042,7 +4042,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	off with |:nohlsearch|.  This does not change the option value, as
 	soon as you use a search command, the highlighting comes back.
 	'redrawtime' specifies the maximum time spent on finding matches.
-	When the search pattern can match an end-of-line, Vim will try to
+	When the search pattern can match an end-of-line, uVim will try to
 	highlight all of the matched text.  However, this depends on where the
 	search starts.  This will be the first line in the window or the first
 	line below a closed fold.  A match in a previous line which is not
@@ -4052,7 +4052,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	NOTE: This option is reset when 'compatible' is set.
 
 						*'history'* *'hi'*
-'history' 'hi'		number	(Vim default: 50, Vi default: 0,
+'history' 'hi'		number	(uVim default: 50, Vi default: 0,
 						 set to 200 in |defaults.vim|)
 			global
 			{not in Vi}
@@ -4061,7 +4061,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	each of these histories (see |cmdline-editing|).
 	The maximum value is 10000.
 	NOTE: This option is set to the Vi default value when 'compatible' is
-	set and to the Vim default value when 'compatible' is reset.
+	set and to the uVim default value when 'compatible' is reset.
 
 					 *'hkmap'* *'hk'* *'nohkmap'* *'nohk'*
 'hkmap' 'hk'		boolean (default off)
@@ -4099,7 +4099,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	only X11 GUI and terminals with a non-empty 't_IS' option - these are
 	Unix xterm and iris-ansi by default, where 't_IS' is taken from the
 	builtin termcap).
-	When Vim was compiled with HAVE_X11 defined, the original icon will be
+	When uVim was compiled with HAVE_X11 defined, the original icon will be
 	restored if possible |X11|.  See |X11-icon| for changing the icon on
 	X11.
 	For MS-Windows the icon can be changed, see |windows-icon|.
@@ -4115,7 +4115,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	Only works if the terminal supports setting window icon text
 	(currently only X11 GUI and terminals with a non-empty 't_IS' option).
 	Does not work for MS Windows.
-	When Vim was compiled with HAVE_X11 defined, the original icon will be
+	When uVim was compiled with HAVE_X11 defined, the original icon will be
 	restored if possible |X11|.
 	When this option contains printf-style '%' items, they will be
 	expanded according to the rules used for 'statusline'.  See
@@ -4161,7 +4161,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	activation.  When this is specified correctly, vim can fully control
 	IM with 'imcmdline', 'iminsert' and 'imsearch'.
 	You can't use this option to change the activation key, the option
-	tells Vim what the key is.
+	tells uVim what the key is.
 	Format:
 		[MODIFIER_FLAG-]KEY_STRING
 
@@ -4321,9 +4321,9 @@ A jump table for the options with a short description can be found at |Q_op|.
 	cursor to the match.
 	You can use the CTRL-N and CTRL-P keys to move to the next and
 	previous match. |c_CTRL-N| |c_CTRL-P|
-	When compiled with the |+reltime| feature Vim only searches for about
+	When compiled with the |+reltime| feature uVim only searches for about
 	half a second.  With a complicated pattern and/or a lot of text the
-	match may not be found.  This is to avoid that Vim hangs while you
+	match may not be found.  This is to avoid that uVim hangs while you
 	are typing the pattern.
 	The highlighting can be set with the 'i' flag in 'highlight'.
 	See also: 'hlsearch'.
@@ -4401,8 +4401,8 @@ A jump table for the options with a short description can be found at |Q_op|.
 'insertmode' 'im'	boolean	(default off)
 			global
 			{not in Vi}
-	Makes Vim work in a way that Insert mode is the default mode.  Useful
-	if you want to use Vim as a modeless editor.  Used for |evim|.
+	Makes uVim work in a way that Insert mode is the default mode.  Useful
+	if you want to use uVim as a modeless editor.  Used for |evim|.
 	These Insert mode commands will be useful:
 	- Use the cursor keys to move around.
 	- Use CTRL-O to execute one Normal mode command |i_CTRL-O|.  When
@@ -4413,11 +4413,11 @@ A jump table for the options with a short description can be found at |Q_op|.
 	  left, like <Esc> does when 'insertmode' isn't set.  |i_CTRL-L|
 
 	These items change when 'insertmode' is set:
-	- when starting to edit of a file, Vim goes to Insert mode.
+	- when starting to edit of a file, uVim goes to Insert mode.
 	- <Esc> in Insert mode is a no-op and beeps.
-	- <Esc> in Normal mode makes Vim go to Insert mode.
+	- <Esc> in Normal mode makes uVim go to Insert mode.
 	- CTRL-L in Insert mode is a command, it is not inserted.
-	- CTRL-Z in Insert mode suspends Vim, see |CTRL-Z|.	*i_CTRL-Z*
+	- CTRL-Z in Insert mode suspends uVim, see |CTRL-Z|.	*i_CTRL-Z*
 	However, when <Esc> is used inside a mapping, it behaves like
 	'insertmode' was not set.  This was done to be able to use the same
 	mappings with 'insertmode' set or not set.
@@ -4441,14 +4441,14 @@ A jump table for the options with a short description can be found at |Q_op|.
 	characters up to 255 are specified with this option.
 	For UTF-8 the characters 0xa0 to 0xff are included as well.
 	Think twice before adding white space to this option.  Although a
-	space may appear inside a file name, the effect will be that Vim
+	space may appear inside a file name, the effect will be that uVim
 	doesn't know where a file name starts or ends when doing completion.
 	It most likely works better without a space in 'isfname'.
 
-	Note that on systems using a backslash as path separator, Vim tries to
+	Note that on systems using a backslash as path separator, uVim tries to
 	do its best to make it work as you would expect.  That is a bit
 	tricky, since Vi originally used the backslash to escape special
-	characters.  Vim will not remove a backslash in front of a normal file
+	characters.  uVim will not remove a backslash in front of a normal file
 	name character on these systems, but it will on Unix and alikes.  The
 	'&' and '^' are not included by default, because these are special for
 	cmd.exe.
@@ -4492,11 +4492,11 @@ A jump table for the options with a short description can be found at |Q_op|.
 	|pattern|.  See 'isfname' for a description of the format of this
 	option.
 	Careful: If you change this option, it might break expanding
-	environment variables.  E.g., when '/' is included and Vim tries to
+	environment variables.  E.g., when '/' is included and uVim tries to
 	expand "$HOME/.viminfo".  Maybe you should change 'iskeyword' instead.
 
 						*'iskeyword'* *'isk'*
-'iskeyword' 'isk'	string (Vim default for MS-DOS and Win32:
+'iskeyword' 'isk'	string (uVim default for MS-DOS and Win32:
 					    "@,48-57,_,128-167,224-235"
 				   otherwise:  "@,48-57,_,192-255"
 				Vi default: "@,48-57,_")
@@ -4513,7 +4513,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	This option also influences syntax highlighting, unless the syntax
 	uses |:syn-iskeyword|.
 	NOTE: This option is set to the Vi default value when 'compatible' is
-	set and to the Vim default value when 'compatible' is reset.
+	set and to the uVim default value when 'compatible' is reset.
 
 						*'isprint'* *'isp'*
 'isprint' 'isp'	string	(default for MS-DOS, Win32, OS/2 and Macintosh:
@@ -4606,12 +4606,12 @@ A jump table for the options with a short description can be found at |Q_op|.
 			global or local to buffer |global-local|
 			{not in Vi}
 	Program to use for the |K| command.  Environment variables are
-	expanded |:set_env|.  ":help" may be used to access the Vim internal
+	expanded |:set_env|.  ":help" may be used to access the uVim internal
 	help.  (Note that previously setting the global option to the empty
 	value did this, which is now deprecated.)
-	When the first character is ":", the command is invoked as a Vim
+	When the first character is ":", the command is invoked as a uVim
 	Ex command prefixed with [count].
-	When "man", "man -s" or an Ex command is used, Vim will automatically
+	When "man", "man -s" or an Ex command is used, uVim will automatically
 	translate a count for the "K" command and pass it as the first
 	argument.  For "man -s" the "-s" is removed when there is no count.
 	See |option-backslash| about including spaces and backslashes.
@@ -4740,7 +4740,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			{not in Vi}
 			{not available when compiled without the |+linebreak|
 			feature}
-	If on, Vim will wrap long lines at a character in 'breakat' rather
+	If on, uVim will wrap long lines at a character in 'breakat' rather
 	than at the last character that fits on the screen.  Unlike
 	'wrapmargin' and 'textwidth', this does not insert <EOL>s in the file,
 	it only affects the way the file is displayed, not its contents.
@@ -4753,18 +4753,18 @@ A jump table for the options with a short description can be found at |Q_op|.
 						*'lines'* *E593*
 'lines'			number	(default 24 or terminal height)
 			global
-	Number of lines of the Vim window.
+	Number of lines of the uVim window.
 	Normally you don't need to set this.  It is done automatically by the
 	terminal initialization code.  Also see |posix-screen-size|.
-	When Vim is running in the GUI or in a resizable window, setting this
+	When uVim is running in the GUI or in a resizable window, setting this
 	option will cause the window size to be changed.  When you only want
 	to use the size for the GUI, put the command in your |gvimrc| file.
-	Vim limits the number of lines to what fits on the screen.  You can
+	uVim limits the number of lines to what fits on the screen.  You can
 	use this command to get the tallest window possible: >
 		:set lines=999
 <	Minimum value is 2, maximum value is 1000.
 	If you get fewer lines than expected, check the 'guiheadroom' option.
-	When you set this option and Vim is unable to change the physical
+	When you set this option and uVim is unable to change the physical
 	number of lines of the display, the display may be messed up.
 
 						*'linespace'* *'lsp'*
@@ -5040,12 +5040,12 @@ A jump table for the options with a short description can be found at |Q_op|.
 	Maximum amount of memory (in Kbyte) to use for pattern matching.
 	The maximum value is about 2000000.  Use this to work without a limit.
 							*E363*
-	When Vim runs into the limit it gives an error message and mostly
+	When uVim runs into the limit it gives an error message and mostly
 	behaves like CTRL-C was typed.
 	Running into the limit often means that the pattern is very
 	inefficient or too complex.  This may already happen with the pattern
 	"\(.\)*" on a very long line.  ".*" works much better.
-	Vim may run out of memory before hitting the 'maxmempattern' limit.
+	uVim may run out of memory before hitting the 'maxmempattern' limit.
 
 						*'maxmemtot'* *'mmt'*
 'maxmemtot' 'mmt'	number	(default between 2048 and 10240 (system
@@ -5090,7 +5090,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	For most languages the uncompressed word tree fits in memory.  {start}
 	gives the amount of memory in Kbyte that can be used before any
 	compression is done.  It should be a bit smaller than the amount of
-	memory that is available to Vim.
+	memory that is available to uVim.
 
 	When going over the {start} limit the {inc} number specifies the
 	amount of memory in Kbyte that can be allocated before another
@@ -5112,7 +5112,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	languages, no matter what you set 'mkspellmem' to.
 
 				   *'modeline'* *'ml'* *'nomodeline'* *'noml'*
-'modeline' 'ml'		boolean	(Vim default: on (off for root),
+'modeline' 'ml'		boolean	(uVim default: on (off for root),
 				 Vi default: off)
 			local to buffer
 						*'modelines'* *'mls'*
@@ -5123,7 +5123,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	checked for set commands.  If 'modeline' is off or 'modelines' is zero
 	no lines are checked.  See |modeline|.
 	NOTE: 'modeline' is set to the Vi default value when 'compatible' is
-	set and to the Vim default value when 'compatible' is reset.
+	set and to the uVim default value when 'compatible' is reset.
 
 				*'modifiable'* *'ma'* *'nomodifiable'* *'noma'*
 'modifiable' 'ma'	boolean	(default on)
@@ -5158,14 +5158,14 @@ A jump table for the options with a short description can be found at |Q_op|.
 	will be ignored.
 
 						*'more'* *'nomore'*
-'more'			boolean	(Vim default: on, Vi default: off)
+'more'			boolean	(uVim default: on, Vi default: off)
 			global
 			{not in Vi}
 	When on, listings pause when the whole screen is filled.  You will get
 	the |more-prompt|.  When this option is off there are no pauses, the
 	listing continues until finished.
 	NOTE: This option is set to the Vi default value when 'compatible' is
-	set and to the Vim default value when 'compatible' is reset.
+	set and to the uVim default value when 'compatible' is reset.
 
 						*'mouse'* *E538*
 'mouse'			string	(default "", "a" for GUI, MS-DOS and Win32,
@@ -5258,7 +5258,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			{not in Vi}
 			{only available when compiled with the |+mouseshape|
 			feature}
-	This option tells Vim what the mouse pointer should look like in
+	This option tells uVim what the mouse pointer should look like in
 	different modes.  The option is a comma separated list of parts, much
 	like used for 'guicursor'.  Each part consist of a mode/location-list
 	and an argument-list:
@@ -5339,7 +5339,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 					   set to "bin,hex" in |defaults.vim|)
 			local to buffer
 			{not in Vi}
-	This defines what bases Vim will consider for numbers when using the
+	This defines what bases uVim will consider for numbers when using the
 	CTRL-A and CTRL-X commands for adding to and subtracting from a number
 	respectively; see |CTRL-A| for more info on these commands.
 	alpha	If included, single alphabetical characters will be
@@ -5383,7 +5383,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	    |there          |  4 there      |  1 there      |  1 there
 
 						*'numberwidth'* *'nuw'*
-'numberwidth' 'nuw'	number	(Vim default: 4  Vi default: 8)
+'numberwidth' 'nuw'	number	(uVim default: 4  Vi default: 8)
 			local to window
 			{not in Vi}
 			{only available when compiled with the |+linebreak|
@@ -5395,7 +5395,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	The value is the minimum width.  A bigger width is used when needed to
 	fit the highest line number in the buffer respectively the number of
 	rows in the window, depending on whether 'number' or 'relativenumber'
-	is set. Thus with the Vim default of 4 there is room for a line number
+	is set. Thus with the uVim default of 4 there is room for a line number
 	up to 999. When the buffer has 1000 lines five columns will be used.
 	The minimum value is 1, the maximum value is 10.
 	NOTE: 'numberwidth' is reset to 8 when 'compatible' is set.
@@ -5421,7 +5421,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			global
 			{not in Vi}
 			{only for MS-DOS, MS-Windows and OS/2}
-	Enable reading and writing from devices.  This may get Vim stuck on a
+	Enable reading and writing from devices.  This may get uVim stuck on a
 	device that can be opened but doesn't actually do the I/O.  Therefore
 	it is off by default.
 	Note that on MS-Windows editing "aux.h", "lpt1.txt" and the like also
@@ -5462,13 +5462,13 @@ A jump table for the options with a short description can be found at |Q_op|.
 'paste'			boolean	(default off)
 			global
 			{not in Vi}
-	Put Vim in Paste mode.  This is useful if you want to cut or copy
-	some text from one window and paste it in Vim.  This will avoid
+	Put uVim in Paste mode.  This is useful if you want to cut or copy
+	some text from one window and paste it in uVim.  This will avoid
 	unexpected effects.
-	Setting this option is useful when using Vim in a terminal, where Vim
-	cannot distinguish between typed text and pasted text.  In the GUI, Vim
+	Setting this option is useful when using uVim in a terminal, where uVim
+	cannot distinguish between typed text and pasted text.  In the GUI, uVim
 	knows about pasting and will mostly do the right thing without 'paste'
-	being set.  The same is true for a terminal where Vim handles the
+	being set.  The same is true for a terminal where uVim handles the
 	mouse clicks itself.
 	This option is reset when starting the GUI.  Thus if you set it in
 	your .vimrc it will work in a terminal, but not in the GUI.  Setting
@@ -5788,7 +5788,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 'readonly' 'ro'		boolean	(default off)
 			local to buffer
 	If on, writes fail unless you use a '!'.  Protects you from
-	accidentally overwriting a file.  Default on when Vim is started
+	accidentally overwriting a file.  Default on when uVim is started
 	in read-only mode ("vim -R") or when the executable is called "view".
 	When using ":w!" the 'readonly' option is reset for the current
 	buffer, unless the 'Z' flag is in 'cpoptions'.
@@ -5804,7 +5804,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	The time in milliseconds for redrawing the display.  This applies to
 	searching for patterns for 'hlsearch' and |:match| highlighting.
 	When redrawing takes more than this many milliseconds no further
-	matches will be highlighted.  This is used to avoid that Vim hangs
+	matches will be highlighted.  This is used to avoid that uVim hangs
 	when using a very complicated pattern.
 
 						*'regexpengine'* *'re'*
@@ -5819,9 +5819,9 @@ A jump table for the options with a short description can be found at |Q_op|.
 	Note that when using the NFA engine and the pattern contains something
 	that is not supported the pattern will not match.  This is only useful
 	for debugging the regexp engine.
-	Using automatic selection enables Vim to switch the engine, if the
+	Using automatic selection enables uVim to switch the engine, if the
 	default engine becomes too costly.  E.g., when the NFA engine uses too
-	many states.  This should prevent Vim from hanging on a combination of
+	many states.  This should prevent uVim from hanging on a combination of
 	a complex pattern with long text.
 
 		*'relativenumber'* *'rnu'* *'norelativenumber'* *'nornu'*
@@ -5852,7 +5852,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			global
 	Allows for mappings to work recursively.  If you do not want this for
 	a single entry, use the :noremap[!] command.
-	NOTE: To avoid portability problems with Vim scripts, always keep
+	NOTE: To avoid portability problems with uVim scripts, always keep
 	this option at the default "on".  Only switch it off when working with
 	old Vi scripts.
 
@@ -5871,7 +5871,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	Currently, only one optional renderer is available.
 
 	render	behavior    ~
-	directx	Vim will draw text using DirectX (DirectWrite).  It makes
+	directx	uVim will draw text using DirectX (DirectWrite).  It makes
 		drawn glyphs more beautiful than default GDI.
 		It requires 'encoding' is "utf-8", and only works on
 		MS-Windows Vista or newer version.
@@ -5940,10 +5940,10 @@ A jump table for the options with a short description can be found at |Q_op|.
 'restorescreen' 'rs'	boolean	(default on)
 			global
 			{not in Vi}  {only in Windows 95/NT console version}
-	When set, the screen contents is restored when exiting Vim.  This also
+	When set, the screen contents is restored when exiting uVim.  This also
 	happens when executing external commands.
 
-	For non-Windows Vim: You can set or reset the 't_ti' and 't_te'
+	For non-Windows uVim: You can set or reset the 't_ti' and 't_te'
 	options in your .vimrc.  To disable restoring:
 		set t_ti= t_te=
 	To enable restoring (for an xterm):
@@ -6103,11 +6103,11 @@ A jump table for the options with a short description can be found at |Q_op|.
 
 	The defaults for most systems are setup to search five locations:
 	1. In your home directory, for your personal preferences.
-	2. In a system-wide Vim directory, for preferences from the system
+	2. In a system-wide uVim directory, for preferences from the system
 	   administrator.
-	3. In $VIMRUNTIME, for files distributed with Vim.
+	3. In $VIMRUNTIME, for files distributed with uVim.
 							*after-directory*
-	4. In the "after" directory in the system-wide Vim directory.  This is
+	4. In the "after" directory in the system-wide uVim directory.  This is
 	   for the system administrator to overrule or add to the distributed
 	   defaults (rarely needed)
 	5. In the "after" directory in your home directory.  This is for
@@ -6124,7 +6124,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	Example: >
 		:set runtimepath=~/vimruntime,/mygroup/vim,$VIMRUNTIME
 <	This will use the directory "~/vimruntime" first (containing your
-	personal Vim runtime files), then "/mygroup/vim" (shared between a
+	personal uVim runtime files), then "/mygroup/vim" (shared between a
 	group of people) and finally "$VIMRUNTIME" (the distributed runtime
 	files).
 	You probably should always include $VIMRUNTIME somewhere, to use the
@@ -6302,7 +6302,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			global values for local options)
 	   options	all options and mappings (also global values for local
 			options)
-	   resize	size of the Vim window: 'lines' and 'columns'
+	   resize	size of the uVim window: 'lines' and 'columns'
 	   sesdir	the directory in which the session file is located
 			will become the current directory (useful with
 			projects accessed over a network from different
@@ -6314,15 +6314,15 @@ A jump table for the options with a short description can be found at |Q_op|.
 			tab page separately
 	   unix		with Unix end-of-line format (single <NL>), even when
 			on Windows or DOS
-	   winpos	position of the whole Vim window
+	   winpos	position of the whole uVim window
 	   winsize	window sizes
 
 	Don't include both "curdir" and "sesdir".
 	When neither "curdir" nor "sesdir" is included, file names are stored
 	with absolute paths.
 	"slash" and "unix" are useful on Windows when sharing session files
-	with Unix.  The Unix version of Vim cannot source dos format scripts,
-	but the Windows version of Vim can source unix format scripts.
+	with Unix.  The Unix version of uVim cannot source dos format scripts,
+	but the Windows version of uVim can source unix format scripts.
 
 						*'shell'* *'sh'* *E91*
 'shell' 'sh'		string	(default $SHELL or "sh",
@@ -6341,7 +6341,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 <	Note the backslash before each quote (to avoid starting a comment) and
 	each space (to avoid ending the option value).  Also note that the
 	"-f" is not inside the quotes, because it is not part of the command
-	name.  And Vim automagically recognizes the backslashes that are path
+	name.  And uVim automagically recognizes the backslashes that are path
 	separators.
 	For Dos 32 bits (DJGPP), you can set the $DJSYSFLAGS environment
 	variable to change the way external commands are executed.  See the
@@ -6459,7 +6459,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	When set, a forward slash is used when expanding file names.  This is
 	useful when a Unix-like shell is used instead of command.com or
 	cmd.exe.  Backward slashes can still be typed, but they are changed to
-	forward slashes by Vim.
+	forward slashes by uVim.
 	Note that setting or resetting this option has no effect for some
 	existing file names, thus this option needs to be set before opening
 	any file for best results.  This might change in the future.
@@ -6468,7 +6468,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 		if exists('+shellslash')
 <
 			*'shelltemp'* *'stmp'* *'noshelltemp'* *'nostmp'*
-'shelltemp' 'stmp'	boolean	(Vi default off, Vim default on)
+'shelltemp' 'stmp'	boolean	(Vi default off, uVim default on)
 			global
 			{not in Vi}
 	When on, use temp files for shell commands.  When off use a pipe.
@@ -6551,7 +6551,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	function to get the effective shiftwidth value.
 
 						*'shortmess'* *'shm'*
-'shortmess' 'shm'	string	(Vim default "filnxtToO", Vi default: "",
+'shortmess' 'shm'	string	(uVim default "filnxtToO", Vi default: "",
 							POSIX default: "A")
 			global
 			{not in Vi}
@@ -6586,7 +6586,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	  W	don't give "written" or "[w]" when writing a file
 	  A	don't give the "ATTENTION" message when an existing swap file
 		is found.
-	  I	don't give the intro message when starting Vim |:intro|.
+	  I	don't give the intro message when starting uVim |:intro|.
 	  c	don't give |ins-completion-menu| messages.  For example,
 		"-- XXX completion (YYY)", "match 1 of 2", "The only match",
 		"Pattern not found", "Back at original", etc.
@@ -6604,7 +6604,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	    shm=at	Abbreviation, and truncate message when necessary.
 
 	NOTE: This option is set to the Vi default value when 'compatible' is
-	set and to the Vim default value when 'compatible' is reset.
+	set and to the uVim default value when 'compatible' is reset.
 
 				 *'shortname'* *'sn'* *'noshortname'* *'nosn'*
 'shortname' 'sn'	boolean	(default off)
@@ -6641,7 +6641,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	"n" flag to 'cpoptions'.
 
 				     *'showcmd'* *'sc'* *'noshowcmd'* *'nosc'*
-'showcmd' 'sc'		boolean	(Vim default: on, off for Unix,
+'showcmd' 'sc'		boolean	(uVim default: on, off for Unix,
 				       Vi default: off, set in |defaults.vim|)
 			global
 			{not in Vi}
@@ -6657,7 +6657,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	- When selecting a block, the size in screen characters:
 	  {lines}x{columns}.
 	NOTE: This option is set to the Vi default value when 'compatible' is
-	set and to the Vim default value when 'compatible' is reset.
+	set and to the uVim default value when 'compatible' is reset.
 
 			*'showfulltag'* *'sft'* *'noshowfulltag'* *'nosft'*
 'showfulltag' 'sft'	boolean (default off)
@@ -6694,7 +6694,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	Note: Use of the short form is rated PG.
 
 				 *'showmode'* *'smd'* *'noshowmode'* *'nosmd'*
-'showmode' 'smd'	boolean	(Vim default: on, Vi default: off)
+'showmode' 'smd'	boolean	(uVim default: on, Vi default: off)
 			global
 	If in Insert, Replace or Visual mode put a message on the last line.
 	Use the 'M' flag in 'highlight' to set the type of highlighting for
@@ -6703,7 +6703,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	doesn't mean XIM is really active, especially when 'imactivatekey' is
 	not set.
 	NOTE: This option is set to the Vi default value when 'compatible' is
-	set and to the Vim default value when 'compatible' is reset.
+	set and to the uVim default value when 'compatible' is reset.
 
 						*'showtabline'* *'stal'*
 'showtabline' 'stal'	number	(default 1)
@@ -6881,7 +6881,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	It may also be a comma separated list of names.  A count before the
 	|zg| and |zw| commands can be used to access each.  This allows using
 	a personal word list file and a project word list file.
-	When a word is added while this option is empty Vim will set it for
+	When a word is added while this option is empty uVim will set it for
 	you: Using the first directory in 'runtimepath' that is writable.  If
 	there is no "spell" directory yet it will be created.  For the file
 	name the first language name that appears in 'spelllang' is used,
@@ -6923,17 +6923,17 @@ A jump table for the options with a short description can be found at |Q_op|.
 	first "_xx" in the name is removed and used as the region name
 	(_xx is an underscore, two letters and followed by a non-letter).
 	This is mainly for testing purposes.  You must make sure the correct
-	encoding is used, Vim doesn't check it.
+	encoding is used, uVim doesn't check it.
 	When 'encoding' is set the word lists are reloaded.  Thus it's a good
 	idea to set 'spelllang' after setting 'encoding' to avoid loading the
 	files twice.
 	How the related spell files are found is explained here: |spell-load|.
 
 	If the |spellfile.vim| plugin is active and you use a language name
-	for which Vim cannot find the .spl file in 'runtimepath' the plugin
+	for which uVim cannot find the .spl file in 'runtimepath' the plugin
 	will ask you if you want to download the file.
 
-	After this option has been set successfully, Vim will source the files
+	After this option has been set successfully, uVim will source the files
 	"spell/LANG.vim" in 'runtimepath'.  "LANG" is the value of 'spelllang'
 	up to the first comma, dot or underscore.
 	Also see |set-spc-auto|.
@@ -7149,7 +7149,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	      to StatusLineNC for the statusline of non-current windows.
 	      The number N must be between 1 and 9.  See |hl-User1..9|
 
-	When displaying a flag, Vim removes the leading comma, if any, when
+	When displaying a flag, uVim removes the leading comma, if any, when
 	that flag comes right after plaintext.  This will make a nice display
 	when flags are used like in the examples below.
 
@@ -7181,7 +7181,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	Otherwise the result is taken as flag text and applied to the rules
 	described above.
 
-	Watch out for errors in expressions.  They may render Vim unusable!
+	Watch out for errors in expressions.  They may render uVim unusable!
 	If you are stuck, hold down ':' or 'Q' to get a prompt, then quit and
 	edit your .vimrc or whatever with "vim -u NONE" to get it right.
 
@@ -7259,7 +7259,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	writing to it.  This takes some time, especially on busy unix systems.
 	When this option is empty parts of the swap file may be in memory and
 	not written to disk.  When the system crashes you may lose more work.
-	On Unix the system does a sync now and then without Vim asking for it,
+	On Unix the system does a sync now and then without uVim asking for it,
 	so the disadvantage of setting this option off is small.  On some
 	systems the swap file will not be written at all.  For a unix system
 	setting it to "sync" will use the sync() call instead of the default
@@ -7338,7 +7338,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			{not available when compiled without the |+windows|
 			feature}
 	When nonempty, this option determines the content of the tab pages
-	line at the top of the Vim window.  When empty Vim will use a default
+	line at the top of the uVim window.  When empty uVim will use a default
 	tab pages line.  See |setting-tabline| for more info.
 
 	The tab pages line only appears as specified with the 'showtabline'
@@ -7374,9 +7374,9 @@ A jump table for the options with a short description can be found at |Q_op|.
 	Note: Setting 'tabstop' to any other value than 8 can make your file
 	appear wrong in many places (e.g., when printing it).
 
-	There are four main ways to use tabs in Vim:
+	There are four main ways to use tabs in uVim:
 	1. Always keep 'tabstop' at 8, set 'softtabstop' and 'shiftwidth' to 4
-	   (or 3 or whatever you prefer) and use 'noexpandtab'.  Then Vim
+	   (or 3 or whatever you prefer) and use 'noexpandtab'.  Then uVim
 	   will use a mix of tabs and spaces, but typing <Tab> and <BS> will
 	   behave like a tab appears every 4 (or 3) characters.
 	2. Set 'tabstop' and 'shiftwidth' to whatever you prefer and use
@@ -7384,7 +7384,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	   formatting will never be messed up when 'tabstop' is changed.
 	3. Set 'tabstop' and 'shiftwidth' to whatever you prefer and use a
 	   |modeline| to set these values when editing the file again.  Only
-	   works when using Vim to edit the file.
+	   works when using uVim to edit the file.
 	4. Always set 'tabstop' and 'shiftwidth' to the same value, and
 	   'noexpandtab'.  This should then work (for initial indents only)
 	   for any tabstop setting that people use.  It might be nice to have
@@ -7396,20 +7396,20 @@ A jump table for the options with a short description can be found at |Q_op|.
 'tagbsearch' 'tbs'	boolean	(default on)
 			global
 			{not in Vi}
-	When searching for a tag (e.g., for the |:ta| command), Vim can either
+	When searching for a tag (e.g., for the |:ta| command), uVim can either
 	use a binary search or a linear search in a tags file.  Binary
 	searching makes searching for a tag a LOT faster, but a linear search
 	will find more tags if the tags file wasn't properly sorted.
-	Vim normally assumes that your tags files are sorted, or indicate that
+	uVim normally assumes that your tags files are sorted, or indicate that
 	they are not sorted.  Only when this is not the case does the
 	'tagbsearch' option need to be switched off.
 
 	When 'tagbsearch' is on, binary searching is first used in the tags
-	files.  In certain situations, Vim will do a linear search instead for
+	files.  In certain situations, uVim will do a linear search instead for
 	certain files, or retry all files with a linear search.  When
 	'tagbsearch' is off, only a linear search is done.
 
-	Linear searching is done anyway, for one file, when Vim finds a line
+	Linear searching is done anyway, for one file, when uVim finds a line
 	at the start of the file indicating that it's not sorted: >
    !_TAG_FILE_SORTED	0	/some comment/
 <	[The whitespace before and after the '0' must be a single <Tab>]
@@ -7463,13 +7463,13 @@ A jump table for the options with a short description can be found at |Q_op|.
 	If non-zero, tags are significant up to this number of characters.
 
 			*'tagrelative'* *'tr'* *'notagrelative'* *'notr'*
-'tagrelative' 'tr'	boolean	(Vim default: on, Vi default: off)
+'tagrelative' 'tr'	boolean	(uVim default: on, Vi default: off)
 			global
 			{not in Vi}
 	If on and using a tags file in another directory, file names in that
 	tags file are relative to the directory where the tags file is.
 	NOTE: This option is set to the Vi default value when 'compatible' is
-	set and to the Vim default value when 'compatible' is reset.
+	set and to the uVim default value when 'compatible' is reset.
 
 						*'tags'* *'tag'* *E433*
 'tags' 'tag'		string	(default "./tags,tags", when compiled with
@@ -7490,7 +7490,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	|+path_extra| feature}
 	The |tagfiles()| function can be used to get a list of the file names
 	actually used.
-	If Vim was compiled with the |+emacs_tags| feature, Emacs-style tag
+	If uVim was compiled with the |+emacs_tags| feature, Emacs-style tag
 	files are also supported.  They are automatically recognized.  The
 	default value becomes "./tags,./TAGS,tags,TAGS", unless case
 	differences are ignored (MS-Windows).  |emacs-tags|
@@ -7612,7 +7612,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	shortens a lot of messages}
 
 				   *'textauto'* *'ta'* *'notextauto'* *'nota'*
-'textauto' 'ta'		boolean	(Vim default: on, Vi default: off)
+'textauto' 'ta'		boolean	(uVim default: on, Vi default: off)
 			global
 			{not in Vi}
 	This option is obsolete.  Use 'fileformats'.
@@ -7620,7 +7620,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	set to the default value for the current system.  When 'textauto' is
 	reset, 'fileformats' is made empty.
 	NOTE: This option is set to the Vi default value when 'compatible' is
-	set and to the Vim default value when 'compatible' is reset.
+	set and to the uVim default value when 'compatible' is reset.
 
 				   *'textmode'* *'tx'* *'notextmode'* *'notx'*
 'textmode' 'tx'		boolean	(MS-DOS, Win32 and OS/2: default on,
@@ -7688,17 +7688,17 @@ A jump table for the options with a short description can be found at |Q_op|.
 	   on		on or off	time out on :mappings and key codes
 	   off		on		time out on key codes
 
-	If both options are off, Vim will wait until either the complete
+	If both options are off, uVim will wait until either the complete
 	mapping or key sequence has been received, or it is clear that there
 	is no mapping or key sequence for the received characters.  For
-	example: if you have mapped "vl" and Vim has received 'v', the next
+	example: if you have mapped "vl" and uVim has received 'v', the next
 	character is needed to see if the 'v' is followed by an 'l'.
-	When one of the options is on, Vim will wait for about 1 second for
+	When one of the options is on, uVim will wait for about 1 second for
 	the next character to arrive.  After that the already received
 	characters are interpreted as single characters.  The waiting time can
 	be changed with the 'timeoutlen' option.
 	On slow terminals or very busy systems timing out may cause
-	malfunctioning cursor keys.  If both options are off, Vim waits
+	malfunctioning cursor keys.  If both options are off, uVim waits
 	forever after an entered <Esc> if there are key codes that start
 	with <Esc>.  You will have to type <Esc> twice.  If you do not have
 	problems with key codes, but would like to have :mapped key
@@ -7754,19 +7754,19 @@ A jump table for the options with a short description can be found at |Q_op|.
 	terminals with a non- empty 't_ts' option - these are Unix xterm and
 	iris-ansi by default, where 't_ts' is taken from the builtin termcap).
 								*X11*
-	When Vim was compiled with HAVE_X11 defined, the original title will
+	When uVim was compiled with HAVE_X11 defined, the original title will
 	be restored if possible.  The output of ":version" will include "+X11"
 	when HAVE_X11 was defined, otherwise it will be "-X11".  This also
 	works for the icon name |'icon'|.
-	But: When Vim was started with the |-X| argument, restoring the title
+	But: When uVim was started with the |-X| argument, restoring the title
 	will not work (except in the GUI).
 	If the title cannot be restored, it is set to the value of 'titleold'.
-	You might want to restore the title outside of Vim then.
+	You might want to restore the title outside of uVim then.
 	When using an xterm from a remote machine you can use this command:
 	    rsh machine_name xterm -display $DISPLAY &
 	then the WINDOWID environment variable should be inherited and the
 	title of the window should change back to what it should be after
-	exiting Vim.
+	exiting uVim.
 
 								*'titlelen'*
 'titlelen'		number	(default 85)
@@ -7785,12 +7785,12 @@ A jump table for the options with a short description can be found at |Q_op|.
 	'titlelen' is also used for the 'titlestring' option.
 
 						*'titleold'*
-'titleold'		string	(default "Thanks for flying Vim")
+'titleold'		string	(default "Thanks for flying uVim")
 			global
 			{not in Vi}
 			{only available when compiled with the |+title|
 			feature}
-	This option will be used for the window title when exiting Vim if the
+	This option will be used for the window title when exiting uVim if the
 	original title cannot be restored.  Only happens if 'title' is on or
 	'titlestring' is not empty.
 	This option cannot be set from a |modeline| or in the |sandbox|, for
@@ -7806,7 +7806,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	Only works if the terminal supports setting window titles (currently
 	Amiga console, Win32 console, all GUI versions and terminals with a
 	non-empty 't_ts' option).
-	When Vim was compiled with HAVE_X11 defined, the original title will
+	When uVim was compiled with HAVE_X11 defined, the original title will
 	be restored if possible |X11|.
 	When this option contains printf-style '%' items, they will be
 	expanded according to the rules used for 'statusline'.
@@ -7887,7 +7887,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 				     *'ttyfast'* *'tf'* *'nottyfast'* *'notf'*
 'ttyfast' 'tf'		boolean	(default off, on when 'term' is xterm, hpterm,
 					sun-cmd, screen, rxvt, dtterm or
-					iris-ansi; also on when running Vim in
+					iris-ansi; also on when running uVim in
 					a DOS console)
 			global
 			{not in Vi}
@@ -7919,7 +7919,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			mouse position while the mouse is dragged.  This works
 			much faster and more precise.  Your xterm must at
 			least at patchlevel 88 / XFree 3.3.3 for this to
-			work.  See below for how Vim detects this
+			work.  See below for how uVim detects this
 			automatically.
 							*netterm-mouse*
 	   netterm	NetTerm mouse handling.  The mouse generates
@@ -8003,7 +8003,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			local to buffer
 			{not in Vi}
 			{only when compiled with the |+persistent_undo| feature}
-	When on, Vim automatically saves undo history to an undo file when
+	When on, uVim automatically saves undo history to an undo file when
 	writing a buffer to a file, and restores undo history from the same
 	file on buffer read.
 	The directory where the undo file is stored is specified by 'undodir'.
@@ -8041,7 +8041,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			{not in Vi}
 	Save the whole buffer for undo when reloading it.  This applies to the
 	":e!" command and reloading for when the buffer changed outside of
-	Vim. |FileChangedShell|
+	uVim. |FileChangedShell|
 	The save only happens when this options is negative or when the number
 	of lines is smaller than the value of this option.
 	Set this option to zero to disable undo for a reload.
@@ -8058,7 +8058,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	After typing this many characters the swap file will be written to
 	disk.  When zero, no swap file will be created at all (see chapter on
 	recovery |crash-recovery|).  'updatecount' is set to zero by starting
-	Vim with the "-n" option, see |startup|.  When editing in readonly
+	uVim with the "-n" option, see |startup|.  When editing in readonly
 	mode this option will be initialized to 10000.
 	The swapfile can be disabled per buffer with |'swapfile'|.
 	When 'updatecount' is set from zero to non-zero, swap files are
@@ -8081,7 +8081,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			global
 			{not in Vi, although some versions have a boolean
 			verbose option}
-	When bigger than zero, Vim will give messages about what it is doing.
+	When bigger than zero, uVim will give messages about what it is doing.
 	Currently, these messages are given:
 	>= 1	When the viminfo file is read or written.
 	>= 2	When a file is ":source"'ed.
@@ -8105,7 +8105,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			{not in Vi}
 	When not empty all messages are written in a file with this name.
 	When the file exists messages are appended.
-	Writing to the file ends when Vim exits or when 'verbosefile' is made
+	Writing to the file ends when uVim exits or when 'verbosefile' is made
 	empty.  Writes are buffered, thus may not show up for some time.
 	Setting 'verbosefile' to a new value is like making it empty first.
 	The difference with |:redir| is that verbose messages are not
@@ -8147,11 +8147,11 @@ A jump table for the options with a short description can be found at |Q_op|.
 			on Windows or DOS
 
 	"slash" and "unix" are useful on Windows when sharing view files
-	with Unix.  The Unix version of Vim cannot source dos format scripts,
-	but the Windows version of Vim can source unix format scripts.
+	with Unix.  The Unix version of uVim cannot source dos format scripts,
+	but the Windows version of uVim can source unix format scripts.
 
 				*'viminfo'* *'vi'* *E526* *E527* *E528*
-'viminfo' 'vi'		string	(Vi default: "", Vim default for MS-DOS,
+'viminfo' 'vi'		string	(Vi default: "", uVim default for MS-DOS,
 				   Windows and OS/2: '100,<50,s10,h,rA:,rB:,
 				   for Amiga: '100,<50,s10,h,rdf0:,rdf1:,rdf2:
 				   for others: '100,<50,s10,h)
@@ -8160,7 +8160,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			{not available when compiled without the |+viminfo|
 			feature}
 	When non-empty, the viminfo file is read upon startup and written
-	when exiting Vim (see |viminfo-file|).  The string should be a comma
+	when exiting uVim (see |viminfo-file|).  The string should be a comma
 	separated list of parameters, each consisting of a single character
 	identifying the particular parameter, followed by a number or string
 	which specifies the value of that parameter.  If a particular
@@ -8180,9 +8180,9 @@ A jump table for the options with a short description can be found at |Q_op|.
 		backslash before the ", otherwise it will be recognized as the
 		start of a comment!
 							*viminfo-%*
-	%	When included, save and restore the buffer list.  If Vim is
+	%	When included, save and restore the buffer list.  If uVim is
 		started with a file name argument, the buffer list is not
-		restored.  If Vim is started without a file name argument, the
+		restored.  If uVim is started without a file name argument, the
 		buffer list is restored from the viminfo file.  Quickfix
 		('buftype'), unlisted ('buflisted'), unnamed and buffers on
 		removable media (|viminfo-r|) are not saved.
@@ -8227,7 +8227,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 							*viminfo-n*
 	n	Name of the viminfo file.  The name must immediately follow
 		the 'n'.  Must be at the end of the option!  If the "-i"
-		argument was given when starting Vim, that file name overrides
+		argument was given when starting uVim, that file name overrides
 		the one given here with 'viminfo'.  Environment variables are
 		expanded when opening the file, not when setting the option.
 							*viminfo-r*
@@ -8287,7 +8287,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	after the last character of the line.  This makes some commands more
 	consistent.  Previously the cursor was always past the end of the line
 	if the line was empty.  But it is far from Vi compatible.  It may also
-	break some plugins or Vim scripts.  For example because |l| can move
+	break some plugins or uVim scripts.  For example because |l| can move
 	the cursor after the last character.  Use with care!
 	Using the `$` command will move to the last character in the line, not
 	past it.  This may actually move the cursor to the left!
@@ -8326,7 +8326,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	vice versa.  Has no effect when the GUI is running.
 
 						*'whichwrap'* *'ww'*
-'whichwrap' 'ww'	string	(Vim default: "b,s", Vi default: "")
+'whichwrap' 'ww'	string	(uVim default: "b,s", Vi default: "")
 			global
 			{not in Vi}
 	Allow specified keys that move the cursor left/right to move to the
@@ -8356,10 +8356,10 @@ A jump table for the options with a short description can be found at |Q_op|.
 	line then it will not move to the next line.  This makes "dl", "cl",
 	"yl" etc. work normally.
 	NOTE: This option is set to the Vi default value when 'compatible' is
-	set and to the Vim default value when 'compatible' is reset.
+	set and to the uVim default value when 'compatible' is reset.
 
 						*'wildchar'* *'wc'*
-'wildchar' 'wc'		number	(Vim default: <Tab>, Vi default: CTRL-E)
+'wildchar' 'wc'		number	(uVim default: <Tab>, Vi default: CTRL-E)
 			global
 			{not in Vi}
 	Character you have to type to start wildcard expansion in the
@@ -8370,7 +8370,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	Although 'wc' is a number option, you can set it to a special key: >
 		:set wc=<Esc>
 <	NOTE: This option is set to the Vi default value when 'compatible' is
-	set and to the Vim default value when 'compatible' is reset.
+	set and to the uVim default value when 'compatible' is reset.
 
 						*'wildcharm'* *'wcm'*
 'wildcharm' 'wcm'	number	(default: none (0))
@@ -8456,7 +8456,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 	|hl-WildMenu|.
 
 						*'wildmode'* *'wim'*
-'wildmode' 'wim'	string	(Vim default: "full")
+'wildmode' 'wim'	string	(uVim default: "full")
 			global
 			{not in Vi}
 	Completion mode that is used for the character specified with
@@ -8533,14 +8533,14 @@ A jump table for the options with a short description can be found at |Q_op|.
 						*'window'* *'wi'*
 'window' 'wi'		number  (default screen height - 1)
 			global
-	Window height.  Do not confuse this with the height of the Vim window,
+	Window height.  Do not confuse this with the height of the uVim window,
 	use 'lines' for that.
 	Used for |CTRL-F| and |CTRL-B| when there is only one window and the
 	value is smaller than 'lines' minus one.  The screen will scroll
 	'window' minus two lines, with a minimum of one.
 	When 'window' is equal to 'lines' minus one CTRL-F and CTRL-B scroll
 	in a much smarter way, taking care of wrapping lines.
-	When resizing the Vim window, the value is smaller than 1 or more than
+	When resizing the uVim window, the value is smaller than 1 or more than
 	or equal to 'lines' it will be set to 'lines' minus 1.
 	{Vi also uses the option to specify the number of displayed lines}
 
@@ -8551,7 +8551,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			{not available when compiled without the |+windows|
 			feature}
 	Minimal number of lines for the current window.  This is not a hard
-	minimum, Vim will use fewer lines if there is not enough room.  If the
+	minimum, uVim will use fewer lines if there is not enough room.  If the
 	focus goes to a window that is smaller, its size is increased, at the
 	cost of the height of other windows.
 	Set 'winheight' to a small number for normal editing.
@@ -8628,7 +8628,7 @@ A jump table for the options with a short description can be found at |Q_op|.
 			{not available when compiled without the |+vertsplit|
 			feature}
 	Minimal number of columns for the current window.  This is not a hard
-	minimum, Vim will use fewer columns if there is not enough room.  If
+	minimum, uVim will use fewer columns if there is not enough room.  If
 	the current window is smaller, its size is increased, at the cost of
 	the width of other windows.  Set it to 999 to make the current window
 	always fill the screen.  Set it to a small number for normal editing.
@@ -8700,11 +8700,11 @@ A jump table for the options with a short description can be found at |Q_op|.
 	Make a backup before overwriting a file.  The backup is removed after
 	the file was successfully written, unless the 'backup' option is
 	also on.
-	WARNING: Switching this option off means that when Vim fails to write
-	your buffer correctly and then, for whatever reason, Vim exits, you
+	WARNING: Switching this option off means that when uVim fails to write
+	your buffer correctly and then, for whatever reason, uVim exits, you
 	lose both the original file and what you were writing.  Only reset
 	this option if your file system is almost full and it makes the write
-	fail (and make sure not to exit Vim until the write was successful).
+	fail (and make sure not to exit uVim until the write was successful).
 	See |backup-table| for another explanation.
 	When the 'backupskip' pattern matches, a backup is not made anyway.
 	NOTE: This option is set to the default value when 'compatible' is

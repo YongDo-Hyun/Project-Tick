@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -3755,7 +3755,7 @@ init_homedir(void)
 
     /*
      * Typically, $HOME is not defined on Windows, unless the user has
-     * specifically defined it for Vim's sake.  However, on Windows NT
+     * specifically defined it for uVim's sake.  However, on Windows NT
      * platforms, $HOMEDRIVE and $HOMEPATH are automatically defined for
      * each user.  Try constructing $HOME from these.
      */
@@ -4168,7 +4168,7 @@ expand_env_esc(
 }
 
 /*
- * Vim's version of getenv().
+ * uVim's version of getenv().
  * Special handling of $HOME, $VIM and $VIMRUNTIME.
  * Also does ACP to 'enc' conversion for Win32.
  * "mustfree" is set to TRUE when returned is allocated, it must be
@@ -9423,7 +9423,7 @@ prepare_to_exit(void)
 {
 #if defined(SIGHUP) && defined(SIG_IGN)
     /* Ignore SIGHUP, because a dropped connection causes a read error, which
-     * makes Vim exit and then handling SIGHUP causes various reentrance
+     * makes uVim exit and then handling SIGHUP causes various reentrance
      * problems. */
     signal(SIGHUP, SIG_IGN);
 #endif
@@ -9479,7 +9479,7 @@ preserve_exit(void)
     {
 	if (buf->b_ml.ml_mfp != NULL && buf->b_ml.ml_mfp->mf_fname != NULL)
 	{
-	    OUT_STR("Vim: preserving files...\n");
+	    OUT_STR("uVim: preserving files...\n");
 	    screen_start();	    /* don't know where cursor is now */
 	    out_flush();
 	    ml_sync_all(FALSE, FALSE);	/* preserve all swap files */
@@ -9489,7 +9489,7 @@ preserve_exit(void)
 
     ml_close_all(FALSE);	    /* close all memfiles, without deleting */
 
-    OUT_STR("Vim: Finished.\n");
+    OUT_STR("uVim: Finished.\n");
 
     getout(1);
 }

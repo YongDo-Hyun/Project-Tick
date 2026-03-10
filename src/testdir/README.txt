@@ -1,4 +1,4 @@
-This directory contains tests for various Vim features.
+This directory contains tests for various uVim features.
 
 If it makes sense, add a new test method to an already existing file.  You may
 want to separate it from other tests with comment lines.
@@ -6,7 +6,7 @@ want to separate it from other tests with comment lines.
 The numbered tests are older, we have switched to named tests.  Don't add any
 more numbered tests.
 
-And then you can choose between a new style test, which is a Vim script, or an
+And then you can choose between a new style test, which is a uVim script, or an
 old style test, which uses Normal mode commands.  Use a new style test if you
 can.  Use an old style test when it needs to run without the +eval feature.
 

@@ -1,5 +1,5 @@
 #
-# Makefile to run all tests for Vim
+# Makefile to run all tests for uVim
 #
 
 # Use console or GUI.
@@ -10,7 +10,7 @@ SCRIPTSOURCE = ../../runtime
 
 # Uncomment this line to use valgrind for memory leaks and extra warnings.
 #   The output goes into a file "valgrind.testN"
-#   Vim should be compiled with EXITFREE to avoid false warnings.
+#   uVim should be compiled with EXITFREE to avoid false warnings.
 #   This will make testing about 10 times as slow.
 # VALGRIND = valgrind --tool=memcheck --leak-check=yes --num-callers=25 --log-file=valgrind.$*
 
@@ -115,7 +115,7 @@ nolog:
 	-rm -f test.log messages
 
 
-# New style of tests uses Vim script with assert calls.  These are easier
+# New style of tests uses uVim script with assert calls.  These are easier
 # to write and a lot easier to read and debug.
 # Limitation: Only works with the +eval feature.
 RUN_VIMTEST = VIMRUNTIME=$(SCRIPTSOURCE); export VIMRUNTIME; $(VALGRIND) $(VIMPROG) -f $(GUI_FLAG) -u unix.vim $(NO_PLUGIN)

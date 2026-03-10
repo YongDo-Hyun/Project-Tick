@@ -1,16 +1,16 @@
-*version6.txt*  For Vim version 7.4.  Last change: 2014 Aug 29
+*version6.txt*  For uVim version 7.4.  Last change: 2014 Aug 29
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
 
 
-Welcome to Vim Version 6.0!  A large number of features has been added.  This
+Welcome to uVim Version 6.0!  A large number of features has been added.  This
 file mentions all the new items that have been added, changes to existing
-features and bug fixes compared to Vim 5.x.
+features and bug fixes compared to uVim 5.x.
 
-See |vi_diff.txt| for an overview of differences between Vi and Vim 6.0.
-See |version4.txt| for differences between Vim 3.0 and Vim 4.0.
-See |version5.txt| for differences between Vim 4.0 and Vim 5.0.
+See |vi_diff.txt| for an overview of differences between Vi and uVim 6.0.
+See |version4.txt| for differences between uVim 3.0 and uVim 4.0.
+See |version5.txt| for differences between uVim 4.0 and uVim 5.0.
 
 INCOMPATIBLE CHANGES			|incompatible-6|
 
@@ -32,7 +32,7 @@ NEW FEATURES				|new-6|
 Folding					|new-folding|
 Vertically split windows		|new-vertsplit|
 Diff mode				|new-diff-mode|
-Easy Vim: click-and-type		|new-evim|
+Easy uVim: click-and-type		|new-evim|
 User manual				|new-user-manual|
 Flexible indenting			|new-indent-flex|
 Extended search patterns		|new-searchpat|
@@ -89,7 +89,7 @@ Fixed					|fixed-6.4|
 INCOMPATIBLE CHANGES				*incompatible-6*
 
 These changes are incompatible with previous releases.  Check this list if you
-run into a problem when upgrading from Vim 5.x to 6.0
+run into a problem when upgrading from uVim 5.x to 6.0
 
 
 Cursor position in Visual mode			*curpos-visual*
@@ -111,7 +111,7 @@ prevent a <CR> to insert a line break.  This made it impossible to insert a
 CTRL-V before a line break.  Now a backslash is used to prevent a <CR> to
 cause a line break.  Since the number of backslashes is halved, it is still
 possible to insert a line break at the end of the line.  This now works just
-like Vi, but it's not compatible with Vim versions before 6.0.
+like Vi, but it's not compatible with uVim versions before 6.0.
 
 When a ":s" command doesn't make any substitutions, it no longer sets the '[
 and '] marks.  This is not related to Vi, since it doesn't have these marks.
@@ -139,7 +139,7 @@ commands have been added to set the global or local value:
 'fileencoding' changed				*fileencoding-changed*
 ----------------------
 
-'fileencoding' was used in Vim 5.x to set the encoding used inside all of Vim.
+'fileencoding' was used in uVim 5.x to set the encoding used inside all of uVim.
 This was a bit strange, because it was local to a buffer and worked for all
 buffers.  It could never be different between buffers, because it changed the
 way text in all buffers was interpreted.
@@ -154,7 +154,7 @@ Digraphs changed				*digraphs-changed*
 ----------------
 
 The default digraphs now correspond to RFC1345.  This is very different from
-what was used in Vim 5.x. |digraphs|
+what was used in uVim 5.x. |digraphs|
 
 
 Filetype detection changed			*filetypedetect-changed*
@@ -228,7 +228,7 @@ You can get the old behavior with CTRL-E CTRL-U: >
 Ctags gone					*ctags-gone*
 ----------
 
-Ctags is no longer part of the Vim distribution.  It's now a grown-up program
+Ctags is no longer part of the uVim distribution.  It's now a grown-up program
 by itself, it deserves to be distributed separately.
 Ctags can be found here: http://ctags.sf.net/.
 
@@ -237,7 +237,7 @@ Documentation reorganized			*documentation-6*
 -------------------------
 
 The documentation has been reorganized, an item may not be where you found it
-in Vim 5.x.
+in uVim 5.x.
 - The user manual was added, some items have been moved to it from the
   reference manual.
 - The quick reference is now in a separate file (so that it can be printed).
@@ -256,7 +256,7 @@ Modeless selection and clipboard		*modeless-and-clipboard*
 
 The modeless selection is used to select text when Visual mode can't be used,
 for example when editing the command line or at the more prompt.
-In Vim 5.x the modeless selection was always used.  On MS-Windows this caused
+In uVim 5.x the modeless selection was always used.  On MS-Windows this caused
 the clipboard to be overwritten, with no way to avoid that.  The modeless
 selection now obeys the 'a' and 'A' flags in 'guioptions' and "autoselect" and
 "autoselectml" in 'clipboard'.  By default there is no automatic copy on
@@ -285,7 +285,7 @@ archive no longer exists.
 The items "[RO]", "[+]", "[help]", "[Preview]" and "[filetype]" in
 'statusline' no longer have a leading space.
 
-Non-Unix systems: When expanding wildcards for the Vim arguments, don't use
+Non-Unix systems: When expanding wildcards for the uVim arguments, don't use
 'suffixes'.  It now works as if the shell had expanded the arguments.
 
 The 'lisp', 'smartindent' and 'cindent' options are not switched off when
@@ -347,7 +347,7 @@ Formatting text with "gq" breaks a paragraph at a non-empty blank line.
 Previously the line would be removed, which wasn't very useful.
 
 ":normal" does no longer hang when the argument ends in half a command.
-Previously Vim would wait for more characters to be typed, without updating
+Previously uVim would wait for more characters to be typed, without updating
 the screen.  Now it pretends an <Esc> was typed.
 
 Bitmaps for the toolbar are no longer searched for in "$VIM/bitmaps" but in
@@ -364,7 +364,7 @@ The default values for 'isfname' include more characters to make "gf" work
 better.
 
 Changed the license for the documentation to the Open Publication License.
-This seemed fair, considering the inclusion of parts of the Vim book, which is
+This seemed fair, considering the inclusion of parts of the uVim book, which is
 also published under the OPL.  The downside is that we can't force someone who
 would sell copies of the manual to contribute to Uganda.
 
@@ -398,7 +398,7 @@ NEW FEATURES						*new-6*
 Folding							*new-folding*
 -------
 
-Vim can now display a buffer with text folded.  This allows overviewing the
+uVim can now display a buffer with text folded.  This allows overviewing the
 structure of a file quickly.  It is also possible to yank, delete and put
 folded text, for example to move a function to another position.
 
@@ -435,7 +435,7 @@ indicates where you can drag a status or separator line.
 To resize vertically split windows use the |CTRL-W_<| and |CTRL-W_>| commands.
 To make a window the maximum width use the CTRL-W | command |CTRL-W_bar|.
 
-To force a new window to use the full width or height of the Vim window,
+To force a new window to use the full width or height of the uVim window,
 these two modifiers are available:
 	:topleft {cmd}		New window appears at the top with full
 				width or at the left with full height.
@@ -443,7 +443,7 @@ these two modifiers are available:
 				width or at the right with full height.
 This can be combined with ":vertical" to force a vertical split: >
 	:vert bot dsplit DEBUG
-This will open a window at the far right, occupying the full height of the Vim
+This will open a window at the far right, occupying the full height of the uVim
 window, with the cursor on the first definition of "DEBUG".
 The help window is opened at the top, like ":topleft" was used, if the current
 window is fewer than 80 characters wide.
@@ -483,15 +483,15 @@ the ruler, use up to half the width for the ruler.  Useful for narrow windows.
 Diff mode						*new-diff-mode*
 ---------
 
-In diff mode Vim shows the differences between two, three or four files.
+In diff mode uVim shows the differences between two, three or four files.
 Folding is used to hide the parts of the file that are equal.
 Highlighting is used to show deleted and changed lines.
 See |diff-mode|.
 
-An easy way to start in diff mode is to start Vim as "vimdiff file1 file2".
+An easy way to start in diff mode is to start uVim as "vimdiff file1 file2".
 Added the vimdiff manpage.
 
-In a running Vim the |:diffsplit| command starts diff mode for the current
+In a running uVim the |:diffsplit| command starts diff mode for the current
 file and another file.  The |:diffpatch| command starts diff mode using the
 current file and a patch file.  The |:diffthis| command starts diff mode for
 the current window.
@@ -513,13 +513,13 @@ Differences can be removed with the |:diffget| and |:diffput| commands.
   mode.
 
 
-Easy Vim: click-and-type				*new-evim*
+Easy uVim: click-and-type				*new-evim*
 ------------------------
 
-eVim stands for "Easy Vim".  This is a separate program, but can also be
+eVim stands for "Easy uVim".  This is a separate program, but can also be
 started as "vim -y".
 
-This starts Vim with 'insertmode' set to allow click-and-type editing.  The
+This starts uVim with 'insertmode' set to allow click-and-type editing.  The
 $VIMRUNTIME/evim.vim script is used to add mappings and set options to be able
 to do most things like Notepad.  This is only for people who can't stand two
 modes.
@@ -535,11 +535,11 @@ User manual						*new-user-manual*
 
 The user manual has been added.  It is organised around editing tasks.  It
 reads like a book, from start to end.  It should allow beginners to start
-learning Vim.  It helps everybody to learn using the most useful Vim features.
+learning uVim.  It helps everybody to learn using the most useful uVim features.
 It is much easier to read than the reference manual, but omits details.  See
 |user-manual|.
 
-The user manual includes parts of the Vim book by Steve Oualline |frombook|.
+The user manual includes parts of the uVim book by Steve Oualline |frombook|.
 It is published under the OPL |manual-copyright|.
 
 When syntax highlighting is not enabled, the characters in the help file which
@@ -547,14 +547,14 @@ mark examples ('>' and '<') and header lines ('~') are replaced with a space.
 
 When closing the help window, the window layout is restored from before
 opening it, if the window layout didn't change since then.
-When opening the help window, put it at the top of the Vim window if the
+When opening the help window, put it at the top of the uVim window if the
 current window is fewer than 80 characters and not full width.
 
 
 Flexible indenting					*new-indent-flex*
 ------------------
 
-Automatic indenting is now possible for any language.  It works with a Vim
+Automatic indenting is now possible for any language.  It works with a uVim
 script, which makes it very flexible to compute the indent.
 
 The ":filetype indent on" command enables using the provided indent scripts.
@@ -630,7 +630,7 @@ Made "\<" and "\>" work for UTF-8. (Muraoka Taro)
 UTF-8 support						*new-utf-8*
 -------------
 
-Vim can now edit files in UTF-8 encoding.  Up to 31 bit characters can be
+uVim can now edit files in UTF-8 encoding.  Up to 31 bit characters can be
 used, but only 16 bit characters are displayed.  Up to two combining
 characters are supported, they overprint the preceding character.
 Double-wide characters are also supported.  See |UTF-8|.
@@ -641,7 +641,7 @@ environment.  Other encodings are converted with iconv() or an external
 converter specified with 'charconvert'.
 
 Many new items for Multi-byte support:
-- Added 'encoding' option: specifies character encoding used inside Vim.  It
+- Added 'encoding' option: specifies character encoding used inside uVim.  It
   can be any 8-bit encoding, some double-byte encodings or Unicode.
   It is initialized from the environment when a supported value is found.
 - Added 'fileencoding' and 'fileencodings': specify character coding in a
@@ -654,7 +654,7 @@ Many new items for Multi-byte support:
   2000), which uses ucs-2le files with a BOM (e.g., when exporting the
   registry).
 - Added the 'termencoding' option: Specifies the encoding used for the
-  terminal.  Useful to put Vim in utf-8 mode while in a non-Unicode locale: >
+  terminal.  Useful to put uVim in utf-8 mode while in a non-Unicode locale: >
     :let &termencoding = &encoding
     :set encoding=utf-8
 - When 'viminfo' contains the 'c' flag, the viminfo file is converted from the
@@ -734,9 +734,9 @@ Other multi-byte character additions:
 Multi-language support					*new-multi-lang*
 ----------------------
 
-The messages used in Vim can be translated.  Several translations are
+The messages used in uVim can be translated.  Several translations are
 available.  This uses the gettext mechanism.  It allows adding a translation
-without recompiling Vim.  |multi-lang| (partly by Marcin Dalecki)
+without recompiling uVim.  |multi-lang| (partly by Marcin Dalecki)
 
 The translation files are in the src/po directory.  The src/po/README.txt file
 explains a few things about doing a translation.
@@ -746,13 +746,13 @@ command.  The translations are found in the runtime directory "lang".  This
 allows a user to add a translation.
 
 Added |:language| command to set the language (locale) for messages, time and
-character type.  This allows switching languages in Vim without changing the
-locale outside of Vim.
+character type.  This allows switching languages in uVim without changing the
+locale outside of uVim.
 
 Made it possible to have vimtutor use different languages.  (Eduardo Fernandez)
 Spanish (Eduardo Fernandez), Italian (Antonio Colombo), Japanese (Yasuhiro
 Matsumoto) and French (Adrien Beau) translations are included.
-Added "vimtutor.bat": script to start Vim on a copy of the tutor file for
+Added "vimtutor.bat": script to start uVim on a copy of the tutor file for
 MS-Windows. (Dan Sharp)
 
 - Added v:lang variable to be able to get current language setting.
@@ -784,7 +784,7 @@ MS-Windows. (Dan Sharp)
 Plugin support					*new-plugins*
 --------------
 
-To make it really easy to load a Vim script when starting Vim, the "plugin"
+To make it really easy to load a uVim script when starting uVim, the "plugin"
 runtime directory can be used.  All "*.vim" files in it will be automatically
 loaded.  For Unix, the directory "~/.vim/plugin" is used by default.  The
 'runtimepath' option can be set to look in other directories for plugins.
@@ -827,7 +827,7 @@ These can be options and mappings which are specifically used for one value of
 
 The files are located in "$VIMRUNTIME/ftplugin".  The 'runtimepath' option
 makes it possible to use several sets of plugins: Your own, system-wide,
-included in the Vim distribution, etc.
+included in the uVim distribution, etc.
 
 To be able to make this work, several features were added:
 - Added the "s:" variables, local to a script.  Avoids name conflicts with
@@ -885,7 +885,7 @@ Adjusted test2 for this.
 
 Allow using a URL in 'path'.  Makes ":find index.html" work.
 
-GTK: Allow dropping a http:// and ftp:// URL on Vim.  The netrw plugin takes
+GTK: Allow dropping a http:// and ftp:// URL on uVim.  The netrw plugin takes
 care of downloading the file. (MiKael Berthe)
 
 
@@ -903,9 +903,9 @@ from Normal mode with "q:", "q/" and "q?".
 The 'cmdwinheight' is used to specify the initial height of the window.
 
 In Insert mode CTRL-X CTRL-V can be used to complete an Ex command line, like
-it's done on the command-line.  This is also useful for writing Vim scripts!
+it's done on the command-line.  This is also useful for writing uVim scripts!
 
-Additionally, there is "improved Ex mode".  Entered when Vim is started as
+Additionally, there is "improved Ex mode".  Entered when uVim is started as
 "exim" or "vim -E", and with the "gQ" command.  Works like repeated use of
 ":", with full command-line editing and completion. (Ulf Carlsson)
 
@@ -955,13 +955,13 @@ Communication between Vims				*new-vim-server*
 --------------------------
 
 Added communication between two Vims.  Makes it possible to send commands from
-one Vim to another.  Works for X-Windows and MS-Windows |clientserver|.
+one uVim to another.  Works for X-Windows and MS-Windows |clientserver|.
 
-Use "--remote" to have files be edited in an already running Vim.
+Use "--remote" to have files be edited in an already running uVim.
 Use "--remote-wait" to do the same and wait for the editing to finish.
-Use "--remote-send" to send commands from one Vim to another.
-Use "--remote-expr" to have an expression evaluated in another Vim.
-Use "--serverlist" to list the currently available Vim servers.  (X only)
+Use "--remote-send" to send commands from one uVim to another.
+Use "--remote-expr" to have an expression evaluated in another uVim.
+Use "--serverlist" to list the currently available uVim servers.  (X only)
 There are also functions to communicate between the server and the client.
 |remote_send()| |remote_expr()|
 
@@ -969,13 +969,13 @@ There are also functions to communicate between the server and the client.
 Moore)
 
 Added the command server name to the window title, so you can see which server
-name belongs to which Vim.
+name belongs to which uVim.
 
 Removed the OleVim directory and SendToVim.exe and EditWithVim.exe from the
 distribution.  Can now use "gvim --remote" and "gvim --remote-send", which is
 portable.
 
-GTK+: Support running Vim inside another window.  Uses the --socketid argument
+GTK+: Support running uVim inside another window.  Uses the --socketid argument
 (Neil Bird)
 
 
@@ -1034,16 +1034,16 @@ Added Python support for compiling with Mingw. (Ron Aaron)
 
 Dos 32 bit: Added support the Windows clipboard. (David Kotchan)
 
-Win32: Dynamically load Perl and Python.  Allows compiling Vim with these
+Win32: Dynamically load Perl and Python.  Allows compiling uVim with these
 interfaces and will try to find the DLLs at runtime. (Muraoka Taro)
 
 Compiling the Win32 GUI with Cygwin.  Also compile vimrun, dosinst and
 uninstall.  (Gerfried)
 
-Mac: Make Vim compile with the free MPW compiler supplied by Apple.  And
+Mac: Make uVim compile with the free MPW compiler supplied by Apple.  And
 updates for CodeWarrior. (Axel Kielhorn)
 
-Added typecasts and ifdefs as a start to make Vim work on Win64 (George
+Added typecasts and ifdefs as a start to make uVim work on Win64 (George
 Reilly)
 
 
@@ -1051,7 +1051,7 @@ Quickfix extended					*quickfix-6*
 -----------------
 
 Added the "error window".  It contains all the errors of the current error
-list.  Pressing <Enter> in a line makes Vim jump to that line (in another
+list.  Pressing <Enter> in a line makes uVim jump to that line (in another
 window).  This makes it easy to navigate through the error list.
 |quickfix-window|.
 
@@ -1078,7 +1078,7 @@ the operator to work characterwise, linewise or blockwise. |o_v|
 Search Path						*new-search-path*
 -----------
 
-Vim can search in a directory tree not only in downwards but also upwards.
+uVim can search in a directory tree not only in downwards but also upwards.
 Works for the 'path', 'cdpath' and 'tags' options. (Ralf Schandl)
 
 Also use "**" for 'tags' option. (Ralf Schandl)
@@ -1142,7 +1142,7 @@ and then ":edit".
 Restore a View						*new-View*
 --------------
 
-The ":mkview" command writes a Vim script with the settings and mappings for
+The ":mkview" command writes a uVim script with the settings and mappings for
 one window.  When the created file is sourced, the view of the window is
 restored.  It's like ":mksession" for one window.
 The View also contains the local argument list and manually created, opened
@@ -1202,7 +1202,7 @@ g_		Go to last non-blank in line. (Steve Wall)
 
 Options: ~
 
-'autoread'	When detected that a file changed outside of Vim,
+'autoread'	When detected that a file changed outside of uVim,
 		automatically read a buffer again when it's not changed.
 		It has a global and a local value.  Use ":setlocal autoread<"
 		to go back to using the global value for 'autoread'.
@@ -1260,7 +1260,7 @@ Ex commands: ~
 :grepadd	Works just like ":grep" but adds to the current error list
 		instead of defining a new list. |:grepadd|
 
-:finish		Finish sourcing a file.  Can be used to skip the rest of a Vim
+:finish		Finish sourcing a file.  Can be used to skip the rest of a uVim
 		script. |:finish|
 
 :leftabove
@@ -1306,7 +1306,7 @@ Ex commands: ~
 
 :hardcopy	Print to paper.
 
-:compiler	Load a Vim script to do settings for a specific compiler.
+:compiler	Load a uVim script to do settings for a specific compiler.
 
 :z#		List numbered lines. (Bohdan Vlasyuk)
 
@@ -1386,7 +1386,7 @@ New autocommand events: ~
 BufWinEnter	Triggered when a buffer is displayed in a window, after using
 		the modelines.  Can be used to load a view.
 BufWinLeave	Triggered when a buffer is no longer in a window.  Also
-		triggered when exiting Vim.  Can be used to save views.
+		triggered when exiting uVim.  Can be used to save views.
 FileChangedRO	Triggered before making the first change to a read-only file.
 		Can be used to check-out the file. (Scott Graham)
 TermResponse	Triggered when the terminal replies to the version-request.
@@ -1431,7 +1431,7 @@ tidy		Tidy configuration (Doug Kearns)
 wget		Wget configuration (Doug Kearns)
 
 
-Updated many syntax files to work both with Vim 5.7 and 6.0.
+Updated many syntax files to work both with uVim 5.7 and 6.0.
 
 Interface to Ruby. (Shugo Maeda)
 Support dynamic loading of the Ruby interface on MS-Windows. (Muraoka Taro)
@@ -1460,12 +1460,12 @@ A double-click of the mouse on a character that has a "%" match selects from
 that character to the match.  Similar to "v%".
 
 "-S session.vim" argument: Source a script file when starting up.  Convenient
-way to start Vim with a session file.
+way to start uVim with a session file.
 
-Added "--cmd {command}" Vim argument to execute a command before a vimrc file
+Added "--cmd {command}" uVim argument to execute a command before a vimrc file
 is loaded. (Vince Negri)
 
-Added the "-M" Vim argument: reset 'modifiable' and 'write', thus disallow
+Added the "-M" uVim argument: reset 'modifiable' and 'write', thus disallow
 making changes and writing files.
 
 Added runtime/delmenu.vim.  Source this to remove all menus and prepare for
@@ -1474,23 +1474,23 @@ loading new menus.  Useful when changing 'langmenu'.
 Perl script to filter Perl error messages to quickfix usable format. (Joerg
 Ziefle)
 
-Added runtime/macros/less.vim: Vim script to simulate less, but with syntax
+Added runtime/macros/less.vim: uVim script to simulate less, but with syntax
 highlighting.
 
 MS-Windows install program: (Jon Merz)
-- The Win32 program can now create shortcuts on the desktop and install Vim in
+- The Win32 program can now create shortcuts on the desktop and install uVim in
   the Start menu.
-- Possibly remove old "Edit with Vim" entries.
-- The Vim executable is never moved or $PATH changed.  A small batch file is
+- Possibly remove old "Edit with uVim" entries.
+- The uVim executable is never moved or $PATH changed.  A small batch file is
   created in a directory in $PATH.  Fewer choices to be made.
-- Detect already installed Vim versions and offer to uninstall them first.
+- Detect already installed uVim versions and offer to uninstall them first.
 
 Improved the MS-Windows uninstal program.  It now also deletes the entries in
 the Start menu, icons from the desktop and the created batch files. (Jon Merz)
 Also made it possible to delete only some of these.  Also unregister gvim for
 OLE.
 
-Generate a self-installing Vim package for MS-Windows.  This uses NSIS. (Jon
+Generate a self-installing uVim package for MS-Windows.  This uses NSIS. (Jon
 Merz et al.)
 
 Added ":filetype detect".  Try detecting the filetype again.  Helps when
@@ -1499,7 +1499,7 @@ writing a new shell script, after adding "#!/bin/csh".
 Added ":augroup! name" to delete an autocommand group.  Needed for the
 client-server "--remote-wait".
 
-Add the Vim version number to the viminfo file, useful for debugging.
+Add the uVim version number to the viminfo file, useful for debugging.
 
 ==============================================================================
 IMPROVEMENTS						*improvements-6*
@@ -1602,7 +1602,7 @@ Robustness:
   a nasty crash.  Only works when the system supports running the signal
   function on another stack.
 - Disallow ":source <dirname>".  On unix it's possible to read a directory,
-  does not make sense to use it as Vim commands.
+  does not make sense to use it as uVim commands.
 
 Security:
 - When reading from or writing to a temporary file, check that it isn't a
@@ -1675,7 +1675,7 @@ Added keypad special keys <kEnter>, <k0> - <k9>.  When not mapped they behave
 like the ASCII equivalent. (Ivan Wellesz and Vince Negri)
 Recognize a few more xterm keys: <C-Right>, <C-Left>, <C-End>, <C-Home>
 
-Also trigger the BufUnload event when Vim is going to exit.  Perhaps a script
+Also trigger the BufUnload event when uVim is going to exit.  Perhaps a script
 needs to do some cleaning up.
 
 Expand expression in backticks: `={expr}`.  Can be used where backtick
@@ -1756,7 +1756,7 @@ GTK GUI: (partly by Marcin Dalecki)
   _exit() instead of exit(), this works fine without special tricks.
 - Dialogs sometimes appeared a bit far away.  Position the dialogs inside
   the gvim window. (Brent Verner)
-- When dropping a file on Vim, remove extra slashes from the start of the
+- When dropping a file on uVim, remove extra slashes from the start of the
   path.  Also shorten the file name if possible.
 
 Motif: (Marcin Dalecki)
@@ -1795,7 +1795,7 @@ Expression evaluation:
 - Added extra argument to input(): Default text.
 - Also set "v:errmsg" when using ":silent! cmd".
 - Added the v:prevcount variable: v:count for the previous command.
-- Added "v:progname", name with which Vim was started. (Vince Negri)
+- Added "v:progname", name with which uVim was started. (Vince Negri)
 - In the verbose message about returning from a function, also show the return
   value.
 
@@ -1828,8 +1828,8 @@ Options:
 - If possible, use getrlimit() to set 'maxmemtot' and 'maxmem'. (Pina)
 - Added "alpha" to 'nrformats': increment or decrement an alphabetic character
   with CTRL-A and CTRL-X.
-- ":set opt&vi" sets an option to its Vi default, ":set opt&vim" to its Vim
-  default.  Useful to set 'cpo' to its Vim default without knowing what flags
+- ":set opt&vi" sets an option to its Vi default, ":set opt&vim" to its uVim
+  default.  Useful to set 'cpo' to its uVim default without knowing what flags
   that includes.
 - 'scrolloff' now also applies to a long, wrapped line that doesn't fit in the
   window.
@@ -1933,7 +1933,7 @@ Swap file:
 - Made the info for an existing swap file a bit shorter, so that it still fits
   on a 24 line screen.
 - It was possible to make a symlink with the name of a swap file, linking to a
-  file that doesn't exist.  Vim would then silently use another file (if open
+  file that doesn't exist.  uVim would then silently use another file (if open
   with O_EXCL refuses a symlink).  Now check for a symlink to exist.  Also do
   another check for an existing swap file just before creating it to catch a
   symlink attack.
@@ -1963,7 +1963,7 @@ Win32:
 Win32 console version:
 - Includes the user and system name in the ":version" message, when available.
   It generates a pathdef.c file for this.  (Jon Miner)
-- Set the window icon to Vim's icon (only for Windows 2000).  While executing
+- Set the window icon to uVim's icon (only for Windows 2000).  While executing
   a shell command, modify the window title to show this.  When exiting,
   restore the cursor position too.  (Craig Barkhouse)
 - The Win32 console version can be compiled with OLE support.  It can only
@@ -1986,8 +1986,8 @@ item and then stop: "last".
 When printing a verbose message about sourcing another file, print the line
 number.
 
-When resizing the Vim window, don't use 'equalalways'.  Avoids that making the
-Vim window smaller makes split windows bigger.  And it's what the docs say.
+When resizing the uVim window, don't use 'equalalways'.  Avoids that making the
+uVim window smaller makes split windows bigger.  And it's what the docs say.
 
 When typing CTRL-D in Insert mode, just after an autoindent, then hitting CR
 kept the remaining white space.  Now made it work like BS: delete the
@@ -1995,7 +1995,7 @@ autoindent to avoid a blank non-empty line results.
 
 Added a GetHwnd() call to the OLE interface.  (Vince Negri)
 
-Made ":normal" work in an event handler.  Useful when dropping a file on Vim
+Made ":normal" work in an event handler.  Useful when dropping a file on uVim
 and for CursorHold autocommands.
 
 For the MS-Windows version, don't change to the directory of the file when a
@@ -2003,7 +2003,7 @@ slash is used instead of a backslash.  Explorer should always use a backslash,
 the user can use a slash when typing the command.
 
 Timestamps:
-- When a buffer was changed outside of Vim and regaining focus, give a dialog
+- When a buffer was changed outside of uVim and regaining focus, give a dialog
   to allow the user to reload the file.  Now also for other GUIs than
   MS-Windows.  And also used in the console, when compiled with dialog
   support.
@@ -2018,7 +2018,7 @@ Timestamps:
   produces warnings.
 - Checking timestamps is only done for buffers that are not hidden.  These
   will be checked when they become unhidden.
-- When checking for a file being changed outside of Vim, also check if the
+- When checking for a file being changed outside of uVim, also check if the
   file permissions changed.  When the file contents didn't change but the
   permissions did, give a warning.
 - Avoid checking too often, otherwise the dialog keeps popping up for a log
@@ -2060,7 +2060,7 @@ Unix install:
   yet.
 
 Added has("win95"), to be able to distinguish between MS-Windows 95/98/ME and
-NT/2000/XP in a Vim script.
+NT/2000/XP in a uVim script.
 
 When a ":cd" command was typed, echo the new current directory. (Dan Sharp)
 
@@ -2106,12 +2106,12 @@ e-mail address with the --with-compiledby configure argument.
 
 Included features are now grouped in "tiny", "small", "normal", "big" and
 "huge".  This replaces "min-features" and "max-features".  Using "tiny"
-disables multiple windows for a really small Vim.
+disables multiple windows for a really small uVim.
 
 For the tiny version or when FEAT_WINDOWS is not defined: Firstwin and lastwin
 are equal to curwin and don't use w_next and w_prev.
 
-Added the +listcmds feature.  Can be used to compile without the Vim commands
+Added the +listcmds feature.  Can be used to compile without the uVim commands
 that manipulate the buffer list and argument list (the buffer list itself is
 still there, can't do without it).
 
@@ -2123,7 +2123,7 @@ Removed GTK+ support for versions older than 1.1.16.
 The configure checks for using PTYs have been improved.  Code taken from a
 recent version of screen.
 
-Added configure options to install Vim, Ex and View under another name (e.g.,
+Added configure options to install uVim, Ex and View under another name (e.g.,
 vim6, ex6 and view6).
 
 Added "--with-global-runtime" configure argument.  Allows specifying the
@@ -2205,7 +2205,7 @@ colors after changing "t_Co". (Steve Wall)
 When exiting with ":wqall" the messages about writing files could overwrite
 each other and be lost forever.
 
-When starting Vim with an extremely long file name (around 1024 characters) it
+When starting uVim with an extremely long file name (around 1024 characters) it
 would crash.  Added a few checks to avoid buffer overflows.
 
 CTRL-E could get stuck in a file with very long lines.
@@ -2308,7 +2308,7 @@ CTRL-V instead of getting a special character.
 Unix: Changed the order of libraries: Put -lXdmcp after -lX11 and -lSM -lICE
 after -lXdmcp.  Should fix link problem on HP-UX 10.20.
 
-Don't remove the last "-lm" from the link line.  Vim may link but fail later
+Don't remove the last "-lm" from the link line.  uVim may link but fail later
 when the GUI starts.
 
 When the shell returns with an error when trying to expand wildcards, do
@@ -2336,7 +2336,7 @@ Backslashes were removed one time too many for ":next".
 VMS: "gf" didn't work properly.  Use vms_fixfilename() to translate the file
 name. (Zoltan Arpadffy)
 
-After ":hi Normal ctermbg=black ctermfg=white" and suspending Vim not all
+After ":hi Normal ctermbg=black ctermfg=white" and suspending uVim not all
 characters are redrawn with the right background.
 
 When doing "make test" without +eval or +windows feature, many tests failed.
@@ -2392,7 +2392,7 @@ Don't bring up a requester when searching for a file in 'path', sourcing the
 Win16 and Win32: Considered a file "\path\file" absolute.  Can cause the same
 file to appear as two different buffers.
 
-Win32: Renaming a file to an empty string crashed Vim.  Happened when using
+Win32: Renaming a file to an empty string crashed uVim.  Happened when using
 explorer.vim and hitting ESC at the rename prompt.
 
 Win32: strftime() crashed when called with a "-1" value for the time.
@@ -2407,7 +2407,7 @@ slash to a directory name.
 
 When using ">>" the `] mark was not in the last column.
 
-When Vim was compiled without menu support, filetype.vim was still trying to
+When uVim was compiled without menu support, filetype.vim was still trying to
 source the menu.vim script. (Rafael Garcia-Suarez)
 
 ":ptag" added an item to the tag stack.
@@ -2418,7 +2418,7 @@ In the "vim --help" message the term "options" was used for arguments.  That's
 confusing, call them "arguments".
 
 When there are two windows, and a BufUnload autocommand for closing window #1
-closed window #2, Vim would crash.
+closed window #2, uVim would crash.
 
 When there is a preview window and only one other window, ":q" wouldn't exit.
 
@@ -2546,7 +2546,7 @@ $PATH didn't work, it always found it in the current directory.
 Rename the vim.exe in the current dir to avoid this. (Walter Briscoe)
 
 In the MS-DOS/Windows install program, use %VIM% instead of an absolute path,
-so that moving Vim requires only one change in the batch file.
+so that moving uVim requires only one change in the batch file.
 
 Mac: mch_FullName() changed the "fname" argument and didn't always initialize
 the buffer.
@@ -2560,7 +2560,7 @@ removed.  Now make it consistent: "%:p" adds a path separator for all systems,
 but no path separator is added in other situations.
 
 Unix: When checking for a CTRL-C (could happen any time) and there is an X
-event (e.g., clipboard updated) and there is typeahead, Vim would hang until a
+event (e.g., clipboard updated) and there is typeahead, uVim would hang until a
 character was typed.
 
 MS-DOS, MS-Windows and Amiga: expanding "$ENV/foo" when $ENV ends in a colon,
@@ -2578,7 +2578,7 @@ When using a dtterm or various other color terminals, and the Normal group has
 been set to use a different background color, the background wouldn't always
 be displayed with that color.  Added check for "ut" termcap entry: If it's
 missing, clearing the screen won't give us the current background color.  Need
-to draw each character instead.  Vim now also works when the "cl" (clear
+to draw each character instead.  uVim now also works when the "cl" (clear
 screen) termcap entry is missing.
 
 When repeating a "/" search command with a line offset, the "n" did use the
@@ -2651,8 +2651,8 @@ When using the "Save As" menu entry and not entering a file name, would get an
 error message for the trailing ":edit #".  Now only do that when the
 alternate file name was changed.
 
-When Vim owns the X11 selection and is being suspended, an application that
-tries to use the selection hangs.  When Vim continues it could no longer
+When uVim owns the X11 selection and is being suspended, an application that
+tries to use the selection hangs.  When uVim continues it could no longer
 obtain the selection.  Now give up the selection when suspending.
 
 option.h and globals.h were included in some files, while they were already
@@ -2681,7 +2681,7 @@ Multi-byte:
   (Muraoka Taro)
 - Athena/Motif GUI: when 'linespace' is non-zero the cursor would be drawn too
   wide (number of bytes instead of cell width).
-- When changing 'encoding' to "euc-jp" and inserting a character Vim would
+- When changing 'encoding' to "euc-jp" and inserting a character uVim would
   crash.
 - For euc-jp characters positioning the cursor would sometimes be wrong.
   Also, with two characters with 0x8e leading byte only the first one would be
@@ -2730,7 +2730,7 @@ VMS:
 - Removed os_vms_osdef.h, it's no longer used.
 
 The gzip plugin used a ":normal" command, this doesn't work when dropping a
-compressed file on Vim.
+compressed file on uVim.
 
 In very rare situations a binary search for a tag would fail, because an
 uninitialized value happens to be half the size of the tag file. (Narendran)
@@ -2756,7 +2756,7 @@ when suspending doesn't work.  They now work the same way.
 
 Jumping to a file mark while in a changed buffer gave a "mark not set" error.
 
-":execute histget("cmd")" causes an endless loop and crashed Vim.  Now catch
+":execute histget("cmd")" causes an endless loop and crashed uVim.  Now catch
 all commands that cause too much recursiveness.
 
 Removed "Failed to open input method" error message, too many people got this
@@ -2822,10 +2822,10 @@ When a pattern matches the end of the line, the last character in the line was
 highlighted for 'hlsearch'.  That looks wrong for "/\%3c".  Now highlight the
 character just after the line.
 
-Motif: If a dialog was closed by clicking on the "X" of the window frame Vim
+Motif: If a dialog was closed by clicking on the "X" of the window frame uVim
 would no longer respond.
 
-When using CTRL-X or CTRL-A on a number with many leading zeros, Vim would
+When using CTRL-X or CTRL-A on a number with many leading zeros, uVim would
 crash. (Matsumoto)
 
 When 'insertmode' is set, the mapping in mswin.vim for CTRL-V didn't work in
@@ -2849,7 +2849,7 @@ Now use it when 'guifont' and 'guifontset' are empty.
 Setting a font name to a highlight group before the GUI was started didn't
 work.
 
-"make test" didn't use the name of the generated Vim executable.
+"make test" didn't use the name of the generated uVim executable.
 
 'cindent' problems:
 - Aligned with an "else" inside a do-while loop for a line below that loop.
@@ -2873,7 +2873,7 @@ different.  Now made them all equal to how it was done in mswin.vim.
 st_dev can be smaller than "unsigned".  The compiler may give an overflow
 warning.  Added a configure check for dev_t.
 
-Athena: closing a confirm() dialog killed Vim.
+Athena: closing a confirm() dialog killed uVim.
 
 Various typos in the documentation. (Matt Dunford)
 
@@ -2883,7 +2883,7 @@ translated.  (Muraoka Taro)
 
 Mac: (Dany St-Amant and Axel Kielhorn)
 - Several fixes.
-- Vim was eating 80% of the CPU time.
+- uVim was eating 80% of the CPU time.
 - The project os_mac.pbxproj didn't work,  Moved it to a subdirectory.
 - Made the menu priority work for the menubar.
 - Fixed a problem with dragging the scrollbar.
@@ -2906,13 +2906,13 @@ When there was an error in a .vimrc file the terminal where gvim was started
 could be cleared.  Set msg_row in main.c before writing any messages.
 
 GTK and X11 GUI: When trying to read characters from the user (e.g. with
-input()) before the Vim window was opened caused Vim to hang when it was
+input()) before the uVim window was opened caused uVim to hang when it was
 started from the desktop.
 
 OS/390 uses 31 bit pointers.  That broke some computations with MAX_COL.
 Reduce MAX_COL by one bit for OS/390. (Ralf Schandl)
 
-When defining a function and it already exists, Vim didn't say it existed
+When defining a function and it already exists, uVim didn't say it existed
 until after typing it.  Now do this right away when typing it.
 
 The message remembered for displaying later (keep_msg) was sometimes pointing
@@ -2988,8 +2988,8 @@ The ":intro" command didn't work when there wasn't enough room.
 
 Configuring for Ruby failed with a recent version of Ruby. (Akinori Musha)
 
-Athena: When deleting the directory in which Vim was started, using the file
-browser made Vim exit.  Removed the use of XtAppError().
+Athena: When deleting the directory in which uVim was started, using the file
+browser made uVim exit.  Removed the use of XtAppError().
 
 When using autoconf 2.50, UNIX was not defined.  Moved the comment for "#undef
 UNIX" to a separate line.
@@ -3014,16 +3014,16 @@ correctly.  Now display '?' for a special key.
 When an operator is pending, clicking in another window made it apply to that
 window, even though the line numbers could be beyond the end of the buffer.
 
-When a function call doesn't have a terminating ")" Vim could crash.
+When a function call doesn't have a terminating ")" uVim could crash.
 
 Perl interface: could crash on exit with perl 5.6.1. (Anduin Withers)
 
 Using %P in 'errorformat' wasn't handled correctly. (Tomas Zellerin)
 
-Using a syntax cluster that includes itself made Vim crash.
+Using a syntax cluster that includes itself made uVim crash.
 
 GUI: With 'ls' set to 2, dragging the status line all the way up, then making
-the Vim window smaller: Could not the drag status line anymore.
+the uVim window smaller: Could not the drag status line anymore.
 
 "vim -c startinsert! file" placed cursor on last char of a line, instead of
 after it.  A ":set" command in the buffer menu set w_set_curswant.  Now don't
@@ -3133,13 +3133,13 @@ vim_strpbrk() did not support multibyte characters. (Muraoka Taro)
 The Amiga version didn't compile, the code was too big for relative jumps.
 Moved a few files from ex_docmd.c to ex_cmds2.c
 
-When evaluating the "= register resulted in the "= register being changed, Vim
+When evaluating the "= register resulted in the "= register being changed, uVim
 would crash.
 
 When doing ":view file" and it fails, the current buffer was made read-only.
 
 Motif: For some people the separators in the toolbar disappeared when resizing
-the Vim window. (Marcin Dalecki)
+the uVim window. (Marcin Dalecki)
 
 Win32 GUI: when setting 'lines' to a huge number, would not compute the
 available space correctly.  Was counting the menu height twice.
@@ -3201,7 +3201,7 @@ Win16: When maximized and the font is changed, don't change the window size.
 When 'lbr' is set, deleting a block of text could leave the cursor in the
 wrong position.
 
-Win32: When opening a file with the "Edit with Vim" popup menu entry,
+Win32: When opening a file with the "Edit with uVim" popup menu entry,
 wildcards would cause trouble.  Added the "--literal" argument to avoid
 expanding file names.
 
@@ -3231,7 +3231,7 @@ no longer selected.
 GUI: When typing ":" at the more prompt, would return to Normal mode and not
 redraw the screen.
 
-When starting Vim with an argument "-c g/at/p" the printed lines would
+When starting uVim with an argument "-c g/at/p" the printed lines would
 overwrite each other.
 
 BeOS: Didn't compile.  Configure didn't add the os_beos files, the QNX check
@@ -3240,7 +3240,7 @@ Removed the check for the hardware platform, the BeBox has not been produced
 for a long time now.
 
 Win32 GUI: don't use a message box when the shell returns an error code,
-display the message in the Vim window.
+display the message in the uVim window.
 
 Make_mvc.mak always included "/debug" for linking.  "GUI=no" argument didn't
 work.  Use "DEBUG=yes" instead of "DEBUG=1" to make it consistent. (Dan Sharp)
@@ -3253,7 +3253,7 @@ for SGI, it apparently makes the first character in Input method dropped.
 
 Fixed incorrect tests in os_mac.h. (Axel Kielhorn)
 
-Win32 console: When the console where Vim runs in is closed, Vim could hang in
+Win32 console: When the console where uVim runs in is closed, uVim could hang in
 trying to restore the window icon. (Yasuhiro Matsumoto)
 
 When using ":3call func()" or ":3,3call func() the line number was ignored.
@@ -3268,7 +3268,7 @@ MS-Windows: When the current directory includes a "~", searching files with
 "gf" or ":find" didn't work.  A "$" in the directory had the same problem.
 Added mch_has_exp_wildcard() functions.
 
-When reducing the Vim window height while starting up, would get an
+When reducing the uVim window height while starting up, would get an
 out-of-memory error message.
 
 When editing a very long search pattern, 'incsearch' caused the redraw of the
@@ -3283,7 +3283,7 @@ properly.  Now make a difference between \" and \\".
 
 For non-Unix systems a dummy file is created when finding a swap name to
 detect a 8.3 filesystem.  When there is an existing swap file, would get a
-warning for the file being created outside of Vim.  Also, when closing the Vim
+warning for the file being created outside of uVim.  Also, when closing the uVim
 window the file would remain.
 
 Motif: The menu height was always computed, using a "-menuheight" argument
@@ -3302,7 +3302,7 @@ Now use CP_ACP instead of CP_OEMCP. (Vince Negri)
 When displaying text with syntax highlighting causes an error (e.g., running
 out of stack) the syntax highlighting is disabled to avoid further messages.
 
-When a command in a .vimrc or .gvimrc causes an ATTENTION prompt, and Vim was
+When a command in a .vimrc or .gvimrc causes an ATTENTION prompt, and uVim was
 started from the desktop (no place to display messages) it would hang.  Now
 open the GUI window early to be able to display the messages and pop up the
 dialog.
@@ -3314,7 +3314,7 @@ When interrupting reading a file, Vi considers the buffer modified.  Added the
 'i' flag in 'cpoptions' flag for this (we don't want it modified to be able to
 do ":q").
 
-When using an item in 'guicursor' that starts with a colon, Vim would get
+When using an item in 'guicursor' that starts with a colon, uVim would get
 stuck or crash.
 
 When putting a file mark in a help file and later jumping back to it, the
@@ -3340,7 +3340,7 @@ When formatting text from Insert mode, using CTRL-O, could mess up undo
 information.
 
 While writing a file (also for the backup file) there was no check for an
-interrupt (hitting CTRL-C).  Vim could hang when writing a large file over a
+interrupt (hitting CTRL-C).  uVim could hang when writing a large file over a
 slow network, and moving the mouse didn't make it appear (when 'mousehide' is
 set) and the screen wasn't updated in the GUI.  Also allow interrupting when
 syncing the swap file, it can take a long time.
@@ -3569,14 +3569,14 @@ Fixed							*fixed-6.1*
 
 The license text was updated to make the meaning clearer and make it
 compatible with the GNU GPL.  Otherwise distributors have a problem when
-linking Vim with a GPL'ed library.
+linking uVim with a GPL'ed library.
 
 When installing the "less.sh" script it was not made executable. (Chuck Berg)
 
 Win32: The "9" key on the numpad wasn't working. (Julian Kinraid)
 
 The NSIS install script didn't work with NSIS 1.80 or later.  Also add
-Vim-specific icons. (Pruchnik)
+uVim-specific icons. (Pruchnik)
 
 The script for conversion to HTML contained an "if" in the wrong place.
 (Michael Geddes)
@@ -3602,7 +3602,7 @@ The GTK file selection dialog didn't include the "Create Dir", "Delete File"
 and "Rename File" buttons.
 
 When doing ":browse source" the dialog has the title "Run Macro".  Better
-would be "Source Vim script". (Yegappan Lakshmanan)
+would be "Source uVim script". (Yegappan Lakshmanan)
 
 Win32: Don't use the printer font as default for the font dialog.
 
@@ -4051,7 +4051,7 @@ Solution:   Let 'hlsearch' highlighting overrule diff highlighting.
 Files:	    src/screen.c
 
 Patch 6.0.060
-Problem:    Motif: When the tooltip is to be popped up, Vim crashes.
+Problem:    Motif: When the tooltip is to be popped up, uVim crashes.
 	    (Gary Holloway)
 Solution:   Check for a NULL return value from gui_motif_fontset2fontlist().
 Files:	    src/gui_beval.c
@@ -4289,7 +4289,7 @@ Solution:   Only free structures if already using the Tcl interpreter.
 Files:	    src/if_tcl.c
 
 Patch 6.0.094
-Problem:    Athena: When clicking in the horizontal scrollbar Vim crashes.
+Problem:    Athena: When clicking in the horizontal scrollbar uVim crashes.
 	    (Paul Ackersviller)
 Solution:   Use the thumb size instead of the window pointer of the scrollbar
 	    (which is NULL). (David Harrison)
@@ -4447,7 +4447,7 @@ Files:	    src/gui_w32.c, src/gui_w48.c
 
 Patch 6.0.118
 Problem:    When $TMPDIR is a relative path, the temp directory is missing a
-	    trailing slash and isn't deleted when Vim exits. (Peter Holm)
+	    trailing slash and isn't deleted when uVim exits. (Peter Holm)
 Solution:   Add the slash after expanding the directory to an absolute path.
 Files:	    src/fileio.c
 
@@ -4462,7 +4462,7 @@ Solution:   Quote the values. (Jess Thrysoee)
 Files:	    runtime/syntax/2html.vim
 
 Patch 6.0.121 (extra) (depends on patch 6.0.116)
-Problem:    Win32: After patch 6.0.116 Vim doesn't compile with mingw32.
+Problem:    Win32: After patch 6.0.116 uVim doesn't compile with mingw32.
 Solution:   Add an #ifdef HAVE_ACL.
 Files:	    src/os_win32.c
 
@@ -4631,11 +4631,11 @@ Solution:   Don't add the "U" to the redo buffer, it will be used as an undo
 Files:	    src/normal.c
 
 Patch 6.0.145
-Problem:    When Vim can't read any input it might get stuck.  When
-	    redirecting stdin and stderr Vim would not read commands from a
+Problem:    When uVim can't read any input it might get stuck.  When
+	    redirecting stdin and stderr uVim would not read commands from a
 	    file.  (Servatius Brandt)
 Solution:   When repeatedly trying to read a character when it's not possible,
-	    exit Vim.  When stdin and stderr are not a tty, still try reading
+	    exit uVim.  When stdin and stderr are not a tty, still try reading
 	    from them, but don't do a blocking wait.
 Files:	    src/ui.c
 
@@ -4647,7 +4647,7 @@ Solution:   Don't handle numbers with a minus as a number, they were not
 Files:	    src/buffer.c
 
 Patch 6.0.147
-Problem:    It's not easy to mark a Vim version as being modified.  The new
+Problem:    It's not easy to mark a uVim version as being modified.  The new
 	    license requires this.
 Solution:   Add the --modified-by argument to configure and the MODIFIED_BY
 	    define.  It's used in the intro screen and the ":version" output.
@@ -4662,7 +4662,7 @@ Files:	    src/ops.c
 
 Patch 6.0.149
 Problem:    The pattern "\(.\{-}\)*" causes a hang.  When using a search
-	    pattern that causes a stack overflow to be detected Vim could
+	    pattern that causes a stack overflow to be detected uVim could
 	    still hang.
 Solution:   Correctly report "operand could be empty" when using "\{-}".
 	    Check for "out_of_stack" inside loops to avoid a hang.
@@ -4686,8 +4686,8 @@ Solution:   Skip over illegal bytes. (Yasuhiro Matsumoto)
 Files:	    src/charset.c
 
 Patch 6.0.153
-Problem:    When using (illegal) double-byte characters and Vim syntax
-	    highlighting Vim can crash. (Yasuhiro Matsumoto)
+Problem:    When using (illegal) double-byte characters and uVim syntax
+	    highlighting uVim can crash. (Yasuhiro Matsumoto)
 Solution:   Increase a pointer over a character instead of a byte.
 Files:	    src/regexp.c
 
@@ -4708,8 +4708,8 @@ Solution:   Don't call mch_inchar() when NO_CONSOLE is defined.
 Files:	    src/ui.c
 
 Patch 6.0.156
-Problem:    Starting Vim with the -b argument and two files, ":next" doesn't
-	    set 'binary' in the second file, like Vim 5.7. (Norman Diamond)
+Problem:    Starting uVim with the -b argument and two files, ":next" doesn't
+	    set 'binary' in the second file, like uVim 5.7. (Norman Diamond)
 Solution:   Set the global value for 'binary'.
 Files:	    src/option.c
 
@@ -4722,7 +4722,7 @@ Solution:   Use the expansion flags defined with the user command.
 Files:	    src/ex_docmd.c
 
 Patch 6.0.158
-Problem:    When getting the warning for a file being changed outside of Vim
+Problem:    When getting the warning for a file being changed outside of uVim
 	    and reloading the file, the 'readonly' option is reset, even when
 	    the permissions didn't change. (Marcel Svitalsky)
 Solution:   Keep 'readonly' set when reloading a file and the permissions
@@ -4738,7 +4738,7 @@ Files:	    src/menu.c
 
 Patch 6.0.160
 Problem:    When compiling with GCC 3.0.2 and using the "-O2" argument, the
-	    optimizer causes a problem that makes Vim crash.
+	    optimizer causes a problem that makes uVim crash.
 Solution:   Add a configure check to avoid "-O2" for this version of gcc.
 Files:	    src/configure.in, src/auto/configure
 
@@ -4894,7 +4894,7 @@ Solution:   Don't always copy the expanded option into allocated memory.
 Files:	    src/option.c
 
 Patch 6.0.185
-Problem:    Crash in Vim when pasting a selection in another application, on a
+Problem:    Crash in uVim when pasting a selection in another application, on a
 	    64 bit machine.
 Solution:   Fix the format for an Atom to 32 bits. (Peter Derr)
 Files:	    src/ui.c
@@ -5030,7 +5030,7 @@ Solution:   Handle variable names with curly braces properly. (Vince Negri)
 Files:	    src/eval.c
 
 Patch 6.0.205 (extra)
-Problem:    "gvim -f" still forks when using the batch script to start Vim.
+Problem:    "gvim -f" still forks when using the batch script to start uVim.
 Solution:   Add an argument to "start" to use a foreground session (Michael
 	    Geddes)
 Files:	    src/dosinst.c
@@ -5046,9 +5046,9 @@ Solution:   Don't expand wildcards in already expanded parts.
 Files:	    src/misc1.c, src/os_unix.c
 
 Patch 6.0.207 (extra)
-Problem:    Win32: The shortcuts and start menu entries let Vim startup in the
+Problem:    Win32: The shortcuts and start menu entries let uVim startup in the
 	    desktop directory, which is not very useful.
-Solution:   Let shortcuts start Vim in $HOME or $HOMEDIR$HOMEPATH.
+Solution:   Let shortcuts start uVim in $HOME or $HOMEDIR$HOMEPATH.
 Files:	    src/dosinst.c
 
 Patch 6.0.208
@@ -5109,7 +5109,7 @@ Files:	    src/gui.c, src/menu.c, src/ui.c
 
 Patch 6.0.216
 Problem:    After reloading a file, displayed in another window than the
-	    current one, which was changed outside of Vim the part of the file
+	    current one, which was changed outside of uVim the part of the file
 	    around the cursor set by autocommands may be displayed, but
 	    jumping back to the original cursor position when entering the
 	    window again.
@@ -5334,14 +5334,14 @@ Files:	    src/eval.c
 
 Patch 6.0.247
 Problem:    GTK GUI: Can't use gvim in a kpart widget.
-Solution:   Add the "--echo-wid" argument to let Vim echo the window ID on
+Solution:   Add the "--echo-wid" argument to let uVim echo the window ID on
 	    stdout. (Philippe Fremy)
 Files:	    runtime/doc/starting.txt, src/globals.h, src/gui_gtk_x11.c,
 	    src/main.c
 
 Patch 6.0.248
 Problem:    When using compressed help files and 'encoding' isn't "latin1",
-	    Vim converts the help file before decompressing. (David Reviejo)
+	    uVim converts the help file before decompressing. (David Reviejo)
 Solution:   Don't convert a help file when 'binary' is set.
 Files:	    src/fileio.c
 
@@ -5397,7 +5397,7 @@ Files:	    src/gui.c, src/gui_amiga.c, src/gui_athena.c, src/gui_motif.c,
 Patch 6.0.257
 Problem:    Win32: When 'mousefocus' is set and there is a BufRead
 	    autocommand, after the dialog for permissions changed outside of
-	    Vim: 'mousefocus' stops working. (Robert Webb)
+	    uVim: 'mousefocus' stops working. (Robert Webb)
 Solution:   Reset need_mouse_correct after checking timestamps.
 Files:	    src/fileio.c
 
@@ -5436,7 +5436,7 @@ Files:	    src/globals.h, src/gui_w32.c, src/mbyte.c, src/proto/ui.pro,
 	    src/structs.h, src/ui.c
 
 Patch 6.0.263
-Problem:    GTK: When a dialog is closed by the window manager, Vim hangs.
+Problem:    GTK: When a dialog is closed by the window manager, uVim hangs.
 	    (Christian J. Robinson)
 Solution:   Use GTK_WIDGET_DRAWABLE() instead of GTK_WIDGET_VISIBLE().
 Files:	    src/gui_gtk.c, src/gui_gtk_x11.c
@@ -5494,7 +5494,7 @@ Files:	    src/os_msdos.c
 
 Patch 6.1a.002
 Problem:    GTK: On some configurations, when closing a dialog from the window
-	    manager, Vim hangs.
+	    manager, uVim hangs.
 Solution:   Catch the "destroy" signal. (Aric Blumer)
 Files:	    src/gui_gtk.c
 
@@ -5697,7 +5697,7 @@ Files:	    src/mbyte.c
 
 Patch 6.1a.034 (extra)
 Problem:    Win32: The ACL checks for a readonly file still don't work well.
-Solution:   Remove the ACL checks, go back to how it worked in Vim 6.0.
+Solution:   Remove the ACL checks, go back to how it worked in uVim 6.0.
 Files:	    src/os_win32.c
 
 Patch 6.1a.035
@@ -5762,7 +5762,7 @@ Files:	    src/regexp.c
 
 Patch 6.1b.003 (extra)
 Problem:    The RISC OS GUI doesn't compile.
-Solution:   Include changes since Vim 5.7. (Andy Wingate)
+Solution:   Include changes since uVim 5.7. (Andy Wingate)
 Files:	    src/Make_ro.mak, src/gui_riscos.c, src/os_riscos.c,
 	    src/os_riscos.h, src/proto/gui_riscos.pro
 
@@ -5851,7 +5851,7 @@ Solution:   Move a quote to the end of a line. (Max Ischenko)
 Files:	    src/vimtutor
 
 Patch 6.1b.016
-Problem:    GTK: loading a fontset that works partly, Vim might hang or crash.
+Problem:    GTK: loading a fontset that works partly, uVim might hang or crash.
 Solution:   Avoid that char_width becomes zero. (Yasuhiro Matsumoto)
 Files:	    src/gui_gtk_x11.c
 
@@ -5875,7 +5875,7 @@ Files:	    src/ex_getln.c
 
 Patch 6.1b.020
 Problem:    When using the matchit plugin, "%" finds a match on the "end" of a
-	    ":syntax region" command in Vim scripts.
+	    ":syntax region" command in uVim scripts.
 Solution:   Skip over ":syntax region" commands by setting b:match_skip.
 Files:	    runtime/ftplugin/vim.vim
 
@@ -5893,7 +5893,7 @@ Solution:   Go to end of the fold before counting context lines.
 Files:	    src/move.c
 
 Patch 6.1b.023
-Problem:    On MS-Windows system() may cause checking timestamps, because Vim
+Problem:    On MS-Windows system() may cause checking timestamps, because uVim
 	    loses and gains input focus, while this doesn't happen on Unix.
 Solution:   Don't check timestamps while system() is busy.
 Files:	    src/ex_cmds2.c, src/fileio.c, src/globals.h, src/misc1.c
@@ -5967,7 +5967,7 @@ Solution:   Adjust the start of the Visual area when deleting the auto-indent.
 Files:	    src/edit.c
 
 Patch 6.1b.035
-Problem:    When using evim, dropping a file on Vim and then double clicking
+Problem:    When using evim, dropping a file on uVim and then double clicking
 	    on a word, it is changed to "i". (Merlin Hansen)
 Solution:   Reset need_start_insertmode after editing the file.
 Files:	    src/ex_docmd.c
@@ -6103,7 +6103,7 @@ New tutor translations:
 	Slovak (Lubos Celko)
 	Greek (Christos Kontas)
 	German (Joachim Hofmann)
-	Norwegian (Øyvind Holm)
+	Norwegian (ï¿½yvind Holm)
 
 New filetype plugins:
 	Occam (Mario Schweigler)
@@ -6121,13 +6121,13 @@ New compiler plugins:
 	Modelsim vcom (Paul Baleme)
 
 New menu translations:
-	Brazilian (José de Paula)
+	Brazilian (Josï¿½ de Paula)
 	British (Mike Williams)
 	Korean in UTF-8. (Nam SungHyun)
-	Norwegian (Øyvind Holm)
+	Norwegian (ï¿½yvind Holm)
 	Serbian (Aleksandar Jelenak)
 
-New message translation for Norwegian. (Øyvind Holm)
+New message translation for Norwegian. (ï¿½yvind Holm)
 
 New color scheme:
 	desert (Hans Fugal)
@@ -6169,12 +6169,12 @@ inputdialog() accepts a third argument that is used when the dialog is
 cancelled.  Makes it possible to see a difference between cancelling and
 entering nothing.
 
-Included Aap recipes.  Can be used to update Vim to the latest version,
+Included Aap recipes.  Can be used to update uVim to the latest version,
 building and installing.
 
 "/" option in 'cinoptions': extra indent for comment lines. (Helmut Stiegler)
 
-Vim variable "v:register" and functions setreg(), getreg() and getregtype().
+uVim variable "v:register" and functions setreg(), getreg() and getregtype().
 (Michael Geddes)
 
 "v" flag in 'cpoptions': Leave text on screen with backspace in Insert mode.
@@ -6232,7 +6232,7 @@ Fixed							*fixed-6.2*
 
 Removed a few unused #defines from config.h.in, os_os2_cfg.h and os_vms_conf.h.
 
-The Vim icons in PNG format didn't have a transparent background. (Greg
+The uVim icons in PNG format didn't have a transparent background. (Greg
 Roelofs)
 
 Fixed a large number of spelling mistakes in the docs. (Adri Verhoef)
@@ -6251,11 +6251,11 @@ the pos->coladd argument.
 When a tab wraps to the next line, 'listchars' is set and 'foldcolumn' is
 non-zero, only one character of the foldcolumn is highlighted. (Muraoka Taro)
 
-When using ":catch" without an argument Vim crashes. (Yasuhiro Matsumoto)
+When using ":catch" without an argument uVim crashes. (Yasuhiro Matsumoto)
 When no argument given use the ".*" pattern.
 
 Win32: When gvim.exe is started from a shortcut with the window style property
-set to maximize Vim doesn't start with a maximized window. (Yasuhiro
+set to maximize uVim doesn't start with a maximized window. (Yasuhiro
 Matsumoto)  Open the window with the default size and don't call ShowWindow()
 again when it's already visible. (Helmut Stiegler)
 
@@ -6268,7 +6268,7 @@ statusline. (Yasuhiro Matsumoto)
 A column number in an errorformat that goes beyond the end of the line may
 cause a crash.
 
-":throw 'test'" crashes Vim. (Yasuhiro Matsumoto)
+":throw 'test'" crashes uVim. (Yasuhiro Matsumoto)
 
 The file selector's scrollbar colors are not set after doing a ":hi Scrollbar
 guifg=color".  And the file selector's colors are not changed by the
@@ -6321,7 +6321,7 @@ Cscope interface: allocated a buffer too small.
 Win16: remove a trailing backslash from a path when obtaining the permission
 flags. (Vince Negri)
 
-When searching for tags with case ignored Vim could hang.
+When searching for tags with case ignored uVim could hang.
 
 When searching directories with a stopdir could get a crash.  Did not
 re-allocate enough memory. (Vince Negri)
@@ -6354,7 +6354,7 @@ Updated Cygwin and MingW makefiles to use more dependencies. (Dan Sharp)
 
 2html.vim didn't work with 'nomagic' set.
 
-When a local argument list is used and doing ":only" Vim could crash later.
+When a local argument list is used and doing ":only" uVim could crash later.
 (Muraoka Taro)
 
 When using "%P" in 'statusline' and the fillchar is "-", a percentage of 3%
@@ -6377,7 +6377,7 @@ of the whole screen.
 Making translated messages didn't work, if_perl.xs wasn't found. (Vlad
 Sandrini)
 
-Motif and Athena: moving Vim to the foreground didn't uniconify it.  Use
+Motif and Athena: moving uVim to the foreground didn't uniconify it.  Use
 XMapRaised() instead of XRaiseWindow(). (Srikanth Sankaran)
 
 When using ":ptag" in a window where 'scrollbind' is set the preview window
@@ -6481,7 +6481,7 @@ Solution:   Adjust the Unicode functions for the character width and composing
 Files:	    src/mbyte.c
 
 Patch 6.1.005
-Problem:    When using more than 50 items in 'statusline' Vim might crash.
+Problem:    When using more than 50 items in 'statusline' uVim might crash.
 	    (Steve Hall)
 Solution:   Increment itemcnt in check_stl_option(). (Flemming Madsen)
 Files:	    src/option.c
@@ -6508,7 +6508,7 @@ Solution:   Skip a double quote preceded by an odd number of backslashes.
 Files:	    src/search.c
 
 Patch 6.1.009
-Problem:    Vim crashes when using a huge number for the maxwid value in a
+Problem:    uVim crashes when using a huge number for the maxwid value in a
 	    statusline. (Robert M. Nowotniak)
 Solution:   Check for an overflow that makes maxwid negative.
 Files:	    src/buffer.c
@@ -6581,7 +6581,7 @@ Solution:   Return the length of the line instead.
 Files:	    src/eval.c
 
 Patch 6.1.021 (depends on patch 6.1.009)
-Problem:    Vim crashes when using a huge number for the minwid value in a
+Problem:    uVim crashes when using a huge number for the minwid value in a
 	    statusline. (Robert M. Nowotniak)
 Solution:   Check for an overflow that makes minwid negative.
 Files:	    src/buffer.c
@@ -6599,7 +6599,7 @@ Solution:   Adjust the makefile. (Zoltan Arpadffy)
 Files:	    src/testdir/Make_vms.mms
 
 Patch 6.1.024
-Problem:    When header files use a new syntax for declaring functions, Vim
+Problem:    When header files use a new syntax for declaring functions, uVim
 	    can't figure out missing prototypes properly.
 Solution:   Accept braces around a function name. (M. Warner Losh)
 Files:	    src/osdef.sh
@@ -6626,9 +6626,9 @@ Solution:   Only use the special highlighting when drawing text characters.
 Files:	    src/screen.c
 
 Patch 6.1.028
-Problem:    Client-server: When a --remote-expr fails, Vim still exits with
+Problem:    Client-server: When a --remote-expr fails, uVim still exits with
 	    status zero.
-Solution:   Exit Vim with a non-zero status to indicate the --remote-expr
+Solution:   Exit uVim with a non-zero status to indicate the --remote-expr
 	    failed. (Thomas Scott Urban)
 Files:	    src/main.c
 
@@ -6696,7 +6696,7 @@ Solution:   Properly skip multi-byte characters in regtilde() (Muraoka Taro)
 Files:	    src/regexp.c
 
 Patch 6.1.039
-Problem:    When folds are defined and the file is changed outside of Vim,
+Problem:    When folds are defined and the file is changed outside of uVim,
 	    reloading the file doesn't update the folds. (Anders
 	    Schack-Nielsen)
 Solution:   Recompute the folds after reloading the file.
@@ -6808,7 +6808,7 @@ Files:	    src/gui.c, src/message.c, src/misc1.c, src/misc2.c, src/option.c,
 	    src/structs.h
 
 Patch 6.1.055
-Problem:    When editing a compressed file, Vim will inspect the contents to
+Problem:    When editing a compressed file, uVim will inspect the contents to
 	    guess the filetype.
 Solution:   Don't source scripts.vim for .Z, .gz, .bz2, .zip and .tgz files.
 Files:	    runtime/filetype.vim, runtime/plugin/gzip.vim
@@ -6891,7 +6891,7 @@ Solution:   Check the "f" flag instead of "'" in 'viminfo'.
 Files:	    src/mark.c
 
 Patch 6.1.068
-Problem:    When a file is reloaded after it was changed outside of Vim, diff
+Problem:    When a file is reloaded after it was changed outside of uVim, diff
 	    mode isn't updated. (Michael Naumann)
 Solution:   Invalidate the diff info so that it's updated when needed.
 Files:	    src/fileio.c
@@ -7211,7 +7211,7 @@ Files:	    runtime/plugin/netrw.vim
 
 Patch 6.1.118
 Problem:    When a file in diff mode is reloaded because it changed outside
-	    of Vim, other windows in diff mode are not always updated.
+	    of uVim, other windows in diff mode are not always updated.
 	    (Michael Naumann)
 Solution:   After reloading a file in diff mode mark all windows in diff mode
 	    for redraw.
@@ -7424,7 +7424,7 @@ Files:	    runtime/doc/editing.txt, src/os_win32.c
 
 Patch 6.1.149 (extra)
 Problem:    MS-Windows: Can't use diff mode from the file explorer.
-Solution:   Add a "diff with Vim" context menu entry. (Dan Sharp)
+Solution:   Add a "diff with uVim" context menu entry. (Dan Sharp)
 Files:	    GvimExt/gvimext.cpp, GvimExt/gvimext.h
 
 Patch 6.1.150
@@ -7583,7 +7583,7 @@ Solution:   Add "exists('+option')".
 Files:	    runtime/doc/eval.txt, src/eval.c
 
 Patch 6.1.175
-Problem:    When reading commands from a pipe and a CTRL-C is pressed, Vim
+Problem:    When reading commands from a pipe and a CTRL-C is pressed, uVim
 	    will hang. (Piet Delport)
 Solution:   Don't keep reading characters to clear typeahead when an interrupt
 	    was detected, stop when a single CTRL-C is read.
@@ -7687,7 +7687,7 @@ Files:	    runtime/doc/os_vms.txt, src/INSTALLvms.txt, src/gui_gtk_f.h,
 
 Patch 6.1.191
 Problem:    When using "vim -s script" and redirecting the output, the delay
-	    for the "Output is not to a terminal" warning slows Vim down too
+	    for the "Output is not to a terminal" warning slows uVim down too
 	    much.
 Solution:   Don't delay when reading commands from a script.
 Files:	    src/main.c
@@ -7707,7 +7707,7 @@ Patch 6.1.194
 Problem:    When "t_ti" is set but it doesn't cause swapping terminal pages,
 	    "ZZ" may cause the shell prompt to appear on top of the file-write
 	    message.
-Solution:   Scroll the text up in the Vim page before swapping to the terminal
+Solution:   Scroll the text up in the uVim page before swapping to the terminal
 	    page. (Michael Schroeder)
 Files:	    src/os_unix.c
 
@@ -7814,7 +7814,7 @@ Files:	    src/buffer.c, src/eval.c, src/ex_docmd.c, src/fileio.c,
 	    src/globals.h
 
 Patch 6.1.212
-Problem:    When Vim was started with "-R" ":new" creates a buffer
+Problem:    When uVim was started with "-R" ":new" creates a buffer
 	    'noreadonly' while ":enew" has 'readonly' set. (Preben Guldberg)
 Solution:   Don't set 'readonly' in a new empty buffer for ":enew".
 Files:	    src/ex_docmd.c
@@ -7827,7 +7827,7 @@ Solution:   Don't set the window height when there is a vertical split.
 Files:	    src/window.c
 
 Patch 6.1.214
-Problem:    When installing Vim and the runtime files were checked out from
+Problem:    When installing uVim and the runtime files were checked out from
 	    CVS the CVS directories will also be installed.
 Solution:   Avoid installing the CVS dirs and their contents.
 Files:	    src/Makefile
@@ -7846,7 +7846,7 @@ Solution:   Use specific error codes for iconv and redefine them for dynamic
 Files:	    src/fileio.c, src/mbyte.c, src/vim.h
 
 Patch 6.1.217
-Problem:    When sourcing the same Vim script using a different name (symbolic
+Problem:    When sourcing the same uVim script using a different name (symbolic
 	    link or MS-Windows 8.3 name) it is listed twice with
 	    ":scriptnames".  (Tony Mechelynck)
 Solution:   Turn the script name into a full path before using it.  On Unix
@@ -7862,7 +7862,7 @@ Files:	    src/eval.c
 
 Patch 6.1.219
 Problem:    When using ":amenu :b 1<CR>" with a Visual selection and
-	    'insertmode' is set, Vim does not return to Insert mode. (Mickael
+	    'insertmode' is set, uVim does not return to Insert mode. (Mickael
 	    Marchand)
 Solution:   Add the command CTRL-\ CTRL-G that goes to Insert mode if
 	    'insertmode' is set and to Normal mode otherwise.  Append this to
@@ -7871,7 +7871,7 @@ Files:	    src/edit.c, src/ex_getln.c, src/normal.c
 
 Patch 6.1.220
 Problem:    When using a BufReadPost autocommand that changes the line count,
-	    e.g., "$-1join", reloading a file that was changed outside Vim
+	    e.g., "$-1join", reloading a file that was changed outside uVim
 	    does not work properly. (Alan G Isaac)
 Solution:   Make the buffer empty before reading the new version of the file.
 	    Save the lines in a dummy buffer, so that they can be put back
@@ -8045,7 +8045,7 @@ Problem:    Win32: When the OLE version is started and wasn't registered, a
 	    possible (when the registry is not writable).
 Solution:   Check if registering is possible before asking whether it should
 	    be done. (Walter Briscoe)
-	    Also avoid restarting Vim after registering.
+	    Also avoid restarting uVim after registering.
 Files:	    src/if_ole.cpp
 
 Patch 6.1.244
@@ -8087,7 +8087,7 @@ Files:	    src/ex_docmd.c
 
 Patch 6.1.250
 Problem:    When changing the value of 'lines' inside the expression set with
-	    'diffexpr' Vim might crash. (Dave Fishburn)
+	    'diffexpr' uVim might crash. (Dave Fishburn)
 Solution:   Don't allow changing the screen size while updating the screen.
 Files:	    src/globals.h, src/option.c, src/screen.c
 
@@ -8299,7 +8299,7 @@ Solution:   Set the cursor position before waiting for the argument of CTRL-G.
 Files:	    src/edit.c
 
 Patch 6.1.282
-Problem:    Elvis uses "se" in a modeline, Vim doesn't recognize this.
+Problem:    Elvis uses "se" in a modeline, uVim doesn't recognize this.
 Solution:   Also accept "se " where "set " is accepted in a modeline.
 	    (Yasuhiro Matsumoto)
 Files:	    src/buffer.c
@@ -8721,8 +8721,8 @@ Patch 6.1.349
 Problem:    "vim --serverlist" when no server was ever started gives an error
 	    message without "\n".
 	    "vim --serverlist" doesn't exit when the X server can't be
-	    contacted, it starts Vim unexpectedly. (Ricardo Signes)
-Solution:   Don't give an error when no Vim server was ever started.
+	    contacted, it starts uVim unexpectedly. (Ricardo Signes)
+Solution:   Don't give an error when no uVim server was ever started.
 	    Treat failing of opening the display equal to errors inside the
 	    remote*() functions. (Flemming Madsen)
 Files:	    src/if_xcmdsrv.c, src/main.c
@@ -8731,12 +8731,12 @@ Patch 6.1.350
 Problem:    When entering a buffer with ":bnext" for the first time, using an
 	    autocommand to restore the last used cursor position doesn't work.
 	    (Paolo Giarusso)
-Solution:   Don't use the last known cursor position of the current Vim
+Solution:   Don't use the last known cursor position of the current uVim
 	    invocation if an autocommand changed the position.
 Files:	    src/buffer.c
 
 Patch 6.1.351 (depends on 6.1.349)
-Problem:    Crash when starting Vim the first time in an X server. (John
+Problem:    Crash when starting uVim the first time in an X server. (John
 	    McGowan)
 Solution:   Don't call xFree() with a fixed string.
 Files:	    src/if_xcmdsrv.c
@@ -8754,7 +8754,7 @@ Solution:   Don't use ETO_PDY, do use padding.
 Files:	    src/gui_w32.c
 
 Patch 6.1.354 (extra, depends on 6.1.333)
-Problem:    MS-Windows 98: Notepad can't paste text copied from Vim when
+Problem:    MS-Windows 98: Notepad can't paste text copied from uVim when
 	    'encoding' is "utf-8".
 Solution:   Also make CF_TEXT available on the clipboard. (Ron Aaron)
 Files:	    src/os_mswin.c
@@ -8785,9 +8785,9 @@ Solution:   Insert the "let" command. (Yasuhiro Matsumoto)
 Files:	    runtime/tutor/tutor.vim
 
 Patch 6.1.359 (extra)
-Problem:    Mac Carbon: Vim doesn't get focus when started from the command
+Problem:    Mac Carbon: uVim doesn't get focus when started from the command
 	    line.  Crash when using horizontal scroll bar.
-Solution:   Set Vim as the frontprocess.  Fix scrolling.  (Peter Cucka)
+Solution:   Set uVim as the frontprocess.  Fix scrolling.  (Peter Cucka)
 Files:	    src/gui_mac.c
 
 Patch 6.1.360 (depends on 6.1.341)
@@ -8830,7 +8830,7 @@ Solution:   Expand the file name to a full path.
 Files:	    src/ex_cmds2.c
 
 Patch 6.1.366
-Problem:    Can't use Vim with Netbeans.
+Problem:    Can't use uVim with Netbeans.
 Solution:   Add the Netbeans interface.  Includes support for sign icons and
 	    "-fg" and "-bg" arguments for GTK.  Add the 'autochdir'
 	    option.  (Gordon Prieur, George Hernandez, Dave Weatherford)
@@ -8872,7 +8872,7 @@ Solution:   Add "<silent>" to the generated map commands when appropriate.
 Files:	    src/getchar.c
 
 Patch 6.1.369 (extra)
-Problem:    VMS: Vim hangs when attempting to edit a read-only file in the
+Problem:    VMS: uVim hangs when attempting to edit a read-only file in the
 	    terminal.  Problem with VMS filenames for quickfix.
 Solution:   Rewrite low level input.  Remove version number from file name in
 	    a couple more places.  Fix crash after patch 6.1.362.  Correct
@@ -9009,7 +9009,7 @@ Files:	    src/Makefile, src/feature.h, src/gui.c, src/gui.h,
 	    src/structs.h, src/syntax.c, src/ui.c, src/workshop.c
 
 Patch 6.1.390 (depends on 6.1.389)
-Problem:    It's not possible to tell Vim to save and exit through the
+Problem:    It's not possible to tell uVim to save and exit through the
 	    Netbeans interface.  Would still try to send balloon eval text
 	    after the connection is closed.
 	    Can't use Unicode characters for sign text.
@@ -9034,7 +9034,7 @@ Files:	    src/buffer.c
 
 Patch 6.1.393
 Problem:    When compiled with Python and threads, detaching the terminal may
-	    cause Vim to loop forever.
+	    cause uVim to loop forever.
 Solution:   Add -pthread to $CFLAGS when using Python and gcc. (Daniel
 	    Elstner)
 Files:	    src/auto/configure,, src/configure.in
@@ -9178,14 +9178,14 @@ Solution:   Save the register before overwriting it and put the resulting text
 Files:	    src/normal.c, src/ops.c
 
 Patch 6.1.414 (extra, depends on 6.1.369)
-Problem:    VMS: Vim busy waits when waiting for input.
+Problem:    VMS: uVim busy waits when waiting for input.
 Solution:   Delay for a short while before getting another character.  (Zoltan
 	    Arpadffy)
 Files:	    src/os_vms.c
 
 Patch 6.1.415
 Problem:    When there is a vertical split and a quickfix window, reducing the
-	    size of the Vim window may result in a wrong window layout and a
+	    size of the uVim window may result in a wrong window layout and a
 	    crash.
 Solution:   When reducing the window size and there is not enough space for
 	    'winfixheight' set the frame height to the larger height, so that
@@ -9218,7 +9218,7 @@ Files:	    src/eval.c, src/ex_cmds.c, src/ex_cmds2.c, src/mbyte.c,
 	    src/proto/mbyte.pro, src/option.c, src/os_mswin.c
 
 Patch 6.1.419
-Problem:    Vim doesn't compile on AIX 5.1.
+Problem:    uVim doesn't compile on AIX 5.1.
 Solution:   Don't define _NO_PROTO on this system. (Uribarri)
 Files:	    src/auto/configure, src/configure.in
 
@@ -9313,7 +9313,7 @@ Solution:   Make a click on an arrow move one line.  Also move the code to
 Files:	    src/gui_w16.c, src/gui_w32.c, src/gui_w48.c
 
 Patch 6.1.435
-Problem:    ":winsize x" resizes the Vim window to the minimal size. (Andrew
+Problem:    ":winsize x" resizes the uVim window to the minimal size. (Andrew
 	    Pimlott)
 Solution:   Give an error message for wrong arguments of ":winsize" and
 	    ":winpos".
@@ -9332,7 +9332,7 @@ Solution:   Put the clipboard conversion inside an #ifdef. (Vince Negri)
 Files:	    src/os_mswin.c
 
 Patch 6.1.438
-Problem:    When Perl has thread support Vim cannot use the Perl interface.
+Problem:    When Perl has thread support uVim cannot use the Perl interface.
 Solution:   Add a configure check and disable Perl when it will not work.
 	    (Aron Griffis)
 Files:	    src/auto/configure, src/configure.in
@@ -9340,7 +9340,7 @@ Files:	    src/auto/configure, src/configure.in
 Patch 6.1.439
 Problem:    Netbeans: A "create" function doesn't actually create a buffer,
 	    following functions may fail.
-Solution:   Create a Vim buffer without a name when "create" is called.
+Solution:   Create a uVim buffer without a name when "create" is called.
 	    (Gordon Prieur)
 Files:	    runtime/doc/netbeans.txt, src/netbeans.c
 
@@ -9429,7 +9429,7 @@ Solution:   Check for the text sign to exist before using it. (Kamil
 Files:	    src/screen.c
 
 Patch 6.1.454 (extra)
-Problem:    Win32: pasting Russian text in Vim with 'enc' set to cp1251
+Problem:    Win32: pasting Russian text in uVim with 'enc' set to cp1251
 	    results in utf-8 bytes.  (Perelyubskiy)
 	    Conversion from DBCS to UCS2 does not work when 'encoding' is not
 	    the active codepage.
@@ -9442,7 +9442,7 @@ Files:	    src/globals.h, src/gui_w32.c, src/mbyte.c, src/os_mswin.c,
 
 Patch 6.1.455
 Problem:    Some Unicode characters can be one or two character cells wide.
-Solution:   Add the 'ambiwidth' option to tell Vim how to display these
+Solution:   Add the 'ambiwidth' option to tell uVim how to display these
 	    characters. (Jungshik Shin)
 	    Also reset the script ID when setting an option to its default
 	    value, so that ":verbose set" won't give wrong info.
@@ -9465,7 +9465,7 @@ Solution:   Add a typecast.
 Files:	    src/ex_cmds.c
 
 Patch 6.1.459 (extra)
-Problem:    Win32: libcall() may return an invalid pointer and cause Vim to
+Problem:    Win32: libcall() may return an invalid pointer and cause uVim to
 	    crash.
 Solution:   Add a strict check for the returned pointer. (Bruce Mellows)
 Files:	    src/os_mswin.c
@@ -9545,10 +9545,10 @@ Files:	    src/mark.c
 
 Patch 6.1.472
 Problem:    When there is an authentication error when connecting to the X
-	    server Vim exits.
+	    server uVim exits.
 Solution:   Use XSetIOErrorHandler() to catch the error and longjmp() to avoid
 	    the exit.  Also do this in the main loop, so that when the X
-	    server exits a Vim running in a console isn't killed.
+	    server exits a uVim running in a console isn't killed.
 Files:	    src/globals.h, src/main.c, src/os_unix.c
 
 Patch 6.1.473
@@ -9591,8 +9591,8 @@ Solution:   Add the colon. (Taro Muraoka)
 Files:	    src/if_cscope.c
 
 Patch 6.2f.006
-Problem:    When saving a file takes a while and Vim regains focus this can
-	    result in a "file changed outside of Vim" warning and ml_get()
+Problem:    When saving a file takes a while and uVim regains focus this can
+	    result in a "file changed outside of uVim" warning and ml_get()
 	    errors. (Mike Williams)
 Solution:   Add the "b_saving" flag to avoid checking the timestamp while the
 	    buffer is being saved. (Michael Schaap)
@@ -9654,14 +9654,14 @@ Solution:   Add a line break.
 Files:	    src/main.c
 
 Patch 6.2f.017
-Problem:    Unix: starting Vim in the background and then bringing it to the
+Problem:    Unix: starting uVim in the background and then bringing it to the
 	    foreground may cause the terminal settings to be wrong.
 Solution:   Check for tcsetattr() to return an error, retry when it does.
 	    (Paul Tapper)
 Files:	    src/os_unix.c
 
 Patch 6.2f.018
-Problem:    Mac OS X 10.2: OK is defined to zero in cursus.h while Vim uses
+Problem:    Mac OS X 10.2: OK is defined to zero in cursus.h while uVim uses
 	    one.  Redefining it causes a warning message.
 Solution:   Undefine OK before defining it to one. (Taro Muraoka)
 Files:	    src/vim.h
@@ -9692,7 +9692,7 @@ Files:	    src/option.c
 
 Patch 6.2f.023
 Problem:    When the help files are not in $VIMRUNTIME but 'helpfile' is
-	    correct Vim still can't find the help files.
+	    correct uVim still can't find the help files.
 Solution:   Also look for a tags file in the directory of 'helpfile'.
 Files:	    src/tag.c
 
@@ -9783,7 +9783,7 @@ Files:	    src/mbyte.c
 
 Patch 6.2f.037
 Problem:    When receiving a Netbeans command at the hit-enter or more prompt
-	    the screen is redrawn but Vim is still waiting at the prompt.
+	    the screen is redrawn but uVim is still waiting at the prompt.
 Solution:   Quit the prompt like a CTRL-C was typed.
 Files:	    src/netbeans.c
 
@@ -9812,7 +9812,7 @@ The major number of new items is in the runtime files and translations.
 Changed							*changed-6.3*
 -------
 
-The intro message also displays a note about sponsoring Vim, mixed randomly
+The intro message also displays a note about sponsoring uVim, mixed randomly
 with the message about helping children in Uganda.
 
 Included the translated menus, keymaps and tutors with the normal runtime
@@ -9930,7 +9930,7 @@ Tutor translations:
 
 Included "russian.txt" help file. (Vassily Ragosin)
 
-Include Encapsulated PostScript and PDF versions of the Vim logo in the extra
+Include Encapsulated PostScript and PDF versions of the uVim logo in the extra
 archive.
 
 The help highlighting finds the highlight groups and shows them in the color
@@ -10054,19 +10054,19 @@ Files:	    src/ex_cmds2.c, src/if_cscope.c
 
 Patch 6.2.017
 Problem:    Test11 sometimes prompts the user, because a file would have been
-	    changed outside of Vim. (Antonio Colombo)
+	    changed outside of uVim. (Antonio Colombo)
 Solution:   Add a FileChangedShell autocommand to avoid the prompt.
 Files:	    src/testdir/test11.in
 
 Patch 6.2.018
-Problem:    When using the XSMP protocol and reading from stdin Vim may wait
+Problem:    When using the XSMP protocol and reading from stdin uVim may wait
 	    for a key to be pressed.
 Solution:   Avoid that RealWaitForChar() is used recursively.
 Files:	    src/os_unix.c
 
 Patch 6.2.019 (lang)
 Problem:    Loading the Portuguese menu causes an error message.
-Solution:   Join two lines.  (Jose Pedro Oliveira, José de Paula)
+Solution:   Join two lines.  (Jose Pedro Oliveira, Josï¿½ de Paula)
 Files:	    runtime/lang/menu_pt_br.vim
 
 Patch 6.2.020
@@ -10113,12 +10113,12 @@ Solution:   Set mb_l to one when not using multi-byte characters.
 Files:	    src/message.c
 
 Patch 6.2.028
-Problem:    Cscope connection may kill Vim process and others.
+Problem:    Cscope connection may kill uVim process and others.
 Solution:   Check for pid being larger than one. (Khorev Sergey)
 Files:	    src/if_cscope.c
 
 Patch 6.2.029
-Problem:    When using the remote server functionality Vim may leak memory.
+Problem:    When using the remote server functionality uVim may leak memory.
 	    (Srikanth Sankaran)
 Solution:   Free the result of XListProperties().
 Files:	    src/if_xcmdsrv.c
@@ -10432,8 +10432,8 @@ Solution:   Don't convert an empty string to a zero.
 Files:	    src/eval.c
 
 Patch 6.2.078
-Problem:    "make test" doesn't work if Vim wasn't compiled yet. (Ed Avis)
-Solution:   Build Vim before running the tests.
+Problem:    "make test" doesn't work if uVim wasn't compiled yet. (Ed Avis)
+Solution:   Build uVim before running the tests.
 Files:	    src/Makefile
 
 Patch 6.2.079
@@ -10473,7 +10473,7 @@ Files:	    src/normal.c
 Patch 6.2.085
 Problem:    ":verbose set ts" doesn't say an option was set with a "-c" or
 	    "--cmd" argument.
-Solution:   Remember the option was set from a Vim argument.
+Solution:   Remember the option was set from a uVim argument.
 Files:	    src/main.c, src/ex_cmds2.c, src/vim.h
 
 Patch 6.2.086
@@ -10506,7 +10506,7 @@ Solution:   Put an #ifdef around the #pragmas.
 Files:	    src/os_win32.c
 
 Patch 6.2.091
-Problem:    When an autocommand is triggered when a file is dropped on Vim and
+Problem:    When an autocommand is triggered when a file is dropped on uVim and
 	    it produces output, messages from a following command may be
 	    scrolled unexpectedly. (David Rennalls)
 Solution:   Save and restore msg_scroll in handle_drop().
@@ -10548,7 +10548,7 @@ Solution:   When 'insertmode' is set, set need_start_insertmode, when it's
 Files:	    src/option.c
 
 Patch 6.2.098 (after 6.2.097)
-Problem:    Can't build Vim with tiny features. (Christian J. Robinson)
+Problem:    Can't build uVim with tiny features. (Christian J. Robinson)
 Solution:   Declare stop_insert_mode always.
 Files:	    src/edit.c, src/globals.h
 
@@ -10723,12 +10723,12 @@ Solution:   Change "==" to "=" for a test.
 Files:	    src/auto/configure, src/configure.in
 
 Patch 6.2.124 (after 6.2.121)(extra)
-Problem:    Mac: Recursive use of M4FLAGS causes problems.  When running Vim
+Problem:    Mac: Recursive use of M4FLAGS causes problems.  When running uVim
 	    directly it can't find the runtime files.  (Emily Jackson)
 	    Using GNU constructs causes warnings with other make programs.
 	    (Ronald Schild)
 Solution:   Use another name for the M4FLAGS variable.
-	    Don't remove "Vim.app" from the path.
+	    Don't remove "uVim.app" from the path.
 	    Update the explanation for compiling on the Mac. (Eric Kow)
 	    Don't use $(shell ) and $(addprefix ).
 Files:	    src/INSTALLmac.txt, src/Makefile, src/misc1.c
@@ -10763,7 +10763,7 @@ Solution:   Reduce the textwidth when 'number' is set.  Also for 'foldcolumn'
 Files:	    src/edit.c
 
 Patch 6.2.130 (extra)
-Problem:    Win32 console: When 'restorescreen' is not set exiting Vim causes
+Problem:    Win32 console: When 'restorescreen' is not set exiting uVim causes
 	    the screen to be cleared. (Michael A. Mangino)
 Solution:   Don't clear the screen when exiting and 'restorescreen' isn't set.
 Files:	    src/os_win32.c
@@ -11070,8 +11070,8 @@ Solution:   Put a backslash in front of every space in the file name.
 Files:	    src/VisVim/Commands.cpp, src/VisVim/VisVim.rc
 
 Patch 6.2.178
-Problem:    People who don't know how to exit Vim try pressing CTRL-C.
-Solution:   Give a message how to exit Vim when CTRL-C is pressed and it
+Problem:    People who don't know how to exit uVim try pressing CTRL-C.
+Solution:   Give a message how to exit uVim when CTRL-C is pressed and it
 	    doesn't cancel anything.
 Files:	    src/normal.c
 
@@ -11164,7 +11164,7 @@ Files:	    runtime/doc/motion.txt, runtime/plugin/gzip.vim, src/ex_cmds.c,
 Patch 6.2.191
 Problem:    The intro message is outdated.  Information about sponsoring and
 	    registering is missing.
-Solution:   Show info about sponsoring and registering Vim in the intro
+Solution:   Show info about sponsoring and registering uVim in the intro
 	    message now and then.  Add help file about sponsoring.
 Files:	    runtime/doc/help.txt, runtime/doc/sponsor.txt, runtime/doc/tags,
 	    runtime/menu.vim, src/version.c
@@ -11219,7 +11219,7 @@ Solution:   Mark the messages to be translated.
 Files:	    src/ex_cmds.c
 
 Patch 6.2.199 (after 6.2.194)
-Problem:    Vim doesn't work perfectly well with NetBeans.
+Problem:    uVim doesn't work perfectly well with NetBeans.
 Solution:   When NetBeans saves the file, reset the timestamp to avoid "file
 	    changed" warnings.  Close a buffer in a proper way.  Don't try
 	    giving a debug message with an invalid pointer.  Send a
@@ -11261,7 +11261,7 @@ Files:	    src/search.c
 
 Patch 6.2.205 (extra)
 Problem:    MS-Windows: When the taskbar is at the left or top of the screen,
-	    the Vim window placement is wrong.
+	    the uVim window placement is wrong.
 Solution:   Compute the size and position of the window correctly. (Taro
 	    Muraoka)
 Files:	    src/gui_w32.c, src/gui_w48.c
@@ -11306,7 +11306,7 @@ Solution:   Add the 'antialias' option to switch on antialiasing on Mac OSX
 Files:	    runtime/doc/options.txt, src/gui_mac.c, src/option.h, src/option.c
 
 Patch 6.2.211 (extra)
-Problem:    Code for handling file dropped on Vim is duplicated.
+Problem:    Code for handling file dropped on uVim is duplicated.
 Solution:   Move the common code to gui_handle_drop().
 	    Add code to drop the files in the window under the cursor.
 	    Support drag&drop on the Macintosh.  (Taro Muraoka)
@@ -11365,7 +11365,7 @@ Solution:   Remember that the item has already matched and don't match it
 Files:	    src/syntax.c
 
 Patch 6.2.220
-Problem:    When a Vim server runs in a console a remote command isn't handled
+Problem:    When a uVim server runs in a console a remote command isn't handled
 	    before a key is typed.  (Joshua Neuheisel)
 Solution:   Don't try reading more input when a client-server command has been
 	    received.
@@ -11384,7 +11384,7 @@ Solution:   Don't delete all typeahead when the server receives a command from
 Files:	    src/main.c
 
 Patch 6.2.223
-Problem:    Cscope: Avoid a hang when cscope waits for a response while Vim
+Problem:    Cscope: Avoid a hang when cscope waits for a response while uVim
 	    waits for a prompt.
 	    Error messages from Cscope mess up the display.
 Solution:   Detect the hit-enter message and respond by sending a return
@@ -11416,7 +11416,7 @@ Files:	    src/Make_bc3.mak, src/Make_bc5.mak, src/Make_cyg.mak,
 	    src/Make_ming.mak
 
 Patch 6.2.228
-Problem:    Receiving CTRL-\ CTRL-N after typing "f" or "m" doesn't switch Vim
+Problem:    Receiving CTRL-\ CTRL-N after typing "f" or "m" doesn't switch uVim
 	    back to Normal mode.  Same for CTRL-\ CTRL-G.
 Solution:   Check if the character typed after a command is CTRL-\ and obtain
 	    another character to check for CTRL-N or CTRL-G, waiting up to
@@ -11449,7 +11449,7 @@ Files:	    src/eval.c, src/ex_eval.c, src/proto/ex_eval.pro,
 	    src/testdir/test49.ok, src/testdir/test49.vim
 
 Patch 6.2.232
-Problem:    ":python vim.command('python print 2*2')" crashes Vim.  (Eugene
+Problem:    ":python vim.command('python print 2*2')" crashes uVim.  (Eugene
 	    Minkovskii)
 Solution:   Disallow executing a Python command recursively and give an error
 	    message.
@@ -11530,14 +11530,14 @@ Solution:   Remove the code to sync the two dialogs.  Adjust the code to react
 Files:	    src/gui_gtk.c
 
 Patch 6.2.242
-Problem:    Gnome: "vim --help" only shows the Gnome arguments, not the Vim
+Problem:    Gnome: "vim --help" only shows the Gnome arguments, not the uVim
 	    arguments.
 Solution:   Don't let the Gnome code remove the "--help" argument and don't
 	    exit at the end of usage().
 Files:	    src/gui_gtk_x11.c, src/main.c
 
 Patch 6.2.243 (extra)
-Problem:    Mac: Dropping a file on a Vim icon causes a hit-enter prompt.
+Problem:    Mac: Dropping a file on a uVim icon causes a hit-enter prompt.
 Solution:   Move the dropped files to the global argument list, instead of the
 	    usual drop handling. (Eckehard Berns)
 Files:	    src/main.c, src/gui_mac.c
@@ -11556,7 +11556,7 @@ Solution:   Add the command modifiers to the table of commands. (Madoka
 Files:	    src/ex_cmds.h, src/ex_docmd.c
 
 Patch 6.2.246
-Problem:    Mac: Starting Vim from Finder doesn't show error messages.
+Problem:    Mac: Starting uVim from Finder doesn't show error messages.
 Solution:   Recognize that output is being displayed by stderr being
 	    "/dev/console".  (Eckehard Berns)
 Files:	    src/main.c, src/message.c
@@ -11595,7 +11595,7 @@ Solution:   Make buttons appear vertically when desired.  Reverse the order in
 Files:	    src/gui_gtk.c
 
 Patch 6.2.252 (extra, after 6.2.243)
-Problem:    Mac: Dropping a file on a Vim icon causes a hit-enter prompt for
+Problem:    Mac: Dropping a file on a uVim icon causes a hit-enter prompt for
 	    Mac OS classic.
 Solution:   Remove the #ifdef from the code that fixes it for Mac OSX.
 Files:	    src/gui_mac.c
@@ -11762,7 +11762,7 @@ Solution:   Invoke msg_start() after evaluating the argument.
 Files:	    src/eval.c
 
 Patch 6.2.277
-Problem:    Vim crashes when a ":runtime ftplugin/ada.vim" causes a recursive
+Problem:    uVim crashes when a ":runtime ftplugin/ada.vim" causes a recursive
 	    loop. (Robert Nowotniak)
 Solution:   Restore "msg_list" before returning from do_cmdline().
 Files:	    src/ex_docmd.c
@@ -11853,7 +11853,7 @@ Files:	    src/gui_mac.c
 Patch 6.2.291 (extra)
 Problem:    Mac: the plus button and close button don't do anything.
 Solution:   Make the plus button maximize the window and the close button
-	    close Vim. (Eckehard Berns)
+	    close uVim. (Eckehard Berns)
 Files:	    src/gui.c, src/gui_mac.c
 
 Patch 6.2.292
@@ -11874,7 +11874,7 @@ Files:	    src/gui_mac.c
 
 Patch 6.2.295
 Problem:    When in debug mode, receiving a message from a remote client
-	    causes a crash.  Evaluating an expression causes Vim to wait for
+	    causes a crash.  Evaluating an expression causes uVim to wait for
 	    "cont" to be typed, without a prompt.  (Hari Krishna Dara)
 Solution:   Disable debugging when evaluating an expression for a client.
 	    (Michael Geddes)  Don't try reading into the typeahead buffer when
@@ -12022,7 +12022,7 @@ Files:	    src/ops.c
 
 Patch 6.2.315
 Problem:    Using CTRL-C in a Visual mode mapping while 'insertmode' is set
-	    stops Vim from returning to Insert mode.
+	    stops uVim from returning to Insert mode.
 Solution:   Don't reset "restart_edit" when a CTRL-C is found and 'insertmode'
 	    is set.
 Files:	    src/normal.c
@@ -12053,7 +12053,7 @@ Solution:   Use gcc instead of dllwrap.  Use long option names. (Alejandro
 Files:	    src/GvimExt/Make_ming.mak
 
 Patch 6.2.320
-Problem:    Win32: Adding and removing the menubar resizes the Vim window.
+Problem:    Win32: Adding and removing the menubar resizes the uVim window.
 	    (Jonathon Merz)
 Solution:   Don't let a resize event change 'lines' unexpectedly.
 Files:	    src/gui.c
@@ -12179,7 +12179,7 @@ Files:	    src/syntax.c
 
 Patch 6.2.340
 Problem:    ":reg" doesn't show the actual contents of the clipboard if it was
-	    filled outside of Vim. (Stuart MacDonald)
+	    filled outside of uVim. (Stuart MacDonald)
 Solution:   Obtain the clipboard contents before displaying it.
 Files:	    src/ops.c
 
@@ -12218,7 +12218,7 @@ Solution:   Use a raw byte format.  Always set it when copying.  When pasting
 Files:	    src/os_mswin.c, src/os_win16.c, src/os_win32.c, src/vim.h
 
 Patch 6.2.346
-Problem:    Win32 console: After using "chcp" Vim does not detect the
+Problem:    Win32 console: After using "chcp" uVim does not detect the
 	    different codepage.
 Solution:   Use GetConsoleCP() and when it is different from GetACP() set
 	    'termencoding'.
@@ -12291,7 +12291,7 @@ Solution:   Correct the column in unadjust_for_sel() to position on the first
 Files:	    src/normal.c
 
 Patch 6.2.357 (after 6.2.321)
-Problem:    Memory leak when resizing the Vim window.
+Problem:    Memory leak when resizing the uVim window.
 Solution:   Free the LineWraps array.
 Files:	    src/screen.c
 
@@ -12339,7 +12339,7 @@ Files:	    runtime/doc/makehtml.awk
 
 Patch 6.2.365
 Problem:    The configure checks for Perl and Python may add compile and link
-	    arguments that break building Vim.
+	    arguments that break building uVim.
 Solution:   Do a sanity check: try building with the arguments.
 Files:	    src/auto/configure, src/configure.in
 
@@ -12351,8 +12351,8 @@ Files:	    src/gui.c
 
 Patch 6.2.367
 Problem:    Building the help tags file while installing may fail if there is
-	    another Vim in $PATH.
-Solution:   Specify the just installed Vim executable. (Gordon Prieur)
+	    another uVim in $PATH.
+Solution:   Specify the just installed uVim executable. (Gordon Prieur)
 Files:	    src/Makefile
 
 Patch 6.2.368
@@ -12412,13 +12412,13 @@ Files:	    src/gui.c, src/message.c, src/os_unix.c, src/proto/message.pro,
 
 Patch 6.2.375
 Problem:    When changing 'guioptions' the hit-enter prompt may be below the
-	    end of the Vim window.
+	    end of the uVim window.
 Solution:   Call screen_alloc() before showing the prompt.
 Files:	    src/message.c
 
 Patch 6.2.376
 Problem:    Win32: Ruby interface cannot be dynamically linked with Ruby 1.6.
-Solution:   Add #ifdefs around use of rb_w32_snprintf().  (Benoît Cerrina)
+Solution:   Add #ifdefs around use of rb_w32_snprintf().  (Benoï¿½t Cerrina)
 Files:	    src/if_ruby.c
 
 Patch 6.2.377 (after 6.2.372)
@@ -12462,7 +12462,7 @@ Solution:   Specify a different viminfo file to use.
 Files:	    src/testdir/test15.in, src/testdir/test49.in
 
 Patch 6.2.383
-Problem:    ":hi foo term='bla" crashes Vim. (Antony Scriven)
+Problem:    ":hi foo term='bla" crashes uVim. (Antony Scriven)
 Solution:   Check that the closing ' is there.
 Files:	    src/syntax.c
 
@@ -12575,7 +12575,7 @@ Solution:   Include header file poll.h. (Malte Neumann)
 Files:	    src/if_xcmdsrv.c
 
 Patch 6.2.401
-Problem:    When opening a buffer that was previously opened, Vim does not
+Problem:    When opening a buffer that was previously opened, uVim does not
 	    restore the cursor position if the first line starts with white
 	    space.  (Gregory Margo)
 Solution:   Don't skip restoring the cursor position if it is past the blanks
@@ -12669,7 +12669,7 @@ Solution:   Pass the SID of the script where the user command was defined on
 Files:	    src/ex_docmd.c, src/eval.c, src/ex_getln.c, src/structs.h
 
 Patch 6.2.415
-Problem:    Vim may crash after a sequence of events that change the window
+Problem:    uVim may crash after a sequence of events that change the window
 	    size.  The window layout assumes a larger window than is actually
 	    available. (Servatius Brandt)
 Solution:   Invoke win_new_shellsize() from screenalloc() instead of from
@@ -12694,7 +12694,7 @@ Solution:   Also apply "noremap" to abbreviations.
 Files:	    src/getchar.c
 
 Patch 6.2.419 (extra)
-Problem:    Win32: Cannot open the Vim window inside another application.
+Problem:    Win32: Cannot open the uVim window inside another application.
 Solution:   Add the "-P" argument to specify the window title of the
 	    application to run inside. (Zibo Zhao)
 Files:	    runtime/doc/starting.txt, src/main.c, src/gui_w32.c,
@@ -12754,7 +12754,7 @@ Files:	    src/mbyte.c, src/os_amiga.c, src/os_mswin.c, src/proto/mbyte.pro,
 	    src/proto/os_mswin.pro, src/ui.c
 
 Patch 6.2.428
-Problem:    The X11 clipboard supports the Vim selection for char/line/block
+Problem:    The X11 clipboard supports the uVim selection for char/line/block
 	    mode, but since the encoding is not included  can't copy/paste
 	    between two Vims with a different 'encoding'.
 Solution:   Add a new selection format that includes the 'encoding'.  Perform
@@ -12802,14 +12802,14 @@ Solution:   Add type casts.
 Files:	    src/gui.c
 
 Patch 6.2.435
-Problem:    When there are vertically split windows the minimal Vim window
+Problem:    When there are vertically split windows the minimal uVim window
 	    height is computed wrong.
 Solution:   Use frame_minheight() to correctly compute the minimal height.
 Files:	    src/window.c
 
 Patch 6.2.436
 Problem:    Running the tests changes the user's viminfo file.
-Solution:   In test 49 tell the extra Vim to use the test viminfo file.
+Solution:   In test 49 tell the extra uVim to use the test viminfo file.
 Files:	    src/testdir/test49.vim
 
 Patch 6.2.437
@@ -12943,7 +12943,7 @@ Solution:   Set the LC_NUMERIC locale to "C" while executing a Python command.
 Files:	    src/if_python.c
 
 Patch 6.2.456 (extra)
-Problem:    Win32: Editing a file by its Unicode name (dropping it on Vim or
+Problem:    Win32: Editing a file by its Unicode name (dropping it on uVim or
 	    using the file selection dialog) doesn't work. (Yakov Lerner, Alex
 	    Jakushev)
 Solution:   Use wide character functions when file names are involved and
@@ -13050,11 +13050,11 @@ Files:	    src/auto/configure, src/configure.in, src/link.sh
 Patch 6.2.472
 Problem:    When using a FileChangedShell autocommand that changes the current
 	    buffer, a buffer exists that can't be wiped out.
-	    Also, Vim sometimes crashes when executing an external command
+	    Also, uVim sometimes crashes when executing an external command
 	    that changes the buffer and a FileChangedShell autocommand is
 	    used.  (Hari Krishna Dara)
 	    Users are confused by the warning for a file being changed outside
-	    of Vim.
+	    of uVim.
 Solution:   Avoid that the window counter for a buffer is incremented twice.
 	    Avoid that buf_check_timestamp() is used recursively.
 	    Add a hint to look in the help for more info.
@@ -13066,7 +13066,7 @@ Solution:   Check for name to be present before using it. (Taro Muraoka)
 Files:	    src/tag.c
 
 Patch 6.2.474 (extra, after 6.2.456)
-Problem:    When Vim is starting up conversion is done unnecessarily.  Failure
+Problem:    When uVim is starting up conversion is done unnecessarily.  Failure
 	    to find the runtime files on Windows 98. (Randall W. Morris)
 Solution:   Init enc_codepage negative, only use it when not negative.
 	    Don't use GetFileAttributesW() on Windows 98 or earlier.
@@ -13074,14 +13074,14 @@ Files:	    src/globals.h, src/gui_w32.c, src/gui_w48.c, src/os_mswin.c,
 	    src/os_win32.c
 
 Patch 6.2.475
-Problem:    Commands after "perl <<EOF" are parsed as Vim commands when they
+Problem:    Commands after "perl <<EOF" are parsed as uVim commands when they
 	    are not executed.
 Solution:   Properly skip over the perl commands.
 Files:	    src/ex_docmd.c, src/ex_getln.c, src/if_perl.xs, src/if_python.c,
 	    src/if_ruby.c, src/if_tcl.c, src/misc2.c
 
 Patch 6.2.476
-Problem:    When reloading a hidden buffer changed outside of Vim and the
+Problem:    When reloading a hidden buffer changed outside of uVim and the
 	    current buffer is read-only, the reloaded buffer becomes
 	    read-only.  (Hari Krishna Dara)
 Solution:   Save the 'readonly' flag of the reloaded buffer instead of the
@@ -13089,7 +13089,7 @@ Solution:   Save the 'readonly' flag of the reloaded buffer instead of the
 Files:	    src/fileio.c
 
 Patch 6.2.477
-Problem:    Using remote_send(v:servername, "\<C-V>") causes Vim to hang.
+Problem:    Using remote_send(v:servername, "\<C-V>") causes uVim to hang.
 	    (Yakov Lerner)
 Solution:   When the resulting string is empty don't set received_from_client.
 Files:	    src/main.c
@@ -13108,7 +13108,7 @@ Files:	    src/main.c, src/message.c, src/memline.c
 
 Patch 6.2.480
 Problem:    NetBeans: Using negative index in array.  backslash at end of
-	    message may cause Vim to crash. (Xavier de Gaye)
+	    message may cause uVim to crash. (Xavier de Gaye)
 Solution:   Initialize buf_list_used to zero. Check for trailing backslash.
 Files:	    src/netbeans.c
 
@@ -13169,8 +13169,8 @@ Solution:   Add the ")".  (Ciaran McCreesh)
 Files:	    runtime/filetype.vim
 
 Patch 6.2.489
-Problem:    When accidentally opening a session in Vim which has already been
-	    opened in another Vim there is a long row of ATTENTION prompts.
+Problem:    When accidentally opening a session in uVim which has already been
+	    opened in another uVim there is a long row of ATTENTION prompts.
 	    Need to quit each of them to get out. (Robert Webb)
 Solution:   Add the "Abort" alternative to the dialog.
 Files:	    src/memline.c
@@ -13215,7 +13215,7 @@ Files:	    src/gui_w32.c, src/gui_w48.c
 
 Patch 6.2.496
 Problem:    FreeBSD 4.x: When compiled with the pthread library (Python) a
-	    complicated pattern may cause Vim to crash.  Catching the signal
+	    complicated pattern may cause uVim to crash.  Catching the signal
 	    doesn't work.
 Solution:   When compiled with threads, instead of using the normal stacksize
 	    limit, use the size of the initial stack.
@@ -13248,8 +13248,8 @@ Solution:   Add --binary to the diff argument in MyDiff(). (Alejandro Lopez-
 Files:	    src/dosinst.c
 
 Patch 6.2.501
-Problem:    Vim does not compile with MorphOS.
-Solution:   Add a Makefile and a few changes to make Vim work with MorphOS.
+Problem:    uVim does not compile with MorphOS.
+Solution:   Add a Makefile and a few changes to make uVim work with MorphOS.
 	    (Ali Akcaagac)
 Files:	    runtime/doc/os_amiga.txt, src/INSTALLami.txt,
 	    src/Make_morphos.mak, src/memfile.c, src/term.c
@@ -13407,12 +13407,12 @@ Problem:    Win32: (un)installing gvimext.dll may fail if it was used.
 	    instead of all users.
 	    Using the home directory as working directory for the links is a
 	    bad idea for multi-user systems.
-	    Cannot use Vim from the "Open With..." menu.
+	    Cannot use uVim from the "Open With..." menu.
 Solution:   Force a reboot if necessary. (Alejandro Lopez-Valencia)  Also use
 	    macros for the directory of the source and runtime files.  Use
 	    "CSIDL_COMMON_*" instead of "CSIDL_*" when possible.
 	    Do not specify a working directory in the links.
-	    Add Vim to the "Open With..." menu. (Giuseppe Bilotta)
+	    Add uVim to the "Open With..." menu. (Giuseppe Bilotta)
 Files:	    nsis/gvim.nsi, src/dosinst.c, src/dosinst.h, src/uninstal.c
 
 Patch 6.2.525
@@ -13474,7 +13474,7 @@ Files:	    src/diff.c
 
 Patch 6.3a.002
 Problem:    NetBeans: An insert command from NetBeans beyond the end of a
-	    buffer crashes Vim. (Xavier de Gaye)
+	    buffer crashes uVim. (Xavier de Gaye)
 Solution:   Use a local pos_T structure for the position.
 Files:	    src/netbeans.c
 
@@ -13537,8 +13537,8 @@ Files:	    runtime/plugin/explorer.vim, src/eval.c, src/os_unix.c
 Patch 6.3a.012 (extra)
 Problem:    On Windows 98 the installer doesn't work, don't even get the "I
 	    agree" button.  The check for the path ending in "vim" makes the
-	    browse dialog hard to use.  The default path when no previous Vim
-	    is installed is "c:\vim" instead of "c:\Program Files\Vim".
+	    browse dialog hard to use.  The default path when no previous uVim
+	    is installed is "c:\vim" instead of "c:\Program Files\uVim".
 Solution:   Remove the background gradient command.  Change the
 	    .onVerifyInstDir function to a leave function for the directory
 	    page.  Don't let the install program default to c:\vim when no
@@ -13574,7 +13574,7 @@ Solution:   Flush output after showing the dialog.
 Files:	    src/message.c
 
 Patch 6.3a.017
-Problem:    servername() doesn't work when Vim was started with the "-X"
+Problem:    servername() doesn't work when uVim was started with the "-X"
 	    argument or when the "exclude" in 'clipboard' matches the terminal
 	    name.  (Robert Nowotniak)
 Solution:   Force connecting to the X server when using client-server
@@ -13623,7 +13623,7 @@ Files:	    src/ex_getln.c
 
 Patch 6.3a.024
 Problem:    The "save all" toolbar item fails for buffers that don't have a
-	    name.  When using ":wa" or closing the Vim window and there are
+	    name.  When using ":wa" or closing the uVim window and there are
 	    nameless buffers, browsing for a name may cause the name being
 	    given to the wrong buffer or not stored properly.  ":browse" only
 	    worked for one file.
@@ -13672,7 +13672,7 @@ Files:	    src/fileio.c
 
 Patch 6.3b.003 (extra)
 Problem:    Win32: When compiling with Borland C 5.5 and 'encoding' is "utf-8"
-	    then Vim can't open files under MS-Windows 98. (Antoine J.
+	    then uVim can't open files under MS-Windows 98. (Antoine J.
 	    Mechelynck)
 Solution:   Don't use _wstat(), _wopen() and _wfopen() in this situation.
 Files:	    src/os_mswin.c, src/os_win32.c
@@ -13817,12 +13817,12 @@ Files:	    src/screen.c, src/structs.h
 
 Patch 6.3b.026
 Problem:    When selecting "abort" at the ATTENTION prompt for a file that is
-	    already being edited Vim crashes.
+	    already being edited uVim crashes.
 Solution:   Don't abort creating a new buffer when we really need it.
 Files:	    src/buffer.c, src/vim.h
 
 Patch 6.3b.027
-Problem:    Win32: When enabling the menu in a maximized window, Vim uses more
+Problem:    Win32: When enabling the menu in a maximized window, uVim uses more
 	    lines than what is room for. (Shizhu Pan)
 Solution:   When deciding to call shell_resized(), also compare the text area
 	    size with Rows and Columns, not just with screen_Rows and
@@ -14129,7 +14129,7 @@ Files:	    src/if_python.c
 
 Patch 6.3.033
 Problem:    When a mapping ends in a Normal mode command of more than one
-	    character Vim doesn't return to Insert mode.
+	    character uVim doesn't return to Insert mode.
 Solution:   Check that the mapping has ended after obtaining all characters of
 	    the Normal mode command.
 Files:	    src/normal.c
@@ -14251,7 +14251,7 @@ Files:	    src/misc1.c, src/main.c
 
 Patch 6.3.051
 Problem:    When 'wildmenu' is set and completed file names contain multi-byte
-	    characters Vim may crash.
+	    characters uVim may crash.
 Solution:   Reserve room for multi-byte characters. (Yasuhiro Matsumoto)
 Files:	    src/screen.c
 
@@ -14269,15 +14269,15 @@ Solution:   Use mch_open() instead of open() to open the file.
 Files:	    src/ex_cmds2.c
 
 Patch 6.3.054
-Problem:    When 'insertmode' is set <C-L>4ixxx<C-L> hangs Vim. (Jens Paulus)
-	    Vim is actually still working but redraw is disabled.
+Problem:    When 'insertmode' is set <C-L>4ixxx<C-L> hangs uVim. (Jens Paulus)
+	    uVim is actually still working but redraw is disabled.
 Solution:   When stopping Insert mode with CTRL-L don't put an Esc in the redo
 	    buffer but a CTRL-L.
 Files:	    src/edit.c
 
 Patch 6.3.055 (after 6.3.013)
 Problem:    Can't use getcmdline(), getcmdpos() or setcmdpos() with <C-R>=
-	    when editing a command line.  Using <C-\>e may crash Vim. (Peter
+	    when editing a command line.  Using <C-\>e may crash uVim. (Peter
 	    Winters)
 Solution:   When moving ccline out of the way for recursive use, make it
 	    available to the functions that need it.  Also save and restore
@@ -14299,7 +14299,7 @@ Files:	    src/ex_cmds.c
 
 Patch 6.3.058
 Problem:    When 'foldcolumn' is equal to the window width and 'wrap' is on
-	    Vim may crash.  Disabling the vertical split feature breaks
+	    uVim may crash.  Disabling the vertical split feature breaks
 	    compiling.  (Peter Winters)
 Solution:   Check for zero room for wrapped text.  Make compiling without
 	    vertical splits possible.
@@ -14320,7 +14320,7 @@ Files:	    src/edit.c
 Patch 6.3.061
 Problem:    When editing a utf-8 file in an utf-8 xterm and there is a
 	    multi-byte character in the last column, displaying is messed up.
-	    (Joël Rio)
+	    (Joï¿½l Rio)
 Solution:   Check for a multi-byte character, not a multi-column character.
 Files:	    src/screen.c
 
@@ -14365,13 +14365,13 @@ Solution:   Resolve the link, so that the actual file is renamed and
 Files:	    runtime/plugin/gzip.vim
 
 Patch 6.3.069
-Problem:    When converting text with illegal characters Vim may crash.
+Problem:    When converting text with illegal characters uVim may crash.
 Solution:   Avoid that too much is subtracted from the length. (Da Woon Jung)
 Files:	    src/mbyte.c
 
 Patch 6.3.070
 Problem:    After ":set number linebreak wrap" and a vertical split, moving
-	    the vertical separator far left will crash Vim. (Georg Dahn)
+	    the vertical separator far left will crash uVim. (Georg Dahn)
 Solution:   Avoid dividing by zero.
 Files:	    src/charset.c
 
@@ -14388,10 +14388,10 @@ Solution:   Make the msg_buf size larger when using multi-byte.
 Files:	    src/vim.h
 
 Patch 6.3.073
-Problem:    Win32 GUI: When the Vim window is partly above or below the
+Problem:    Win32 GUI: When the uVim window is partly above or below the
 	    screen, scrolling causes display errors when the taskbar is not on
 	    that side.
-Solution:   Use the SW_INVALIDATE flag when the Vim window is partly below or
+Solution:   Use the SW_INVALIDATE flag when the uVim window is partly below or
 	    above the screen.
 Files:	    src/gui_w48.c
 
@@ -14459,7 +14459,7 @@ Files:	    src/term.c
 Patch 6.3.084 (extra)
 Problem:    Cygwin: compiling with DEBUG doesn't work.  Perl path was ignored.
 	    Failure when $(OUTDIR) already exists.  "po" makefile is missing.
-Solution:   Use changes tested in Vim 7. (Tony Mechelynck)
+Solution:   Use changes tested in uVim 7. (Tony Mechelynck)
 Files:	    src/Make_cyg.mak, src/po/Make_cyg.mak
 
 Patch 6.3.085
@@ -14503,7 +14503,7 @@ Solution:   Run "make depend" with manual changes to avoid a gcc
 Files:	    src/Makefile
 
 Patch 6.4b.001
-Problem:    Vim reports "Vim 6.4a" in the ":version" output.
+Problem:    uVim reports "uVim 6.4a" in the ":version" output.
 Solution:   Change "a" to "b". (Tony Mechelynck)
 Files:	    src/version.h
 

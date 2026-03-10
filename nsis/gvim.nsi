@@ -1,4 +1,4 @@
-# NSIS file to create a self-installing exe for Vim.
+# NSIS file to create a self-installing exe for uVim.
 # It requires NSIS version 2.0 or later.
 # Last Change:	2014 Nov 5
 
@@ -35,7 +35,7 @@
 !include LogicLib.nsh
 !include x64.nsh
 
-Name "Vim ${VER_MAJOR}.${VER_MINOR}"
+Name "uVim ${VER_MAJOR}.${VER_MINOR}"
 OutFile gvim${VER_MAJOR}${VER_MINOR}.exe
 CRCCheck force
 SetCompressor /SOLID lzma
@@ -43,13 +43,13 @@ SetDatablockOptimize on
 RequestExecutionLevel highest
 XPStyle on
 
-ComponentText "This will install Vim ${VER_MAJOR}.${VER_MINOR} on your computer."
-DirText "Choose a directory to install Vim (should contain 'vim')"
+ComponentText "This will install uVim ${VER_MAJOR}.${VER_MINOR} on your computer."
+DirText "Choose a directory to install uVim (should contain 'vim')"
 Icon icons\vim_16c.ico
 # NSIS2 uses a different strategy with six different images in a strip...
 #EnabledBitmap icons\enabled.bmp
 #DisabledBitmap icons\disabled.bmp
-UninstallText "This will uninstall Vim ${VER_MAJOR}.${VER_MINOR} from your system."
+UninstallText "This will uninstall uVim ${VER_MAJOR}.${VER_MINOR} from your system."
 UninstallIcon icons\vim_uninst_16c.ico
 
 # On NSIS 2 using the BGGradient causes trouble on Windows 98, in combination
@@ -64,7 +64,7 @@ LicenseData ${VIMRT}\doc\uganda.nsis.txt
 
 # This adds '\vim' to the user choice automagically.  The actual value is
 # obtained below with ReadINIStr.
-InstallDir "$PROGRAMFILES\Vim"
+InstallDir "$PROGRAMFILES\uVim"
 
 # Types of installs we can perform:
 InstType Typical
@@ -86,7 +86,7 @@ UninstPage instfiles
 
 Function .onInit
   MessageBox MB_YESNO|MB_ICONQUESTION \
-	"This will install Vim ${VER_MAJOR}.${VER_MINOR} on your computer.$\n Continue?" \
+	"This will install uVim ${VER_MAJOR}.${VER_MINOR} on your computer.$\n Continue?" \
 	IDYES NoAbort
 	    Abort ; causes installer to quit.
 	NoAbort:
@@ -108,7 +108,7 @@ Function .onInit
 
   # If ReadINIStr failed or did not find a path: use the default dir.
   StrCmp $INSTDIR "" 0 IniOK
-  StrCpy $INSTDIR "$PROGRAMFILES\Vim"
+  StrCpy $INSTDIR "$PROGRAMFILES\uVim"
   IniOK:
 
   # Should check for the value of $VIM and use it.  Unfortunately I don't know
@@ -155,7 +155,7 @@ FunctionEnd
 
 Function un.onUnInstSuccess
   MessageBox MB_OK|MB_ICONINFORMATION \
-  "Vim ${VER_MAJOR}.${VER_MINOR} has been (partly) removed from your system"
+  "uVim ${VER_MAJOR}.${VER_MINOR} has been (partly) removed from your system"
 FunctionEnd
 
 Function un.GetParent
@@ -177,7 +177,7 @@ Function un.GetParent
 FunctionEnd
 
 ##########################################################
-Section "Vim executables and runtime files"
+Section "uVim executables and runtime files"
 	SectionIn 1 2 3
 
 	# we need also this here if the user changes the instdir
@@ -263,7 +263,7 @@ Section "Vim executables and runtime files"
 SectionEnd
 
 ##########################################################
-Section "Vim console program (vim.exe)"
+Section "uVim console program (vim.exe)"
 	SectionIn 1 3
 
 	SetOutPath $0
@@ -294,20 +294,20 @@ Section "Create icons on the Desktop"
 SectionEnd
 
 ##########################################################
-Section "Add Vim to the Start Menu"
+Section "Add uVim to the Start Menu"
 	SectionIn 1 3
 
 	StrCpy $1 "$1 -add-start-menu"
 SectionEnd
 
 ##########################################################
-Section "Add an Edit-with-Vim context menu entry"
+Section "Add an Edit-with-uVim context menu entry"
 	SectionIn 1 3
 
 	# Be aware of this sequence of events:
-	# - user uninstalls Vim, gvimext.dll can't be removed (it's in use) and
+	# - user uninstalls uVim, gvimext.dll can't be removed (it's in use) and
 	#   is scheduled to be removed at next reboot.
-	# - user installs Vim in same directory, gvimext.dll still exists.
+	# - user installs uVim in same directory, gvimext.dll still exists.
 	# If we now skip installing gvimext.dll, it will disappear at the next
 	# reboot.  Thus when copying gvimext.dll fails always schedule it to be
 	# installed at the next reboot.  Can't use UpgradeDLL!
@@ -417,10 +417,10 @@ Section Uninstall
 	# We may have been put to the background when uninstall did something.
 	BringToFront
 
-	# ask the user if the Vim version dir must be removed
+	# ask the user if the uVim version dir must be removed
 	MessageBox MB_YESNO|MB_ICONQUESTION \
 	  "Would you like to delete $0?$\n \
-	   $\nIt contains the Vim executables and runtime files." IDNO NoRemoveExes
+	   $\nIt contains the uVim executables and runtime files." IDNO NoRemoveExes
 
 	Delete /REBOOTOK $0\*.dll
 	ClearErrors
@@ -478,10 +478,10 @@ Section Uninstall
 	    RMDir /r $1\vimfiles
 	  NoRemove:
 
-	# ask the user if the Vim root dir must be removed
+	# ask the user if the uVim root dir must be removed
 	MessageBox MB_YESNO|MB_ICONQUESTION \
 	  "Would you like to remove $0?$\n \
-	   $\nIt contains your Vim configuration files!" IDNO NoDelete
+	   $\nIt contains your uVim configuration files!" IDNO NoDelete
 	   RMDir /r $0 ; skipped if no
 	NoDelete:
 

@@ -1,4 +1,4 @@
-This builds a one-click install for Vim for Win32 using the Nullsoft
+This builds a one-click install for uVim for Win32 using the Nullsoft
 Installation System (NSIS), available at http://www.nullsoft.com/free/nsis/
 
 To build the installable .exe:
@@ -27,8 +27,8 @@ To build the installable .exe:
     get them from a binary archive).
 
 6.  Get a "diff.exe" program and put it in the "../.." directory (above the
-    "vim61" directory, it's the same for all Vim versions).
-    You can find one in previous Vim versions or in this archive:
+    "vim61" directory, it's the same for all uVim versions).
+    You can find one in previous uVim versions or in this archive:
 		http://www.mossbayeng.com/~ron/vim/diffutils.tar.gz
 
 7.  Do "make uganda.nsis.txt" in runtime/doc.  This requires sed, you may have

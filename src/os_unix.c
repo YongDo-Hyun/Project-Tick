@@ -1,12 +1,12 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *	      OS/2 port by Paul Slootman
  *	      VMS merge by Zoltan Arpadffy
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -306,7 +306,7 @@ static struct signalinfo
 #endif
 #if defined(SIGPROF) && !defined(FEAT_MZSCHEME) && !defined(WE_ARE_PROFILING)
     /* MzScheme uses SIGPROF for its own needs; On Linux with profiling
-     * this makes Vim exit.  WE_ARE_PROFILING is defined in Makefile.  */
+     * this makes uVim exit.  WE_ARE_PROFILING is defined in Makefile.  */
     {SIGPROF,	    "PROF",	TRUE},
 #endif
 #ifdef SIGXCPU
@@ -625,7 +625,7 @@ mch_total_mem(int special UNUSED)
 # endif
 
     /* Return the minimum of the physical memory and the user limit, because
-     * using more than the user limit may cause Vim to be terminated. */
+     * using more than the user limit may cause uVim to be terminated. */
 # if defined(HAVE_SYS_RESOURCE_H) && defined(HAVE_GETRLIMIT)
     {
 	struct rlimit	rlp;
@@ -1041,7 +1041,7 @@ deathtrap SIGDEFARG(sigarg)
 # ifdef SIGQUIT
     /* While in mch_delay() we go to cooked mode to allow a CTRL-C to
      * interrupt us.  But in cooked mode we may also get SIGQUIT, e.g., when
-     * pressing CTRL-\, but we don't want Vim to exit then. */
+     * pressing CTRL-\, but we don't want uVim to exit then. */
     if (in_mch_delay && sigarg == SIGQUIT)
 	SIGRETURN;
 # endif
@@ -1095,8 +1095,8 @@ deathtrap SIGDEFARG(sigarg)
 #endif
 
 #if 0
-    /* This is for opening gdb the moment Vim crashes.
-     * You need to manually adjust the file name and Vim executable name.
+    /* This is for opening gdb the moment uVim crashes.
+     * You need to manually adjust the file name and uVim executable name.
      * Suggested by SungHyun Nam. */
     {
 # define VI_GDB_FILE "/tmp/vimgdb"
@@ -1147,17 +1147,17 @@ deathtrap SIGDEFARG(sigarg)
     if (entered == 2)
     {
 	/* No translation, it may call malloc(). */
-	OUT_STR("Vim: Double signal, exiting\n");
+	OUT_STR("uVim: Double signal, exiting\n");
 	out_flush();
 	getout(1);
     }
 
     /* No translation, it may call malloc(). */
 #ifdef SIGHASARG
-    sprintf((char *)IObuff, "Vim: Caught deadly signal %s\n",
+    sprintf((char *)IObuff, "uVim: Caught deadly signal %s\n",
 							 signal_info[i].name);
 #else
-    sprintf((char *)IObuff, "Vim: Caught deadly signal\n");
+    sprintf((char *)IObuff, "uVim: Caught deadly signal\n");
 #endif
 
     /* Preserve files and exit.  This sets the really_exiting flag to prevent
@@ -1211,7 +1211,7 @@ static void *clip_plus_save = NULL;
 # endif
 
 /*
- * Called when Vim is going to sleep or execute a shell command.
+ * Called when uVim is going to sleep or execute a shell command.
  * We can't respond to requests for the X selections.  Lose them, otherwise
  * other applications will hang.  But first copy the text to cut buffer 0.
  */
@@ -1294,7 +1294,7 @@ mch_suspend(void)
     /*
      * Wait for the SIGCONT signal to be handled. It generally happens
      * immediately, but somehow not all the time. Do not call pause()
-     * because there would be race condition which would hang Vim if
+     * because there would be race condition which would hang uVim if
      * signal happened in between the test of sigcont_received and the
      * call to pause(). If signal is not yet received, call sleep(0)
      * to just yield CPU. Signal should then be received. If somehow
@@ -1390,7 +1390,7 @@ set_signals(void)
 #endif
 
     /*
-     * Arrange for other signals to gracefully shutdown Vim.
+     * Arrange for other signals to gracefully shutdown uVim.
      */
     catch_signals(deathtrap, SIG_ERR);
 
@@ -1476,7 +1476,7 @@ catch_signals(
  * "when" == SIGNAL_BLOCK:   Going to be busy, block signals
  * "when" == SIGNAL_UNBLOCK: Going to wait, unblock signals, use postponed
  *			     signal
- * Returns TRUE when Vim should exit.
+ * Returns TRUE when uVim should exit.
  */
     int
 vim_handle_signal(int sig)
@@ -1630,7 +1630,7 @@ x_IOerror_handler(Display *dpy UNUSED)
 
 /*
  * If the X11 connection was lost try to restore it.
- * Helps when the X11 server was stopped and restarted while Vim was inactive
+ * Helps when the X11 server was stopped and restarted while uVim was inactive
  * (e.g. through tmux).
  */
     static void
@@ -1641,7 +1641,7 @@ may_restore_clipboard(void)
 	xterm_dpy_was_reset = FALSE;
 
 # ifndef LESSTIF_VERSION
-	/* This has been reported to avoid Vim getting stuck. */
+	/* This has been reported to avoid uVim getting stuck. */
 	if (app_context != (XtAppContext)NULL)
 	{
 	    XtDestroyApplicationContext(app_context);
@@ -1739,7 +1739,7 @@ get_x11_windis(void)
     if (gui.in_use)
     {
 	/*
-	 * If the X11 display was opened here before, for the window where Vim
+	 * If the X11 display was opened here before, for the window where uVim
 	 * was started, close that one now to avoid a memory leak.
 	 */
 	if (x11_display_from == XD_HERE && x11_display != NULL)
@@ -1786,7 +1786,7 @@ get_x11_windis(void)
 	{
 	    /*
 	     * If the X11 display was opened here before, for the window where
-	     * Vim was started, close that one now to avoid a memory leak.
+	     * uVim was started, close that one now to avoid a memory leak.
 	     */
 	    if (x11_display_from == XD_HERE && x11_display != NULL)
 		XCloseDisplay(x11_display);
@@ -4221,7 +4221,7 @@ mch_call_shell(
     /*
      * For the GUI, when writing the output into the buffer and when reading
      * input from the buffer: Try using a pseudo-tty to get the stdin/stdout
-     * of the executed command into the Vim window.  Or use a pipe.
+     * of the executed command into the uVim window.  Or use a pipe.
      */
     if ((options & (SHELL_READ|SHELL_WRITE))
 # ifdef FEAT_GUI
@@ -5003,7 +5003,7 @@ finished:
 
 	    /*
 	     * Set to raw mode right now, otherwise a CTRL-C after
-	     * catch_signals() will kill Vim.
+	     * catch_signals() will kill uVim.
 	     */
 	    if (tmode == TMODE_RAW)
 		settmode(TMODE_RAW);
@@ -6626,7 +6626,7 @@ mch_gpm_process(void)
     gpm_modifiers = gpm_event.modifiers;
     vim_modifiers = 0x0;
     /* I ignore capslock stats. Aren't we all just hate capslock mixing with
-     * Vim commands ? Besides, gpm_event.modifiers is unsigned char, and
+     * uVim commands ? Besides, gpm_event.modifiers is unsigned char, and
      * K_CAPSSHIFT is defined 8, so it probably isn't even reported
      */
     if (gpm_modifiers & ((1 << KG_SHIFT) | (1 << KG_SHIFTR) | (1 << KG_SHIFTL)))

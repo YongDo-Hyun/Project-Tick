@@ -1,4 +1,4 @@
-*usr_28.txt*	For Vim version 7.4.  Last change: 2008 Jun 14
+*usr_28.txt*	For uVim version 7.4.  Last change: 2008 Jun 14
 
 		     VIM USER MANUAL - by Bram Moolenaar
 
@@ -315,8 +315,8 @@ More about folding with markers in the reference manual: |fold-marker|
 ==============================================================================
 *28.7*	Folding by syntax
 
-For each language Vim uses a different syntax file.  This defines the colors
-for various items in the file.  If you are reading this in Vim, in a terminal
+For each language uVim uses a different syntax file.  This defines the colors
+for various items in the file.  If you are reading this in uVim, in a terminal
 that supports colors, the colors you see are made with the "help" syntax file.
    In the syntax files it is possible to add syntax items that have the "fold"
 argument.  These define a fold region.  This requires writing a syntax file
@@ -364,7 +364,7 @@ the command-line completion: >
 
 	:set foldexpr=<Tab>
 
-Where <Tab> is a real Tab.  Vim will fill in the previous value, which you can
+Where <Tab> is a real Tab.  uVim will fill in the previous value, which you can
 then edit.
 
 When the expression gets more complicated you should put it in a function and

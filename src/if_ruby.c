@@ -1,14 +1,14 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
  * Ruby interface by Shugo Maeda
  *   with improvements by SegPhault (Ryan Paul)
  *   with improvements by Jon Maken
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -1544,9 +1544,9 @@ static void ruby_vim_init(void)
     objtbl = rb_hash_new();
     rb_global_variable(&objtbl);
 
-    /* The Vim module used to be called "VIM", but "Vim" is better.  Make an
+    /* The uVim module used to be called "VIM", but "uVim" is better.  Make an
      * alias "VIM" for backwards compatibility. */
-    mVIM = rb_define_module("Vim");
+    mVIM = rb_define_module("uVim");
     rb_define_const(rb_cObject, "VIM", mVIM);
     rb_define_const(mVIM, "VERSION_MAJOR", INT2NUM(VIM_VERSION_MAJOR));
     rb_define_const(mVIM, "VERSION_MINOR", INT2NUM(VIM_VERSION_MINOR));

@@ -1,14 +1,14 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
- * dosinst.c: Install program for Vim on MS-DOS and MS-Windows
+ * dosinst.c: Install program for uVim on MS-DOS and MS-Windows
  *
  * Compile with Make_mvc.mak, Make_bc3.mak, Make_bc5.mak or Make_djg.mak.
  */
@@ -58,13 +58,13 @@ enum
 };
 char	*(compat_choices[]) =
 {
-    "\nChoose the default way to run Vim:",
+    "\nChoose the default way to run uVim:",
     "Vi compatible",
-    "with some Vim enhancements",
+    "with some uVim enhancements",
     "with syntax highlighting and other features switched on",
 };
 int	compat_choice = (int)compat_all_enhancements;
-char	*compat_text = "- run Vim %s";
+char	*compat_text = "- run uVim %s";
 
 enum
 {
@@ -87,7 +87,7 @@ enum
 };
 char	*(mouse_choices[]) =
 {
-    "\nChoose the way how Vim uses the mouse:",
+    "\nChoose the way how uVim uses the mouse:",
     "right button extends selection (the Unix way)",
     "right button has a popup menu (the Windows way)",
 };
@@ -216,7 +216,7 @@ check_unpack(void)
     }
     if (!has_gvim && !has_vim)
     {
-	printf("ERROR: Cannot find any Vim executables in \"%s\"\n\n",
+	printf("ERROR: Cannot find any uVim executables in \"%s\"\n\n",
 								  installdir);
 	myexit(1);
     }
@@ -363,7 +363,7 @@ find_bat_exe(int check_bat_only)
 /*
  * Get the value of $VIMRUNTIME or $VIM and write it in $TEMP/vimini.ini, so
  * that NSIS can read it.
- * When not set, use the directory of a previously installed Vim.
+ * When not set, use the directory of a previously installed uVim.
  */
     static void
 get_vim_env(void)
@@ -432,7 +432,7 @@ window_cb(HWND hwnd, LPARAM lparam)
 
     title[0] = 0;
     GetWindowText(hwnd, title, 256);
-    if (strstr(title, "Vim ") != NULL && strstr(title, "Uninstall:") != NULL)
+    if (strstr(title, "uVim ") != NULL && strstr(title, "Uninstall:") != NULL)
 	++num_windows;
     return TRUE;
 }
@@ -469,9 +469,9 @@ uninstall_check(int skip_question)
 	    key_index++)
     {
 	local_bufsize = BUFSIZE;
-	if (strncmp("Vim", subkey_name_buff, 3) == 0)
+	if (strncmp("uVim", subkey_name_buff, 3) == 0)
 	{
-	    /* Open the key named Vim* */
+	    /* Open the key named uVim* */
 	    code = RegOpenKeyEx(key_handle, subkey_name_buff, 0,
 			   KEY_WOW64_64KEY | KEY_READ, &uninstall_key_handle);
 	    CHECK_REG_ERROR(code);
@@ -485,12 +485,12 @@ uninstall_check(int skip_question)
 
 	    foundone = 1;
 	    printf("\n*********************************************************\n");
-	    printf("Vim Install found what looks like an existing Vim version.\n");
+	    printf("uVim Install found what looks like an existing uVim version.\n");
 	    printf("The name of the entry is:\n");
 	    printf("\n        \"%s\"\n\n", temp_string_buffer);
 
 	    printf("Installing the new version will disable part of the existing version.\n");
-	    printf("(The batch files used in a console and the \"Edit with Vim\" entry in\n");
+	    printf("(The batch files used in a console and the \"Edit with uVim\" entry in\n");
 	    printf("the popup menu will use the new version)\n");
 
 	    if (skip_question)
@@ -637,7 +637,7 @@ inspect_system(void)
     {
 	printf("------------------------------------------------------\n");
 	printf("$VIM is set to \"%s\".\n", p);
-	printf("This is different from where this version of Vim is:\n");
+	printf("This is different from where this version of uVim is:\n");
 	strcpy(buf, installdir);
 	*(buf + runtimeidx - 1) = NUL;
 	printf("\"%s\"\n", buf);
@@ -647,7 +647,7 @@ inspect_system(void)
 	    printf("to be able to use this install program.\n");
 	    myexit(1);
 	}
-	printf("otherwise Vim WILL NOT WORK properly!\n");
+	printf("otherwise uVim WILL NOT WORK properly!\n");
 	printf("------------------------------------------------------\n");
     }
 
@@ -659,7 +659,7 @@ inspect_system(void)
     {
 	printf("------------------------------------------------------\n");
 	printf("$VIMRUNTIME is set to \"%s\".\n", p);
-	printf("This is different from where this version of Vim is:\n");
+	printf("This is different from where this version of uVim is:\n");
 	printf("\"%s\"\n", installdir);
 	printf("You must adjust or remove the setting of $VIMRUNTIME,\n");
 	if (interactive)
@@ -667,7 +667,7 @@ inspect_system(void)
 	    printf("to be able to use this install program.\n");
 	    myexit(1);
 	}
-	printf("otherwise Vim WILL NOT WORK properly!\n");
+	printf("otherwise uVim WILL NOT WORK properly!\n");
 	printf("------------------------------------------------------\n");
     }
 
@@ -691,7 +691,7 @@ inspect_system(void)
 
     if (foundone)
     {
-	printf("Warning: Found Vim executable(s) in your $PATH:\n");
+	printf("Warning: Found uVim executable(s) in your $PATH:\n");
 	for (i = 1; i < TARGET_COUNT; ++i)
 	    if (targets[i].oldexe != NULL)
 		printf("%s\n", targets[i].oldexe);
@@ -760,7 +760,7 @@ install_bat_choice(int idx)
 	    need_uninstall_entry = 1;
 
 	    fprintf(fd, "@echo off\n");
-	    fprintf(fd, "rem -- Run Vim --\n");
+	    fprintf(fd, "rem -- Run uVim --\n");
 	    fprintf(fd, "\n");
 	    fprintf(fd, "setlocal\n");
 
@@ -1004,8 +1004,8 @@ change_bat_choice(int idx)
     free(names);
 }
 
-char *bat_text_yes = "Install .bat files to use Vim at the command line:";
-char *bat_text_no = "do NOT install .bat files to use Vim at the command line";
+char *bat_text_yes = "Install .bat files to use uVim at the command line:";
+char *bat_text_no = "do NOT install .bat files to use uVim at the command line";
 
     static void
 change_main_bat_choice(int idx)
@@ -1255,7 +1255,7 @@ change_vimrc_choice(int idx)
 }
 
 /*
- * Change the choice how to run Vim.
+ * Change the choice how to run uVim.
  */
     static void
 change_run_choice(int idx)
@@ -1302,7 +1302,7 @@ init_vimrc_choices(void)
     choices[choice_count].active = 1;
     ++choice_count;
 
-    /* default way to run Vim */
+    /* default way to run uVim */
     alloc_text(choice_count, compat_text, compat_choices[compat_choice]);
     choices[choice_count].changefunc = change_run_choice;
     choices[choice_count].installfunc = NULL;
@@ -1420,7 +1420,7 @@ register_shellex(
 	{
 	    lRet = reg_create_key_and_value(
 		    HKEY_LOCAL_MACHINE,
-		    "Software\\Vim\\Gvim",
+		    "Software\\uVim\\Gvim",
 		    "path",
 		    exe_path);
 	}
@@ -1481,9 +1481,9 @@ register_uninstall(
 
 /*
  * Add some entries to the registry:
- * - to add "Edit with Vim" to the context * menu
- * - to add Vim to the "Open with..." list
- * - to uninstall Vim
+ * - to add "Edit with uVim" to the context * menu
+ * - to add uVim to the "Open with..." list
+ * - to uninstall uVim
  */
 /*ARGSUSED*/
     static int
@@ -1492,7 +1492,7 @@ install_registry(void)
 #ifdef WIN3264
     LONG	lRet = ERROR_SUCCESS;
     const char	*vim_ext_ThreadingModel = "Apartment";
-    const char	*vim_ext_name = "Vim Shell Extension";
+    const char	*vim_ext_name = "uVim Shell Extension";
     const char	*vim_ext_clsid = "{51EEE242-AD87-11d3-9C1E-0090278BBD99}";
     char	vim_exe_path[BUFSIZE];
     char	display_name[BUFSIZE];
@@ -1511,7 +1511,7 @@ install_registry(void)
 	    /* gvimext.dll is in gvimext subdir */
 	    sprintf(bufg, "%s\\gvimext\\gvimext.dll", installdir);
 
-	printf("Creating \"Edit with Vim\" popup menu entry\n");
+	printf("Creating \"Edit with uVim\" popup menu entry\n");
 
 	lRet = register_inproc_server(
 	    HKEY_CLASSES_ROOT, vim_ext_clsid, vim_ext_name,
@@ -1538,18 +1538,18 @@ install_registry(void)
     /* For the NSIS installer use the generated uninstaller. */
     if (interactive)
     {
-	sprintf(display_name, "Vim " VIM_VERSION_SHORT);
+	sprintf(display_name, "uVim " VIM_VERSION_SHORT);
 	sprintf(uninstall_string, "%s\\uninstal.exe", installdir);
     }
     else
     {
-	sprintf(display_name, "Vim " VIM_VERSION_SHORT " (self-installing)");
+	sprintf(display_name, "uVim " VIM_VERSION_SHORT " (self-installing)");
 	sprintf(uninstall_string, "%s\\uninstall-gui.exe", installdir);
     }
 
     lRet = register_uninstall(
 	HKEY_LOCAL_MACHINE,
-	"Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Vim " VIM_VERSION_SHORT,
+	"Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\uVim " VIM_VERSION_SHORT,
 	display_name,
 	uninstall_string);
     if (ERROR_SUCCESS != lRet)
@@ -1564,12 +1564,12 @@ change_popup_choice(int idx)
 {
     if (install_popup == 0)
     {
-	choices[idx].text = "Install an entry for Vim in the popup menu for the right\n    mouse button so that you can edit any file with Vim";
+	choices[idx].text = "Install an entry for uVim in the popup menu for the right\n    mouse button so that you can edit any file with uVim";
 	install_popup = 1;
     }
     else
     {
-	choices[idx].text = "Do NOT install an entry for Vim in the popup menu for the\n    right mouse button to edit any file with Vim";
+	choices[idx].text = "Do NOT install an entry for uVim in the popup menu for the\n    right mouse button to edit any file with uVim";
 	install_popup = 0;
     }
 }
@@ -1606,12 +1606,12 @@ change_openwith_choice(int idx)
 {
     if (install_openwith == 0)
     {
-	choices[idx].text = "Add Vim to the \"Open With...\" list in the popup menu for the right\n    mouse button so that you can edit any file with Vim";
+	choices[idx].text = "Add uVim to the \"Open With...\" list in the popup menu for the right\n    mouse button so that you can edit any file with uVim";
 	install_openwith = 1;
     }
     else
     {
-	choices[idx].text = "Do NOT add Vim to the \"Open With...\" list in the popup menu for the\n    right mouse button to edit any file with Vim";
+	choices[idx].text = "Do NOT add uVim to the \"Open With...\" list in the popup menu for the\n    right mouse button to edit any file with uVim";
 	install_openwith = 0;
     }
 }
@@ -1744,7 +1744,7 @@ build_link_name(
 	return FAIL;
     }
 
-    /* Make sure the directory exists (create Start Menu\Programs\Vim).
+    /* Make sure the directory exists (create Start Menu\Programs\uVim).
      * Ignore errors if it already exists. */
     vim_mkdir(shell_folder_path, 0755);
 
@@ -1789,7 +1789,7 @@ build_shortcut(
 #define WORKDIR "%HOMEDRIVE%%HOMEPATH%"
 
 /*
- * Create shortcut(s) in the Start Menu\Programs\Vim folder.
+ * Create shortcut(s) in the Start Menu\Programs\uVim folder.
  */
     static void
 install_start_menu(int idx)
@@ -1798,13 +1798,13 @@ install_start_menu(int idx)
     printf("Creating start menu\n");
     if (has_vim)
     {
-	if (build_shortcut("Vim", "vim.exe", "",
+	if (build_shortcut("uVim", "vim.exe", "",
 					      VIM_STARTMENU, WORKDIR) == FAIL)
 	    return;
-	if (build_shortcut("Vim Read-only", "vim.exe", "-R",
+	if (build_shortcut("uVim Read-only", "vim.exe", "-R",
 					      VIM_STARTMENU, WORKDIR) == FAIL)
 	    return;
-	if (build_shortcut("Vim Diff", "vim.exe", "-d",
+	if (build_shortcut("uVim Diff", "vim.exe", "-d",
 					      VIM_STARTMENU, WORKDIR) == FAIL)
 	    return;
     }
@@ -1829,7 +1829,7 @@ install_start_menu(int idx)
 	return;
     /* For Windows NT the working dir of the vimtutor.bat must be right,
      * otherwise gvim.exe won't be found and using gvimbat doesn't work. */
-    if (build_shortcut("Vim tutor", "vimtutor.bat", "",
+    if (build_shortcut("uVim tutor", "vimtutor.bat", "",
 					   VIM_STARTMENU, installdir) == FAIL)
 	return;
     if (build_shortcut("Help", has_gvim ? "gvim.exe" : "vim.exe", "-c h",
@@ -1845,11 +1845,11 @@ install_start_menu(int idx)
 	    return ;
 	}
 	add_pathsep(shell_folder_path);
-	strcat(shell_folder_path, "Vim Online.url");
+	strcat(shell_folder_path, "uVim Online.url");
 	if (!WritePrivateProfileString("InternetShortcut", "URL",
 				     "http://vim.sf.net/", shell_folder_path))
 	{
-	    printf("Creating the Vim online URL failed\n");
+	    printf("Creating the uVim online URL failed\n");
 	    return;
 	}
     }
@@ -1861,12 +1861,12 @@ toggle_startmenu_choice(int idx)
     if (choices[idx].installfunc == NULL)
     {
 	choices[idx].installfunc = install_start_menu;
-	choices[idx].text = "Add Vim to the Start menu";
+	choices[idx].text = "Add uVim to the Start menu";
     }
     else
     {
 	choices[idx].installfunc = NULL;
-	choices[idx].text = "Do NOT add Vim to the Start menu";
+	choices[idx].text = "Do NOT add uVim to the Start menu";
     }
 }
 
@@ -1994,14 +1994,14 @@ init_shortcut_choices(void)
 
 #ifdef WIN3264
 /*
- * Attempt to register OLE for Vim.
+ * Attempt to register OLE for uVim.
  */
    static void
 install_OLE_register(void)
 {
     char register_command_string[BUFSIZE + 30];
 
-    printf("\n--- Attempting to register Vim with OLE ---\n");
+    printf("\n--- Attempting to register uVim with OLE ---\n");
     printf("(There is no message whether this works or not.)\n");
 
 #ifndef __CYGWIN__
@@ -2183,13 +2183,13 @@ setup_choices(void)
     /* (over) write _vimrc file */
     init_vimrc_choices();
 
-    /* Whether to add Vim to the popup menu */
+    /* Whether to add uVim to the popup menu */
     init_popup_choice();
 
-    /* Whether to add Vim to the "Open With..." menu */
+    /* Whether to add uVim to the "Open With..." menu */
     init_openwith_choice();
 
-    /* Whether to add Vim to the Start Menu. */
+    /* Whether to add uVim to the Start Menu. */
     init_startmenu_choice();
 
     /* Whether to add shortcuts to the Desktop. */
@@ -2202,19 +2202,19 @@ setup_choices(void)
     static void
 print_cmd_line_help(void)
 {
-    printf("Vim installer non-interactive command line arguments:\n");
+    printf("uVim installer non-interactive command line arguments:\n");
     printf("\n");
     printf("-create-batfiles  [vim gvim evim view gview vimdiff gvimdiff]\n");
-    printf("    Create .bat files for Vim variants in the Windows directory.\n");
+    printf("    Create .bat files for uVim variants in the Windows directory.\n");
     printf("-create-vimrc\n");
     printf("    Create a default _vimrc file if one does not already exist.\n");
     printf("-install-popup\n");
-    printf("    Install the Edit-with-Vim context menu entry\n");
+    printf("    Install the Edit-with-uVim context menu entry\n");
     printf("-install-openwith\n");
-    printf("    Add Vim to the \"Open With...\" context menu list\n");
+    printf("    Add uVim to the \"Open With...\" context menu list\n");
 #ifdef WIN3264
     printf("-add-start-menu");
-    printf("    Add Vim to the start menu\n");
+    printf("    Add uVim to the start menu\n");
     printf("-install-icons");
     printf("    Create icons for gVim executables on the desktop\n");
 #endif
@@ -2334,15 +2334,15 @@ show_help(void)
 "Installing .bat files\n"
 "---------------------\n"
 "The vim.bat file is written in one of the directories in $PATH.\n"
-"This makes it possible to start Vim from the command line.\n"
+"This makes it possible to start uVim from the command line.\n"
 "If vim.exe can be found in $PATH, the choice for vim.bat will not be\n"
 "present.  It is assumed you will use the existing vim.exe.\n"
 "If vim.bat can already be found in $PATH this is probably for an old\n"
-"version of Vim (but this is not checked!).  You can overwrite it.\n"
+"version of uVim (but this is not checked!).  You can overwrite it.\n"
 "If no vim.bat already exists, you can select one of the directories in\n"
 "$PATH for creating the batch file, or disable creating a vim.bat file.\n"
 "\n"
-"If you choose not to create the vim.bat file, Vim can still be executed\n"
+"If you choose not to create the vim.bat file, uVim can still be executed\n"
 "in other ways, but not from the command line.\n"
 "\n"
 "The same applies to choices for gvim, evim, (g)view, and (g)vimdiff.\n"
@@ -2350,21 +2350,21 @@ show_help(void)
 ,
 "Creating a _vimrc file\n"
 "----------------------\n"
-"The _vimrc file is used to set options for how Vim behaves.\n"
+"The _vimrc file is used to set options for how uVim behaves.\n"
 "The install program can create a _vimrc file with a few basic choices.\n"
 "You can edit this file later to tune your preferences.\n"
 "If you already have a _vimrc or .vimrc file it can be overwritten.\n"
 "Don't do that if you have made changes to it.\n"
 ,
-"Vim features\n"
+"uVim features\n"
 "------------\n"
 "(this choice is only available when creating a _vimrc file)\n"
-"1. Vim can run in Vi-compatible mode.  Many nice Vim features are then\n"
-"   disabled.  In the not-Vi-compatible mode Vim is still mostly Vi\n"
+"1. uVim can run in Vi-compatible mode.  Many nice uVim features are then\n"
+"   disabled.  In the not-Vi-compatible mode uVim is still mostly Vi\n"
 "   compatible, but adds nice features like multi-level undo.  Only\n"
 "   choose Vi-compatible if you really need full Vi compatibility.\n"
-"2. Running Vim with some enhancements is useful when you want some of\n"
-"   the nice Vim features, but have a slow computer and want to keep it\n"
+"2. Running uVim with some enhancements is useful when you want some of\n"
+"   the nice uVim features, but have a slow computer and want to keep it\n"
 "   really fast.\n"
 "3. Syntax highlighting shows many files in color.  Not only does this look\n"
 "   nice, it also makes it easier to spot errors and you can work faster.\n"
@@ -2375,9 +2375,9 @@ show_help(void)
 "(this choice is only available when creating a _vimrc file)\n"
 "Under MS-Windows the CTRL-C key copies text to the clipboard and CTRL-V\n"
 "pastes text from the clipboard.  There are a few more keys like these.\n"
-"Unfortunately, in Vim these keys normally have another meaning.\n"
-"1. Choose to have the keys like they normally are in Vim (useful if you\n"
-"   also use Vim on other systems).\n"
+"Unfortunately, in uVim these keys normally have another meaning.\n"
+"1. Choose to have the keys like they normally are in uVim (useful if you\n"
+"   also use uVim on other systems).\n"
 "2. Choose to have the keys work like they are used on MS-Windows (useful\n"
 "   if you mostly work on MS-Windows).\n"
 ,
@@ -2391,26 +2391,26 @@ show_help(void)
 "   copy/paste text, undo/redo, etc.  Extending the selection can still be\n"
 "   done by keeping SHIFT pressed while using the left mouse button\n"
 ,
-"Edit-with-Vim context menu entry\n"
+"Edit-with-uVim context menu entry\n"
 "--------------------------------\n"
 "(this choice is only available when gvim.exe and gvimext.dll are present)\n"
-"You can associate different file types with Vim, so that you can (double)\n"
-"click on a file to edit it with Vim.  This means you have to individually\n"
+"You can associate different file types with uVim, so that you can (double)\n"
+"click on a file to edit it with uVim.  This means you have to individually\n"
 "select each file type.\n"
-"An alternative is the option offered here: Install an \"Edit with Vim\"\n"
+"An alternative is the option offered here: Install an \"Edit with uVim\"\n"
 "entry in the popup menu for the right mouse button.  This means you can\n"
-"edit any file with Vim.\n"
+"edit any file with uVim.\n"
 ,
 "\"Open With...\" context menu entry\n"
 "--------------------------------\n"
 "(this choice is only available when gvim.exe is present)\n"
-"This option adds Vim to the \"Open With...\" entry in the popup menu for\n"
+"This option adds uVim to the \"Open With...\" entry in the popup menu for\n"
 "the right mouse button.  This also makes it possible to edit HTML files\n"
 "directly from Internet Explorer.\n"
 ,
-"Add Vim to the Start menu\n"
+"Add uVim to the Start menu\n"
 "-------------------------\n"
-"In Windows 95 and later, Vim can be added to the Start menu.  This will\n"
+"In Windows 95 and later, uVim can be added to the Start menu.  This will\n"
 "create a submenu with an entry for vim, gvim, evim, vimdiff, etc..\n"
 ,
 "Icons on the desktop\n"
@@ -2420,7 +2420,7 @@ show_help(void)
 ,
 "Create plugin directories\n"
 "-------------------------\n"
-"Plugin directories allow extending Vim by dropping a file into a directory.\n"
+"Plugin directories allow extending uVim by dropping a file into a directory.\n"
 "This choice allows creating them in $HOME (if you have a home directory) or\n"
 "$VIM (used for everybody on the system).\n"
 ,
@@ -2529,7 +2529,7 @@ main(int argc, char **argv)
     }
 #endif
 
-    printf("This program sets up the installation of Vim "
+    printf("This program sets up the installation of uVim "
 						   VIM_VERSION_MEDIUM "\n\n");
 
     /* Check if the user unpacked the archives properly. */

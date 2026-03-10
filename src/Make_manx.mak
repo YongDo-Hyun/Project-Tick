@@ -206,15 +206,15 @@ PRO =	proto/arabic.pro \
 	proto/userfunc.pro \
 	proto/window.pro
 
-all: Vim xxd/Xxd
+all: uVim xxd/Xxd
 
-Vim: obj $(OBJ) version.c version.h
+uVim: obj $(OBJ) version.c version.h
 	$(CC) $(CFLAGS) version.c -o obj/version.o
-	$(LN) $(LNFLAGS) -m -o Vim $(OBJ) obj/version.o $(LIBS)
+	$(LN) $(LNFLAGS) -m -o uVim $(OBJ) obj/version.o $(LIBS)
 
 debug: obj $(OBJ) version.c version.h
 	$(CC) $(CFLAGS) version.c -o obj/version.o
-	$(LN) $(LNFLAGS) -m -g -o Vim $(OBJ) obj/version.o $(LIBS)
+	$(LN) $(LNFLAGS) -m -g -o uVim $(OBJ) obj/version.o $(LIBS)
 
 xxd/Xxd: xxd/xxd.c
 	$(SHELL) -c cd xxd; make -f Make_amiga.mak; cd ..
@@ -232,7 +232,7 @@ tags: $(SRC) $(INCL)
 # can't use delete here, too many file names
 clean:
 	$(DEL) $(OBJ) obj/version.o \
-		obj/termlib.o Vim $(SYMS) xxd/Xxd
+		obj/termlib.o uVim $(SYMS) xxd/Xxd
 
 test:
 	$(SHELL) -c cd testdir; make -f Make_amiga.mak; cd ..

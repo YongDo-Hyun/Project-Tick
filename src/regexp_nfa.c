@@ -18,7 +18,7 @@
  * The last three are enabled when compiled as debug mode and individually
  * disabled by commenting them out.
  * The log files can get quite big!
- * Do disable all of this when compiling Vim for debugging, undefine DEBUG in
+ * Do disable all of this when compiling uVim for debugging, undefine DEBUG in
  * regexp.c
  */
 #ifdef DEBUG
@@ -1802,7 +1802,7 @@ collection:
 		    }
 
 		    /* Now handle simple and escaped characters.
-		     * Only "\]", "\^", "\]" and "\\" are special in Vi.  Vim
+		     * Only "\]", "\^", "\]" and "\\" are special in Vi.  uVim
 		     * accepts "\t", "\e", etc., but only when the 'l' flag in
 		     * 'cpoptions' is not included.
 		     * Posix doesn't recognize backslash at all.

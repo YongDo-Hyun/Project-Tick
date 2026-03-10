@@ -1,4 +1,4 @@
-*usr_03.txt*	For Vim version 7.4.  Last change: 2016 Jan 05
+*usr_03.txt*	For uVim version 7.4.  Last change: 2016 Jan 05
 
 		     VIM USER MANUAL - by Bram Moolenaar
 
@@ -6,7 +6,7 @@
 
 
 Before you can insert or delete text the cursor has to be moved to the right
-place.  Vim has a large number of commands to position the cursor.  This
+place.  uVim has a large number of commands to position the cursor.  This
 chapter shows you how to use the most important ones.  You can find a list of
 these commands below |Q_lr|.
 
@@ -22,13 +22,13 @@ these commands below |Q_lr|.
 |03.10|	Using marks
 
      Next chapter: |usr_04.txt|  Making small changes
- Previous chapter: |usr_02.txt|  The first steps in Vim
+ Previous chapter: |usr_02.txt|  The first steps in uVim
 Table of contents: |usr_toc.txt|
 
 ==============================================================================
 *03.1*	Word movement
 
-To move the cursor forward one word, use the "w" command.  Like most Vim
+To move the cursor forward one word, use the "w" command.  Like most uVim
 commands, you can use a numeric prefix to move past multiple words.  For
 example, "3w" moves three words.  This figure shows how it works:
 
@@ -57,7 +57,7 @@ paragraph, much faster than using "l".  "b" does the same in the other
 direction.
 
 A word ends at a non-word character, such as a ".", "-" or ")".  To change
-what Vim considers to be a word, see the 'iskeyword' option.  If you try this
+what uVim considers to be a word, see the 'iskeyword' option.  If you try this
 out in the help directly, 'iskeyword' needs to be reset for the examples to
 work: >
 	:set iskeyword&
@@ -253,12 +253,12 @@ To see where you are in a file, there are three ways:
     Since 'number' is a boolean option, prepending "no" to its name has the
     effect of switching it off.  A boolean option has only these two values,
     it is either on or off.
-       Vim has many options.  Besides the boolean ones there are options with
+       uVim has many options.  Besides the boolean ones there are options with
     a numerical value and string options.  You will see examples of this where
     they are used.
 
 3.  Set the 'ruler' option.  This will display the cursor position in the
-    lower right corner of the Vim window: >
+    lower right corner of the uVim window: >
 
 	:set ruler
 
@@ -329,7 +329,7 @@ for example, use the command: >
 	/include
 
 You will notice that when you type the "/" the cursor jumps to the last line
-of the Vim window, like with colon commands.  That is where you type the word.
+of the uVim window, like with colon commands.  That is where you type the word.
 You can press the backspace key (backarrow or <BS>) to make corrections.  Use
 the <Left> and <Right> cursor keys when necessary.
    Pressing <Enter> executes the command.
@@ -378,16 +378,16 @@ Suppose you do three searches: >
 	/three
 
 Now let's start searching by typing a simple "/" without pressing <Enter>.  If
-you press <Up> (the cursor key), Vim puts "/three" on the command line.
+you press <Up> (the cursor key), uVim puts "/three" on the command line.
 Pressing <Enter> at this point searches for three.  If you do not press
-<Enter>, but press <Up> instead, Vim changes the prompt to "/two".  Another
+<Enter>, but press <Up> instead, uVim changes the prompt to "/two".  Another
 press of <Up> moves you to "/one".
    You can also use the <Down> cursor key to move through the history of
 search commands in the other direction.
 
 If you know what a previously used pattern starts with, and you want to use it
 again, type that character before pressing <Up>.  With the previous example,
-you can type "/o<Up>" and Vim will put "/one" on the command line.
+you can type "/o<Up>" and uVim will put "/one" on the command line.
 
 The commands starting with ":" also have a history.  That allows you to recall
 a previous command and execute it again.  These two histories are separate.
@@ -397,9 +397,9 @@ SEARCHING FOR A WORD IN THE TEXT
 
 Suppose you see the word "TheLongFunctionName" in the text and you want to
 find the next occurrence of it.  You could type "/TheLongFunctionName", but
-that's a lot of typing.  And when you make a mistake Vim won't find it.
+that's a lot of typing.  And when you make a mistake uVim won't find it.
    There is an easier way: Position the cursor on the word and use the "*"
-command.  Vim will grab the word under the cursor and use it as the search
+command.  uVim will grab the word under the cursor and use it as the search
 string.
    The "#" command does the same in the other direction.  You can prepend a
 count: "3*" searches for the third occurrence of the word under the cursor.
@@ -432,7 +432,7 @@ and press "n" to go along all the matches.
 
 	:set hlsearch
 
-If you now search for "nr", Vim will highlight all matches.  That is a very
+If you now search for "nr", uVim will highlight all matches.  That is a very
 good way to see where the variable is used, without the need to type commands.
    To switch this off: >
 
@@ -455,7 +455,7 @@ essential ones:
 >
 	:set incsearch
 
-This makes Vim display the match for the string while you are still typing it.
+This makes uVim display the match for the string while you are still typing it.
 Use this to check if the right match will be found.  Then press <Enter> to
 really jump to that location.  Or type more to change the search string.
 >
@@ -469,7 +469,7 @@ thus searching wraps around the end of the file.
 INTERMEZZO
 
 If you like one of the options mentioned before, and set it each time you use
-Vim, you can put the command in your Vim startup file.
+uVim, you can put the command in your uVim startup file.
    Edit the file, as mentioned at |not-compatible|.  Or use this command to
 find out where it is: >
 
@@ -480,7 +480,7 @@ Edit the file, for example with: >
 	:edit ~/.vimrc
 
 Then add a line with the command to set the option, just like you typed it in
-Vim.  Example: >
+uVim.  Example: >
 
 	Go:set hlsearch<Esc>
 
@@ -489,12 +489,12 @@ Vim.  Example: >
 
 	ZZ
 
-If you now start Vim again, the 'hlsearch' option will already be set.
+If you now start uVim again, the 'hlsearch' option will already be set.
 
 ==============================================================================
 *03.9*	Simple search patterns
 
-The Vim editor uses regular expressions to specify what to search for.
+The uVim editor uses regular expressions to specify what to search for.
 Regular expressions are an extremely powerful and compact way to specify a
 search pattern.  Unfortunately, this power comes at a price, because regular
 expressions are a bit tricky to specify.
@@ -555,7 +555,7 @@ Searching for "ter\." only finds the second match.
 ==============================================================================
 *03.10*	Using marks
 
-When you make a jump to a position with the "G" command, Vim remembers the
+When you make a jump to a position with the "G" command, uVim remembers the
 position from before this jump.  This position is called a mark.  To go back
 where you came from, use this command: >
 
@@ -606,9 +606,9 @@ you used last is marked with a ">".
 
 NAMED MARKS							*bookmark*
 
-Vim enables you to place your own marks in the text.  The command "ma" marks
+uVim enables you to place your own marks in the text.  The command "ma" marks
 the place under the cursor as mark a.  You can place 26 marks (a through z) in
-your text.  You can't see them, it's just a position that Vim remembers.
+your text.  You can't see them, it's just a position that uVim remembers.
    To go to a mark, use the command `{mark}, where {mark} is the mark letter.
 Thus to move to the a mark:
 >

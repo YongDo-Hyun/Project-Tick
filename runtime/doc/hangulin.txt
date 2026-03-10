@@ -1,4 +1,4 @@
-*hangulin.txt*  For Vim version 7.4.  Last change: 2015 Nov 24
+*hangulin.txt*  For uVim version 7.4.  Last change: 2015 Nov 24
 
 
 		  VIM REFERENCE MANUAL    by Chi-Deok Hwang and Sung-Hyun Nam
@@ -65,15 +65,15 @@ $HOME/.gvimrc: >
     set guifontset=english_font,hangul_font
 
 $HOME/.Xdefaults: >
-    Vim.font: english_font
+    uVim.font: english_font
 
     ! Nexts are for hangul menu with Athena
     *international: True
-    Vim*fontSet: english_font,hangul_font
+    uVim*fontSet: english_font,hangul_font
 
     ! Nexts are for hangul menu with Motif
     *international: True
-    Vim*fontList: english_font;hangul_font:
+    uVim*fontList: english_font;hangul_font:
 
 attention! the , (comma) or ; (semicolon)
 

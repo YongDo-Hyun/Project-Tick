@@ -34,7 +34,7 @@ n:AddR
 :try
 :   let v:hlsearch=[]
 :catch
-:   call add(r, matchstr(v:exception,'^Vim(let):E\d\+:'))
+:   call add(r, matchstr(v:exception,'^uVim(let):E\d\+:'))
 :endtry
 :bwipeout!
 :$put=r

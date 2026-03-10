@@ -1,4 +1,4 @@
-# Makefile for Vim on Win32 (Windows NT/2000/XP/2003 and Windows 95/98/Me)
+# Makefile for uVim on Win32 (Windows NT/2000/XP/2003 and Windows 95/98/Me)
 # and Win64, using the Microsoft Visual C++ compilers. Known to work with
 # VC5, VC6 (VS98), VC7.0 (VS2002), VC7.1 (VS2003), VC8 (VS2005),
 # VC9 (VS2008), VC10 (VS2010) and VC11 (VS2012)
@@ -6,13 +6,13 @@
 # To build using other Windows compilers, see INSTALLpc.txt
 #
 # This makefile can build the console, GUI, OLE-enable, Perl-enabled and
-# Python-enabled versions of Vim for Win32 platforms.
+# Python-enabled versions of uVim for Win32 platforms.
 #
-# The basic command line to build Vim is:
+# The basic command line to build uVim is:
 #
 #	nmake -f Make_mvc.mak
 #
-# This will build the console version of Vim with no additional interfaces.
+# This will build the console version of uVim with no additional interfaces.
 # To add features, define any of the following:
 #
 # 	For MSVC 11 you need to specify where the Win32.mak file is, e.g.:
@@ -133,8 +133,8 @@
 #	Make_dvc.mak is a Visual C++ project to access that support.  It may be
 #	badly out of date for the Visual C++ you are using...
 #	To use Make_dvc.mak:
-#	1) Build Vim with Make_mvc.mak.
-#	     Use a "DEBUG=yes" argument to build Vim with debug support.
+#	1) Build uVim with Make_mvc.mak.
+#	     Use a "DEBUG=yes" argument to build uVim with debug support.
 #	     E.g. the following builds gvimd.exe:
 #		nmake -f Make_mvc.mak debug=yes gui=yes
 #	2) Use MS Devstudio and set it up to allow that file to be debugged:

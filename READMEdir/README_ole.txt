@@ -1,4 +1,4 @@
-README_ole.txt for version 7.4 of Vim: Vi IMproved.
+README_ole.txt for version 7.4 of uVim: Micro Vi IMproved.
 
 This archive contains gvim.exe with OLE interface and VisVim.
 This version of gvim.exe can also load a number of interface dynamically (you
@@ -13,7 +13,7 @@ unpacking another binary archive!  Check the output of ":version":
 	 Win32 - "MS-Windows 32 bit GUI version"
 Win32 with OLE - "MS-Windows 32 bit GUI version with OLE support"
 
-For further information, type this inside Vim:
+For further information, type this inside uVim:
 	:help if_ole
 
 Furthermore, this archive contains VISVIM.DLL.  It can be used to integrate

@@ -1,4 +1,4 @@
-*term.txt*      For Vim version 7.4.  Last change: 2016 Apr 29
+*term.txt*      For uVim version 7.4.  Last change: 2016 Apr 29
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
@@ -6,7 +6,7 @@
 
 Terminal information					*terminal-info*
 
-Vim uses information about the terminal you are using to fill the screen and
+uVim uses information about the terminal you are using to fill the screen and
 recognize what keys you hit.  If this information is not correct, the screen
 may be messed up or keys may not be recognized.  The actions which have to be
 performed on the screen are accomplished by outputting a string of
@@ -24,21 +24,21 @@ NOTE: Most of this is not used when running the |GUI|.
 ==============================================================================
 1. Startup						*startup-terminal*
 
-When Vim is started a default terminal type is assumed.  For the Amiga this is
+When uVim is started a default terminal type is assumed.  For the Amiga this is
 a standard CLI window, for MS-DOS the pc terminal, for Unix an ansi terminal.
 A few other terminal types are always available, see below |builtin-terms|.
 
-You can give the terminal name with the '-T' Vim argument.  If it is not given
-Vim will try to get the name from the TERM environment variable.
+You can give the terminal name with the '-T' uVim argument.  If it is not given
+uVim will try to get the name from the TERM environment variable.
 
 				*termcap* *terminfo* *E557* *E558* *E559*
 On Unix the terminfo database or termcap file is used.  This is referred to as
 "termcap" in all the documentation.  At compile time, when running configure,
 the choice whether to use terminfo or termcap is done automatically.  When
-running Vim the output of ":version" will show |+terminfo| if terminfo is
+running uVim the output of ":version" will show |+terminfo| if terminfo is
 used.  Also see |xterm-screens|.
 
-On non-Unix systems a termcap is only available if Vim was compiled with
+On non-Unix systems a termcap is only available if uVim was compiled with
 TERMCAP defined.
 
 					*builtin-terms* *builtin_terms*
@@ -52,7 +52,7 @@ ALL_BUILTIN_TCAPS	++builtin_terms		all available
 You can see a list of available builtin terminals with ":set term=xxx" (when
 not running the GUI).  Also see |+builtin_terms|.
 
-If the termcap code is included Vim will try to get the strings for the
+If the termcap code is included uVim will try to get the strings for the
 terminal you are using from the termcap file and the builtin termcaps.  Both
 are always used, if an entry for the terminal you are using is present.  Which
 one is used first depends on the 'ttybuiltin' option:
@@ -82,15 +82,15 @@ can do this best in your .vimrc.  Example: >
 For normal editing the terminal will be put into "raw" mode.  The strings
 defined with 't_ti' and 't_ks' will be sent to the terminal.  Normally this
 puts the terminal in a state where the termcap codes are valid and activates
-the cursor and function keys.  When Vim exits the terminal will be put back
-into the mode it was before Vim started.  The strings defined with 't_te' and
+the cursor and function keys.  When uVim exits the terminal will be put back
+into the mode it was before uVim started.  The strings defined with 't_te' and
 't_ke' will be sent to the terminal.  On the Amiga, with commands that execute
 an external command (e.g., "!!"), the terminal will be put into Normal mode
 for a moment.  This means that you can stop the output to the screen by
 hitting a printing key.  Output resumes when you hit <BS>.
 
 							*cs7-problem*
-Note: If the terminal settings are changed after running Vim, you might have
+Note: If the terminal settings are changed after running uVim, you might have
 an illegal combination of settings.  This has been reported on Solaris 2.5
 with "stty cs8 parenb", which is restored as "stty cs7 parenb".  Use
 "stty cs8 -parenb -istrip" instead, this is restored correctly.
@@ -111,12 +111,12 @@ Some termcap entries have the entry ":ku=\E[A:".  But the Amiga really sends
 aren't.  You will have to change the termcap entry, or change the key code with
 the :set command to fix this.
 
-Many cursor key codes start with an <Esc>.  Vim must find out if this is a
+Many cursor key codes start with an <Esc>.  uVim must find out if this is a
 single hit of the <Esc> key or the start of a cursor key sequence.  It waits
 for a next character to arrive.  If it does not arrive within one second a
 single <Esc> is assumed.  On very slow systems this may fail, causing cursor
 keys not to work sometimes.  If you discover this problem reset the 'timeout'
-option.  Vim will wait for the next character to arrive after an <Esc>.  If
+option.  uVim will wait for the next character to arrive after an <Esc>.  If
 you want to enter a single <Esc> you must type it twice.  Resetting the
 'esckeys' option avoids this problem in Insert mode, but you lose the
 possibility to use cursor and function keys in Insert mode.
@@ -133,20 +133,20 @@ CTRL-H is never recognized as cursor-left.
 Other terminals (e.g., vt100 and xterm) have cursor keys that send <Esc>OA,
 <Esc>OB, etc.  Unfortunately these are valid commands in insert mode: Stop
 insert, Open a new line above the new one, start inserting 'A', 'B', etc.
-Instead of performing these commands Vim will erroneously recognize this typed
-key sequence as a cursor key movement.  To avoid this and make Vim do what you
+Instead of performing these commands uVim will erroneously recognize this typed
+key sequence as a cursor key movement.  To avoid this and make uVim do what you
 want in either case you could use these settings: >
 	:set notimeout		" don't timeout on mappings
 	:set ttimeout		" do timeout on terminal key codes
 	:set timeoutlen=100	" timeout after 100 msec
 This requires the key-codes to be sent within 100 msec in order to recognize
 them as a cursor key.  When you type you normally are not that fast, so they
-are recognized as individual typed commands, even though Vim receives the same
+are recognized as individual typed commands, even though uVim receives the same
 sequence of bytes.
 
 				*vt100-function-keys* *xterm-function-keys*
 An xterm can send function keys F1 to F4 in two modes: vt100 compatible or
-not.  Because Vim may not know what the xterm is sending, both types of keys
+not.  Because uVim may not know what the xterm is sending, both types of keys
 are recognized.  The same happens for the <Home> and <End> keys.
 			normal			vt100 ~
 	<F1>	t_k1	<Esc>[11~	<xF1>	<Esc>OP	    *<xF1>-xterm*
@@ -156,13 +156,13 @@ are recognized.  The same happens for the <Home> and <End> keys.
 	<Home>	t_kh	<Esc>[7~	<xHome>	<Esc>OH	    *<xHome>-xterm*
 	<End>	t_@7	<Esc>[4~	<xEnd>	<Esc>OF	    *<xEnd>-xterm*
 
-When Vim starts, <xF1> is mapped to <F1>, <xF2> to <F2> etc.  This means that
+When uVim starts, <xF1> is mapped to <F1>, <xF2> to <F2> etc.  This means that
 by default both codes do the same thing.  If you make a mapping for <xF2>,
 because your terminal does have two keys, the default mapping is overwritten,
 thus you can use the <F2> and <xF2> keys for something different.
 
 							*xterm-shifted-keys*
-Newer versions of xterm support shifted function keys and special keys.  Vim
+Newer versions of xterm support shifted function keys and special keys.  uVim
 recognizes most of them.  Use ":set termcap" to check which are supported and
 what the codes are.  Mostly these are not in a termcap, they are only
 supported by the builtin_xterm termcap.
@@ -198,12 +198,12 @@ Xterm can be run in a mode where it uses 8-bit escape sequences.  The CSI code
 is used instead of <Esc>[.  The advantage is that an <Esc> can quickly be
 recognized in Insert mode, because it can't be confused with the start of a
 special key.
-For the builtin termcap entries, Vim checks if the 'term' option contains
+For the builtin termcap entries, uVim checks if the 'term' option contains
 "8bit" anywhere.  It then uses 8-bit characters for the termcap entries, the
 mouse and a few other things.  You would normally set $TERM in your shell to
-"xterm-8bit" and Vim picks this up and adjusts to the 8-bit setting
+"xterm-8bit" and uVim picks this up and adjusts to the 8-bit setting
 automatically.
-When Vim receives a response to the |t_RV| (request version) sequence and it
+When uVim receives a response to the |t_RV| (request version) sequence and it
 starts with CSI, it assumes that the terminal is in 8-bit mode and will
 convert all key sequences to their 8-bit variants.
 
@@ -288,7 +288,7 @@ OUTPUT CODES
 	t_ZH	italics mode					*t_ZH* *'t_ZH'*
 	t_ZR	italics end					*t_ZR* *'t_ZR'*
 
-Added by Vim (there are no standard codes for these):
+Added by uVim (there are no standard codes for these):
 	t_IS	set icon text start				*t_IS* *'t_IS'*
 	t_IE	set icon text end				*t_IE* *'t_IE'*
 	t_WP	set window position (Y, X) in pixels		*t_WP* *'t_WP'*
@@ -408,22 +408,22 @@ look the same.
 							*keypad-comma*
 The keypad keys, when they are not mapped, behave like the equivalent normal
 key.  There is one exception: if you have a comma on the keypad instead of a
-decimal point, Vim will use a dot anyway.  Use these mappings to fix that: >
+decimal point, uVim will use a dot anyway.  Use these mappings to fix that: >
 	:noremap <kPoint> ,
 	:noremap! <kPoint> ,
 <							*xterm-codes*
 There is a special trick to obtain the key codes which currently only works
 for xterm.  When |t_RV| is defined and a response is received which indicates
-an xterm with patchlevel 141 or higher, Vim uses special escape sequences to
+an xterm with patchlevel 141 or higher, uVim uses special escape sequences to
 request the key codes directly from the xterm.  The responses are used to
 adjust the various t_ codes.  This avoids the problem that the xterm can
 produce different codes, depending on the mode it is in (8-bit, VT102,
 VT220, etc.).  The result is that codes like <xF1> are no longer needed.
 Note: This is only done on startup.  If the xterm options are changed after
-Vim has started, the escape sequences may not be recognized anymore.
+uVim has started, the escape sequences may not be recognized anymore.
 
 							*xterm-true-color*
-Vim supports using true colors in the terminal (taken from |highlight-guifg|
+uVim supports using true colors in the terminal (taken from |highlight-guifg|
 and |highlight-guibg|), given that the terminal supports this. To make this 
 work the 'termguicolors' option needs to be set.
 
@@ -458,13 +458,13 @@ value with the context menu (right mouse button while CTRL key is pressed),
 there should be a tick at allow-window-ops.
 
 							*termcap-colors*
-Note about colors: The 't_Co' option tells Vim the number of colors available.
+Note about colors: The 't_Co' option tells uVim the number of colors available.
 When it is non-zero, the 't_AB' and 't_AF' options are used to set the color.
 If one of these is not available, 't_Sb' and 't_Sf' are used.  't_me' is used
 to reset to the default colors.
 
 				*termcap-cursor-shape* *termcap-cursor-color*
-When Vim enters Insert mode the 't_SI' escape sequence is sent.  When Vim
+When uVim enters Insert mode the 't_SI' escape sequence is sent.  When uVim
 enters Replace mode the 't_SR' escape sequence is sent if it is set, otherwise
 't_SI' is sent.  When leaving Insert mode or Replace mode 't_EI' is used. This
 can be used to change the shape or color of the cursor in Insert or Replace
@@ -476,15 +476,15 @@ Example for an xterm, this changes the color of the cursor: >
 	let &t_SR = "\<Esc>]12;red\x7"
 	let &t_EI = "\<Esc>]12;blue\x7"
     endif
-NOTE: When Vim exits the shape for Normal mode will remain.  The shape from
-before Vim started will not be restored.
+NOTE: When uVim exits the shape for Normal mode will remain.  The shape from
+before uVim started will not be restored.
 {not available when compiled without the |+cursorshape| feature}
 
 							*termcap-title*
 The 't_ts' and 't_fs' options are used to set the window title if the terminal
 allows title setting via sending strings.  They are sent before and after the
 title string, respectively.  Similar 't_IS' and 't_IE'  are used to set the
-icon text.  These are Vim-internal extensions of the Unix termcap, so they
+icon text.  These are uVim-internal extensions of the Unix termcap, so they
 cannot be obtained from an external termcap.  However, the builtin termcap
 contains suitable entries for xterm and iris-ansi, so you don't need to set
 them here.
@@ -502,7 +502,7 @@ builtin_xterm or define t_cs yourself.  For example: >
 	:set t_cs=^V^[[%i%d;%dr
 Where ^V is CTRL-V and ^[ is <Esc>.
 
-The vertical scroll region t_CV is not a standard termcap code.  Vim uses it
+The vertical scroll region t_CV is not a standard termcap code.  uVim uses it
 internally in the GUI.  But it can also be defined for a terminal, if you can
 find one that supports it.  The two arguments are the left and right column of
 the region which to restrict the scrolling to.  Just like t_cs defines the top
@@ -520,7 +520,7 @@ set to an empty string otherwise.  It defaults to "yes" when 'term' is
 "pcterm".
 
 Note for xterm users: The shifted cursor keys normally don't work.  You can
-	make them work with the xmodmap command and some mappings in Vim.
+	make them work with the xmodmap command and some mappings in uVim.
 
 	Give these commands in the xterm:
 		xmodmap -e "keysym Up = Up F13"
@@ -528,7 +528,7 @@ Note for xterm users: The shifted cursor keys normally don't work.  You can
 		xmodmap -e "keysym Left = Left F18"
 		xmodmap -e "keysym Right = Right F19"
 
-	And use these mappings in Vim:
+	And use these mappings in uVim:
 		:map <t_F3> <S-Up>
 		:map! <t_F3> <S-Up>
 		:map <t_F6> <S-Down>
@@ -547,10 +547,10 @@ closes the window.  On other systems you can probably use them.)
 ==============================================================================
 3. Window size						*window-size*
 
-[This is about the size of the whole window Vim is using, not a window that is
+[This is about the size of the whole window uVim is using, not a window that is
 created with the ":split" command.]
 
-If you are running Vim on an Amiga and the terminal name is "amiga" or
+If you are running uVim on an Amiga and the terminal name is "amiga" or
 "builtin_amiga", the amiga-specific window resizing will be enabled.  On Unix
 systems three methods are tried to get the window size:
 
@@ -591,8 +591,8 @@ number.
 If you have a slow terminal you may want to reset the 'showcmd' option.
 The command characters will not be shown in the status line.  If the terminal
 scrolls very slowly, set the 'scrolljump' to 5 or so.  If the cursor is moved
-off the screen (e.g., with "j") Vim will scroll 5 lines at a time.  Another
-possibility is to reduce the number of lines that Vim uses with the command
+off the screen (e.g., with "j") uVim will scroll 5 lines at a time.  Another
+possibility is to reduce the number of lines that uVim uses with the command
 "z{height}<CR>".
 
 If the characters from the terminal are arriving with more than 1 second
@@ -605,7 +605,7 @@ lines jump up and down.  If you don't want this set the 'ttyfast' option.
 This will redraw the window instead of scroll it.
 
 If your terminal scrolls very slowly, but redrawing is not slow, set the
-'ttyscroll' option to a small number, e.g., 3.  This will make Vim redraw the
+'ttyscroll' option to a small number, e.g., 3.  This will make uVim redraw the
 screen instead of scrolling, when there are more than 3 lines to be scrolled.
 
 If you are using a color terminal that is slow, use this command: >
@@ -613,8 +613,8 @@ If you are using a color terminal that is slow, use this command: >
 This avoids that spaces are sent when they have different attributes.  On most
 terminals you can't see this anyway.
 
-If you are using Vim over a slow serial line, you might want to try running
-Vim inside the "screen" program.  Screen will optimize the terminal I/O quite
+If you are using uVim over a slow serial line, you might want to try running
+uVim inside the "screen" program.  Screen will optimize the terminal I/O quite
 a bit.
 
 If you are testing termcap options, but you cannot see what is happening,
@@ -631,7 +631,7 @@ with a mouse wheel see |scroll-mouse-wheel|.
 
 Don't forget to enable the mouse with this command: >
 	:set mouse=a
-Otherwise Vim won't recognize the mouse in all modes (See 'mouse').
+Otherwise uVim won't recognize the mouse in all modes (See 'mouse').
 
 Currently the mouse is supported for Unix in an xterm window, in a *BSD
 console with |sysmouse|, in a Linux console (with GPM |gpm-mouse|), for
@@ -639,7 +639,7 @@ MS-DOS and in a Windows console.
 Mouse clicks can be used to position the cursor, select an area and paste.
 
 These characters in the 'mouse' option tell in which situations the mouse will
-be used by Vim:
+be used by uVim:
 		n	Normal mode
 		v	Visual mode
 		i	Insert mode
@@ -666,7 +666,7 @@ Select mode depends on whether "mouse" is included in the 'selectmode'
 option.
 
 In an xterm, with the currently active mode included in the 'mouse' option,
-normal mouse clicks are used by Vim, mouse clicks with the shift or ctrl key
+normal mouse clicks are used by uVim, mouse clicks with the shift or ctrl key
 pressed go to the xterm.  With the currently active mode not included in
 'mouse' all mouse clicks go to the xterm.
 
@@ -689,7 +689,7 @@ Shortcut: If the insert position is on the screen at the same time as the
 Visual text, you can do 2, 3 and 4 all in one: Click the middle mouse button
 at the insert position.
 
-Note: When the |-X| command line argument is used, Vim will not connect to the
+Note: When the |-X| command line argument is used, uVim will not connect to the
 X server and copy/paste to the X clipboard (selection) will not work.  Use the
 shift key with the mouse buttons to let the xterm do the selection.
 
@@ -699,13 +699,13 @@ When the X-server clipboard is available, the command server described in
 
 							*xterm-copy-paste*
 NOTE: In some (older) xterms, it's not possible to move the cursor past column
-95 or 223.  This is an xterm problem, not Vim's.  Get a newer xterm
+95 or 223.  This is an xterm problem, not uVim's.  Get a newer xterm
 |color-xterm|.  Also see |'ttymouse'|.
 
 Copy/paste in xterm with (current mode NOT included in 'mouse'):
 1. Press left mouse button on first letter of text, move mouse pointer to last
    letter of the text and release the button.
-2. Use normal Vim commands to put the cursor at the insert position.
+2. Use normal uVim commands to put the cursor at the insert position.
 3. Press "a" to start Insert mode.
 4. Click the middle mouse button.
 5. Press ESC to end Insert mode.
@@ -714,7 +714,7 @@ pressed while using the mouse.)
 
 Note: if you lose the 8th bit when pasting (special characters are translated
 into other characters), you may have to do "stty cs8 -istrip -parenb" in your
-shell before starting Vim.
+shell before starting uVim.
 
 Thus in an xterm the shift and ctrl keys cannot be used with the mouse.  Mouse
 commands requiring the CTRL modifier can be simulated by typing the "g" key
@@ -783,7 +783,7 @@ event	      position	   selection	  change  action	~
 Clicking the left mouse button causes the cursor to be positioned.  If the
 click is in another window that window is made the active window.  When
 editing the command-line the cursor can only be positioned on the
-command-line.  When in Insert mode Vim remains in Insert mode.  If 'scrolloff'
+command-line.  When in Insert mode uVim remains in Insert mode.  If 'scrolloff'
 is set, and the cursor is positioned within 'scrolloff' lines from the window
 border, the text is scrolled.
 
@@ -822,7 +822,7 @@ that has a match selects until that match (like using "v%").  If the match is
 an #if/#else/#endif block, the selection becomes linewise.
 For MS-DOS and xterm the time for double clicking can be set with the
 'mousetime' option.  For the other systems this time is defined outside of
-Vim.
+uVim.
 An example, for using a double click to jump to the tag under the cursor: >
 	:map <2-LeftMouse> :exe "tag ". expand("<cword>")<CR>
 
@@ -836,7 +836,7 @@ The GPM mouse is only supported when the |+mouse_gpm| feature was enabled at
 compile time.  The GPM mouse driver (Linux console) does not support quadruple
 clicks.
 
-In Insert mode, when a selection is started, Vim goes into Normal mode
+In Insert mode, when a selection is started, uVim goes into Normal mode
 temporarily.  When Visual or Select mode ends, it returns to Insert mode.
 This is like using CTRL-O in Insert mode.  Select mode is used when the
 'selectmode' option contains "mouse".

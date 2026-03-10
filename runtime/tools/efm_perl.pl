@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 
 # vimparse.pl - Reformats the error messages of the Perl interpreter for use
-# with the quickfix mode of Vim
+# with the quickfix mode of uVim
 #
 # Copyright (c) 2001 by Joerg Ziefle <joerg.ziefle@gmx.de>
 # You may use and distribute this software under the same terms as Perl itself.
@@ -31,10 +31,10 @@
 #		vimparse.pl program.pl
 #
 #		vimparse.pl -c -f errorfile program.pl
-#		Then run vim -q errorfile to edit the errors with Vim.
+#		Then run vim -q errorfile to edit the errors with uVim.
 #
-#	* From Vim:
-#		Edit in Vim (and save, if you don't have autowrite on), then
+#	* From uVim:
+#		Edit in uVim (and save, if you don't have autowrite on), then
 #		type ':mak' or ':mak args' (args being the program arguments)
 #		to error check.
 #
@@ -140,10 +140,10 @@ Examples:
 		Displays output on STDOUT.
 
 		$0 -c -f errorfile program.pl
-		Then run 'vim -q errorfile' to edit the errors with Vim.
+		Then run 'vim -q errorfile' to edit the errors with uVim.
 
-	* In Vim:
-		Edit in Vim (and save, if you don't have autowrite on), then
+	* In uVim:
+		Edit in uVim (and save, if you don't have autowrite on), then
 		type ':mak' or ':mak args' (args being the program arguments)
 		to error check.
 EOT

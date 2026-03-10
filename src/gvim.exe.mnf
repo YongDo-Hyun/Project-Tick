@@ -4,7 +4,7 @@
     processorArchitecture="*"
     version="7.4.0.0"
     type="win32"
-    name="Vim"
+    name="uVim"
   />
   <description>Vi Improved - A Text Editor</description>
   <dependency>

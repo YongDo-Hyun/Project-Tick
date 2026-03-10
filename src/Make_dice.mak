@@ -138,19 +138,19 @@ OBJ =	o/arabic.o \
 	o/window.o \
 	$(TERMLIB)
 
-Vim: $(OBJ) version.c version.h
+uVim: $(OBJ) version.c version.h
 	${CC} $(CFLAGS) version.c -o o/version.o
-	${LD} -o Vim $(OBJ) o/version.o $(LIBS)
+	${LD} -o uVim $(OBJ) o/version.o $(LIBS)
 
 debug: $(OBJ) version.c version.h
 	${CC} $(CFLAGS) version.c -o o/version.o
-	${LD} -s -o Vim $(OBJ) o/version.o $(LIBS)
+	${LD} -s -o uVim $(OBJ) o/version.o $(LIBS)
 
 tags:
 	csh -c ctags $(SRC) *.h
 
 clean:
-	delete o/*.o Vim $(SYMS)
+	delete o/*.o uVim $(SYMS)
 
 $(SYMS)  : vim.h globals.h keymap.h macros.h ascii.h term.h os_amiga.h structs.h
 	delete $(SYMS)

@@ -1,4 +1,4 @@
-*ft_ada.txt*	For Vim version 7.4.  Last change: 2010 Jul 20
+*ft_ada.txt*	For uVim version 7.4.  Last change: 2010 Jul 20
 
 
 		    ADA FILE TYPE PLUG-INS REFERENCE MANUAL~
@@ -101,7 +101,7 @@ GNAT XREF uses the compiler internal information (ali-files) to produce the
 tags file. This has the advantage to be 100% correct and the option of deep
 nested analysis. However the code must compile, the generator is quite
 slow and the created tags file contains only the basic Ctags information for
-each entry - not enough for some of the more advanced Vim code browser
+each entry - not enough for some of the more advanced uVim code browser
 plug-ins.
 
 NOTE: "gnat xref -v" is very tricky to use as it has almost no diagnostic
@@ -129,7 +129,7 @@ Exuberant Ctags uses its own multi-language code parser. The parser is quite
 fast, produces a lot of extra information (hence the name "Exuberant Ctags")
 and can run on files which currently do not compile.
 
-There are also lots of other Vim-tools which use exuberant Ctags.
+There are also lots of other uVim-tools which use exuberant Ctags.
 
 You will need to install a version of the Exuberant Ctags which has Ada
 support patched in. Such a version is available from the GNU Ada Project
@@ -162,7 +162,7 @@ setting:
  >
  > call g:gnat.Set_Project_File ('my_project.gpr')
 
-Setting a project file will also create a Vim session (|views-sessions|) so -
+Setting a project file will also create a uVim session (|views-sessions|) so -
 like with the GPS - opened files, window positions etc. will be remembered
 separately for all projects.
 
@@ -507,7 +507,7 @@ taglist.vim
 	http://www.vim.org/scripts/script.php?script_id=273
 	Source code explorer sidebar. There is a patch for Ada available.
 
-The GNU Ada Project distribution (http://gnuada.sourceforge.net) of Vim
+The GNU Ada Project distribution (http://gnuada.sourceforge.net) of uVim
 contains all of the above.
 
 ==============================================================================

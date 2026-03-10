@@ -1,11 +1,11 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  * X-Windows communication by Flemming Madsen
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  *
  * Client for sending commands to an '+xcmdsrv' enabled vim.
  * This is mostly a de-Vimified version of if_xcmdsrv.c in vim.
@@ -87,7 +87,7 @@ static int	got_x_error = FALSE;
 
 /*
  * sendToVim --
- *	Send to an instance of Vim via the X display.
+ *	Send to an instance of uVim via the X display.
  *
  * Results:
  *	A string with the result or NULL. Caller must free if non-NULL

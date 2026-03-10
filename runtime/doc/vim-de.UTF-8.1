@@ -7,7 +7,7 @@
 .\" Kudos to the folks on vim-dev and debian-l10n-german
 .TH VIM 1 "2006 Apr 11"  
 .SH BEZEICHNUNG
-vim \- Vi IMproved, ein Text\-Editor für Programmierer
+vim \- Micro Vi IMproved, ein Text\-Editor für Programmierer
 .SH ÜBERSICHT
 .br
 \fBvim\fP [Optionen] [Datei …]
@@ -31,7 +31,7 @@ vim \- Vi IMproved, ein Text\-Editor für Programmierer
 verwendet werden, um alle Arten von Klartext zu bearbeiten. Er ist besonders
 nützlich, um Programme zu bearbeiten.
 .PP
-Vim hat einige Erweiterungen gegenüber Vi, z.B.: Rückgängigmachen in
+uVim hat einige Erweiterungen gegenüber Vi, z.B.: Rückgängigmachen in
 mehreren Schritten, mehrere Fenster und Puffer, Syntax\-Hervorhebung,
 Bearbeiten der Befehlszeile, Dateinamenergänzung, eingebaute Hilfe, visuelle
 Auswahl, usw. … Siehe »:help vi_diff.txt« für eine Übersicht der
@@ -83,7 +83,7 @@ Dateiname aus der Option 'errorfile' verwendet (bei AmigaOS ist dies
 vorgabemäßig »AztecC.Err«, sowie „errors.err« bei anderen). Weitere Fehler
 können mit dem »:cn«\-Befehl angesprungen werden. Siehe „:help quickfix«.
 .PP
-\fBVim\fP reagiert unterschiedlich auf den Namen, der verwendet wird, um Vim zu
+\fBVim\fP reagiert unterschiedlich auf den Namen, der verwendet wird, um uVim zu
 starten (die ausführbare Datei kann dieselbe sein).
 .TP  10
 vim
@@ -190,7 +190,7 @@ löst sich nicht von der Shell, in der er aufgerufen wurde.
 .TP 
 \-F
 Wenn \fBVim\fP mit FKMAP\-Unterstützung für das Schreiben von rechts nach links
-und Farsi\-Tastatur\-Belegung kompiliert wurde, startet Vim im Farsi\-Modus,
+und Farsi\-Tastatur\-Belegung kompiliert wurde, startet uVim im Farsi\-Modus,
 d.h. die Optionen 'fkmap' und 'rightleft' werden gesetzt. Andernfalls bricht
 \fBVim\fP mit einer Fehlermeldung ab.
 .TP 
@@ -295,14 +295,14 @@ Verwendet zur Initialisierung die Befehle in der Datei {VimRC}. Alle anderen
 Initialisierungen werden übersprungen. Benutzen Sie dies, um eine besondere
 Art von Dateien zu bearbeiten. Dies kann auch benutzt werden, um alle
 Initialisierungen zu überspringen, indem der Name »NONE« angegeben wird. Für
-weitere Einzelheiten siehe »:help initialisation« innerhalb von Vim.
+weitere Einzelheiten siehe »:help initialisation« innerhalb von uVim.
 .TP 
 \-U {GvimRC}
 Benutzt die Befehle in der Datei {GvimRC} für die Initialisierung der
 grafischen Oberfläche. Alle anderen Initialisierungen werden
 übersprungen. Dies kann ebenfalls benutzt werden, um alle
 GUI\-Initialisierungen zu überspringen, indem der Name »NONE« angegeben
-wird. Siehe »:help gui\-init« innerhalb von Vim für weitere Einzelheiten.
+wird. Siehe »:help gui\-init« innerhalb von uVim für weitere Einzelheiten.
 .TP 
 \-V[N]
 Ausführlich (verbose): Gibt Meldungen darüber, welche Befehlsdateien
@@ -362,33 +362,33 @@ Metazeichen expandiert.
 Lade keine Plugins. Impliziert durch »\-u NONE«.
 .TP 
 \-\-remote
-Verbindet mit einem Vim\-Server und lässt ihn die in den restlichen
+Verbindet mit einem uVim\-Server und lässt ihn die in den restlichen
 Argumenten angegeben Dateien editieren. Wenn kein Server gefunden wird,
-führt dies zu einer Warnmeldung und die Dateien werden im gegenwärtigen Vim
+führt dies zu einer Warnmeldung und die Dateien werden im gegenwärtigen uVim
 zum Bearbeiten geöffnet.
 .TP 
 \-\-remote\-expr {Ausdruck}
-Verbindet mit einem Vim\-Server, führt {Ausdruck} aus und zeigt das Ergebnis
+Verbindet mit einem uVim\-Server, führt {Ausdruck} aus und zeigt das Ergebnis
 auf der Standardausgabe an.
 .TP 
 \-\-remote\-send {Zeichen}
-Verbindet mit einem Vim\-Server und sendet ihm {Zeichen}.
+Verbindet mit einem uVim\-Server und sendet ihm {Zeichen}.
 .TP 
 \-\-remote\-silent
 Wie »\-\-remote«, aber ohne Warnung, wenn kein Server gefunden wird.
 .TP 
 \-\-remote\-wait
-Wie »\-\-remote«, aber Vim beendet sich nicht, bis die Dateien bearbeitet
+Wie »\-\-remote«, aber uVim beendet sich nicht, bis die Dateien bearbeitet
 wurden.
 .TP 
 \-\-remote\-wait\-silent
 Wie »\-\-remote\-wait«, aber ohne Warnung, wenn kein Server gefunden wird.
 .TP 
 \-\-serverlist
-Listet die Namen aller gefundenen Vim\-Server auf.
+Listet die Namen aller gefundenen uVim\-Server auf.
 .TP 
 \-\-servername {Name}
-Benutzt {Name} als Server\-Namen. Wird für den gegenwärtigen Vim benutzt,
+Benutzt {Name} als Server\-Namen. Wird für den gegenwärtigen uVim benutzt,
 außer es wird mit dem Argument »\-\-remote« benutzt, dann ist es der Name des
 zu kontaktierenden Servers.
 .TP 
@@ -445,17 +445,17 @@ Systemweite Einstellungsdatei für das Menü von GVim
 Das Script zum Generieren eines Fehlerberichts. Siehe »:help bugs«.
 .TP 
 /usr/local/lib/vim/filetype.vim
-Mit diesem Script erkennt Vim den Typ einer Datei anhand ihres
+Mit diesem Script erkennt uVim den Typ einer Datei anhand ihres
 Dateinamens. Siehe »:help 'filetype'«.
 .TP 
 /usr/local/lib/vim/scripts.vim
-Mit diesem Script erkennt Vim den Typ einer Datei anhand ihres
+Mit diesem Script erkennt uVim den Typ einer Datei anhand ihres
 Inhaltes. Siehe »:help 'filetype'«.
 .TP 
 /usr/local/lib/vim/print/*.ps
 Diese Dateien werden zum Drucken von PostScript verwendet.
 .PP
-Für die neuesten Informationen lesen Sie die Vim\-Homepage:
+Für die neuesten Informationen lesen Sie die uVim\-Homepage:
 .br
 <URL:http://www.vim.org/>
 .SH "SIEHE AUCH"
@@ -474,5 +474,5 @@ Beachten Sie, dass gewisse Dinge, die manche Leute als Fehler betrachten
 mögen, in Wirklichkeit durch zu getreue Nachbildung des Vi\-Verhaltens
 verursacht werden. Und falls Sie denken, dass andere Dinge Fehler sind,
 »weil Vi es anders tut«, sollten Sie einen genaueren Blick auf die Datei
-vi_diff.txt werfen (oder in Vim »:help vi_diff.txt« tippen). Sehen Sie sich
+vi_diff.txt werfen (oder in uVim »:help vi_diff.txt« tippen). Sehen Sie sich
 auch die Optionen 'compatible' und 'cpoptions' an.

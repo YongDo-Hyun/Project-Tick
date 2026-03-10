@@ -1,8 +1,8 @@
 #! /bin/sh
 #
-# link.sh -- try linking Vim with different sets of libraries, finding the
+# link.sh -- try linking uVim with different sets of libraries, finding the
 # minimal set for fastest startup.  The problem is that configure adds a few
-# libraries when they exist, but this doesn't mean they are needed for Vim.
+# libraries when they exist, but this doesn't mean they are needed for uVim.
 #
 #      Author: Bram Moolenaar
 # Last change: 2010 Nov 03
@@ -46,7 +46,7 @@ else
 # Notes:
 # - Can't remove Xext; It links fine but will give an error when running gvim
 #   with Motif.
-# - Don't remove the last -lm: On HP-UX Vim links OK but crashes when the GTK
+# - Don't remove the last -lm: On HP-UX uVim links OK but crashes when the GTK
 #   GUI is started, because the "floor" symbol could not be resolved.
 #
   cat link.cmd
@@ -72,11 +72,11 @@ else
             # Redirect this link output, it may contain error messages which
             # should be ignored.
             if sh linkit.sh >>auto/link.log 2>&1; then
-              echo "link.sh: Vim doesn't need the $libname library!"
+              echo "link.sh: uVim doesn't need the $libname library!"
               cat link1.sed >>auto/link.sed
               rm -f auto/pathdef.c
             else
-              echo "link.sh: Vim DOES need the $libname library."
+              echo "link.sh: uVim DOES need the $libname library."
               cont=
               cp link.cmd linkit.sh
             fi

@@ -1,5 +1,5 @@
 #! /bin/sh
-# installman.sh --- install or uninstall manpages for Vim
+# installman.sh --- install or uninstall manpages for uVim
 #
 # arguments:
 # 1  what: "install", "uninstall" or "xxd"
@@ -62,46 +62,15 @@ if test $what = "install"; then
 	   -e s+$vimloc/scripts.vim+$scriptloc/scripts.vim+ \
 	   -e s+$vimloc/optwin.vim+$scriptloc/optwin.vim+ \
 	   -e 's+$vimloc/\*.ps+$scriptloc/\*.ps+' \
-	   $helpsource/vim$langadd.1 > $destdir/$exename.1
+		   $helpsource/vim$langadd.1 > $destdir/$exename.1
    chmod $manmod $destdir/$exename.1
-
-   # vimtutor.1
-   echo installing $destdir/$exename""tutor.1
-   LC_ALL=C sed -e s+/usr/local/lib/vim+$vimloc+ \
-	   -e s+$vimloc/tutor+$tutorsubloc+ \
-	   $helpsource/vimtutor$langadd.1 > $destdir/$exename""tutor.1
-   chmod $manmod $destdir/$exename""tutor.1
-
-   # vimdiff.1
-   echo installing $destdir/$vimdiffname.1
-   cp $helpsource/vimdiff$langadd.1 $destdir/$vimdiffname.1
-   chmod $manmod $destdir/$vimdiffname.1
-
-   # evim.1
-   echo installing $destdir/$evimname.1
-   LC_ALL=C sed -e s+/usr/local/lib/vim+$vimloc+ \
-	   -e s+$vimloc/evim.vim+$scriptloc/evim.vim+ \
-	   $helpsource/evim$langadd.1 > $destdir/$evimname.1
-   chmod $manmod $destdir/$evimname.1
 fi
 
 if test $what = "uninstall"; then
-   echo Checking for Vim manual pages in $destdir...
+   echo Checking for uVim manual pages in $destdir...
    if test -r $destdir/$exename.1; then
       echo deleting $destdir/$exename.1
       rm -f $destdir/$exename.1
-   fi
-   if test -r $destdir/$exename""tutor.1; then
-      echo deleting $destdir/$exename""tutor.1
-      rm -f $destdir/$exename""tutor.1
-   fi
-   if test -r $destdir/$vimdiffname.1; then
-      echo deleting $destdir/$vimdiffname.1
-      rm -f $destdir/$vimdiffname.1
-   fi
-   if test -r $destdir/$evimname.1; then
-      echo deleting $destdir/$evimname.1
-      rm -f $destdir/$evimname.1
    fi
 fi
 

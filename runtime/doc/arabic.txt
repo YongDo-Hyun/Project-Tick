@@ -1,10 +1,10 @@
-*arabic.txt*	For Vim version 7.4.  Last change: 2010 Nov 13
+*arabic.txt*	For uVim version 7.4.  Last change: 2010 Nov 13
 
 
 		  VIM REFERENCE MANUAL	  by Nadim Shaikli
 
 
-Arabic Language support (options & mappings) for Vim		*Arabic*
+Arabic Language support (options & mappings) for uVim		*Arabic*
 
 {Vi does not have any of these commands}
 
@@ -227,7 +227,7 @@ o  Enable Arabic settings [short-cut]
       - While in Left-to-right mode, enter ':set rl' in the command line
 	('rl' is the abbreviation for rightleft).
 
-      - Put the ':set rl' line in your '.vimrc' file to start Vim in
+      - Put the ':set rl' line in your '.vimrc' file to start uVim in
 	right-to-left mode permanently.
 
    +  Arabic right-to-left command-line Mode

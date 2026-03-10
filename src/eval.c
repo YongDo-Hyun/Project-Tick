@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -38,7 +38,7 @@ static dictitem_T	globvars_var;		/* variable used for g: */
 #define globvarht globvardict.dv_hashtab
 
 /*
- * Old Vim variables such as "v:version" are also available without the "v:".
+ * Old uVim variables such as "v:version" are also available without the "v:".
  * Also in functions.  We need a special hashtable for them.
  */
 static hashtab_T	compat_hashtab;
@@ -1460,7 +1460,7 @@ list_tab_vars(int *first)
 #endif
 
 /*
- * List Vim variables.
+ * List uVim variables.
  */
     static void
 list_vim_vars(int *first)
@@ -3224,6 +3224,15 @@ eval0(
 {
     int		ret;
     char_u	*p;
+
+    /* Vimscript support is intentionally removed in this tree. */
+    EMSG(_("E319: Sorry, Vimscript support has been removed"));
+    if (nextcmd != NULL)
+	*nextcmd = NULL;
+    rettv->v_type = VAR_NUMBER;
+    rettv->vval.v_number = 0;
+    rettv->v_lock = 0;
+    return FAIL;
 
     p = skipwhite(arg);
     ret = eval1(&p, rettv, evaluate);

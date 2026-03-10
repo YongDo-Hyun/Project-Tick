@@ -6,7 +6,7 @@
  *
  * This is NOT the original regular expression code as written by Henry
  * Spencer.  This code has been modified specifically for use with the VIM
- * editor, and should not be used separately from Vim.  If you want a good
+ * editor, and should not be used separately from uVim.  If you want a good
  * regular expression library, get the original code.  The copyright notice
  * that follows is from the original.
  *
@@ -2459,7 +2459,7 @@ collection:
 			}
 		    }
 		    /*
-		     * Only "\]", "\^", "\]" and "\\" are special in Vi.  Vim
+		     * Only "\]", "\^", "\]" and "\\" are special in Vi.  uVim
 		     * accepts "\t", "\e", etc., but only when the 'l' flag in
 		     * 'cpoptions' is not included.
 		     * Posix doesn't recognize backslash at all.

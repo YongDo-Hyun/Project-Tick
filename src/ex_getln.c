@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -3963,7 +3963,7 @@ ExpandEscape(
 
 /*
  * Escape special characters in "fname" for when used as a file name argument
- * after a Vim command, or, when "shell" is non-zero, a shell command.
+ * after a uVim command, or, when "shell" is non-zero, a shell command.
  * Returns the result in allocated memory.
  */
     char_u *
@@ -3987,7 +3987,7 @@ vim_strsave_fnameescape(char_u *fname, int shell)
 	char_u	    *s;
 
 	/* For csh and similar shells need to put two backslashes before '!'.
-	 * One is taken by Vim, one by the shell. */
+	 * One is taken by uVim, one by the shell. */
 	s = vim_strsave_escaped(p, (char_u *)"!");
 	vim_free(p);
 	p = s;
@@ -6395,7 +6395,7 @@ handle_viminfo_history(
 
 	    if (!in_history(type, val, viminfo_add_at_front, sep, writing))
 	    {
-		/* If lines were written by an older Vim we need to avoid
+		/* If lines were written by an older uVim we need to avoid
 		 * getting duplicates. See if the entry already exists. */
 		for (idx = 0; idx < viminfo_hisidx[type]; ++idx)
 		{
@@ -6436,7 +6436,7 @@ handle_viminfo_history(
 }
 
 /*
- * Concatenate history lines from viminfo after the lines typed in this Vim.
+ * Concatenate history lines from viminfo after the lines typed in this uVim.
  */
     static void
 concat_history(int type)
@@ -6501,7 +6501,7 @@ sort_hist(const void *s1, const void *s2)
 #endif
 
 /*
- * Merge history lines from viminfo and lines typed in this Vim based on the
+ * Merge history lines from viminfo and lines typed in this uVim based on the
  * timestamp;
  */
     static void
@@ -6839,7 +6839,7 @@ ex_window(void)
 	set_option_value((char_u *)"ft", 0L, (char_u *)"vim", OPT_LOCAL);
     }
 
-    /* Reset 'textwidth' after setting 'filetype' (the Vim filetype plugin
+    /* Reset 'textwidth' after setting 'filetype' (the uVim filetype plugin
      * sets 'textwidth' to 78). */
     curbuf->b_p_tw = 0;
 

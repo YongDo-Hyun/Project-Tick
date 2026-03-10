@@ -3,20 +3,20 @@ VIMTUTOR(1)                                                        VIMTUTOR(1)
 
 
 NAME
-       vimtutor - the Vim tutor
+       vimtutor - the uVim tutor
 
 SYNOPSIS
        vimtutor [-g] [language]
 
 DESCRIPTION
-       Vimtutor starts the Vim tutor.  It copies the tutor file first, so that
+       Vimtutor starts the uVim tutor.  It copies the tutor file first, so that
        it can be modified without changing the original file.
 
-       The Vimtutor is useful for people that want to learn  their  first  Vim
+       The Vimtutor is useful for people that want to learn  their  first  uVim
        commands.
 
        The  optional argument -g starts vimtutor with gvim rather than vim, if
-       the GUI version of vim is available, or falls back to Vim  if  gvim  is
+       the GUI version of vim is available, or falls back to uVim  if  gvim  is
        not found.
 
        The  optional [language] argument is the two-letter name of a language,
@@ -25,21 +25,21 @@ DESCRIPTION
        available, it will be used.  Otherwise  the  English  version  will  be
        used.
 
-       Vim is always started in Vi compatible mode.
+       uVim is always started in Vi compatible mode.
 
 FILES
        /usr/local/lib/vim/tutor/tutor[.language]
                       The Vimtutor text file(s).
 
        /usr/local/lib/vim/tutor/tutor.vim
-                      The Vim script used to copy the Vimtutor text file.
+                      The uVim script used to copy the Vimtutor text file.
 
 AUTHOR
        The  Vimtutor  was  originally  written for Vi by Michael C. Pierce and
        Robert K. Ware, Colorado  School  of  Mines  using  ideas  supplied  by
        Charles  Smith,  Colorado  State  University.  E-mail: bware@mines.col‐
        orado.edu.
-       It was modified for Vim by Bram Moolenaar.  For the names of the trans‐
+       It was modified for uVim by Bram Moolenaar.  For the names of the trans‐
        lators see the tutor files.
 
 SEE ALSO

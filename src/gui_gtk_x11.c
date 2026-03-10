@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved		by Bram Moolenaar
+ * VIM - Micro Vi IMproved		by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -125,7 +125,7 @@ enum
 };
 
 /*
- * Table of selection targets supported by Vim.
+ * Table of selection targets supported by uVim.
  * Note: Order matters, preferred types should come first.
  */
 static const GtkTargetEntry selection_targets[] =
@@ -142,7 +142,7 @@ static const GtkTargetEntry selection_targets[] =
 
 #ifdef FEAT_DND
 /*
- * Table of DnD targets supported by Vim.
+ * Table of DnD targets supported by uVim.
  * Note: Order matters, preferred types should come first.
  */
 static const GtkTargetEntry dnd_targets[] =
@@ -177,8 +177,8 @@ static GdkAtom save_yourself_atom = GDK_NONE;
  */
 static GdkAtom html_atom = GDK_NONE;
 static GdkAtom utf8_string_atom = GDK_NONE;
-static GdkAtom vim_atom = GDK_NONE;	/* Vim's own special selection format */
-static GdkAtom vimenc_atom = GDK_NONE;	/* Vim's extended selection format */
+static GdkAtom vim_atom = GDK_NONE;	/* uVim's own special selection format */
+static GdkAtom vimenc_atom = GDK_NONE;	/* uVim's extended selection format */
 
 /*
  * Keycodes recognized by vim.
@@ -306,7 +306,7 @@ const special_keys[] =
 
 /*
  * This table holds all the X GUI command line options allowed.  This includes
- * the standard ones so that we can skip them when Vim is started without the
+ * the standard ones so that we can skip them when uVim is started without the
  * GUI (but the GUI might start up later).
  *
  * When changing this, also update doc/gui_x11.txt and the usage message!!!
@@ -369,7 +369,7 @@ static const cmdline_option_T cmdline_options[] =
     {"-?",			ARG_FOR_GTK|ARG_NEEDS_GUI},
     {"--help",			ARG_FOR_GTK|ARG_NEEDS_GUI|ARG_KEEP},
     {"--usage",			ARG_FOR_GTK|ARG_NEEDS_GUI},
-# if 0 /* conflicts with Vim's own --version argument */
+# if 0 /* conflicts with uVim's own --version argument */
     {"--version",		ARG_FOR_GTK|ARG_NEEDS_GUI},
 # endif
     {"--disable-crash-dialog",	ARG_FOR_GTK},
@@ -410,7 +410,7 @@ gui_mch_prepare(int *argc, char **argv)
 
 #if defined(FEAT_GUI_GNOME) && defined(FEAT_SESSION)
     /*
-     * Determine the command used to invoke Vim, to be passed as restart
+     * Determine the command used to invoke uVim, to be passed as restart
      * command to the session manager.	If argv[0] contains any directory
      * components try building an absolute path, otherwise leave it as is.
      */
@@ -502,7 +502,7 @@ gui_mch_prepare(int *argc, char **argv)
 		    value = argv[i + 1];
 	    }
 
-	    /* Check for options handled by Vim itself */
+	    /* Check for options handled by uVim itself */
 	    switch (option->flags & ARG_INDEX_MASK)
 	    {
 		case ARG_REVERSE:
@@ -1054,7 +1054,7 @@ keyval_to_string(unsigned int keyval, unsigned int state, char_u *string)
     }
     else
     {
-	/* Translate keys which are represented by ASCII control codes in Vim.
+	/* Translate keys which are represented by ASCII control codes in uVim.
 	 * There are only a few of those; most control keys are translated to
 	 * special terminal-like control sequences. */
 	len = 1;
@@ -1702,7 +1702,7 @@ gui_mch_init_check(void)
 #endif
 
 #if GTK_CHECK_VERSION(3,10,0)
-    /* Vim currently assumes that Gtk means X11, so it cannot use native Gtk
+    /* uVim currently assumes that Gtk means X11, so it cannot use native Gtk
      * support for other backends such as Wayland. */
     gdk_set_allowed_backends ("x11");
 #endif
@@ -1713,7 +1713,7 @@ gui_mch_init_check(void)
 #endif
 
     /* This defaults to argv[0], but we want it to match the name of the
-     * shipped gvim.desktop so that Vim's windows can be associated with this
+     * shipped gvim.desktop so that uVim's windows can be associated with this
      * file. */
     g_set_prgname("gvim");
 
@@ -2474,7 +2474,7 @@ write_session_file(char_u *filename)
 /*
  * "save_yourself" signal handler.  Initiate an interaction to ask the user
  * for confirmation if necessary.  Save the current editing session and tell
- * the session manager how to restart Vim.
+ * the session manager how to restart uVim.
  */
     static gboolean
 sm_client_save_yourself(GnomeClient	    *client,
@@ -2533,7 +2533,7 @@ sm_client_save_yourself(GnomeClient	    *client,
 	gnome_client_set_discard_command(client, i, (char **)argv);
 
 	/* Tell the session manager how to restore the just saved session.
-	 * This is easily done thanks to Vim's -S option.  Pass the -f flag
+	 * This is easily done thanks to uVim's -S option.  Pass the -f flag
 	 * since there's no need to fork -- it might even cause confusion.
 	 * Also pass the window role to give the WM something to match on.
 	 * The role is set in gui_mch_open(), thus should _never_ be NULL. */
@@ -2568,7 +2568,7 @@ sm_client_die(GnomeClient *client UNUSED, gpointer data UNUSED)
     full_screen = FALSE;
 
     vim_strncpy(IObuff, (char_u *)
-		    _("Vim: Received \"die\" request from session manager\n"),
+		    _("uVim: Received \"die\" request from session manager\n"),
 		    IOSIZE - 1);
     preserve_exit();
 }
@@ -3309,7 +3309,7 @@ update_window_manager_hints(int force_width, int force_height)
 			       |GDK_HINT_MIN_SIZE;
 	/* Using gui.formwin as geometry widget doesn't work as expected
 	 * with GTK+ 2 -- dunno why.  Presumably all the resizing hacks
-	 * in Vim confuse GTK+. */
+	 * in uVim confuse GTK+. */
 	gtk_window_set_geometry_hints(GTK_WINDOW(gui.mainwin), gui.mainwin,
 				      &geometry, geometry_mask);
 	old_width       = width;
@@ -3806,7 +3806,7 @@ gui_mch_init(void)
 
 #if GLIB_CHECK_VERSION(2,1,3)
     /* Set the human-readable application name */
-    g_set_application_name("Vim");
+    g_set_application_name("uVim");
 #endif
     /*
      * Force UTF-8 output no matter what the value of 'encoding' is.
@@ -3884,7 +3884,7 @@ gui_mch_init(void)
 #ifdef FEAT_GUI_GNOME
 	if (using_gnome)
 	{
-	    gui.mainwin = gnome_app_new("Vim", NULL);
+	    gui.mainwin = gnome_app_new("uVim", NULL);
 # ifdef USE_XSMP
 	    /* Use the GNOME save-yourself functionality now. */
 	    xsmp_close();
@@ -4465,7 +4465,7 @@ mainwin_destroy_cb(GtkObject *object UNUSED, gpointer data UNUSED)
     if (!exiting) /* only do anything if the destroy was unexpected */
     {
 	vim_strncpy(IObuff,
-		(char_u *)_("Vim: Main window unexpectedly destroyed\n"),
+		(char_u *)_("uVim: Main window unexpectedly destroyed\n"),
 		IOSIZE - 1);
 	preserve_exit();
     }
@@ -4872,9 +4872,9 @@ gui_mch_set_shellsize(int width, int height,
 # endif /* !GTK_CHECK_VERSION(3,0,0) */
     /*
      * Wait until all events are processed to prevent a crash because the
-     * real size of the drawing area doesn't reflect Vim's internal ideas.
+     * real size of the drawing area doesn't reflect uVim's internal ideas.
      *
-     * This is a bit of a hack, since Vim is a terminal application with a GUI
+     * This is a bit of a hack, since uVim is a terminal application with a GUI
      * on top, while the GUI expects to be the boss.
      */
     gui_mch_update();
@@ -5060,7 +5060,7 @@ gui_mch_adjust_charheight(void)
     /* LINTED: avoid warning: bitwise operation on signed value */
     gui.char_ascent = PANGO_PIXELS(ascent + p_linespace * PANGO_SCALE / 2);
 
-    /* A not-positive value of char_height may crash Vim.  Only happens
+    /* A not-positive value of char_height may crash uVim.  Only happens
      * if 'linespace' is negative (which does make sense sometimes). */
     gui.char_ascent = MAX(gui.char_ascent, 0);
     gui.char_height = MAX(gui.char_height, gui.char_ascent + 1);
@@ -5194,7 +5194,7 @@ gui_mch_font_dialog(char_u *oldval)
  *
  * Note that we don't need to check for italic style since Xft can
  * emulate italic on its own, provided you have a proper fontconfig
- * setup.  We wouldn't be able to emulate it in Vim anyway.
+ * setup.  We wouldn't be able to emulate it in uVim anyway.
  */
     static void
 get_styled_font_variants(void)
@@ -5304,7 +5304,7 @@ ascii_glyph_table_init(void)
 }
 
 /*
- * Initialize Vim to use the font or fontset with the given name.
+ * Initialize uVim to use the font or fontset with the given name.
  * Return FAIL if the font could not be loaded, OK otherwise.
  */
     int
@@ -5345,7 +5345,7 @@ gui_mch_init_font(char_u *font_name, int fontset UNUSED)
      * http://bugzilla.gnome.org/show_bug.cgi?id=106618
      * http://bugzilla.gnome.org/show_bug.cgi?id=106624
      *
-     * With this, for all four of the following cases, Vim works fine:
+     * With this, for all four of the following cases, uVim works fine:
      *	   guifont=CJK_fixed_width_font
      *	   guifont=Non_CJK_fixed_font
      *	   guifont=Non_CJK_fixed_font,CJK_Fixed_font
@@ -5934,7 +5934,7 @@ gui_gtk2_draw_string(int row, int col, char_u *s, int len, int flags)
     /*
      * Optimization hack:  If possible, skip the itemize and shaping process
      * for pure ASCII strings.	This optimization is particularly effective
-     * because Vim draws space characters to clear parts of the screen.
+     * because uVim draws space characters to clear parts of the screen.
      */
     if (!(flags & DRAW_ITALIC)
 	    && !((flags & DRAW_BOLD) && gui.font_can_bold)
@@ -6017,13 +6017,13 @@ not_ascii:
 	    /*
 	     * Increment the bidirectional embedding level by 1 if it is not
 	     * even.  An odd number means the output will be RTL, but we don't
-	     * want that since Vim handles right-to-left text on its own.  It
+	     * want that since uVim handles right-to-left text on its own.  It
 	     * would probably be sufficient to just set level = 0, but you can
 	     * never know :)
 	     *
 	     * Unfortunately we can't take advantage of Pango's ability to
 	     * render both LTR and RTL at the same time.  In order to support
-	     * that, Vim's main screen engine would have to make use of Pango
+	     * that, uVim's main screen engine would have to make use of Pango
 	     * functionality.
 	     */
 	    item->analysis.level = (item->analysis.level + 1) & (~1U);
@@ -6351,7 +6351,7 @@ gui_mch_iconify(void)
 
 #if defined(FEAT_EVAL) || defined(PROTO)
 /*
- * Bring the Vim window to the foreground.
+ * Bring the uVim window to the foreground.
  */
     void
 gui_mch_set_foreground(void)

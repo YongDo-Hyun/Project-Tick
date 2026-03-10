@@ -1,10 +1,10 @@
-*if_pyth.txt*   For Vim version 7.4.  Last change: 2015 Nov 10
+*if_pyth.txt*   For uVim version 7.4.  Last change: 2015 Nov 10
 
 
 		  VIM REFERENCE MANUAL    by Paul Moore
 
 
-The Python Interface to Vim				*python* *Python*
+The Python Interface to uVim				*python* *Python*
 
 1. Commands					|python-commands|
 2. The vim module				|python-vim|
@@ -13,15 +13,15 @@ The Python Interface to Vim				*python* *Python*
 5. Window objects				|python-window|
 6. Tab page objects				|python-tabpage|
 7. vim.bindeval objects				|python-bindeval-objects|
-8. pyeval(), py3eval() Vim functions		|python-pyeval|
+8. pyeval(), py3eval() uVim functions		|python-pyeval|
 9. Dynamic loading				|python-dynamic|
 10. Python 3					|python3|
 
 {Vi does not have any of these commands}
 
-The Python 2.x interface is available only when Vim was compiled with the
+The Python 2.x interface is available only when uVim was compiled with the
 |+python| feature.
-The Python 3 interface is available only when Vim was compiled with the
+The Python 3 interface is available only when uVim was compiled with the
 |+python3| feature.
 Both can be available at the same time, but read |python-2-and-3|.
 
@@ -46,7 +46,7 @@ Both can be available at the same time, but read |python-2-and-3|.
 omitted from after the "<<", a dot '.' must be used after {script}, like
 for the |:append| and |:insert| commands.
 This form of the |:python| command is mainly useful for including python code
-in Vim scripts.
+in uVim scripts.
 
 Example: >
 	function! IcecreamInitialize()
@@ -157,9 +157,9 @@ vim.command(str)					*python-command*
 vim.eval(str)						*python-eval*
 	Evaluates the expression str using the vim internal expression
 	evaluator (see |expression|).  Returns the expression result as:
-	- a string if the Vim expression evaluates to a string or number
-	- a list if the Vim expression evaluates to a Vim list
-	- a dictionary if the Vim expression evaluates to a Vim dictionary
+	- a string if the uVim expression evaluates to a string or number
+	- a list if the uVim expression evaluates to a uVim list
+	- a dictionary if the uVim expression evaluates to a uVim dictionary
 	Dictionaries and lists are recursively expanded.
 	Examples: >
 	    :py text_width = vim.eval("&tw")
@@ -197,7 +197,7 @@ vim.fchdir(*args, **kwargs)				*python-fchdir*
 Error object of the "vim" module
 
 vim.error						*python-error*
-	Upon encountering a Vim error, Python raises an exception of type
+	Upon encountering a uVim error, Python raises an exception of type
 	vim.error.
 	Example: >
 		try:
@@ -293,7 +293,7 @@ vim.options						*python-options*
 	module.
 
 Output from Python					*python-output*
-	Vim displays all Python code output in the Vim message area.  Normal
+	uVim displays all Python code output in the uVim message area.  Normal
 	output appears as information messages, and error output appears as
 	error messages.
 
@@ -673,7 +673,7 @@ vim.Function object				*python-Function*
         auto_rebind  Boolean. True if partial created from this Python object 
                      and stored in the VimL dictionary should be automatically 
                      rebound to the dictionary it is stored in when this 
-                     dictionary is indexed. Exposes Vim internal difference 
+                     dictionary is indexed. Exposes uVim internal difference 
                      between `dict.func` (auto_rebind=True) and 
                      `function(dict.func,dict)` (auto_rebind=False). This 
                      attribute makes no sense if `self` attribute is `None`.
@@ -703,7 +703,7 @@ vim.Function object				*python-Function*
         print f('b')
 
 ==============================================================================
-8. pyeval() and py3eval() Vim functions			*python-pyeval*
+8. pyeval() and py3eval() uVim functions			*python-pyeval*
 
 To facilitate bi-directional interface, you can use |pyeval()| and |py3eval()| 
 functions to evaluate Python expressions and pass their values to VimL.
@@ -714,9 +714,9 @@ functions to evaluate Python expressions and pass their values to VimL.
 On MS-Windows and Unix the Python library can be loaded dynamically.  The
 |:version| output then includes |+python/dyn| or |+python3/dyn|.
 
-This means that Vim will search for the Python DLL or shared library file only
+This means that uVim will search for the Python DLL or shared library file only
 when needed.  When you don't use the Python interface you don't need it, thus
-you can use Vim without this file.
+you can use uVim without this file.
 
 
 MS-Windows ~
@@ -725,7 +725,7 @@ To use the Python interface the Python DLL must be in your search path.  In a
 console window type "path" to see what directories are used.  The 'pythondll'
 or 'pythonthreedll' option can be also used to specify the Python DLL.
 
-The name of the DLL must match the Python version Vim was compiled with.
+The name of the DLL must match the Python version uVim was compiled with.
 Currently the name is "python24.dll".  That is for Python 2.4.  To know for
 sure edit "gvim.exe" and search for "python\d*.dll\c".
 
@@ -735,7 +735,7 @@ Unix ~
 The 'pythondll' or 'pythonthreedll' option can be used to specify the Python
 shared library file instead of DYNAMIC_PYTHON_DLL or DYNAMIC_PYTHON3_DLL file
 what were specified at compile time.  The version of the shared library must
-match the Python 2.x or Python 3 version Vim was compiled with.
+match the Python 2.x or Python 3 version uVim was compiled with.
 
 ==============================================================================
 10. Python 3						*python3*
@@ -750,7 +750,7 @@ The `:py3file` command works similar to `:pyfile`.
 The `:py3do` command works similar to `:pydo`.
 
 
-Vim can be built in four ways (:version output):
+uVim can be built in four ways (:version output):
 1. No Python support	    (-python, -python3)
 2. Python 2 support only    (+python or +python/dyn, -python3)
 3. Python 3 support only    (-python, +python3 or +python3/dyn)
@@ -764,15 +764,15 @@ When doing this on Linux/Unix systems and importing global symbols, this leads
 to a crash when the second Python version is used.  So either global symbols
 are loaded but only one Python version is activated, or no global symbols are
 loaded. The latter makes Python's "import" fail on libraries that expect the
-symbols to be provided by Vim.
+symbols to be provided by uVim.
 							*E836* *E837*
-Vim's configuration script makes a guess for all libraries based on one
+uVim's configuration script makes a guess for all libraries based on one
 standard Python library (termios).  If importing this library succeeds for
-both Python versions, then both will be made available in Vim at the same
+both Python versions, then both will be made available in uVim at the same
 time.  If not, only the version first used in a session will be enabled.
 When trying to use the other one you will get the E836 or E837 error message.
 
-Here Vim's behavior depends on the system in which it was configured.  In a
+Here uVim's behavior depends on the system in which it was configured.  In a
 system where both versions of Python were configured with --enable-shared,
 both versions of Python will be activated at the same time.  There will still
 be problems with other third party libraries that were not linked to
@@ -781,9 +781,9 @@ libPython.
 To work around such problems there are these options:
 1. The problematic library is recompiled to link to the according
    libpython.so.
-2. Vim is recompiled for only one Python version.
+2. uVim is recompiled for only one Python version.
 3. You undefine PY_NO_RTLD_GLOBAL in auto/config.h after configuration.  This
-   may crash Vim though.
+   may crash uVim though.
 
 							*E880*
 Raising SystemExit exception in python isn't endorsed way to quit vim, use: >

@@ -1,4 +1,4 @@
-*usr_43.txt*	For Vim version 7.4.  Last change: 2015 Oct 23
+*usr_43.txt*	For uVim version 7.4.  Last change: 2015 Oct 23
 
 		     VIM USER MANUAL - by Bram Moolenaar
 
@@ -34,7 +34,7 @@ three-line comment.  You do this with only two steps:
 	mkdir ~/.vim/ftplugin
 <
    When you are not on Unix, check the value of the 'runtimepath' option to
-   see where Vim will look for the "ftplugin" directory: >
+   see where uVim will look for the "ftplugin" directory: >
 
 	set runtimepath
 
@@ -76,7 +76,7 @@ More details about writing a filetype plugin can be found here:
 ==============================================================================
 *43.2*	Adding a filetype
 
-If you are using a type of file that is not recognized by Vim, this is how to
+If you are using a type of file that is not recognized by uVim, this is how to
 get it recognized.  You need a runtime directory of your own.  See
 |your-runtime-dir| above.
 
@@ -122,9 +122,9 @@ That file is found in 'runtimepath' first.  Then use this in
 	au BufNewFile,BufRead /usr/share/scripts/*	setf ruby
 	augroup END
 
-What will happen now is that Vim searches for "filetype.vim" files in each
+What will happen now is that uVim searches for "filetype.vim" files in each
 directory in 'runtimepath'.  First ~/.vim/filetype.vim is found.  The
-autocommand to catch *.txt files is defined there.  Then Vim finds the
+autocommand to catch *.txt files is defined there.  Then uVim finds the
 filetype.vim file in $VIMRUNTIME, which is halfway 'runtimepath'.  Finally
 ~/.vim/after/filetype.vim is found and the autocommand for detecting ruby
 files in /usr/share/scripts is added.

@@ -10,7 +10,7 @@ STARTTEST
 :	'<,'>del _
 :	try
 :		exe "normal \<Esc>"
-:	catch /^Vim\%((\a\+)\)\=:E315/
+:	catch /^uVim\%((\a\+)\)\=:E315/
 :		echom 'Snap! E315 error!'
 :		let g:msg='Snap! E315 error!'
 :	endtry

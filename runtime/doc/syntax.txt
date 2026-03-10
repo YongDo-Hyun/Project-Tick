@@ -1,4 +1,4 @@
-*syntax.txt*	For Vim version 7.4.  Last change: 2016 Aug 16
+*syntax.txt*	For uVim version 7.4.  Last change: 2016 Aug 16
 
 
 		  VIM REFERENCE MANUAL	  by Bram Moolenaar
@@ -6,13 +6,13 @@
 
 Syntax highlighting		*syntax* *syntax-highlighting* *coloring*
 
-Syntax highlighting enables Vim to show parts of the text in another font or
-color.	Those parts can be specific keywords or text matching a pattern.  Vim
+Syntax highlighting enables uVim to show parts of the text in another font or
+color.	Those parts can be specific keywords or text matching a pattern.  uVim
 doesn't parse the whole file (to keep it fast), so the highlighting has its
 limitations.  Lexical highlighting might be a better name, but since everybody
 calls it syntax highlighting we'll stick with that.
 
-Vim supports syntax highlighting on all terminals.  But since most ordinary
+uVim supports syntax highlighting on all terminals.  But since most ordinary
 terminals have very limited highlighting possibilities, it works best in the
 GUI version, gvim.
 
@@ -55,17 +55,17 @@ This command switches on syntax highlighting: >
 What this command actually does is to execute the command >
 	:source $VIMRUNTIME/syntax/syntax.vim
 
-If the VIM environment variable is not set, Vim will try to find
+If the VIM environment variable is not set, uVim will try to find
 the path in another way (see |$VIMRUNTIME|).  Usually this works just
 fine.  If it doesn't, try setting the VIM environment variable to the
-directory where the Vim stuff is located.  For example, if your syntax files
+directory where the uVim stuff is located.  For example, if your syntax files
 are in the "/usr/vim/vim50/syntax" directory, set $VIMRUNTIME to
-"/usr/vim/vim50".  You must do this in the shell, before starting Vim.
+"/usr/vim/vim50".  You must do this in the shell, before starting uVim.
 
 							*:syn-on* *:syntax-on*
 The ":syntax enable" command will keep your current color settings.  This
 allows using ":highlight" commands to set your preferred colors before or
-after using this command.  If you want Vim to overrule your settings with the
+after using this command.  If you want uVim to overrule your settings with the
 defaults, use: >
 	:syntax on
 <
@@ -143,7 +143,7 @@ These commands are normally in the file $VIMRUNTIME/syntax/synload.vim.
 
 MAKING YOUR OWN SYNTAX FILES				*mysyntaxfile*
 
-When you create your own syntax files, and you want to have Vim use these
+When you create your own syntax files, and you want to have uVim use these
 automatically with ":syntax enable", do this:
 
 1. Create your user runtime directory.	You would normally use the first item
@@ -153,15 +153,15 @@ automatically with ":syntax enable", do this:
 2. Create a directory in there called "syntax".  For Unix: >
 	mkdir ~/.vim/syntax
 
-3. Write the Vim syntax file.  Or download one from the internet.  Then write
+3. Write the uVim syntax file.  Or download one from the internet.  Then write
    it in your syntax directory.  For example, for the "mine" syntax: >
 	:w ~/.vim/syntax/mine.vim
 
 Now you can start using your syntax file manually: >
 	:set syntax=mine
-You don't have to exit Vim to use this.
+You don't have to exit uVim to use this.
 
-If you also want Vim to detect the type of file, see |new-filetype|.
+If you also want uVim to detect the type of file, see |new-filetype|.
 
 If you are setting up a system with many users and you don't want each user
 to add the same syntax file, you can use another directory from 'runtimepath'.
@@ -178,7 +178,7 @@ add a few items or change the highlighting, follow these steps:
 	mkdir ~/.vim/after
 	mkdir ~/.vim/after/syntax
 
-3. Write a Vim script that contains the commands you want to use.  For
+3. Write a uVim script that contains the commands you want to use.  For
    example, to change the colors for the C syntax: >
 	highlight cComment ctermfg=Green guifg=Green
 
@@ -187,7 +187,7 @@ add a few items or change the highlighting, follow these steps:
 	:w ~/.vim/after/syntax/c.vim
 
 That's it.  The next time you edit a C file the Comment color will be
-different.  You don't even have to restart Vim.
+different.  You don't even have to restart uVim.
 
 If you have multiple files, you can use the filetype as the directory name.
 All the "*.vim" files in this directory will be used, for example:
@@ -200,7 +200,7 @@ REPLACING AN EXISTING SYNTAX FILE			*mysyntaxfile-replace*
 If you don't like a distributed syntax file, or you have downloaded a new
 version, follow the same steps as for |mysyntaxfile| above.  Just make sure
 that you write the syntax file in a directory that is early in 'runtimepath'.
-Vim will only load the first syntax file found, assuming that it sets
+uVim will only load the first syntax file found, assuming that it sets
 b:current_syntax.
 
 
@@ -211,7 +211,7 @@ thing.  These are then linked to a highlight group that specifies the color.
 A syntax group name doesn't specify any color or attributes itself.
 
 The name for a highlight or syntax group must consist of ASCII letters, digits
-and the underscore.  As a regexp: "[a-zA-Z0-9_]*".  However, Vim does not give
+and the underscore.  As a regexp: "[a-zA-Z0-9_]*".  However, uVim does not give
 an error when using other characters.
 
 To be able to allow each user to pick his favorite set of colors, there must
@@ -286,7 +286,7 @@ mechanism.  See |conceal|.
 3. Syntax loading procedure				*syntax-loading*
 
 This explains the details that happen when the command ":syntax enable" is
-issued.  When Vim initializes itself, it finds out where the runtime files are
+issued.  When uVim initializes itself, it finds out where the runtime files are
 located.  This is used here as the variable |$VIMRUNTIME|.
 
 ":syntax enable" and ":syntax on" do the following:
@@ -307,7 +307,7 @@ located.  This is used here as the variable |$VIMRUNTIME|.
     |	|   the 'syntax' option is set. *synload-1*
     |	|
     |	+-  Source the user's optional file, from the |mysyntaxfile| variable.
-    |	    This is for backwards compatibility with Vim 5.x only. *synload-2*
+    |	    This is for backwards compatibility with uVim 5.x only. *synload-2*
     |
     +-	Do ":filetype on", which does ":runtime! filetype.vim".  It loads any
     |	filetype.vim files found.  It should always Source
@@ -318,7 +318,7 @@ located.  This is used here as the variable |$VIMRUNTIME|.
     |	|   made for known file types. *synload-3*
     |	|
     |	+-  Source the user's optional file, from the *myfiletypefile*
-    |	|   variable.  This is for backwards compatibility with Vim 5.x only.
+    |	|   variable.  This is for backwards compatibility with uVim 5.x only.
     |	|   *synload-4*
     |	|
     |	+-  Install one autocommand which sources scripts.vim when no file
@@ -333,7 +333,7 @@ located.  This is used here as the variable |$VIMRUNTIME|.
 	already loaded buffer.
 
 
-Upon loading a file, Vim finds the relevant syntax file as follows:
+Upon loading a file, uVim finds the relevant syntax file as follows:
 
     Loading the file triggers the BufReadPost autocommands.
     |
@@ -346,7 +346,7 @@ Upon loading a file, Vim finds the relevant syntax file as follows:
     |	should always load $VIMRUNTIME/scripts.vim, which does the following.
     |	|
     |	+-  Source the user's optional file, from the *myscriptsfile*
-    |	|   variable.  This is for backwards compatibility with Vim 5.x only.
+    |	|   variable.  This is for backwards compatibility with uVim 5.x only.
     |	|
     |	+-  If the file type is still unknown, check the contents of the file,
     |	    again with checks like "getline(1) =~ pattern" as to whether the
@@ -369,7 +369,7 @@ Upon loading a file, Vim finds the relevant syntax file as follows:
 4. Syntax file remarks					*:syn-file-remarks*
 
 						*b:current_syntax-variable*
-Vim stores the name of the syntax that has been loaded in the
+uVim stores the name of the syntax that has been loaded in the
 "b:current_syntax" variable.  You can use this if you want to load other
 settings, depending on which syntax is active.	Example: >
    :au BufReadPost * if b:current_syntax == "csh"
@@ -380,14 +380,14 @@ settings, depending on which syntax is active.	Example: >
 2HTML						*2html.vim* *convert-to-HTML*
 
 This is not a syntax file itself, but a script that converts the current
-window into HTML. Vim opens a new window in which it builds the HTML file.
+window into HTML. uVim opens a new window in which it builds the HTML file.
 
 After you save the resulting file, you can view it with any browser. The
-colors should be exactly the same as you see them in Vim.  With
+colors should be exactly the same as you see them in uVim.  With
 |g:html_line_ids| you can jump to specific lines by adding (for example) #L123
 or #123 to the end of the URL in your browser's address bar. And with
 |g:html_dynamic_folds| enabled, you can show or hide the text that is folded
-in Vim.
+in uVim.
 
 You are not supposed to set the 'filetype' or 'syntax' option to "2html"!
 Source the script to convert the current file: >
@@ -402,9 +402,9 @@ the desired value, or restored to their default by removing the variable using
 Remarks:
 - Some truly ancient browsers may not show the background colors.
 - From most browsers you can also print the file (in color)!
-- The latest TOhtml may actually work with older versions of Vim, but some
+- The latest TOhtml may actually work with older versions of uVim, but some
   features such as conceal support will not function, and the colors may be
-  incorrect for an old Vim without GUI support compiled in.
+  incorrect for an old uVim without GUI support compiled in.
 
 Here is an example how to run the script over all .c and .h files from a
 Unix shell: >
@@ -472,7 +472,7 @@ Example: >
 
 	let g:html_no_progress = 1
 <
-You can obtain better performance improvements by also instructing Vim to not
+You can obtain better performance improvements by also instructing uVim to not
 run interactively, so that too much time is not taken to redraw as the script
 moves through the buffer, switches windows, and the like: >
 
@@ -488,7 +488,7 @@ specifying each command separately.
 Default: current 'number' setting.
 When 0, buffer text is displayed in the generated HTML without line numbering.
 When 1, a column of line numbers is added to the generated HTML with the same
-highlighting as the line number column in Vim (|hl-LineNr|).
+highlighting as the line number column in uVim (|hl-LineNr|).
 Force line numbers even if 'number' is not set: >
    :let g:html_number_lines = 1
 Force to omit the line numbers: >
@@ -539,8 +539,8 @@ included in the generated HTML (unless it is folded): >
 						       *g:html_ignore_folding*
 Default: 0.
 When 0, text in a closed fold is replaced by the text shown for the fold in
-Vim (|fold-foldtext|). See |g:html_dynamic_folds| if you also want to allow
-the user to expand the fold as in Vim to see the text inside.
+uVim (|fold-foldtext|). See |g:html_dynamic_folds| if you also want to allow
+the user to expand the fold as in uVim to see the text inside.
 When 1, include all text from the buffer in the generated HTML; whether the
 text is in a fold has no impact at all. |g:html_dynamic_folds| has no effect.
 
@@ -553,7 +553,7 @@ in the generated HTML (unless it is concealed): >
 Default: 0.
 When 0, text in a closed fold is not included at all in the generated HTML.
 When 1, generate javascript to open a fold and show the text within, just like
-in Vim.
+in uVim.
 
 Setting this variable to 1 causes 2html.vim to always use CSS for styling,
 regardless of what |g:html_use_css| is set to.
@@ -565,7 +565,7 @@ This variable is ignored when |g:html_ignore_folding| is set.
 							*g:html_no_foldcolumn*
 Default: 0.
 When 0, if |g:html_dynamic_folds| is 1, generate a column of text similar to
-Vim's foldcolumn (|fold-foldcolumn|) the user can click on to toggle folds
+uVim's foldcolumn (|fold-foldcolumn|) the user can click on to toggle folds
 open or closed. The minimum width of the generated text column is the current
 'foldcolumn' setting.
 When 1, do not generate this column; instead, hovering the mouse cursor over
@@ -625,7 +625,7 @@ they will not be openable without a foldcolumn.
 Default: ""
 Dynamic folding and jumping to line IDs rely on unique IDs within the document
 to work. If generated HTML is copied into a larger document, these IDs are no
-longer guaranteed to be unique. Set g:html_id_expr to an expression Vim can
+longer guaranteed to be unique. Set g:html_id_expr to an expression uVim can
 evaluate to get a unique string to append to each ID used in a given document,
 so that the full IDs will be unique even when combined with other content in a
 larger HTML document. Example, to append _ and the buffer number to each ID: >
@@ -657,13 +657,13 @@ Go back to default, determine wrapping from 'wrap' setting: >
 							       *g:html_no_pre*
 Default: 0.
 When 0, buffer text in the generated HTML is surrounded by <pre>...</pre>
-tags. Series of whitespace is shown as in Vim without special markup, and tab
+tags. Series of whitespace is shown as in uVim without special markup, and tab
 characters can be included literally (see |g:html_expand_tabs|).
 When 1 (not recommended), the <pre> tags are omitted, and a plain <div> is
 used instead. Whitespace is replaced by a series of &nbsp; character
 references, and <br> is used to end each line. This is another way to allow
 text in the generated HTML is wrap (see |g:html_pre_wrap|) which also works in
-old browsers, but may cause noticeable differences between Vim's display and
+old browsers, but may cause noticeable differences between uVim's display and
 the rendered page generated by 2html.vim.
 >
    :let g:html_no_pre = 1
@@ -829,7 +829,7 @@ Replace "asm" with the type of assembly you use.
 
 There are many types of assembly languages that all use the same file name
 extensions.  Therefore you will have to select the type yourself, or add a
-line in the assembly file that Vim will recognize.  Currently these syntax
+line in the assembly file that uVim will recognize.  Currently these syntax
 files are included:
 	asm		GNU assembly (the default)
 	asm68k		Motorola 680x0 assembly
@@ -881,7 +881,7 @@ nasm_no_warn		potentially risky syntax not as ToDo
 ASPPERL and ASPVBS			*ft-aspperl-syntax* *ft-aspvbs-syntax*
 
 *.asp and *.asa files could be either Perl or Visual Basic script.  Since it's
-hard to detect this you can set two global variables to tell Vim what you are
+hard to detect this you can set two global variables to tell uVim what you are
 using.	For Perl script use: >
 	:let g:filetype_asa = "aspperl"
 	:let g:filetype_asp = "aspperl"
@@ -926,7 +926,7 @@ the options 'foldminlines' and 'foldnestmax' in |.vimrc| or use |:setlocal| in
 BASIC			*basic.vim* *vb.vim* *ft-basic-syntax* *ft-vb-syntax*
 
 Both Visual Basic and "normal" basic use the extension ".bas".	To detect
-which one should be used, Vim checks for the string "VB_Name" in the first
+which one should be used, uVim checks for the string "VB_Name" in the first
 five lines of the file.  If it is not found, filetype will be "basic",
 otherwise "vb".  Files with the ".frm" extension will always be seen as Visual
 Basic.
@@ -1012,7 +1012,7 @@ CH						*ch.vim* *ft-ch-syntax*
 C/C++ interpreter.  Ch has similar syntax highlighting to C and builds upon
 the C syntax file.  See |c.vim| for all the settings that are available for C.
 
-By setting a variable you can tell Vim to use Ch syntax for *.h files, instead
+By setting a variable you can tell uVim to use Ch syntax for *.h files, instead
 of C or C++: >
 	:let ch_syntax_for_h = 1
 
@@ -1062,7 +1062,7 @@ language constants and special forms are matched.
 
 Setting *g:clojure_fold* enables folding Clojure code via the syntax engine.
 Any list, vector, or map that extends over more than one line can be folded
-using the standard Vim |fold-commands|.
+using the standard uVim |fold-commands|.
 
 Please note that this option does not work with scripts that redefine the
 bracket syntax regions, such as rainbow-parentheses plugins.
@@ -1191,8 +1191,8 @@ DOCBOOK XML				*docbkxml.vim* *ft-docbkxml-syntax*
 DOCBOOK SGML				*docbksgml.vim* *ft-docbksgml-syntax*
 
 There are two types of DocBook files: SGML and XML.  To specify what type you
-are using the "b:docbk_type" variable should be set.  Vim does this for you
-automatically if it can recognize the type.  When Vim can't guess it the type
+are using the "b:docbk_type" variable should be set.  uVim does this for you
+automatically if it can recognize the type.  When uVim can't guess it the type
 defaults to XML.
 You can set the type manually: >
 	:let docbk_type = "sgml"
@@ -1579,19 +1579,19 @@ For further information related to fortran, see |ft-fortran-indent| and
 
 FVWM CONFIGURATION FILES			*fvwm.vim* *ft-fvwm-syntax*
 
-In order for Vim to recognize Fvwm configuration files that do not match
+In order for uVim to recognize Fvwm configuration files that do not match
 the patterns *fvwmrc* or *fvwm2rc* , you must put additional patterns
 appropriate to your system in your myfiletypes.vim file.  For these
 patterns, you must set the variable "b:fvwm_version" to the major version
 number of Fvwm, and the 'filetype' option to fvwm.
 
-For example, to make Vim identify all files in /etc/X11/fvwm2/
+For example, to make uVim identify all files in /etc/X11/fvwm2/
 as Fvwm2 configuration files, add the following: >
 
   :au! BufNewFile,BufRead /etc/X11/fvwm2/*  let b:fvwm_version = 2 |
 					 \ set filetype=fvwm
 
-If you'd like Vim to highlight all valid color names, tell it where to
+If you'd like uVim to highlight all valid color names, tell it where to
 find the color database (rgb.txt) on your system.  Do this by setting
 "rgb_file" to its location.  Assuming your color database is located
 in /usr/X11/lib/X11/, you should add the line >
@@ -1798,7 +1798,7 @@ set of highlighted system functions.
 
 The Inform compiler will flag certain obsolete keywords as errors when
 it encounters them.  These keywords are normally highlighted as errors
-by Vim.  To prevent such error highlighting, you must add this to your
+by uVim.  To prevent such error highlighting, you must add this to your
 startup sequence: >
 	:let inform_suppress_obsolete=1
 
@@ -1980,7 +1980,7 @@ LPC						*lpc.vim* *ft-lpc-syntax*
 
 LPC stands for a simple, memory-efficient language: Lars Pensj| C.  The
 file name of LPC is usually *.c.  Recognizing these files as LPC would bother
-users writing only C programs.	If you want to use LPC syntax in Vim, you
+users writing only C programs.	If you want to use LPC syntax in uVim, you
 should set a variable in your .vimrc file: >
 
 	:let lpc_syntax_for_c = 1
@@ -2030,13 +2030,13 @@ lua_version and lua_subversion. For example, to activate Lua
 
 MAIL						*mail.vim* *ft-mail.vim*
 
-Vim highlights all the standard elements of an email (headers, signatures,
+uVim highlights all the standard elements of an email (headers, signatures,
 quoted text and URLs / email addresses).  In keeping with standard conventions,
 signatures begin in a line containing only "--" followed optionally by
 whitespaces and end with a newline.
 
-Vim treats lines beginning with ']', '}', '|', '>' or a word followed by '>'
-as quoted text.  However Vim highlights headers and signatures in quoted text
+uVim treats lines beginning with ']', '}', '|', '>' or a word followed by '>'
+as quoted text.  However uVim highlights headers and signatures in quoted text
 only if the text is quoted with '>' (optionally followed by one space).
 
 By default mail.vim synchronises syntax to 100 lines before the first
@@ -2234,7 +2234,7 @@ by the camlp4 preprocessor.  Setting the variable >
 	:let ocaml_noend_error = 1
 
 prevents highlighting of "end" as error, which is useful when sources
-contain very long structures that Vim does not synchronize anymore.
+contain very long structures that uVim does not synchronize anymore.
 
 
 PAPP						*papp.vim* *ft-papp-syntax*
@@ -2327,14 +2327,14 @@ from the rest of the name (like 'PkgName::' in '$PkgName::VarName'): >
 
 	:let perl_no_scope_in_variables = 1
 
-(In Vim 6.x it was the other way around: "perl_want_scope_in_variables"
+(In uVim 6.x it was the other way around: "perl_want_scope_in_variables"
 enabled it.)
 
 If you do not want complex things like '@{${"foo"}}' to be parsed: >
 
 	:let perl_no_extended_vars = 1
 
-(In Vim 6.x it was the other way around: "perl_extended_vars" enabled it.)
+(In uVim 6.x it was the other way around: "perl_extended_vars" enabled it.)
 
 The coloring strings can be changed.  By default strings and qq friends will be
 highlighted like the first line.  If you set the variable
@@ -2522,7 +2522,7 @@ postscr_ghostscript as follows: >
 
 PostScript is a large language, with many predefined elements.	While it
 useful to have all these elements highlighted, on slower machines this can
-cause Vim to slow down.  In an attempt to be machine friendly font names and
+cause uVim to slow down.  In an attempt to be machine friendly font names and
 character encodings are not highlighted by default.  Unless you are working
 explicitly with either of these this should be ok.  If you want them to be
 highlighted you should set one or both of the following variables: >
@@ -2547,13 +2547,13 @@ PRINTCAP + TERMCAP	*ft-ptcap-syntax* *ft-termcap-syntax*
 
 This syntax file applies to the printcap and termcap databases.
 
-In order for Vim to recognize printcap/termcap files that do not match
+In order for uVim to recognize printcap/termcap files that do not match
 the patterns *printcap*, or *termcap*, you must put additional patterns
 appropriate to your system in your |myfiletypefile| file.  For these
 patterns, you must set the variable "b:ptcap_type" to either "print" or
 "term", and then the 'filetype' option to ptcap.
 
-For example, to make Vim identify all files in /etc/termcaps/ as termcap
+For example, to make uVim identify all files in /etc/termcaps/ as termcap
 files, add the following: >
 
    :au BufNewFile,BufRead /etc/termcaps/* let b:ptcap_type = "term" |
@@ -2660,7 +2660,7 @@ This will make the syntax synchronization start 50 lines before the first
 displayed line.  The default value is 10.  The disadvantage of using a larger
 number is that redrawing can become slow.
 
-Vim tries to guess what type a ".r" file is.  If it can't be detected (from
+uVim tries to guess what type a ".r" file is.  If it can't be detected (from
 comment lines), the default is "r".  To make the default rexx add this line to
 your .vimrc:  *g:filetype_r*
 >
@@ -2832,7 +2832,7 @@ SH		*sh.vim* *ft-sh-syntax* *ft-bash-syntax* *ft-ksh-syntax*
 
 This covers the "normal" Unix (Bourne) sh, bash and the Korn shell.
 
-Vim attempts to determine which shell type is in use by specifying that
+uVim attempts to determine which shell type is in use by specifying that
 various filenames are of specific types: >
 
     ksh : .kshrc* *.ksh
@@ -2964,11 +2964,11 @@ SQL						*sql.vim* *ft-sql-syntax*
 				*sqlanywhere.vim* *ft-sqlanywhere-syntax*
 
 While there is an ANSI standard for SQL, most database engines add their own
-custom extensions.  Vim currently supports the Oracle and Informix dialects of
-SQL.  Vim assumes "*.sql" files are Oracle SQL by default.
+custom extensions.  uVim currently supports the Oracle and Informix dialects of
+SQL.  uVim assumes "*.sql" files are Oracle SQL by default.
 
-Vim currently has SQL support for a variety of different vendors via syntax
-scripts.  You can change Vim's default from Oracle to any of the current SQL
+uVim currently has SQL support for a variety of different vendors via syntax
+scripts.  You can change uVim's default from Oracle to any of the current SQL
 supported types.  You can also easily alter the SQL dialect being used on a
 buffer by buffer basis.
 
@@ -3389,7 +3389,7 @@ The syntax script for zsh allows for syntax-based folding: >
 ==============================================================================
 5. Defining a syntax					*:syn-define* *E410*
 
-Vim understands three types of syntax items:
+uVim understands three types of syntax items:
 
 1. Keyword
    It can only contain keyword characters, according to the 'iskeyword'
@@ -3511,7 +3511,7 @@ DEFINING KEYWORDS					*:syn-keyword*
   :syntax keyword   Type   int long char contained
 <								*E789* *E890*
 	When you have a keyword with an optional tail, like Ex commands in
-	Vim, you can put the optional characters inside [], to define all the
+	uVim, you can put the optional characters inside [], to define all the
 	variations at once: >
   :syntax keyword   vimCommand	 ab[breviate] n[ext]
 <
@@ -3558,7 +3558,7 @@ DEFINING MATCHES					*:syn-match*
 				See |:syn-pattern| below.
 				Note that the pattern may match more than one
 				line, which makes the match depend on where
-				Vim starts searching for the pattern.  You
+				uVim starts searching for the pattern.  You
 				need to make sure syncing takes care of this.
 
 	Example (match a character constant): >
@@ -3898,7 +3898,7 @@ This will make each {} block form one fold.
 The fold will start on the line where the item starts, and end where the item
 ends.  If the start and end are within the same line, there is no fold.
 The 'foldnestmax' option limits the nesting of syntax folds.
-{not available when Vim was compiled without |+folding| feature}
+{not available when uVim was compiled without |+folding| feature}
 
 
 			*:syn-contains* *E405* *E406* *E407* *E408* *E409*
@@ -4119,9 +4119,9 @@ Notes:
 - The highlighted area will never be outside of the matched text.
 - A negative offset for an end pattern may not always work, because the end
   pattern may be detected when the highlighting should already have stopped.
-- Before Vim 7.2 the offsets were counted in bytes instead of characters.
+- Before uVim 7.2 the offsets were counted in bytes instead of characters.
   This didn't work well for multi-byte characters, so it was changed with the
-  Vim 7.2 release.
+  uVim 7.2 release.
 - The start of a match cannot be in a line other than where the pattern
   matched.  This doesn't work: "a\nb"ms=e.  You can make the highlighting
   start in another line, this does work: "a\nb"hs=e.
@@ -4142,12 +4142,12 @@ A more complicated Example: >
 Leading context			*:syn-lc* *:syn-leading* *:syn-context*
 
 Note: This is an obsolete feature, only included for backwards compatibility
-with previous Vim versions.  It's now recommended to use the |/\@<=| construct
+with previous uVim versions.  It's now recommended to use the |/\@<=| construct
 in the pattern.
 
 The "lc" offset specifies leading context -- a part of the pattern that must
 be present, but is not considered part of the match.  An offset of "lc=n" will
-cause Vim to step back n columns before attempting the pattern match, allowing
+cause uVim to step back n columns before attempting the pattern match, allowing
 characters which have already been matched in previous patterns to also be
 used as leading context for this match.  This can be used, for instance, to
 specify that an "escaping" character must not precede the match: >
@@ -4317,7 +4317,7 @@ The maximum number of includes is 999.
 ==============================================================================
 10. Synchronizing				*:syn-sync* *E403* *E404*
 
-Vim wants to be able to start redrawing in any position in the document.  To
+uVim wants to be able to start redrawing in any position in the document.  To
 make this possible it needs to know the syntax state at the position where
 redrawing starts.
 
@@ -4326,7 +4326,7 @@ redrawing starts.
 There are four ways to synchronize:
 1. Always parse from the start of the file.
    |:syn-sync-first|
-2. Based on C-style comments.  Vim understands how C-comments work and can
+2. Based on C-style comments.  uVim understands how C-comments work and can
    figure out if the current line starts inside or outside a comment.
    |:syn-sync-second|
 3. Jumping back a certain number of lines and start parsing there.
@@ -4365,7 +4365,7 @@ First syncing method:			*:syn-sync-first*
    :syntax sync fromstart
 
 The file will be parsed from the start.  This makes syntax highlighting
-accurate, but can be slow for long files.  Vim caches previously parsed text,
+accurate, but can be slow for long files.  uVim caches previously parsed text,
 so that it's only slow when parsing the text for the first time.  However,
 when making changes some part of the text needs to be parsed again (worst
 case: to the end of the file).
@@ -4379,7 +4379,7 @@ For the second method, only the "ccomment" argument needs to be given.
 Example: >
    :syntax sync ccomment
 
-When Vim finds that the line where displaying starts is inside a C-style
+When uVim finds that the line where displaying starts is inside a C-style
 comment, the last region syntax item with the group-name "Comment" will be
 used.  This requires that there is a region with the group-name "Comment"!
 An alternate group name can be specified, for example: >
@@ -4403,7 +4403,7 @@ is hardly ever noticed.
 Third syncing method:				*:syn-sync-third*
 
 For the third method, only the "minlines={N}" argument needs to be given.
-Vim will subtract {N} from the line number and start parsing there.  This
+uVim will subtract {N} from the line number and start parsing there.  This
 means {N} extra lines need to be parsed, which makes this method a bit slower.
 Example: >
    :syntax sync minlines=50
@@ -4756,12 +4756,12 @@ ctermbg={color-nr}				*highlight-ctermbg*
 	be reloaded, which may reset all colors (including Normal).  First
 	delete the "g:colors_name" variable when you don't want this.
 
-	When you have set "ctermfg" or "ctermbg" for the Normal group, Vim
+	When you have set "ctermfg" or "ctermbg" for the Normal group, uVim
 	needs to reset the color when exiting.	This is done with the "op"
 	termcap entry |t_op|.  If this doesn't work correctly, try setting the
 	't_op' option in your .vimrc.
 							*E419* *E420*
-	When Vim knows the normal foreground and background colors, "fg" and
+	When uVim knows the normal foreground and background colors, "fg" and
 	"bg" can be used as color names.  This only works after setting the
 	colors for the Normal group and for the MS-DOS console.  Example, for
 	reverse video: >
@@ -4781,7 +4781,7 @@ gui={attr-list}						*highlight-gui*
 	Note that the attributes are ignored for the "Normal" group.
 
 font={font-name}					*highlight-font*
-	font-name is the name of a font, as it is used on the system Vim
+	font-name is the name of a font, as it is used on the system uVim
 	runs on.  For X11 this is a complicated name, for example: >
    font=-misc-fixed-bold-r-normal--14-130-75-75-c-70-iso8859-1
 <
@@ -4944,7 +4944,7 @@ SpellRare	Word that is recognized by the spellchecker as one that is
 StatusLine	status line of current window
 							*hl-StatusLineNC*
 StatusLineNC	status lines of not-current windows
-		Note: if this is equal to "StatusLine" Vim will use "^^^" in
+		Note: if this is equal to "StatusLine" uVim will use "^^^" in
 		the status line of the current window.
 							*hl-TabLine*
 TabLine		tab pages line, not active tab page label
@@ -5078,7 +5078,7 @@ affects the highlighting.
 This doesn't change the colors for the 'highlight' option.
 
 Note that the syntax colors that you set in your vimrc file will also be reset
-back to their Vim default.
+back to their uVim default.
 Note that if you are using a color scheme, the colors defined by the color
 scheme for syntax highlighting will be lost.
 
@@ -5090,7 +5090,7 @@ What this actually does is: >
 Note that this uses the 'runtimepath' option.
 
 							*syncolor*
-If you want to use different colors for syntax highlighting, you can add a Vim
+If you want to use different colors for syntax highlighting, you can add a uVim
 script file to set these colors.  Put this file in a directory in
 'runtimepath' which comes after $VIMRUNTIME, so that your settings overrule
 the default colors.  This way these colors will be used after the ":syntax
@@ -5139,7 +5139,7 @@ mappings.
   :map <F12>  :so tags.vim<CR>
 
 WARNING: The longer the tags file, the slower this will be, and the more
-memory Vim will consume.
+memory uVim will consume.
 
 Only highlighting typedefs, unions and structs can be done too.  For this you
 must use Exuberant ctags (found at http://ctags.sf.net).
@@ -5221,13 +5221,13 @@ But for using 16 colors in an rxvt these should work with terminfo: >
 	:set t_AF=<Esc>[%?%p1%{8}%<%t22;%p1%{30}%+%e1;%p1%{22}%+%;%dm
 <
 							*colortest.vim*
-To test your color setup, a file has been included in the Vim distribution.
+To test your color setup, a file has been included in the uVim distribution.
 To use it, execute this command: >
    :runtime syntax/colortest.vim
 
 Some versions of xterm (and other terminals, like the Linux console) can
 output lighter foreground colors, even though the number of colors is defined
-at 8.  Therefore Vim sets the "cterm=bold" attribute for light foreground
+at 8.  Therefore uVim sets the "cterm=bold" attribute for light foreground
 colors, when 't_Co' is 8.
 
 							*xfree-xterm*
@@ -5236,7 +5236,7 @@ included with XFree86 3.3 and later).  You can also find the latest version
 at: >
 	http://invisible-island.net/xterm/xterm.html
 Here is a good way to configure it.  This uses 88 colors and enables the
-termcap-query feature, which allows Vim to ask the xterm how many colors it
+termcap-query feature, which allows uVim to ask the xterm how many colors it
 supports. >
 	./configure --disable-bold-color --enable-88-color --enable-tcap-query
 If you only get 8 colors, check the xterm compilation settings.
@@ -5254,7 +5254,7 @@ This xterm should work with these lines in your .vimrc (for 16 colors): >
    :endif
 <	[<Esc> is a real escape, type CTRL-V <Esc>]
 
-Without |+terminfo|, Vim will recognize these settings, and automatically
+Without |+terminfo|, uVim will recognize these settings, and automatically
 translate cterm colors of 8 and above to "<Esc>[9%dm" and "<Esc>[10%dm".
 Colors above 16 are also translated automatically.
 
@@ -5345,7 +5345,7 @@ faster.  To see slowness switch on some features that usually interfere, such
 as 'relativenumber' and |folding|.
 
 Note: this is only available when compiled with the |+profile| feature.
-You many need to build Vim with "huge" features.
+You many need to build uVim with "huge" features.
 
 To find out what patterns are consuming most time, get an overview with this
 sequence: >

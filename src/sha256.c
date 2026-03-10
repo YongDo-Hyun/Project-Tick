@@ -1,19 +1,19 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  *
  * FIPS-180-2 compliant SHA-256 implementation
  * GPL by Christophe Devine, applies to older version.
  * Modified for md5deep, in public domain.
- * Modified For Vim, Mohsin Ahmed, http://www.cs.albany.edu/~mosh
+ * Modified For uVim, Mohsin Ahmed, http://www.cs.albany.edu/~mosh
  * Mohsin Ahmed states this work is distributed under the VIM License or GPL,
  * at your choice.
  *
- * Vim specific notes:
+ * uVim specific notes:
  * Functions exported by this file:
  *  1. sha256_key() hashes the password to 64 bytes char string.
  *  2. sha2_seed() generates a random header.

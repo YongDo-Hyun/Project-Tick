@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -1029,7 +1029,7 @@ static void free_findfile(void);
  * Free everything that we allocated.
  * Can be used to detect memory leaks, e.g., with ccmalloc.
  * NOTE: This is tricky!  Things are freed that functions depend on.  Don't be
- * surprised if Vim crashes...
+ * surprised if uVim crashes...
  * Some things can't be freed, esp. things local to a library function.
  */
     void
@@ -1037,7 +1037,7 @@ free_all_mem(void)
 {
     buf_T	*buf, *nextbuf;
 
-    /* When we cause a crash here it is caught and Vim tries to exit cleanly.
+    /* When we cause a crash here it is caught and uVim tries to exit cleanly.
      * Don't try freeing everything again. */
     if (entered_free_all_mem)
 	return;
@@ -1917,7 +1917,7 @@ vim_strrchr(char_u *string, int c)
 }
 
 /*
- * Vim's version of strpbrk(), in case it's missing.
+ * uVim's version of strpbrk(), in case it's missing.
  * Don't generate a prototype for this, causes problems when it's not used.
  */
 #ifndef PROTO
@@ -1940,7 +1940,7 @@ vim_strpbrk(char_u *s, char_u *charset)
 #endif
 
 /*
- * Vim has its own isspace() function, because on some machines isspace()
+ * uVim has its own isspace() function, because on some machines isspace()
  * can't handle characters above 128.
  */
     int
@@ -3314,7 +3314,7 @@ vim_chdirfile(char_u *fname)
 /*
  * Check if "name" ends in a slash and is not a directory.
  * Used for systems where stat() ignores a trailing slash on a file name.
- * The Vim code assumes a trailing slash is only ignored for a directory.
+ * The uVim code assumes a trailing slash is only ignored for a directory.
  */
     int
 illegal_slash(char *name)
@@ -3338,7 +3338,7 @@ illegal_slash(char *name)
 cursorentry_T shape_table[SHAPE_IDX_COUNT] =
 {
     /* The values will be filled in from the 'guicursor' and 'mouseshape'
-     * defaults when Vim starts.
+     * defaults when uVim starts.
      * Adjust the SHAPE_IDX_ defines when making changes! */
     {0,	0, 0, 700L, 400L, 250L, 0, 0, "n", SHAPE_CURSOR+SHAPE_MOUSE},
     {0,	0, 0, 700L, 400L, 250L, 0, 0, "v", SHAPE_CURSOR+SHAPE_MOUSE},

@@ -1,11 +1,11 @@
 /* vi:set ts=8 sts=8 sw=8:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *			Visual Workshop integration by Gordon Prieur
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -163,7 +163,7 @@ errorHandler(
 	char		 buf[256];
 
 	XGetErrorText(dpy, err->error_code, msg, sizeof(msg));
-	wsdebug("\n\nWSDEBUG Vim: X Error of failed request: %s\n", msg);
+	wsdebug("\n\nWSDEBUG uVim: X Error of failed request: %s\n", msg);
 
 	sprintf(buf, "%d", err->request_code);
 	XGetErrorDatabaseText(dpy,

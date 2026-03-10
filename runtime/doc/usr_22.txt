@@ -1,13 +1,13 @@
-*usr_22.txt*	For Vim version 7.4.  Last change: 2012 Nov 15
+*usr_22.txt*	For uVim version 7.4.  Last change: 2012 Nov 15
 
 		     VIM USER MANUAL - by Bram Moolenaar
 
 			   Finding the file to edit
 
 
-Files can be found everywhere.  So how do you find them?  Vim offers various
+Files can be found everywhere.  So how do you find them?  uVim offers various
 ways to browse the directory tree.  There are commands to jump to a file that
-is mentioned in another.  And Vim remembers which files have been edited
+is mentioned in another.  And uVim remembers which files have been edited
 before.
 
 |22.1|	The file browser
@@ -22,11 +22,11 @@ Table of contents: |usr_toc.txt|
 ==============================================================================
 *22.1*	The file browser
 
-Vim has a plugin that makes it possible to edit a directory.  Try this: >
+uVim has a plugin that makes it possible to edit a directory.  Try this: >
 
 	:edit .
 
-Through the magic of autocommands and Vim scripts, the window will be filled
+Through the magic of autocommands and uVim scripts, the window will be filled
 with the contents of the directory.  It looks like this:
 
 " ============================================================================ ~
@@ -60,7 +60,7 @@ You can see these items:
 If you have syntax highlighting enabled, the different parts are highlighted
 so as to make it easier to spot them.
 
-You can use Normal mode Vim commands to move around in the text.  For example,
+You can use Normal mode uVim commands to move around in the text.  For example,
 move the cursor atop a file and press <Enter>; you will then be editing that
 file.  To go back to the browser use ":edit ." again, or use ":Explore".
 CTRL-O also works.
@@ -121,7 +121,7 @@ The following normal-mode commands may be used to control the browser display:
 
 As a sampling of extra normal-mode commands:
 
-	c		Change Vim's notion of the current directory to be
+	c		Change uVim's notion of the current directory to be
 			the same as the browser directory.  (see
 			|g:netrw_keepdir| to control this, too)
 	R		Rename the file or directory under the cursor; a
@@ -148,7 +148,7 @@ See |netrw-browse| for more.
 ==============================================================================
 *22.2*	The current directory
 
-Just like the shell, Vim has the concept of a current directory.  Suppose you
+Just like the shell, uVim has the concept of a current directory.  Suppose you
 are in your home directory and want to edit several files in a directory
 "VeryLongFileName".  You could do: >
 
@@ -169,7 +169,7 @@ directory is with the ":pwd" command: >
 	:pwd
 	/home/Bram/VeryLongFileName
 
-Vim remembers the last directory that you used.  Use "cd -" to go back to it.
+uVim remembers the last directory that you used.  Use "cd -" to go back to it.
 Example: >
 
 	:pwd
@@ -222,8 +222,8 @@ of the file and type: >
 
 	gf
 
-Vim will find the file and edit it.
-   What if the file is not in the current directory?  Vim will use the 'path'
+uVim will find the file and edit it.
+   What if the file is not in the current directory?  uVim will use the 'path'
 option to find the file.  This option is a list of directory names where to
 look for your file.
    Suppose you have your include files located in "c:/prog/include".  This
@@ -237,10 +237,10 @@ file is?  Then you can specify a relative path name.  This starts with a dot:
 >
 	:set path+=./proto
 
-This tells Vim to look in the directory "proto", below the directory where the
-file in which you use "gf" is.  Thus using "gf" on "inits.h" will make Vim
+This tells uVim to look in the directory "proto", below the directory where the
+file in which you use "gf" is.  Thus using "gf" on "inits.h" will make uVim
 look for "proto/inits.h", starting in the directory of the file.
-   Without the "./", thus "proto", Vim would look in the "proto" directory
+   Without the "./", thus "proto", uVim would look in the "proto" directory
 below the current directory.  And the current directory might not be where the
 file that you are editing is located.
 
@@ -255,14 +255,14 @@ type it: >
 
 	:find inits.h
 
-Vim will then use the 'path' option to try and locate the file.  This is the
+uVim will then use the 'path' option to try and locate the file.  This is the
 same as the ":edit" command, except for the use of 'path'.
 
 To open the found file in a new window use CTRL-W f instead of "gf", or use
 ":sfind" instead of ":find".
 
 
-A nice way to directly start Vim to edit a file somewhere in the 'path': >
+A nice way to directly start uVim to edit a file somewhere in the 'path': >
 
 	vim "+find stdio.h"
 
@@ -272,7 +272,7 @@ necessary to have one argument |-+c|.
 ==============================================================================
 *22.4*	The buffer list
 
-The Vim editor uses the term buffer to describe a file being edited.
+The uVim editor uses the term buffer to describe a file being edited.
 Actually, a buffer is a copy of the file that you edit.  When you finish
 changing the buffer, you write the contents of the buffer to the file.
 Buffers not only contain file contents, but also all the marks, settings, and
@@ -283,24 +283,24 @@ HIDDEN BUFFERS
 
 Suppose you are editing the file one.txt and need to edit the file two.txt.
 You could simply use ":edit two.txt", but since you made changes to one.txt
-that won't work.  You also don't want to write one.txt yet.  Vim has a
+that won't work.  You also don't want to write one.txt yet.  uVim has a
 solution for you: >
 
 	:hide edit two.txt
 
-The buffer "one.txt" disappears from the screen, but Vim still knows that you
+The buffer "one.txt" disappears from the screen, but uVim still knows that you
 are editing this buffer, so it keeps the modified text.  This is called a
 hidden buffer: The buffer contains text, but you can't see it.
    The argument of ":hide" is another command.  ":hide" makes that command
 behave as if the 'hidden' option was set.  You could also set this option
 yourself.  The effect is that when any buffer is abandoned, it becomes hidden.
-   Be careful!  When you have hidden buffers with changes, don't exit Vim
+   Be careful!  When you have hidden buffers with changes, don't exit uVim
 without making sure you have saved all the buffers.
 
 
 INACTIVE BUFFERS
 
-   When a buffer has been used once, Vim remembers some information about it.
+   When a buffer has been used once, uVim remembers some information about it.
 When it is not displayed in a window and it is not hidden, it is still in the
 buffer list.  This is called an inactive buffer.  Overview:
 
@@ -308,7 +308,7 @@ buffer list.  This is called an inactive buffer.  Overview:
    Hidden		Not in a window, text loaded.
    Inactive		Not in a window, no text loaded.
 
-The inactive buffers are remembered, because Vim keeps information about them,
+The inactive buffers are remembered, because uVim keeps information about them,
 like marks.  And remembering the file name is useful too, so that you can see
 which files you have edited.  And edit them again.
 
@@ -358,7 +358,7 @@ use the name, or part of it, instead: >
 
 	:buffer help
 
-Vim will find the best match for the name you type.  If there is only one
+uVim will find the best match for the name you type.  If there is only one
 buffer that matches the name, it will be used.  In this case "help.txt".
    To open a buffer in a new window: >
 
@@ -383,14 +383,14 @@ To remove a buffer from the list, use this command: >
 Again, this also works with a name.
    If you delete a buffer that was active (visible in a window), that window
 will be closed.  If you delete the current buffer, the current window will be
-closed.  If it was the last window, Vim will find another buffer to edit.  You
+closed.  If it was the last window, uVim will find another buffer to edit.  You
 can't be editing nothing!
 
 	Note:
-	Even after removing the buffer with ":bdelete" Vim still remembers it.
+	Even after removing the buffer with ":bdelete" uVim still remembers it.
 	It's actually made "unlisted", it no longer appears in the list from
 	":buffers".  The ":buffers!" command will list unlisted buffers (yes,
-	Vim can do the impossible).  To really make Vim forget about a buffer,
+	uVim can do the impossible).  To really make uVim forget about a buffer,
 	use ":bwipe".  Also see the 'buflisted' option.
 
 ==============================================================================

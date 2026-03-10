@@ -1,4 +1,4 @@
-README_w32s.txt for version 7.4 of Vim: Vi IMproved.
+README_w32s.txt for version 7.4 of uVim: Micro Vi IMproved.
 
 This archive contains the gvim.exe that was specifically compiled for use in
 the Win32s subsystem in MS-Windows 3.1 and 3.11.
@@ -11,5 +11,5 @@ unpacking another binary archive!  Check the output of ":version":
 	 Win32 - "MS-Windows 32 bit GUI version"
 Win32 with OLE - "MS-Windows 32 bit GUI version with OLE support"
 
-For further information, type this inside Vim:
+For further information, type this inside uVim:
 	:help win32s

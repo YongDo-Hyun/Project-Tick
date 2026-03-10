@@ -1,11 +1,11 @@
-*usr_90.txt*	For Vim version 7.4.  Last change: 2008 Sep 10
+*usr_90.txt*	For uVim version 7.4.  Last change: 2008 Sep 10
 
 		     VIM USER MANUAL - by Bram Moolenaar
 
-				Installing Vim
+				Installing uVim
 
 								*install*
-Before you can use Vim you have to install it.  Depending on your system it's
+Before you can use uVim you have to install it.  Depending on your system it's
 simple or easy.  This chapter gives a few hints and also explains how
 upgrading to a new version is done.
 
@@ -13,7 +13,7 @@ upgrading to a new version is done.
 |90.2|	MS-Windows
 |90.3|	Upgrading
 |90.4|	Common installation issues
-|90.5|	Uninstalling Vim
+|90.5|	Uninstalling uVim
 
  Previous chapter: |usr_45.txt|  Select your language
 Table of contents: |usr_toc.txt|
@@ -21,8 +21,8 @@ Table of contents: |usr_toc.txt|
 ==============================================================================
 *90.1*	Unix
 
-First you have to decide if you are going to install Vim system-wide or for a
-single user.  The installation is almost the same, but the directory where Vim
+First you have to decide if you are going to install uVim system-wide or for a
+single user.  The installation is almost the same, but the directory where uVim
 is installed in differs.
    For a system-wide installation the base directory "/usr/local" is often
 used.  But this may be different for your system.  Try finding out where other
@@ -44,19 +44,19 @@ the editor from the source allows you to control which features are compiled.
 This does require a compiler though.
 
 If you have a Linux distribution, the "vi" program is probably a minimal
-version of Vim.  It doesn't do syntax highlighting, for example.  Try finding
-another Vim package in your distribution, or search on the web site.
+version of uVim.  It doesn't do syntax highlighting, for example.  Try finding
+another uVim package in your distribution, or search on the web site.
 
 
 FROM SOURCES
 
-To compile and install Vim, you will need the following:
+To compile and install uVim, you will need the following:
 
 	-  A C compiler (GCC preferred)
 	-  The GZIP program (you can get it from www.gnu.org)
-	-  The Vim source and runtime archives
+	-  The uVim source and runtime archives
 
-To get the Vim archives, look in this file for a mirror near you, this should
+To get the uVim archives, look in this file for a mirror near you, this should
 provide the fastest download:
 
 	ftp://ftp.vim.org/pub/vim/MIRRORS ~
@@ -71,7 +71,7 @@ everything, or four smaller ones that each fit on a floppy disk.  For version
 	vim-6.1.tar.bz2 ~
 
 You need the bzip2 program to uncompress it.  If you don't have it, get the
-four smaller files, which can be uncompressed with gzip.  For Vim 6.1 they are
+four smaller files, which can be uncompressed with gzip.  For uVim 6.1 they are
 called:
 
 	vim-6.1-src1.tar.gz ~
@@ -100,7 +100,7 @@ Change "path" to where you have downloaded the file. >
 	gzip -d -c path/vim-6.1-rt2.tar.gz | tar xf -
 
 If you are satisfied with getting the default features, and your environment
-is setup properly, you should be able to compile Vim with just this: >
+is setup properly, you should be able to compile uVim with just this: >
 
 	cd vim61/src
 	make
@@ -109,7 +109,7 @@ The make program will run configure and compile everything.  Further on we
 will explain how to compile with different features.
    If there are errors while compiling, carefully look at the error messages.
 There should be a hint about what went wrong.  Hopefully you will be able to
-correct it.  You might have to disable some features to make Vim compile.
+correct it.  You might have to disable some features to make uVim compile.
 Look in the Makefile for specific hints for your system.
 
 
@@ -119,16 +119,16 @@ Now you can check if compiling worked OK: >
 
 	make test
 
-This will run a sequence of test scripts to verify that Vim works as expected.
-Vim will be started many times and all kinds of text and messages flash by.
+This will run a sequence of test scripts to verify that uVim works as expected.
+uVim will be started many times and all kinds of text and messages flash by.
 If it is alright you will finally see:
 
 	test results: ~
 	ALL DONE ~
 
 If you get "TEST FAILURE" some test failed.  If there are one or two messages
-about failed tests, Vim might still work, but not perfectly.  If you see a lot
-of error messages or Vim doesn't finish until the end, there must be something
+about failed tests, uVim might still work, but not perfectly.  If you see a lot
+of error messages or uVim doesn't finish until the end, there must be something
 wrong.  Either try to find out yourself, or find someone who can solve it.
 You could look in the |maillist-archive| for a solution.  If everything else
 fails, you could ask in the vim |maillist| if someone can help you.
@@ -142,39 +142,39 @@ for a line:
 	#prefix = $(HOME) ~
 
 Remove the # at the start of the line.
-   When installing for the whole system, Vim has most likely already selected
+   When installing for the whole system, uVim has most likely already selected
 a good installation directory for you.  You can also specify one, see below.
 You need to become root for the following.
 
-To install Vim do: >
+To install uVim do: >
 
 	make install
 
 That should move all the relevant files to the right place.  Now you can try
-running vim to verify that it works.  Use two simple tests to check if Vim can
+running vim to verify that it works.  Use two simple tests to check if uVim can
 find its runtime files: >
 
 	:help
 	:syntax enable
 
-If this doesn't work, use this command to check where Vim is looking for the
+If this doesn't work, use this command to check where uVim is looking for the
 runtime files: >
 
 	:echo $VIMRUNTIME
 
-You can also start Vim with the "-V" argument to see what happens during
+You can also start uVim with the "-V" argument to see what happens during
 startup: >
 
 	vim -V
 
-Don't forget that the user manual assumes you Vim in a certain way.  After
-installing Vim, follow the instructions at |not-compatible| to make Vim work
+Don't forget that the user manual assumes you uVim in a certain way.  After
+installing uVim, follow the instructions at |not-compatible| to make uVim work
 as assumed in this manual.
 
 
 SELECTING FEATURES
 
-Vim has many ways to select features.  One of the simple ways is to edit the
+uVim has many ways to select features.  One of the simple ways is to edit the
 Makefile.  There are many directions and examples.  Often you can enable or
 disable a feature by uncommenting a line.
    An alternative is to run "configure" separately.  This allows you to
@@ -183,7 +183,7 @@ figure out what exactly to type.
    Some of the most interesting configure arguments follow.  These can also be
 enabled from the Makefile.
 
-	--prefix={directory}		Top directory where to install Vim.
+	--prefix={directory}		Top directory where to install uVim.
 
 	--with-features=tiny		Compile with many features disabled.
 	--with-features=small		Compile with some features disabled.
@@ -198,7 +198,7 @@ enabled from the Makefile.
 
 	--disable-gui			Do not compile the GUI interface.
 	--without-x			Do not compile X-windows features.
-					When both of these are used, Vim will
+					When both of these are used, uVim will
 					not connect to the X server, which
 					makes startup faster.
 
@@ -214,16 +214,16 @@ source code yourself!
 ==============================================================================
 *90.2*	MS-Windows
 
-There are two ways to install the Vim program for Microsoft Windows.  You can
+There are two ways to install the uVim program for Microsoft Windows.  You can
 uncompress several archives, or use a self-installing big archive.  Most users
 with fairly recent computers will prefer the second method.  For the first
 one, you will need:
 
-	- An archive with binaries for Vim.
-	- The Vim runtime archive.
+	- An archive with binaries for uVim.
+	- The uVim runtime archive.
 	- A program to unpack the zip files.
 
-To get the Vim archives, look in this file for a mirror near you, this should
+To get the uVim archives, look in this file for a mirror near you, this should
 provide the fastest download:
 
 	ftp://ftp.vim.org/pub/vim/MIRRORS ~
@@ -279,7 +279,7 @@ you selected.
 unpacked them.
 
 In case you are not satisfied with the features included in the supplied
-binaries, you could try compiling Vim yourself.  Get the source archive from
+binaries, you could try compiling uVim yourself.  Get the source archive from
 the same location as where the binaries are.  You need a compiler for which a
 makefile exists.  Microsoft Visual C works, but is expensive.  The Free
 Borland command-line compiler 5.5 can be used, as well as the free MingW and
@@ -288,7 +288,7 @@ Cygwin compilers.  Check the file src/INSTALLpc.txt for hints.
 ==============================================================================
 *90.3*	Upgrading
 
-If you are running one version of Vim and want to install another, here is
+If you are running one version of uVim and want to install another, here is
 what to do.
 
 
@@ -342,18 +342,18 @@ previous version.  See |90.5|.
 *90.4*	Common installation issues
 
 This section describes some of the common problems that occur when installing
-Vim and suggests some solutions.  It also contains answers to many
+uVim and suggests some solutions.  It also contains answers to many
 installation questions.
 
 
-Q: I Do Not Have Root Privileges.  How Do I Install Vim? (Unix)
+Q: I Do Not Have Root Privileges.  How Do I Install uVim? (Unix)
 
-Use the following configuration command to install Vim in a directory called
+Use the following configuration command to install uVim in a directory called
 $HOME/vim: >
 
 	./configure --prefix=$HOME
 
-This gives you a personal copy of Vim.  You need to put $HOME/bin in your
+This gives you a personal copy of uVim.  You need to put $HOME/bin in your
 path to execute the editor.  Also see |install-home|.
 
 
@@ -364,7 +364,7 @@ Check your terminal settings by using the following command in a shell: >
 	echo $TERM
 
 If the terminal type listed is not correct, fix it.  For more hints, see
-|06.2|.  Another solution is to always use the GUI version of Vim, called
+|06.2|.  Another solution is to always use the GUI version of uVim, called
 gvim.  This avoids the need for a correct terminal setup.
 
 
@@ -384,10 +384,10 @@ that it won't work when you use another terminal some day.  Look here for
 alternate solutions: |:fixdel|.
 
 
-Q: I Am Using RedHat Linux.  Can I Use the Vim That Comes with the System?
+Q: I Am Using RedHat Linux.  Can I Use the uVim That Comes with the System?
 
-By default RedHat installs a minimal version of Vim.  Check your RPM packages
-for something named "Vim-enhanced-version.rpm" and install that.
+By default RedHat installs a minimal version of uVim.  Check your RPM packages
+for something named "uVim-enhanced-version.rpm" and install that.
 
 
 Q: How Do I Turn Syntax Coloring On?  How do I make plugins work?
@@ -403,29 +403,29 @@ Q: What Is a Good vimrc File to Use?
 See the www.vim.org Web site for several good examples.
 
 
-Q: Where Do I Find a Good Vim Plugin?
+Q: Where Do I Find a Good uVim Plugin?
 
-See the Vim-online site: http://vim.sf.net.  Many users have uploaded useful
-Vim scripts and plugins there.
+See the uVim-online site: http://vim.sf.net.  Many users have uploaded useful
+uVim scripts and plugins there.
 
 
 Q: Where Do I Find More Tips?
 
-See the Vim-online site: http://vim.sf.net.  There is an archive with hints
-from Vim users.  You might also want to search in the |maillist-archive|.
+See the uVim-online site: http://vim.sf.net.  There is an archive with hints
+from uVim users.  You might also want to search in the |maillist-archive|.
 
 ==============================================================================
-*90.5*	Uninstalling Vim
+*90.5*	Uninstalling uVim
 
-In the unlikely event you want to uninstall Vim completely, this is how you do
+In the unlikely event you want to uninstall uVim completely, this is how you do
 it.
 
 
 UNIX
 
-When you installed Vim as a package, check your package manager to find out
+When you installed uVim as a package, check your package manager to find out
 how to remove the package again.
-   If you installed Vim from sources you can use this command: >
+   If you installed uVim from sources you can use this command: >
 
 	make uninstall
 
@@ -470,21 +470,21 @@ example for when "/usr/local" was used as the root: >
 
 MS-WINDOWS
 
-If you installed Vim with the self-installing archive you can run
-the "uninstall-gui" program located in the same directory as the other Vim
+If you installed uVim with the self-installing archive you can run
+the "uninstall-gui" program located in the same directory as the other uVim
 programs, e.g. "c:\vim\vim61".  You can also launch it from the Start menu if
-installed the Vim entries there.  This will remove most of the files, menu
+installed the uVim entries there.  This will remove most of the files, menu
 entries and desktop shortcuts.  Some files may remain however, as they need a
 Windows restart before being deleted.
    You will be given the option to remove the whole "vim" directory.  It
 probably contains your vimrc file and other runtime files that you created, so
 be careful.
 
-Else, if you installed Vim with the zip archives, the preferred way is to use
+Else, if you installed uVim with the zip archives, the preferred way is to use
 the "uninstal" program (note the missing l at the end).  You can find it in
 the same directory as the "install" program, e.g., "c:\vim\vim61".  This
 should also work from the usual "install/remove software" page.
-   However, this only removes the registry entries for Vim.  You have to
+   However, this only removes the registry entries for uVim.  You have to
 delete the files yourself.  Simply select the directory "vim\vim61" and delete
 it recursively.  There should be no files there that you changed, but you
 might want to check that first.

@@ -1,23 +1,23 @@
-*if_mzsch.txt*  For Vim version 7.4.  Last change: 2016 Jan 24
+*if_mzsch.txt*  For uVim version 7.4.  Last change: 2016 Jan 24
 
 
 		  VIM REFERENCE MANUAL    by Sergey Khorev
 
 
-The MzScheme Interface to Vim				*mzscheme* *MzScheme*
+The MzScheme Interface to uVim				*mzscheme* *MzScheme*
 
 1. Commands				|mzscheme-commands|
 2. Examples				|mzscheme-examples|
 3. Threads				|mzscheme-threads|
-4. Vim access from MzScheme		|mzscheme-vim|
-5. mzeval() Vim function		|mzscheme-mzeval|
+4. uVim access from MzScheme		|mzscheme-vim|
+5. mzeval() uVim function		|mzscheme-mzeval|
 6. Using Function references		|mzscheme-funcref|
 7. Dynamic loading			|mzscheme-dynamic|
 8. MzScheme setup			|mzscheme-setup|
 
 {Vi does not have any of these commands}
 
-The MzScheme interface is available only if Vim was compiled with the
+The MzScheme interface is available only if uVim was compiled with the
 |+mzscheme| feature.
 
 Based on the work of Brent Fulgham.
@@ -27,7 +27,7 @@ MzScheme and PLT Scheme names have been rebranded as Racket. For more
 information please check http://racket-lang.org
 
 Futures and places of Racket version 5.x up to and including 5.3.1 do not
-work correctly with processes created by Vim.
+work correctly with processes created by uVim.
 The simplest solution is to build Racket on your own with these features
 disabled: >
   ./configure --disable-futures --disable-places --prefix=your-install-prefix
@@ -61,7 +61,7 @@ In the case of :mzscheme, the code to execute is in the command-line.
 In the case of :mzfile, the code to execute is the contents of the given file.
 
 MzScheme interface defines exception exn:vim, derived from exn.
-It is raised for various Vim errors.
+It is raised for various uVim errors.
 
 During compilation, the MzScheme interface will remember the current MzScheme
 collection path. If you want to specify additional paths use the
@@ -86,7 +86,7 @@ e.g.: >
 All the examples below assume this naming scheme. 
 
 							*mzscheme-sandbox*
-When executed in the |sandbox|, access to some filesystem and Vim interface
+When executed in the |sandbox|, access to some filesystem and uVim interface
 procedures is restricted.
 
 ==============================================================================
@@ -114,7 +114,7 @@ Inline script usage: >
 File execution: >
 	:mzfile supascript.scm
 <
-Vim exception handling: >
+uVim exception handling: >
 	:mz << EOF
 	(require (prefix vim- vimext))
 	; for newer versions (require (prefix-in vim- 'vimext))
@@ -146,13 +146,13 @@ Auto-instantiation of vimext module (can be placed in your |vimrc|): >
 
 The MzScheme interface supports threads. They are independent from OS threads,
 thus scheduling is required. The option 'mzquantum' determines how often
-Vim should poll for available MzScheme threads.
+uVim should poll for available MzScheme threads.
 NOTE
-Thread scheduling in the console version of Vim is less reliable than in the
+Thread scheduling in the console version of uVim is less reliable than in the
 GUI version.
 
 ==============================================================================
-4. Vim access from MzScheme				*mzscheme-vim*
+4. uVim access from MzScheme				*mzscheme-vim*
 
 							*mzscheme-vimext*
 The 'vimext' module provides access to procedures defined in the MzScheme
@@ -172,10 +172,10 @@ Common
     (range-start)		    Start/End of the range passed with
     (range-end)			    the Scheme command.
     (beep)			    beep
-    (get-option {option-name} [buffer-or-window]) Get Vim option value (either
+    (get-option {option-name} [buffer-or-window]) Get uVim option value (either
 				    local or global, see set-option).
     (set-option {string} [buffer-or-window])
-				    Set a Vim option. String must have option
+				    Set a uVim option. String must have option
 				    setting form (like optname=optval, or
 				    optname+=optval, etc.) When called with
 				    {buffer} or {window} the local option will
@@ -187,7 +187,7 @@ Buffers							 *mzscheme-buffer*
 -------
     (buff? {object})		    Is object a buffer?
     (buff-valid? {object})	    Is object a valid buffer? (i.e.
-				    corresponds to the real Vim buffer)
+				    corresponds to the real uVim buffer)
     (get-buff-line {linenr} [buffer])
 				    Get line from a buffer.
     (set-buff-line {linenr} {string} [buffer])
@@ -227,7 +227,7 @@ Windows							    *mzscheme-window*
 ------
     (win? {object})		    Is object a window?
     (win-valid? {object})	    Is object a valid window (i.e. corresponds
-				    to the real Vim window)?
+				    to the real uVim window)?
     (curr-win)			    Get the current window.
     (win-count)			    Get count of windows.
     (get-win-num [window])	    Get window number.
@@ -243,7 +243,7 @@ Windows							    *mzscheme-window*
     (set-cursor (line . col) [window])  Set cursor position.
 
 ==============================================================================
-5. mzeval() Vim function				    *mzscheme-mzeval*
+5. mzeval() uVim function				    *mzscheme-mzeval*
 
 To facilitate bi-directional interface, you can use |mzeval()| function to
 evaluate MzScheme expressions and pass their values to VimL.
@@ -251,7 +251,7 @@ evaluate MzScheme expressions and pass their values to VimL.
 ==============================================================================
 6. Using Function references				    *mzscheme-funcref*
 
-MzScheme interface allows use of |Funcref|s so you can call Vim functions
+MzScheme interface allows use of |Funcref|s so you can call uVim functions
 directly from Scheme. For instance: >
     function! MyAdd2(arg)
 	return a:arg + 2
@@ -260,7 +260,7 @@ directly from Scheme. For instance: >
     mz (f2 7)
 < or : >
     :mz (define indent (vim-eval "function('indent')"))
-    " return Vim indent for line 12
+    " return uVim indent for line 12
     :mz (indent 12)
 <
 
@@ -270,17 +270,17 @@ directly from Scheme. For instance: >
 On MS-Windows the MzScheme libraries can be loaded dynamically. The |:version|
 output then includes |+mzscheme/dyn|.
 
-This means that Vim will search for the MzScheme DLL files only when needed.
+This means that uVim will search for the MzScheme DLL files only when needed.
 When you don't use the MzScheme interface you don't need them, thus you can
-use Vim without these DLL files.
+use uVim without these DLL files.
 NOTE: Newer version of MzScheme (Racket) require earlier (trampolined)
-initialisation via scheme_main_setup.  So Vim always loads the MzScheme DLL at
+initialisation via scheme_main_setup.  So uVim always loads the MzScheme DLL at
 startup if possible.
 
 To use the MzScheme interface the MzScheme DLLs must be in your search path.
 In a console window type "path" to see what directories are used.
 
-The names of the DLLs must match the MzScheme version Vim was compiled with.
+The names of the DLLs must match the MzScheme version uVim was compiled with.
 For MzScheme version 209 they will be "libmzsch209_000.dll" and
 "libmzgc209_000.dll". To know for sure look at the output of the ":version"
 command, look for -DDYNAMIC_MZSCH_DLL="something" and
@@ -296,9 +296,9 @@ to set the environment variable as the following: >
 ==============================================================================
 8. MzScheme setup				    *mzscheme-setup* *E895*
 
-Vim requires "racket/base" module for if_mzsch core (fallback to "scheme/base"
+uVim requires "racket/base" module for if_mzsch core (fallback to "scheme/base"
 if it doesn't exist), "r5rs" module for test and "raco ctool" command for
-building Vim.  If MzScheme did not have them, you can install them with
+building uVim.  If MzScheme did not have them, you can install them with
 MzScheme's raco command:
 >
   raco pkg install scheme-lib       # scheme/base module

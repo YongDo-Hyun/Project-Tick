@@ -1,11 +1,11 @@
-*os_os2.txt*    For Vim version 7.4.  Last change: 2015 Dec 31
+*os_os2.txt*    For uVim version 7.4.  Last change: 2015 Dec 31
 
 
 		  VIM REFERENCE MANUAL    by Paul Slootman
 
 
 							*os2* *OS2* *OS/2*
-This file used to contain the particularities for the OS/2 version of Vim.
+This file used to contain the particularities for the OS/2 version of uVim.
 
 The OS/2 support was removed in patch 7.4.1008.
 

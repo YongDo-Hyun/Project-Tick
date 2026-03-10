@@ -1,5 +1,5 @@
 #
-# Makefile for Vim on OpenVMS
+# Makefile for uVim on OpenVMS
 #
 # Maintainer:   Zoltan Arpadffy <arpadffy@polarhome.com>
 # Last change:  2016 Jul 02

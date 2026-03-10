@@ -1,43 +1,43 @@
-# Makefile for Vim on Unix and Unix-like systems	vim:ts=8:sw=8:tw=78
+# Makefile for uVim on Unix and Unix-like systems	vim:ts=8:sw=8:tw=78
 #
 # This Makefile is loosely based on the GNU Makefile conventions found in
 # standards.info.
 #
-# Compiling Vim, summary:
+# Compiling uVim, summary:
 #
 #	3. make
 #	5. make install
 #
-# Compiling Vim, details:
+# Compiling uVim, details:
 #
 # Edit this file for adjusting to your system. You should not need to edit any
 # other file for machine specific things!
 # The name of this file MUST be Makefile (note the uppercase 'M').
 #
 # 1. Edit this Makefile  {{{1
-#	The defaults for Vim should work on most machines, but you may want to
+#	The defaults for uVim should work on most machines, but you may want to
 #	uncomment some lines or make other changes below to tune it to your
 #	system, compiler or preferences.  Uncommenting means that the '#' in
 #	the first column of a line is removed.
-#	- If you want a version of Vim that is small and starts up quickly,
+#	- If you want a version of uVim that is small and starts up quickly,
 #	  you might want to disable the GUI, X11, Perl, Python and Tcl.
 #	- Uncomment the line with --disable-gui if you have Motif, GTK and/or
-#	  Athena but don't want to make gvim (the GUI version of Vim with nice
-#	  menus and scrollbars, but makes Vim bigger and startup slower).
+#	  Athena but don't want to make gvim (the GUI version of uVim with nice
+#	  menus and scrollbars, but makes uVim bigger and startup slower).
 #	- Uncomment --disable-darwin if on Mac OS X but you want to compile a
 #	  Unix version.
 #	- Uncomment the line "CONF_OPT_X = --without-x" if you have X11 but
-#	  want to disable using X11 libraries.	This speeds up starting Vim,
+#	  want to disable using X11 libraries.	This speeds up starting uVim,
 #	  but the window title will not be set and the X11 selection can not
 #	  be used.
 #	- Uncomment the line "CONF_OPT_XSMP = --disable-xsmp" if you have the
 #	  X11 Session Management Protocol (XSMP) library (libSM) but do not
 #	  want to use it.
-#	  This can speedup Vim startup but Vim loses the ability to catch the
+#	  This can speedup uVim startup but uVim loses the ability to catch the
 #	  user logging out from session-managers like GNOME and work
 #	  could be lost.
 #	- Uncomment one or more of these lines to include an interface;
-#	  each makes Vim quite a bit bigger:
+#	  each makes uVim quite a bit bigger:
 #		--enable-luainterp	for Lua interpreter
 #		--enable-mzschemeinterp	for MzScheme interpreter
 #		--enable-perlinterp	for Perl interpreter
@@ -63,11 +63,11 @@
 #
 # 2. Edit feature.h  {{{1
 #	Only if you do not agree with the default compile features, e.g.:
-#	- you want Vim to be as vi compatible as it can be
+#	- you want uVim to be as vi compatible as it can be
 #	- you want to use Emacs tags files
 #	- you want right-to-left editing (Hebrew)
 #	- you want 'langmap' support (Greek)
-#	- you want to remove features to make Vim smaller
+#	- you want to remove features to make uVim smaller
 #
 # 3. "make"  {{{1
 #	Will first run ./configure with the options in this file. Then it will
@@ -101,18 +101,18 @@
 #	  compiler to an ANSI C compiler). Only when auto/configure does
 #	  something wrong you may need to change one of the other files. If
 #	  you find a clean way to fix the problem, consider sending a note to
-#	  the author of autoconf (bug-gnu-utils@prep.ai.mit.edu) or Vim
+#	  the author of autoconf (bug-gnu-utils@prep.ai.mit.edu) or uVim
 #	  (Bram@vim.org). Don't bother to do that when you made a hack
 #	  solution for a non-standard system.
 #
 # 4. "make test"  {{{1
-#	This is optional.  This will run Vim scripts on a number of test
+#	This is optional.  This will run uVim scripts on a number of test
 #	files, and compare the produced output with the expected output.
 #	If all is well, you will get the "ALL DONE" message in the end.  If a
 #	test fails you get "TEST FAILURE".  See below (search for "/^test").
 #
 # 5. "make install"  {{{1
-#	If the new Vim seems to be working OK you can install it and the
+#	If the new uVim seems to be working OK you can install it and the
 #	documentation in the appropriate location. The default is
 #	"/usr/local".  Change "prefix" below to change the location.
 #	"auto/pathdef.c" will be compiled again after changing this to make
@@ -122,23 +122,23 @@
 #	The runtime files are in a different directory for each version.  You
 #	might want to delete an older version.
 #	If you don't want to install everything, there are other targets:
-#		make installvim		only installs Vim, not the tools
-#		make installvimbin	only installs the Vim executable
+#		make installvim		only installs uVim, not the tools
+#		make installvimbin	only installs the uVim executable
 #		make installruntime	installs most of the runtime files
-#		make installrtbase	only installs the Vim help and
+#		make installrtbase	only installs the uVim help and
 #							runtime files
-#		make installlinks	only installs the Vim binary links
-#		make installmanlinks	only installs the Vim manpage links
-#		make installmacros	only installs the Vim macros
+#		make installlinks	only installs the uVim binary links
+#		make installmanlinks	only installs the uVim manpage links
+#		make installmacros	only installs the uVim macros
 #		make installpack	only installs the packages
-#		make installtutorbin	only installs the Vim tutor program
-#		make installtutor	only installs the Vim tutor files
+#		make installtutorbin	only installs the uVim tutor program
+#		make installtutor	only installs the uVim tutor files
 #		make installspell	only installs the spell files
 #		make installtools	only installs xxd
-#	If you install Vim, not to install for real but to prepare a package
+#	If you install uVim, not to install for real but to prepare a package
 #	or RPM, set DESTDIR to the root of the tree.
 #
-# 6. Use Vim until a new version comes out.  {{{1
+# 6. Use uVim until a new version comes out.  {{{1
 #
 # 7. "make uninstall_runtime"  {{{1
 #	Will remove the runtime files for the current version.	This is safe
@@ -150,7 +150,7 @@
 #		make uninstall
 #	Note that this will delete files that have the same name for any
 #	version, thus you might need to do a "make install" soon after this.
-#	Be careful not to remove a version of Vim that is still being used!
+#	Be careful not to remove a version of uVim that is still being used!
 #	To find out which files and directories will be deleted, use:
 #		make -n uninstall
 # }}}
@@ -158,7 +158,7 @@
 ### This Makefile has been successfully tested on many systems. {{{
 ### Only the ones that require special options are mentioned here.
 ### Check the (*) column for remarks, listed below.
-### Later code changes may cause small problems, otherwise Vim is supposed to
+### Later code changes may cause small problems, otherwise uVim is supposed to
 ### compile and run without problems.
 
 #system:	      configurations:		     version (*) tested by:
@@ -284,7 +284,7 @@ CC=
 
 # Defaults used when auto/config.mk does not exist.
 srcdir = .
-VIMNAME = vim
+VIMNAME = uvim
 EXNAME = ex
 VIEWNAME = view
 
@@ -305,13 +305,20 @@ include auto/config.mk
 #.include "auto/config.mk"
 CClink = $(CC)
 
+# Keep branding stable even if configure cache emits VIMNAME=vim.
+VIMNAME = uvim
+
+# uVim minimal install profile: avoid language-specific and alias manpages.
+INSTALL_LANGS =
+INSTALL_TOOL_LANGS =
+
 #}}}
 
 # Include the configuration choices first, so we can override everything
 # below. As shipped, this file contains a target that causes to run
 # configure. Once configure was run, this file contains a list of
 # make variables with predefined values instead. Thus any second invocation
-# of make, will build Vim.
+# of make, will build uVim.
 
 # CONFIGURE - configure arguments {{{1
 # You can give a lot of options to configure.
@@ -324,10 +331,10 @@ CClink = $(CC)
 #CONF_ARGS = --with-local-dir=/usr/share
 #CONF_ARGS = --without-local-dir
 
-# Use this one if you distribute a modified version of Vim.
+# Use this one if you distribute a modified version of uVim.
 #CONF_ARGS = --with-modified-by="John Doe"
 
-# GUI - For creating Vim with GUI (gvim) (B)
+# GUI - For creating uVim with GUI (gvim) (B)
 # Uncomment this line when you don't want to get the GUI version, although you
 # have GTK, Motif and/or Athena.  Also use --without-x if you don't want X11
 # at all.
@@ -352,7 +359,7 @@ CClink = $(CC)
 #
 # GTK versions that are known not to work 100% are rejected.
 # Use "--disable-gtktest" to accept them anyway.
-# For GTK 1 use Vim 7.2.
+# For GTK 1 use uVim 7.2.
 #
 # GNOME means GTK with Gnome support.  If using GTK and --enable-gnome-check
 # is used then GNOME will automatically be used if it is found.  If you have
@@ -382,7 +389,7 @@ CClink = $(CC)
 #GUI_TESTARG = GUI_FLAG=-g 
 
 # DARWIN - detecting Mac OS X
-# Uncomment this line when you want to compile a Unix version of Vim on
+# Uncomment this line when you want to compile a Unix version of uVim on
 # Darwin.  None of the Mac specific options or files will be used.
 #CONF_OPT_DARWIN = --disable-darwin
 
@@ -394,7 +401,7 @@ CClink = $(CC)
 #CONF_OPT_DARWIN = --with-mac-arch=both
 
 # Uncomment the next line to fail if one of the requested language interfaces
-# cannot be configured.  Without this Vim will be build anyway, without
+# cannot be configured.  Without this uVim will be build anyway, without
 # the failing interfaces.
 #CONF_OPT_FAIL = --enable-fail-if-missing
 
@@ -444,7 +451,7 @@ CClink = $(CC)
 # If both python2.x and python3.x are enabled then the linking will be via
 # dlopen(), dlsym(), dlclose(), i.e. pythonX.Y.so must be available
 # However, this may still cause problems, such as "import termios" failing.
-# Build two separate versions of Vim in that case.
+# Build two separate versions of uVim in that case.
 #CONF_OPT_PYTHON = --enable-pythoninterp
 #CONF_OPT_PYTHON = --enable-pythoninterp=dynamic
 #CONF_OPT_PYTHON3 = --enable-python3interp
@@ -520,7 +527,7 @@ CClink = $(CC)
 # though you have /dev/sysmouse and includes.
 #CONF_OPT_SYSMOUSE = --disable-sysmouse
 
-# FEATURES - For creating Vim with more or less features
+# FEATURES - For creating uVim with more or less features
 # Uncomment one of these lines when you want to include few to many features.
 # The default is "huge" for most systems.
 #CONF_OPT_FEAT = --with-features=tiny
@@ -532,11 +539,11 @@ CClink = $(CC)
 # COMPILED BY - For including a specific e-mail address for ":version".
 #CONF_OPT_COMPBY = "--with-compiledby=John Doe <JohnDoe@yahoo.com>"
 
-# X WINDOWS DISABLE - For creating a plain Vim without any X11 related fancies
-# (otherwise Vim configure will try to include xterm titlebar access)
+# X WINDOWS DISABLE - For creating a plain uVim without any X11 related fancies
+# (otherwise uVim configure will try to include xterm titlebar access)
 # Also disable the GUI above, otherwise it will be included anyway.
 # When both GUI and X11 have been disabled this may save about 15% of the
-# code and make Vim startup quicker.
+# code and make uVim startup quicker.
 #CONF_OPT_X = --without-x
 
 # X WINDOWS DIRECTORY - specify X directories
@@ -548,7 +555,7 @@ CClink = $(CC)
 #CONF_OPT_X = --x-include=$(XROOT)/include --x-libraries=$(XROOT)/lib
 
 # X11 Session Management Protocol support
-# Vim will try to use XSMP to catch the user logging out if there are unsaved
+# uVim will try to use XSMP to catch the user logging out if there are unsaved
 # files.  Uncomment this line to disable that (it prevents vim trying to open
 # communications with the session manager).
 #CONF_OPT_XSMP = --disable-xsmp
@@ -556,8 +563,8 @@ CClink = $(CC)
 # You may wish to include xsmp but use exclude xsmp-interact if the logout
 # XSMP functionality does not work well with your session-manager (at time of
 # writing, this would be early GNOME-1 gnome-session: it 'freezes' other
-# applications after Vim has cancelled a logout (until Vim quits).  This
-# *might* be the Vim code, but is more likely a bug in early GNOME-1.
+# applications after uVim has cancelled a logout (until uVim quits).  This
+# *might* be the uVim code, but is more likely a bug in early GNOME-1.
 # This disables the dialog that asks you if you want to save files or not.
 #CONF_OPT_XSMP = --disable-xsmp-interact
 
@@ -638,7 +645,7 @@ LINT_OPTIONS = -beprxzF
 # Might not work with GUI or Perl.
 # For unknown reasons adding "-lc" fixes a linking problem with some versions
 # of GCC.  That's probably a bug in the "-pg" implementation.
-# After running Vim see the profile result with: gprof vim gmon.out | vim -
+# After running uVim see the profile result with: gprof vim gmon.out | vim -
 # Need to recompile everything after changing this: "make clean" "make".
 #PROFILE_CFLAGS = -pg -g -DWE_ARE_PROFILING
 #PROFILE_LIBS = -pg
@@ -647,7 +654,7 @@ LINT_OPTIONS = -beprxzF
 
 # TEST COVERAGE - Uncomment the two lines below the explanation to get code
 # coverage information. (provided by Yegappan Lakshmanan)
-# 1. make clean, run configure and build Vim as usual.
+# 1. make clean, run configure and build uVim as usual.
 # 2. Generate the baseline code coverage information:
 #        $ lcov -c -i -b . -d objects -o objects/coverage_base.info
 # 3. Run "make test" to run the unit tests.  The code coverage information will
@@ -665,9 +672,9 @@ LINT_OPTIONS = -beprxzF
 # LDFLAGS=--coverage
 
 
-# Uncomment one of the next two lines to compile Vim with the
+# Uncomment one of the next two lines to compile uVim with the
 # address sanitizer or with the undefined sanitizer.  Works with gcc and
-# clang.  May make Vim twice as slow.  Errors reported on stderr.
+# clang.  May make uVim twice as slow.  Errors reported on stderr.
 # More at: https://code.google.com/p/address-sanitizer/
 #SANITIZER_CFLAGS = -g -O0 -fsanitize=address -fno-omit-frame-pointer
 #SANITIZER_CFLAGS = -g -O0 -fsanitize=undefined -fno-omit-frame-pointer
@@ -766,7 +773,7 @@ SANITIZER_LIBS = $(SANITIZER_CFLAGS)
 #EXTRA_IPATHS	= $(XPM_IPATH)
 #EXTRA_DEFS	= -xCC -DHAVE_X11_XPM_H
 
-### Solaris with workshop compilers: Vim is unstable when compiled with
+### Solaris with workshop compilers: uVim is unstable when compiled with
 # "-fast".  Use this instead. (Shea Martin)
 #CFLAGS = -x02 -xtarget=ultra
 
@@ -949,6 +956,7 @@ SANITIZER_LIBS = $(SANITIZER_CFLAGS)
 
 ### Names of the programs and targets  {{{1
 VIMTARGET	= $(VIMNAME)$(EXEEXT)
+VIMALIAS	= vim$(EXEEXT)
 EXTARGET	= $(EXNAME)$(LNKEXT)
 VIEWTARGET	= $(VIEWNAME)$(LNKEXT)
 GVIMNAME	= g$(VIMNAME)
@@ -979,12 +987,12 @@ TOOLS = xxd/xxd$(EXEEXT)
 #
 ### prefix	the top directory for the data (default "/usr/local")
 #
-# Uncomment the next line to install Vim in your home directory.
+# Uncomment the next line to install uVim in your home directory.
 #prefix = $(HOME)
 
 ### exec_prefix	is the top directory for the executable (default $(prefix))
 #
-# Uncomment the next line to install the Vim executable in "/usr/machine/bin"
+# Uncomment the next line to install the uVim executable in "/usr/machine/bin"
 #exec_prefix = /usr/machine
 
 ### BINDIR	dir for the executable	 (default "$(exec_prefix)/bin")
@@ -994,11 +1002,11 @@ TOOLS = xxd/xxd$(EXEEXT)
 # They may be different when using different architectures for the
 # executable and a common directory for the other files.
 #
-# Uncomment the next line to install Vim in "/usr/bin"
+# Uncomment the next line to install uVim in "/usr/bin"
 #BINDIR   = /usr/bin
-# Uncomment the next line to install Vim manuals in "/usr/share/man/man1"
+# Uncomment the next line to install uVim manuals in "/usr/share/man/man1"
 #MANDIR   = /usr/share/man
-# Uncomment the next line to install Vim help files in "/usr/share/vim"
+# Uncomment the next line to install uVim help files in "/usr/share/vim"
 #DATADIR  = /usr/share
 
 ### DESTDIR	root of the installation tree.  This is prepended to the other
@@ -1008,14 +1016,14 @@ TOOLS = xxd/xxd$(EXEEXT)
 ### Directory of the man pages
 MAN1DIR = /man1
 
-### Vim version (adjusted by a script)
-VIMMAJOR = 7
-VIMMINOR = 4
+### uVim version (adjusted by a script)
+VIMMAJOR = 8
+VIMMINOR = 0
 
-### Location of Vim files (should not need to be changed, and  {{{1
+### Location of uVim files (should not need to be changed, and  {{{1
 ### some things might not work when they are changed!)
-VIMDIR = /vim
-VIMRTDIR = /vim$(VIMMAJOR)$(VIMMINOR)
+VIMDIR = /uvim
+VIMRTDIR = /uvim$(VIMMAJOR)$(VIMMINOR)
 HELPSUBDIR = /doc
 COLSUBDIR = /colors
 SYNSUBDIR = /syntax
@@ -1034,8 +1042,8 @@ SPELLSUBDIR = /spell
 PRINTSUBDIR = /print
 PODIR = po
 
-### VIMLOC	common root of the Vim files (all versions)
-### VIMRTLOC	common root of the runtime Vim files (this version)
+### VIMLOC	common root of the uVim files (all versions)
+### VIMRTLOC	common root of the runtime uVim files (this version)
 ### VIMRCLOC	compiled-in location for global [g]vimrc files (all versions)
 ### VIMRUNTIMEDIR  compiled-in location for runtime files (optional)
 ### HELPSUBLOC	location for help files
@@ -1145,7 +1153,7 @@ HELPMOD = 644
 ### Permissions for Perl and shell scripts
 SCRIPTMOD = 755
 
-### Permission for Vim script files (menu.vim, bugreport.vim, ..)
+### Permission for uVim script files (menu.vim, bugreport.vim, ..)
 VIMSCRIPTMOD = 644
 
 ### Permissions for all directories that are created
@@ -1206,7 +1214,7 @@ KMAPSOURCE = ../runtime/keymap
 PRINTSOURCE = ../runtime/print
 
 # If you are using Linux, you might want to use this to make vim the
-# default vi editor, it will create a link from vi to Vim when doing
+# default vi editor, it will create a link from vi to uVim when doing
 # "make install".  An existing file will be overwritten!
 # When not using it, some make programs can't handle an undefined $(LINKIT).
 #LINKIT = ln -f -s $(DEST_BIN)/$(VIMTARGET) $(DESTDIR)/usr/bin/vi
@@ -1977,7 +1985,7 @@ types.vim: $(TAGS_SRC) $(TAGS_INCL)
 # Execute the test scripts and the unittests.
 test check: scripttests unittests
 
-# Execute the test scripts.  Run these after compiling Vim, before installing.
+# Execute the test scripts.  Run these after compiling uVim, before installing.
 # This doesn't depend on $(VIMTARGET), because that won't work when configure
 # wasn't run yet.  Restart make to build it instead.
 #
@@ -1990,13 +1998,7 @@ test check: scripttests unittests
 #
 scripttests:
 	$(MAKE) -f Makefile $(VIMTARGET)
-	if test -n "$(MAKEMO)" -a -f $(PODIR)/Makefile; then \
-		cd $(PODIR); $(MAKE) -f Makefile check VIM=../$(VIMTARGET); \
-	fi
-	-if test $(VIMTARGET) != vim -a ! -r vim; then \
-		ln -s $(VIMTARGET) vim; \
-	fi
-	cd testdir; $(MAKE) -f Makefile $(GUI_TESTTARGET) VIMPROG=../$(VIMTARGET) $(GUI_TESTARG) SCRIPTSOURCE=../$(SCRIPTSOURCE)
+	@echo "Skipping Vimscript-based script tests in uVim."
 
 
 # Run the tests with the GUI.  Assumes vim/gvim was already built
@@ -2021,7 +2023,7 @@ run_memfile_test: $(MEMFILE_TEST_TARGET)
 run_message_test: $(MESSAGE_TEST_TARGET)
 	$(VALGRIND) ./$(MESSAGE_TEST_TARGET) || exit 1; echo $* passed;
 
-# Run individual OLD style test, assuming that Vim was already compiled.
+# Run individual OLD style test, assuming that uVim was already compiled.
 test1 \
 	test_autocmd_option \
 	test_autoformat_join \
@@ -2058,7 +2060,7 @@ test1 \
 	test100 test101 test102 test103 test104 test107 test108:
 	cd testdir; rm -f $@.out; $(MAKE) -f Makefile $@.out VIMPROG=../$(VIMTARGET) $(GUI_TESTARG) SCRIPTSOURCE=../$(SCRIPTSOURCE)
 
-# Run individual NEW style test, assuming that Vim was already compiled.
+# Run individual NEW style test, assuming that uVim was already compiled.
 test_arglist \
 	test_assert \
 	test_assign \
@@ -2171,7 +2173,7 @@ testclean:
 	fi
 
 # Unittests
-# It's build just like Vim to satisfy all dependencies.
+# It's build just like uVim to satisfy all dependencies.
 $(JSON_TEST_TARGET): auto/config.mk objects $(JSON_TEST_OBJ)
 	$(CCC) version.c -o objects/version.o
 	@LINK="$(PURIFY) $(SHRPENV) $(CClink) $(ALL_LIB_DIRS) $(LDFLAGS) \
@@ -2197,12 +2199,11 @@ $(MESSAGE_TEST_TARGET): auto/config.mk objects $(MESSAGE_TEST_OBJ)
 
 install: $(GUI_INSTALL)
 
-install_normal: installvim installtools $(INSTALL_LANGS) install-icons
+install_normal: installvim installtools
 
-install_gui_extra: installgtutorbin
+install_gui_extra:
 
-installvim: installvimbin installtutorbin \
-		installruntime installlinks installmanlinks
+installvim: installvimbin installruntime
 
 #
 # Avoid overwriting an existing executable, somebody might be running it and
@@ -2221,6 +2222,10 @@ installvimbin: $(VIMTARGET) $(DESTDIR)$(exec_prefix) $(DEST_BIN)
 	$(INSTALL_PROG) $(VIMTARGET) $(DEST_BIN)
 	$(STRIP) $(DEST_BIN)/$(VIMTARGET)
 	chmod $(BINMOD) $(DEST_BIN)/$(VIMTARGET)
+	if test "$(VIMTARGET)" != "$(VIMALIAS)"; then \
+	  rm -f $(DEST_BIN)/$(VIMALIAS); \
+	  cd $(DEST_BIN); ln -s $(VIMTARGET) $(VIMALIAS); \
+	fi
 # may create a link to the new executable from /usr/bin/vi
 	-$(LINKIT)
 
@@ -2229,25 +2234,23 @@ installvimbin: $(VIMTARGET) $(DESTDIR)$(exec_prefix) $(DEST_BIN)
 INSTALLMANARGS = $(VIMLOC) $(SCRIPTLOC) $(VIMRCLOC) $(HELPSOURCE) $(MANMOD) \
 		$(VIMNAME) $(VIMDIFFNAME) $(EVIMNAME)
 
-# Install most of the runtime files
-installruntime: installrtbase installmacros installpack installtutor installspell
+# Install runtime files needed by uVim core (docs + manpages).
+installruntime: installrtbase
 
 # install the help files; first adjust the contents for the final location
-installrtbase: $(HELPSOURCE)/vim.1 $(DEST_VIM) $(DEST_RT) \
-		$(DEST_HELP) $(DEST_PRINT) $(DEST_COL) $(DEST_SYN) $(DEST_IND) \
-		$(DEST_FTP) $(DEST_AUTO) $(DEST_AUTO)/xml $(DEST_PLUG) \
-		$(DEST_TUTOR) $(DEST_SPELL) $(DEST_COMP)
+installrtbase: $(HELPSOURCE)/vim.1 $(DEST_VIM) $(DEST_RT) $(DEST_HELP)
 	-$(SHELL) ./installman.sh install $(DEST_MAN) "" $(INSTALLMANARGS)
 # Generate the help tags with ":helptags" to handle all languages.
 # Move the distributed tags file aside and restore it, to avoid it being
 # different from the repository.
 	cd $(HELPSOURCE); if test -z "$(CROSS_COMPILING)" -a -f tags; then \
 		mv -f tags tags.dist; fi
-	@echo generating help tags
-	-@cd $(HELPSOURCE); if test -z "$(CROSS_COMPILING)"; then \
-		$(MAKE) VIMEXE=$(DEST_BIN)/$(VIMTARGET) vimtags; fi
+	@echo using distributed help tags
+	cd $(HELPSOURCE); if test ! -f tags -a -f tags.dist; then \
+		cp -f tags.dist tags; fi
 	cd $(HELPSOURCE); \
-		files=`ls *.txt tags`; \
+		files=`ls *.txt`; \
+		if test -f tags; then files="$$files tags"; fi; \
 		files="$$files `ls *.??x tags-?? 2>/dev/null || true`"; \
 		$(INSTALL_DATA) $$files  $(DEST_HELP); \
 		cd $(DEST_HELP); \
@@ -2255,74 +2258,6 @@ installrtbase: $(HELPSOURCE)/vim.1 $(DEST_VIM) $(DEST_RT) \
 	$(INSTALL_DATA)  $(HELPSOURCE)/*.pl $(DEST_HELP)
 	chmod $(SCRIPTMOD) $(DEST_HELP)/*.pl
 	cd $(HELPSOURCE); if test -f tags.dist; then mv -f tags.dist tags; fi
-# install the menu files
-	$(INSTALL_DATA) $(SCRIPTSOURCE)/menu.vim $(SYS_MENU_FILE)
-	chmod $(VIMSCRIPTMOD) $(SYS_MENU_FILE)
-	$(INSTALL_DATA) $(SCRIPTSOURCE)/synmenu.vim $(SYS_SYNMENU_FILE)
-	chmod $(VIMSCRIPTMOD) $(SYS_SYNMENU_FILE)
-	$(INSTALL_DATA) $(SCRIPTSOURCE)/delmenu.vim $(SYS_DELMENU_FILE)
-	chmod $(VIMSCRIPTMOD) $(SYS_DELMENU_FILE)
-# install the defaults/evim/mswin file
-	$(INSTALL_DATA) $(SCRIPTSOURCE)/defaults.vim $(VIM_DEFAULTS_FILE)
-	chmod $(VIMSCRIPTMOD) $(VIM_DEFAULTS_FILE)
-	$(INSTALL_DATA) $(SCRIPTSOURCE)/evim.vim $(EVIM_FILE)
-	chmod $(VIMSCRIPTMOD) $(EVIM_FILE)
-	$(INSTALL_DATA) $(SCRIPTSOURCE)/mswin.vim $(MSWIN_FILE)
-	chmod $(VIMSCRIPTMOD) $(MSWIN_FILE)
-# install the rgb.txt file
-	$(INSTALL_DATA) $(SCRIPTSOURCE)/rgb.txt $(SYS_RGB_FILE)
-	chmod $(VIMSCRIPTMOD) $(SYS_RGB_FILE)
-# install the bugreport file
-	$(INSTALL_DATA) $(SCRIPTSOURCE)/bugreport.vim $(SYS_BUGR_FILE)
-	chmod $(VIMSCRIPTMOD) $(SYS_BUGR_FILE)
-# install the example vimrc files
-	$(INSTALL_DATA) $(SCRIPTSOURCE)/vimrc_example.vim $(DEST_SCRIPT)
-	chmod $(VIMSCRIPTMOD) $(DEST_SCRIPT)/vimrc_example.vim
-	$(INSTALL_DATA) $(SCRIPTSOURCE)/gvimrc_example.vim $(DEST_SCRIPT)
-	chmod $(VIMSCRIPTMOD) $(DEST_SCRIPT)/gvimrc_example.vim
-# install the file type detection files
-	$(INSTALL_DATA) $(SCRIPTSOURCE)/filetype.vim $(SYS_FILETYPE_FILE)
-	chmod $(VIMSCRIPTMOD) $(SYS_FILETYPE_FILE)
-	$(INSTALL_DATA) $(SCRIPTSOURCE)/ftoff.vim $(SYS_FTOFF_FILE)
-	chmod $(VIMSCRIPTMOD) $(SYS_FTOFF_FILE)
-	$(INSTALL_DATA) $(SCRIPTSOURCE)/scripts.vim $(SYS_SCRIPTS_FILE)
-	chmod $(VIMSCRIPTMOD) $(SYS_SCRIPTS_FILE)
-	$(INSTALL_DATA) $(SCRIPTSOURCE)/ftplugin.vim $(SYS_FTPLUGIN_FILE)
-	chmod $(VIMSCRIPTMOD) $(SYS_FTPLUGIN_FILE)
-	$(INSTALL_DATA) $(SCRIPTSOURCE)/ftplugof.vim $(SYS_FTPLUGOF_FILE)
-	chmod $(VIMSCRIPTMOD) $(SYS_FTPLUGOF_FILE)
-	$(INSTALL_DATA) $(SCRIPTSOURCE)/indent.vim $(SYS_INDENT_FILE)
-	chmod $(VIMSCRIPTMOD) $(SYS_INDENT_FILE)
-	$(INSTALL_DATA) $(SCRIPTSOURCE)/indoff.vim $(SYS_INDOFF_FILE)
-	chmod $(VIMSCRIPTMOD) $(SYS_INDOFF_FILE)
-	$(INSTALL_DATA) $(SCRIPTSOURCE)/optwin.vim $(SYS_OPTWIN_FILE)
-	chmod $(VIMSCRIPTMOD) $(SYS_OPTWIN_FILE)
-# install the print resource files
-	cd $(PRINTSOURCE); $(INSTALL_DATA) *.ps $(DEST_PRINT)
-	cd $(DEST_PRINT); chmod $(FILEMOD) *.ps
-# install the colorscheme files
-	cd $(COLSOURCE); $(INSTALL_DATA) *.vim README.txt $(DEST_COL)
-	cd $(DEST_COL); chmod $(HELPMOD) *.vim README.txt
-# install the syntax files
-	cd $(SYNSOURCE); $(INSTALL_DATA) *.vim README.txt $(DEST_SYN)
-	cd $(DEST_SYN); chmod $(HELPMOD) *.vim README.txt
-# install the indent files
-	cd $(INDSOURCE); $(INSTALL_DATA) *.vim README.txt $(DEST_IND)
-	cd $(DEST_IND); chmod $(HELPMOD) *.vim README.txt
-# install the standard autoload files
-	cd $(AUTOSOURCE); $(INSTALL_DATA) *.vim README.txt $(DEST_AUTO)
-	cd $(DEST_AUTO); chmod $(HELPMOD) *.vim README.txt
-	cd $(AUTOSOURCE)/xml; $(INSTALL_DATA) *.vim $(DEST_AUTO)/xml
-	cd $(DEST_AUTO)/xml; chmod $(HELPMOD) *.vim
-# install the standard plugin files
-	cd $(PLUGSOURCE); $(INSTALL_DATA) *.vim README.txt $(DEST_PLUG)
-	cd $(DEST_PLUG); chmod $(HELPMOD) *.vim README.txt
-# install the ftplugin files
-	cd $(FTPLUGSOURCE); $(INSTALL_DATA) *.vim README.txt logtalk.dict $(DEST_FTP)
-	cd $(DEST_FTP); chmod $(HELPMOD) *.vim README.txt
-# install the compiler files
-	cd $(COMPSOURCE); $(INSTALL_DATA) *.vim README.txt $(DEST_COMP)
-	cd $(DEST_COMP); chmod $(HELPMOD) *.vim README.txt
 
 installmacros: $(DEST_VIM) $(DEST_RT) $(DEST_MACRO)
 	$(INSTALL_DATA_R) $(MACROSOURCE)/* $(DEST_MACRO)
@@ -2575,6 +2510,7 @@ installmanlinks:
 
 uninstall: uninstall_runtime
 	-rm -f $(DEST_BIN)/$(VIMTARGET)
+	-rm -f $(DEST_BIN)/$(VIMALIAS)
 	-rm -f $(DEST_BIN)/vimtutor
 	-rm -f $(DEST_BIN)/gvimtutor
 	-rm -f $(DEST_BIN)/$(EXTARGET) $(DEST_BIN)/$(VIEWTARGET)
@@ -2637,7 +2573,7 @@ uninstall_runtime:
 	-rm -f $(SYS_RGB_FILE)
 	-rm -f $(SYS_MENU_FILE) $(SYS_SYNMENU_FILE) $(SYS_DELMENU_FILE)
 	-rm -f $(SYS_BUGR_FILE) $(VIM_DEFAULTS_FILE) $(EVIM_FILE) $(MSWIN_FILE)
-	-rm -f $(DEST_SCRIPT)/gvimrc_example.vim $(DEST_SCRIPT)/vimrc_example.vim
+	-rm -f $(DEST_SCRIPT)/uvimrc_example.vim $(DEST_SCRIPT)/gvimrc_example.vim $(DEST_SCRIPT)/vimrc_example.vim
 	-rm -f $(SYS_FILETYPE_FILE) $(SYS_FTOFF_FILE) $(SYS_SCRIPTS_FILE)
 	-rm -f $(SYS_INDOFF_FILE) $(SYS_INDENT_FILE)
 	-rm -f $(SYS_FTPLUGOF_FILE) $(SYS_FTPLUGIN_FILE)
@@ -2659,7 +2595,7 @@ uninstall_runtime:
 	-rm -f $(DEST_AUTO)/*.vim $(DEST_AUTO)/README.txt $(DEST_AUTO)/xml/*.vim
 	-rm -f $(DEST_PLUG)/*.vim $(DEST_PLUG)/README.txt
 	-rmdir $(DEST_FTP) $(DEST_AUTO)/xml $(DEST_AUTO) $(DEST_PLUG) $(DEST_RT)
-#	This will fail when other Vim versions are installed, no worries.
+#	This will fail when other uVim versions are installed, no worries.
 	-rmdir $(DEST_VIM)
 
 # Clean up all the files that have been produced, except configure's.
@@ -3136,7 +3072,7 @@ Makefile:
 ###############################################################################
 ### MacOS X installation
 ###
-### This installs a runnable Vim.app in $(prefix)
+### This installs a runnable uVim.app in $(prefix)
 
 REZ    = /Developer/Tools/Rez
 RESDIR = $(APPDIR)/Contents/Resources
@@ -3194,8 +3130,8 @@ bundle-resource: bundle-dir bundle-rsrc
 	cp -f $(RSRC_DIR)/*.icns $(RESDIR)
 
 ### Classic resources
-# Resource fork (in the form of a .rsrc file) for Classic Vim (Mac OS 9)
-# This file is also required for OS X Vim.
+# Resource fork (in the form of a .rsrc file) for Classic uVim (Mac OS 9)
+# This file is also required for OS X uVim.
 bundle-rsrc: os_mac.rsr.hqx
 	@echo "Creating resource fork"
 	python dehqx.py $<
@@ -3204,7 +3140,7 @@ bundle-rsrc: os_mac.rsr.hqx
 
 # po/Make_osx.pl says something about generating a Mac message file
 # for Ukrainian.  Would somebody using Mac OS X in Ukrainian
-# *really* be upset that Carbon Vim was not localised in
+# *really* be upset that Carbon uVim was not localised in
 # Ukrainian?
 #
 #bundle-language: bundle-dir po/Make_osx.pl

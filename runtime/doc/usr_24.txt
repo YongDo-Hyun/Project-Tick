@@ -1,11 +1,11 @@
-*usr_24.txt*	For Vim version 7.4.  Last change: 2006 Jul 23
+*usr_24.txt*	For uVim version 7.4.  Last change: 2006 Jul 23
 
 		     VIM USER MANUAL - by Bram Moolenaar
 
 			     Inserting quickly
 
 
-When entering text, Vim offers various ways to reduce the number of keystrokes
+When entering text, uVim offers various ways to reduce the number of keystrokes
 and avoid typing mistakes.  Use Insert mode completion to repeat previously
 typed words.  Abbreviate long words to short ones.  Type characters that
 aren't on your keyboard.
@@ -97,20 +97,20 @@ There are a few more, see |ins-special-special|.
 *24.2*	Showing matches
 
 When you type a ) it would be nice to see with which ( it matches.  To make
-Vim do that use this command: >
+uVim do that use this command: >
 
 	:set showmatch
 
-When you now type a text like "(example)", as soon as you type the ) Vim will
+When you now type a text like "(example)", as soon as you type the ) uVim will
 briefly move the cursor to the matching (, keep it there for half a second,
 and move back to where you were typing.
-   In case there is no matching (, Vim will beep.  Then you know that you
+   In case there is no matching (, uVim will beep.  Then you know that you
 might have forgotten the ( somewhere, or typed a ) too many.
    The match will also be shown for [] and {} pairs.  You don't have to wait
-with typing the next character, as soon as Vim sees it the cursor will move
+with typing the next character, as soon as uVim sees it the cursor will move
 back and inserting continues as before.
-   You can change the time Vim waits with the 'matchtime' option.  For
-example, to make Vim wait one and a half second: >
+   You can change the time uVim waits with the 'matchtime' option.  For
+example, to make uVim wait one and a half second: >
 
 	:set matchtime=15
 
@@ -119,8 +119,8 @@ The time is specified in tenths of a second.
 ==============================================================================
 *24.3*	Completion
 
-Vim can automatically complete words on insertion.  You type the first part of
-a word, press CTRL-P, and Vim guesses the rest.
+uVim can automatically complete words on insertion.  You type the first part of
+a word, press CTRL-P, and uVim guesses the rest.
    Suppose, for example, that you are creating a C program and want to type in
 the following:
 
@@ -130,8 +130,8 @@ You start by entering the following:
 
 	total = ch_array[0] + ch_ ~
 
-At this point, you tell Vim to complete the word using the command CTRL-P.
-Vim searches for a word that starts with what's in front of the cursor.  In
+At this point, you tell uVim to complete the word using the command CTRL-P.
+uVim searches for a word that starts with what's in front of the cursor.  In
 this case, it is "ch_", which matches with the word ch_array.  So typing
 CTRL-P gives you the following:
 
@@ -141,7 +141,7 @@ After a little more typing, you get this (ending in a space):
 
 	total = ch_array[0] + ch_array[1] +  ~
 
-If you now type CTRL-P Vim will search again for a word that completes the
+If you now type CTRL-P uVim will search again for a word that completes the
 word before the cursor.  Since there is nothing in front of the cursor, it
 finds the first word backwards, which is "ch_array".  Typing CTRL-P again
 gives you the next word that matches, in this case "total".  A third CTRL-P
@@ -153,7 +153,7 @@ To search forward, use CTRL-N.  Since the search wraps around the end of the
 file, CTRL-N and CTRL-P will find the same matches, but in a different
 sequence.  Hint: CTRL-N is Next-match and CTRL-P is Previous-match.
 
-The Vim editor goes through a lot of effort to find words to complete.  By
+The uVim editor goes through a lot of effort to find words to complete.  By
 default, it searches the following places:
 
 	1. Current file
@@ -173,7 +173,7 @@ when searching for matches.
 
 A special option for completion is 'infercase'.  This is useful to find
 matches while ignoring case ('ignorecase' must be set) but still using the
-case of the word typed so far.  Thus if you type "For" and Vim finds a match
+case of the word typed so far.  Thus if you type "For" and uVim finds a match
 "fortunately", it will result in "Fortunately".
 
 
@@ -189,7 +189,7 @@ with a certain type of item:
 	CTRL-X CTRL-K		words from a dictionary
 	CTRL-X CTRL-T		words from a thesaurus
 	CTRL-X CTRL-]		tags
-	CTRL-X CTRL-V		Vim command line
+	CTRL-X CTRL-V		uVim command line
 
 After each of them CTRL-N can be used to find the next match, CTRL-P to find
 the previous match.
@@ -210,7 +210,7 @@ Now enter Insert mode and start typing:
 
 	The exit code is in the file sub ~
 
-At this point, you enter the command CTRL-X CTRL-F.  Vim now completes the
+At this point, you enter the command CTRL-X CTRL-F.  uVim now completes the
 current word "sub" by looking at the files in the current directory.  The
 first match is sub_count.c.  This is not the one you want, so you match the
 next file by typing CTRL-N.  This match is sub_done.c.  Typing CTRL-N again
@@ -236,7 +236,7 @@ matches are sorted alphabetically.
 COMPLETING IN SOURCE CODE
 
 Source code files are well structured.  That makes it possible to do
-completion in an intelligent way.  In Vim this is called Omni completion.  In
+completion in an intelligent way.  In uVim this is called Omni completion.  In
 some other editors it's called intellisense, but that is a trademark.
 
 The key to Omni completion is CTRL-X CTRL-O.  Obviously the O stands for Omni
@@ -247,7 +247,7 @@ source:
 	    struct foo *p; ~
 	    p-> ~
 
-The cursor is after "p->".  Now type CTRL-X CTRL-O.  Vim will offer you a list
+The cursor is after "p->".  Now type CTRL-X CTRL-O.  uVim will offer you a list
 of alternatives, which are the items that "struct foo" contains.  That is
 quite different from using CTRL-P, which would complete any word, while only
 members of "struct foo" are valid here.
@@ -370,9 +370,9 @@ use the command CTRL-R CTRL-R {register}.
 *24.7*	Abbreviations
 
 An abbreviation is a short word that takes the place of a long one.  For
-example, "ad" stands for "advertisement".  Vim enables you to type an
+example, "ad" stands for "advertisement".  uVim enables you to type an
 abbreviation and then will automatically expand it for you.
-   To tell Vim to expand "ad" into "advertisement" every time you insert it,
+   To tell uVim to expand "ad" into "advertisement" every time you insert it,
 use the following command: >
 
 	:iabbrev ad advertisement
@@ -407,7 +407,7 @@ These are used for creating boxed comments.  The comment starts with #b, which
 draws the top line.  I then type the comment text and use #e to draw the
 bottom line.
    Notice that the #e abbreviation begins with a space.  In other words, the
-first two characters are space-star.  Usually Vim ignores spaces between the
+first two characters are space-star.  Usually uVim ignores spaces between the
 abbreviation and the expansion.  To avoid that problem, I spell space as seven
 characters: <, S, p, a, c, e, >.
 
@@ -463,7 +463,7 @@ You can remove it with this command: >
 	:unabbreviate @f
 
 While you type this, you will notice that @f is expanded to "fresh".  Don't
-worry about this, Vim understands it anyway (except when you have an
+worry about this, uVim understands it anyway (except when you have an
 abbreviation for "fresh", but that's very unlikely).
    To remove all the abbreviations: >
 
@@ -538,8 +538,8 @@ a 16 bit and a 32 bit number (e.g., for a Unicode character): >
 *24.9*	Digraphs
 
 Some characters are not on the keyboard.  For example, the copyright character
-(©).  To type these characters in Vim, you use digraphs, where two characters
-represent one.  To enter a ©, for example, you press three keys: >
+(ï¿½).  To type these characters iuVimim, you use digraphs, where two characters
+represent one.  To enter a ï¿½, for example, you press three keys: >
 
 	CTRL-K Co
 
@@ -547,31 +547,31 @@ To find out what digraphs are available, use the following command: >
 
 	:digraphs
 
-Vim will display the digraph table.  Here are three lines of it:
+uVim will display the digraph table.  Here are three lines of it:
 
-  AC ~_ 159  NS |  160  !I ¡  161  Ct ¢  162  Pd £  163  Cu ¤  164  Ye ¥  165 ~
-  BB ¦  166  SE §  167  ': ¨  168  Co ©  169  -a ª  170  << «  171  NO ¬  172 ~
-  -- ­  173  Rg ®  174  'm ¯  175  DG °  176  +- ±  177  2S ²  178  3S ³  179 ~
+  AC ~_ 159  NS |  160  !I ï¿½  161  Ct ï¿½  162  Pd ï¿½  163  Cu ï¿½  164  Ye ï¿½  165 ~
+  BB ï¿½  166  SE ï¿½  167  ': ï¿½  168  Co ï¿½  169  -a ï¿½  170  << ï¿½  171  NO ï¿½  172 ~
+  -- ï¿½  173  Rg ï¿½  174  'm ï¿½  175  DG ï¿½  176  +- ï¿½  177  2S ï¿½  178  3S ï¿½  179 ~
 
 This shows, for example, that the digraph you get by typing CTRL-K Pd is the
-character (£).  This is character number 163 (decimal).
+character (ï¿½).  This is character number 163 (decimal).
    Pd is short for Pound.  Most digraphs are selected to give you a hint about
 the character they will produce.  If you look through the list you will
 understand the logic.
    You can exchange the first and second character, if there is no digraph for
 that combination.  Thus CTRL-K dP also works.  Since there is no digraph for
-"dP" Vim will also search for a "Pd" digraph.
+"dP" uVim will also search for a "Pd" digraph.
 
 	Note:
-	The digraphs depend on the character set that Vim assumes you are
+	The digraphs depend on the character set that uVim assumes you are
 	using.  On MS-DOS they are different from MS-Windows.  Always use
 	":digraphs" to find out which digraphs are currently available.
 
 You can define your own digraphs.  Example: >
 
-	:digraph a" ä
+	:digraph a" ï¿½
 
-This defines that CTRL-K a" inserts an ä character.  You can also specify the
+This defines that CTRL-K a" inserts an ï¿½ character.  You can also specify the
 character with a decimal number.  This defines the same digraph: >
 
 	:digraph a" 228

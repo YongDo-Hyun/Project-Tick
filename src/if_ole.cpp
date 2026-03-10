@@ -1,9 +1,9 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved		by Bram Moolenaar
+ * VIM - Micro Vi IMproved		by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
  */
 
 #if defined(FEAT_OLE) && defined(FEAT_GUI_W32)
@@ -85,9 +85,9 @@ static CVim *app = 0;
 #define MINORVER 0
 #define LOCALE 0x0409
 
-#define MYNAME "Vim"
-#define MYPROGID "Vim.Application.1"
-#define MYVIPROGID "Vim.Application"
+#define MYNAME "uVim"
+#define MYPROGID "uVim.Application.1"
+#define MYVIPROGID "uVim.Application"
 
 #define MAX_CLSID_LEN 100
 
@@ -150,7 +150,7 @@ CVim *CVim::Create(int *pbDoRestart)
     me = new CVim();
     if (me == NULL)
     {
-	MessageBox(0, "Cannot create application object", "Vim Initialisation", 0);
+	MessageBox(0, "Cannot create application object", "uVim Initialisation", 0);
 	return NULL;
     }
 
@@ -171,8 +171,8 @@ CVim *CVim::Create(int *pbDoRestart)
 	}
 	RegCloseKey(hKey);
 
-	if (MessageBox(0, "Cannot load registered type library.\nDo you want to register Vim now?",
-		    "Vim Initialisation", MB_YESNO | MB_ICONQUESTION) != IDYES)
+	if (MessageBox(0, "Cannot load registered type library.\nDo you want to register uVim now?",
+		    "uVim Initialisation", MB_YESNO | MB_ICONQUESTION) != IDYES)
 	{
 	    delete me;
 	    return NULL;
@@ -184,8 +184,8 @@ CVim *CVim::Create(int *pbDoRestart)
 	hr = LoadRegTypeLib(MYLIBID, 1, 0, 0x00, &typelib);
 	if (FAILED(hr))
 	{
-	    MessageBox(0, "You must restart Vim in order for the registration to take effect.",
-						     "Vim Initialisation", 0);
+	    MessageBox(0, "You must restart uVim in order for the registration to take effect.",
+						     "uVim Initialisation", 0);
 	    *pbDoRestart = TRUE;
 	    delete me;
 	    return NULL;
@@ -199,7 +199,7 @@ CVim *CVim::Create(int *pbDoRestart)
     if (FAILED(hr))
     {
 	MessageBox(0, "Cannot get interface type information",
-						     "Vim Initialisation", 0);
+						     "uVim Initialisation", 0);
 	delete me;
 	return NULL;
     }
@@ -311,7 +311,7 @@ CVim::GetHwnd(UINT_PTR *result)
 STDMETHODIMP
 CVim::SetForeground(void)
 {
-    /* Make the Vim window come to the foreground */
+    /* Make the uVim window come to the foreground */
     gui_mch_set_foreground();
     return S_OK;
 }
@@ -463,7 +463,7 @@ CVimCF *CVimCF::Create()
     CVimCF *me = new CVimCF();
 
     if (me == NULL)
-	MessageBox(0, "Cannot create class factory", "Vim Initialisation", 0);
+	MessageBox(0, "Cannot create class factory", "uVim Initialisation", 0);
 
     return me;
 }
@@ -575,7 +575,7 @@ extern "C" void RegisterMe(int silent)
     {
 	if (!silent)
 	    MessageBox(0, "Cannot load type library to register",
-						       "Vim Registration", 0);
+						       "uVim Registration", 0);
 	ok = FALSE;
     }
     else
@@ -584,14 +584,14 @@ extern "C" void RegisterMe(int silent)
 	{
 	    if (!silent)
 		MessageBox(0, "Cannot register type library",
-						       "Vim Registration", 0);
+						       "uVim Registration", 0);
 	    ok = FALSE;
 	}
 	typelib->Release();
     }
 
     if (ok && !silent)
-	MessageBox(0, "Registered successfully", "Vim", 0);
+	MessageBox(0, "Registered successfully", "uVim", 0);
 }
 
 // Remove the component from the registry
@@ -633,7 +633,7 @@ extern "C" void UnregisterMe(int bNotifyUser)
     RecursiveDeleteKey(HKEY_CLASSES_ROOT, MYPROGID);
 
     if (bNotifyUser)
-	MessageBox(0, "Unregistered successfully", "Vim", 0);
+	MessageBox(0, "Unregistered successfully", "uVim", 0);
 }
 
 /****************************************************************************/
@@ -727,7 +727,7 @@ extern "C" void InitOLE(int *pbDoRestart)
     hr = OleInitialize(NULL);
     if (FAILED(hr))
     {
-	MessageBox(0, "Cannot initialise OLE", "Vim Initialisation", 0);
+	MessageBox(0, "Cannot initialise OLE", "uVim Initialisation", 0);
 	goto error0;
     }
 
@@ -751,7 +751,7 @@ extern "C" void InitOLE(int *pbDoRestart)
 
     if (FAILED(hr))
     {
-	MessageBox(0, "Cannot register class factory", "Vim Initialisation", 0);
+	MessageBox(0, "Cannot register class factory", "uVim Initialisation", 0);
 	goto error1;
     }
 
@@ -764,7 +764,7 @@ extern "C" void InitOLE(int *pbDoRestart)
 
     if (FAILED(hr))
     {
-	MessageBox(0, "Cannot register application object", "Vim Initialisation", 0);
+	MessageBox(0, "Cannot register application object", "uVim Initialisation", 0);
 	goto error1;
     }
 

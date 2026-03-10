@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -800,6 +800,18 @@ do_cmdline(
 	return FAIL;
     }
     ++call_depth;
+
+#ifdef FEAT_EVAL
+    /* Vimscript support is intentionally disabled in this tree. */
+    if (getline_equal(fgetline, cookie, getsourceline)
+	    || getline_equal(fgetline, cookie, get_func_line)
+	    || getline_equal(fgetline, cookie, get_loop_line))
+    {
+	EMSG(_("E319: Sorry, Vimscript support has been removed"));
+	--call_depth;
+	return FAIL;
+    }
+#endif
 
 #ifdef FEAT_EVAL
     cstack.cs_idx = -1;
@@ -2220,7 +2232,7 @@ do_one_cmd(
 			}
 			else
 			{
-			    /* there is no Vim command which uses '%' and
+			    /* there is no uVim command which uses '%' and
 			     * ADDR_WINDOWS or ADDR_TABS */
 			    errormsg = (char_u *)_(e_invrange);
 			    goto doend;
@@ -7147,7 +7159,7 @@ ex_colorscheme(exarg_T *eap)
 ex_highlight(exarg_T *eap)
 {
     if (*eap->arg == NUL && eap->cmd[2] == '!')
-	MSG(_("Greetings, Vim user!"));
+	MSG(_("Greetings, uVim user!"));
     do_highlight(eap->arg, eap->forceit, FALSE);
 }
 
@@ -7164,7 +7176,7 @@ not_exiting(void)
 }
 
 /*
- * ":quit": quit current window, quit Vim if the last window is closed.
+ * ":quit": quit current window, quit uVim if the last window is closed.
  */
     static void
 ex_quit(exarg_T *eap)
@@ -7608,7 +7620,7 @@ ex_hide(exarg_T *eap)
 }
 
 /*
- * ":stop" and ":suspend": Suspend Vim.
+ * ":stop" and ":suspend": Suspend uVim.
  */
     static void
 ex_stop(exarg_T *eap)
@@ -7648,7 +7660,7 @@ ex_stop(exarg_T *eap)
 }
 
 /*
- * ":exit", ":xit" and ":wq": Write file and exit Vim.
+ * ":exit", ":xit" and ":wq": Write file and exit uVim.
  */
     static void
 ex_exit(exarg_T *eap)
@@ -7690,7 +7702,7 @@ ex_exit(exarg_T *eap)
     else
     {
 #ifdef FEAT_WINDOWS
-	if (only_one_window())	    /* quit last window, exit Vim */
+	if (only_one_window())	    /* quit last window, exit uVim */
 #endif
 	    getout(0);
 #ifdef FEAT_WINDOWS

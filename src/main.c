@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * uVim - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 #define EXTERN
@@ -31,7 +31,6 @@
 #define EDIT_QF	    4	    /* start in quickfix mode */
 
 #if (defined(UNIX) || defined(VMS)) && !defined(NO_VIM_MAIN)
-static int file_owned(char *fname);
 #endif
 static void mainerr(int, char_u *);
 # if defined(HAVE_LOCALE_H) || defined(X_LOCALE)
@@ -52,7 +51,6 @@ static void edit_buffers(mparm_T *parmp, char_u *cwd);
 # endif
 static void exe_pre_commands(mparm_T *parmp);
 static void exe_commands(mparm_T *parmp);
-static void source_startup_scripts(mparm_T *parmp);
 static void main_start_gui(void);
 # if defined(HAS_SWAP_EXISTS_ACTION)
 static void check_swap_exists_action(void);
@@ -175,14 +173,14 @@ main
 #ifdef FEAT_CLIENTSERVER
     /*
      * Do the client-server stuff, unless "--servername ''" was used.
-     * This may exit Vim if the command was sent to the server.
+     * This may exit uVim if the command was sent to the server.
      */
     exec_on_server(&params);
 #endif
 
     /*
      * Figure out the way to work from the command name argv[0].
-     * "vimdiff" starts diff mode, "rvim" sets "restricted", etc.
+     * "uvimdiff" starts diff mode, "ruvim" sets "restricted", etc.
      */
     parse_command_name(&params);
 
@@ -212,7 +210,7 @@ main
 	{
 	    gui.starting = FALSE;
 
-	    /* When running "evim" or "gvim -y" we need the menus, exit if we
+	    /* When running "euvim" or "guvim -y" we need the menus, exit if we
 	     * don't have them. */
 	    if (params.evim_mode)
 		mch_exit(1);
@@ -408,7 +406,7 @@ main
      * Newer version of MzScheme (Racket) require earlier (trampolined)
      * initialisation via scheme_main_setup.
      * Implement this by initialising it as early as possible
-     * and splitting off remaining Vim main into vim_main2().
+     * and splitting off remaining uVim main into vim_main2().
      */
     return mzscheme_main();
 #else
@@ -435,35 +433,9 @@ vim_main2(void)
     /* Execute --cmd arguments. */
     exe_pre_commands(&params);
 
-    /* Source startup scripts. */
-    source_startup_scripts(&params);
+    /* Vimscript support removed: do not source startup scripts. */
 
-#ifdef FEAT_EVAL
-    /*
-     * Read all the plugin files.
-     * Only when compiled with +eval, since most plugins need it.
-     */
-    if (p_lpl)
-    {
-# ifdef VMS	/* Somehow VMS doesn't handle the "**". */
-	source_runtime((char_u *)"plugin/*.vim", DIP_ALL | DIP_NOAFTER);
-# else
-	source_runtime((char_u *)"plugin/**/*.vim", DIP_ALL | DIP_NOAFTER);
-# endif
-	TIME_MSG("loading plugins");
-
-	ex_packloadall(NULL);
-	TIME_MSG("loading packages");
-
-# ifdef VMS	/* Somehow VMS doesn't handle the "**". */
-	source_runtime((char_u *)"plugin/*.vim", DIP_ALL | DIP_AFTER);
-# else
-	source_runtime((char_u *)"plugin/**/*.vim", DIP_ALL | DIP_AFTER);
-# endif
-	TIME_MSG("loading after plugins");
-
-    }
-#endif
+    /* Vimscript support removed: do not load plugin/session scripts. */
 
 #ifdef FEAT_DIFF
     /* Decide about window layout for diff mode after reading vimrc. */
@@ -525,7 +497,7 @@ vim_main2(void)
 	gui_start();		/* will set full_screen to TRUE */
 	TIME_MSG("starting GUI");
 
-	/* When running "evim" or "gvim -y" we need the menus, exit if we
+	/* When running "euvim" or "guvim -y" we need the menus, exit if we
 	 * don't have them. */
 	if (!gui.in_use && params.evim_mode)
 	    mch_exit(1);
@@ -584,7 +556,7 @@ vim_main2(void)
      * This seems to be required to make callbacks to be called now, instead
      * of after things have been put on the screen, which then may be deleted
      * when getting a resize callback.
-     * For the Mac this handles putting files dropped on the Vim icon to
+     * For the Mac this handles putting files dropped on the uVim icon to
      * global_alist.
      */
     if (gui.in_use)
@@ -617,7 +589,7 @@ vim_main2(void)
 #endif
 
 #ifdef FEAT_CLIENTSERVER
-    /* Prepare for being a Vim server. */
+    /* Prepare for being a uVim server. */
     prepare_server(&params);
 #endif
 
@@ -790,7 +762,7 @@ vim_main2(void)
 
 #ifdef FEAT_TERMRESPONSE
     /* Requesting the termresponse is postponed until here, so that a "-c q"
-     * argument doesn't make it appear in the shell Vim was started from. */
+     * argument doesn't make it appear in the shell uVim was started from. */
     may_req_termresponse();
 #endif
 
@@ -1005,7 +977,7 @@ common_init(mparm_T *paramp)
 }
 
 /*
- * Main loop: Execute Normal mode commands until exiting Vim.
+ * Main loop: Execute Normal mode commands until exiting uVim.
  * Also used to handle commands in the command-line window, until the window
  * is closed.
  * Also used to handle ":visual" command after ":global": execute Normal mode
@@ -1029,7 +1001,7 @@ main_loop(
     /* Setup to catch a terminating error from the X server.  Just ignore
      * it, restore the state and continue.  This might not always work
      * properly, but at least we don't exit unexpectedly when the X server
-     * exits while Vim is running in a console. */
+     * exits while uVim is running in a console. */
     if (!cmdwin && !noexmode && SETJMP(x_jump_env))
     {
 	State = NORMAL;
@@ -1322,7 +1294,7 @@ getout_preserve_modified(int exitval)
 {
 # if defined(SIGHUP) && defined(SIG_IGN)
     /* Ignore SIGHUP, because a dropped connection causes a read error, which
-     * makes Vim exit and then handling SIGHUP causes various reentrance
+     * makes uVim exit and then handling SIGHUP causes various reentrance
      * problems. */
     signal(SIGHUP, SIG_IGN);
 # endif
@@ -1330,7 +1302,7 @@ getout_preserve_modified(int exitval)
     ml_close_notmod();		    /* close all not-modified buffers */
     ml_sync_all(FALSE, FALSE);	    /* preserve all swap files */
     ml_close_all(FALSE);	    /* close all memfiles, without deleting */
-    getout(exitval);		    /* exit Vim properly */
+    getout(exitval);		    /* exit uVim properly */
 }
 #endif
 
@@ -1641,7 +1613,7 @@ early_arg_scan(mparm_T *parmp UNUSED)
 
 #ifndef NO_VIM_MAIN
 /*
- * Get a (optional) count for a Vim argument.
+ * Get a (optional) count for a uVim argument.
  */
     static int
 get_number_arg(
@@ -1659,12 +1631,12 @@ get_number_arg(
 }
 
 /*
- * Check for: [r][e][g][vi|vim|view][diff][ex[im]]
+ * Check for: [r][e][g][u][vi|vim|view][diff][ex[im]]
  * If the executable name starts with "r" we disable shell commands.
  * If the next character is "e" we run in Easy mode.
  * If the next character is "g" we run the GUI version.
  * If the next characters are "view" we start in readonly mode.
- * If the next characters are "diff" or "vimdiff" we start in diff mode.
+ * If the next characters are "diff" or "uvimdiff" we start in diff mode.
  * If the next characters are "ex" we start in Ex mode.  If it's followed
  * by "im" use improved Ex mode.
  */
@@ -1676,7 +1648,7 @@ parse_command_name(mparm_T *parmp)
     initstr = gettail((char_u *)parmp->argv[0]);
 
 #ifdef MACOS_X_UNIX
-    /* An issue has been seen when launching Vim in such a way that
+    /* An issue has been seen when launching uVim in such a way that
      * $PWD/$ARGV[0] or $ARGV[0] is not the absolute path to the
      * executable or a symbolic link of it. Until this issue is resolved
      * we prohibit the GUI from being used.
@@ -1685,7 +1657,7 @@ parse_command_name(mparm_T *parmp)
 	disallow_gui = TRUE;
 
     /* TODO: On MacOS X default to gui if argv[0] ends in:
-     *       /Vim.app/Contents/MacOS/Vim */
+     *       /uVim.app/Contents/MacOS/uVim */
 #endif
 
 #ifdef FEAT_EVAL
@@ -1699,7 +1671,7 @@ parse_command_name(mparm_T *parmp)
 	++initstr;
     }
 
-    /* Use evim mode for "evim" and "egvim", not for "editor". */
+    /* Use evim mode for "euvim" and "eguvim", not for "editor". */
     if (TOLOWER_ASC(initstr[0]) == 'e'
 	    && (TOLOWER_ASC(initstr[1]) == 'v'
 		|| TOLOWER_ASC(initstr[1]) == 'g'))
@@ -1711,7 +1683,7 @@ parse_command_name(mparm_T *parmp)
 	++initstr;
     }
 
-    /* "gvim" starts the GUI.  Also accept "Gvim" for MS-Windows. */
+    /* "guvim" starts the GUI.  Also accept "Guvim" for MS-Windows. */
     if (TOLOWER_ASC(initstr[0]) == 'g')
     {
 	main_start_gui();
@@ -1719,6 +1691,9 @@ parse_command_name(mparm_T *parmp)
 	++initstr;
 #endif
     }
+
+    if (TOLOWER_ASC(initstr[0]) == 'u')
+	++initstr;
 
     if (STRNICMP(initstr, "view", 4) == 0)
     {
@@ -1730,13 +1705,13 @@ parse_command_name(mparm_T *parmp)
     else if (STRNICMP(initstr, "vim", 3) == 0)
 	initstr += 3;
 
-    /* Catch "[r][g]vimdiff" and "[r][g]viewdiff". */
+    /* Catch "[r][g][u]vimdiff" and "[r][g][u]viewdiff". */
     if (STRICMP(initstr, "diff") == 0)
     {
 #ifdef FEAT_DIFF
 	parmp->diff_mode = TRUE;
 #else
-	mch_errmsg(_("This Vim was not compiled with the diff feature."));
+	mch_errmsg(_("This uVim was not compiled with the diff feature."));
 	mch_errmsg("\n");
 	mch_exit(2);
 #endif
@@ -2177,7 +2152,7 @@ command_line_scan(mparm_T *parmp)
 		    break;
 		}
 		/*FALLTHROUGH*/
-	    case 'S':		/* "-S {file}" execute Vim script */
+	    case 'S':		/* "-S {file}" execute uVim script */
 	    case 'i':		/* "-i {viminfo}" use for viminfo */
 #ifndef FEAT_DIFF
 	    case 'd':		/* "-d {device}" device (for Amiga) */
@@ -2216,7 +2191,7 @@ command_line_scan(mparm_T *parmp)
 		switch (c)
 		{
 		case 'c':	/* "-c {command}" execute command */
-		case 'S':	/* "-S {file}" execute Vim script */
+		case 'S':	/* "-S {file}" execute uVim script */
 		    if (parmp->n_commands >= MAX_ARG_CMDS)
 			mainerr(ME_EXTRA_CMD, NULL);
 		    if (c == 'S')
@@ -2506,21 +2481,21 @@ check_tty(mparm_T *parmp)
 	 */
 	if (netbeans_active() && (!parmp->stdout_isatty || !input_isatty))
 	{
-	    mch_errmsg(_("Vim: Error: Failure to start gvim from NetBeans\n"));
+	    mch_errmsg(_("uVim: Error: Failure to start guvim from NetBeans\n"));
 	    exit(1);
 	}
 #endif
 #if defined(WIN3264) && !defined(FEAT_GUI_W32)
 	if (is_cygpty_used())
 	{
-	    mch_errmsg(_("Vim: Error: This version of Vim does not run in a Cygwin terminal\n"));
+	    mch_errmsg(_("uVim: Error: This version of uVim does not run in a Cygwin terminal\n"));
 	    exit(1);
 	}
 #endif
 	if (!parmp->stdout_isatty)
-	    mch_errmsg(_("Vim: Warning: Output is not to a terminal\n"));
+	    mch_errmsg(_("uVim: Warning: Output is not to a terminal\n"));
 	if (!input_isatty)
-	    mch_errmsg(_("Vim: Warning: Input is not from a terminal\n"));
+	    mch_errmsg(_("uVim: Warning: Input is not from a terminal\n"));
 	out_flush();
 	if (scriptin[0] == NULL)
 	    ui_delay(2000L, TRUE);
@@ -2850,25 +2825,8 @@ edit_buffers(
     static void
 exe_pre_commands(mparm_T *parmp)
 {
-    char_u	**cmds = parmp->pre_commands;
-    int		cnt = parmp->n_pre_commands;
-    int		i;
-
-    if (cnt > 0)
-    {
-	curwin->w_cursor.lnum = 0; /* just in case.. */
-	sourcing_name = (char_u *)_("pre-vimrc command line");
-# ifdef FEAT_EVAL
-	current_SID = SID_CMDARG;
-# endif
-	for (i = 0; i < cnt; ++i)
-	    do_cmdline_cmd(cmds[i]);
-	sourcing_name = NULL;
-# ifdef FEAT_EVAL
-	current_SID = 0;
-# endif
-	TIME_MSG("--cmd commands");
-    }
+    if (parmp->n_pre_commands > 0)
+	EMSG(_("E319: Sorry, Vimscript support has been removed"));
 }
 
 /*
@@ -2878,6 +2836,12 @@ exe_pre_commands(mparm_T *parmp)
 exe_commands(mparm_T *parmp)
 {
     int		i;
+
+    if (parmp->n_commands > 0)
+    {
+	EMSG(_("E319: Sorry, Vimscript support has been removed"));
+	return;
+    }
 
     /*
      * We start commands on line 0, make "vim +/pat file" match a
@@ -2918,6 +2882,7 @@ exe_commands(mparm_T *parmp)
 /*
  * Source startup scripts.
  */
+#if 0
     static void
 source_startup_scripts(mparm_T *parmp)
 {
@@ -3073,6 +3038,7 @@ source_startup_scripts(mparm_T *parmp)
     }
     TIME_MSG("sourcing vimrc file(s)");
 }
+#endif
 
 /*
  * Setup to start using the GUI.  Exit with an error when not available.
@@ -3130,7 +3096,7 @@ process_env(
     return FAIL;
 }
 
-#if (defined(UNIX) || defined(VMS)) && !defined(NO_VIM_MAIN)
+#if 0 && (defined(UNIX) || defined(VMS)) && !defined(NO_VIM_MAIN)
 /*
  * Return TRUE if we are certain the user owns the file "fname".
  * Used for ".vimrc" and ".exrc".
@@ -3175,7 +3141,7 @@ mainerr(
 	mch_errmsg((char *)str);
 	mch_errmsg("\"");
     }
-    mch_errmsg(_("\nMore info with: \"vim -h\"\n"));
+    mch_errmsg(_("\nMore info with: \"uvim -h\"\n"));
 
     mch_exit(1);
 }
@@ -3199,7 +3165,7 @@ main_msg(char *s)
 }
 
 /*
- * Print messages for "vim -h" or "vim --help" and exit.
+ * Print messages for "uvim -h" or "uvim --help" and exit.
  */
     static void
 usage(void)
@@ -3223,7 +3189,7 @@ usage(void)
     mch_msg(_("\n\nusage:"));
     for (i = 0; ; ++i)
     {
-	mch_msg(_(" vim [arguments] "));
+	mch_msg(_(" uvim [arguments] "));
 	mch_msg(_(use[i]));
 	if (i == (sizeof(use) / sizeof(char_u *)) - 1)
 	    break;
@@ -3238,12 +3204,8 @@ usage(void)
 #ifdef EXPAND_FILENAMES
     main_msg(_("--literal\t\tDon't expand wildcards"));
 #endif
-#ifdef FEAT_OLE
-    main_msg(_("-register\t\tRegister this gvim for OLE"));
-    main_msg(_("-unregister\t\tUnregister gvim for OLE"));
-#endif
 #ifdef FEAT_GUI
-    main_msg(_("-g\t\t\tRun using GUI (like \"gvim\")"));
+    main_msg(_("-g\t\t\tRun using GUI (like \"guvim\")"));
     main_msg(_("-f  or  --nofork\tForeground: Don't fork when starting GUI"));
 #endif
     main_msg(_("-v\t\t\tVi mode (like \"vi\")"));
@@ -3251,11 +3213,11 @@ usage(void)
     main_msg(_("-E\t\t\tImproved Ex mode"));
     main_msg(_("-s\t\t\tSilent (batch) mode (only for \"ex\")"));
 #ifdef FEAT_DIFF
-    main_msg(_("-d\t\t\tDiff mode (like \"vimdiff\")"));
+    main_msg(_("-d\t\t\tDiff mode (like \"uvimdiff\")"));
 #endif
-    main_msg(_("-y\t\t\tEasy mode (like \"evim\", modeless)"));
+    main_msg(_("-y\t\t\tEasy mode (like \"euvim\", modeless)"));
     main_msg(_("-R\t\t\tReadonly mode (like \"view\")"));
-    main_msg(_("-Z\t\t\tRestricted mode (like \"rvim\")"));
+    main_msg(_("-Z\t\t\tRestricted mode (like \"ruvim\")"));
     main_msg(_("-m\t\t\tModifications (writing files) not allowed"));
     main_msg(_("-M\t\t\tModifications in text not allowed"));
     main_msg(_("-b\t\t\tBinary mode"));
@@ -3310,22 +3272,22 @@ usage(void)
 #endif
 #if (defined(UNIX) || defined(VMS)) && defined(FEAT_X11)
 # if defined(FEAT_GUI_X11) && !defined(FEAT_GUI_GTK)
-    main_msg(_("-display <display>\tConnect vim to this particular X-server"));
+    main_msg(_("-display <display>\tConnect uvim to this particular X-server"));
 # endif
     main_msg(_("-X\t\t\tDo not connect to X server"));
 #endif
 #ifdef FEAT_CLIENTSERVER
-    main_msg(_("--remote <files>\tEdit <files> in a Vim server if possible"));
+    main_msg(_("--remote <files>\tEdit <files> in a uVim server if possible"));
     main_msg(_("--remote-silent <files>  Same, don't complain if there is no server"));
     main_msg(_("--remote-wait <files>  As --remote but wait for files to have been edited"));
     main_msg(_("--remote-wait-silent <files>  Same, don't complain if there is no server"));
 # ifdef FEAT_WINDOWS
     main_msg(_("--remote-tab[-wait][-silent] <files>  As --remote but use tab page per file"));
 # endif
-    main_msg(_("--remote-send <keys>\tSend <keys> to a Vim server and exit"));
-    main_msg(_("--remote-expr <expr>\tEvaluate <expr> in a Vim server and print result"));
-    main_msg(_("--serverlist\t\tList available Vim server names and exit"));
-    main_msg(_("--servername <name>\tSend to/become the Vim server <name>"));
+    main_msg(_("--remote-send <keys>\tSend <keys> to a uVim server and exit"));
+    main_msg(_("--remote-expr <expr>\tEvaluate <expr> in a uVim server and print result"));
+    main_msg(_("--serverlist\t\tList available uVim server names and exit"));
+    main_msg(_("--servername <name>\tSend to/become the uVim server <name>"));
 #endif
 #ifdef STARTUPTIME
     main_msg(_("--startuptime <file>\tWrite startup timing messages to <file>"));
@@ -3338,18 +3300,18 @@ usage(void)
 
 #ifdef FEAT_GUI_X11
 # ifdef FEAT_GUI_MOTIF
-    mch_msg(_("\nArguments recognised by gvim (Motif version):\n"));
+    mch_msg(_("\nArguments recognised by guvim (Motif version):\n"));
 # else
 #  ifdef FEAT_GUI_ATHENA
 #   ifdef FEAT_GUI_NEXTAW
-    mch_msg(_("\nArguments recognised by gvim (neXtaw version):\n"));
+    mch_msg(_("\nArguments recognised by guvim (neXtaw version):\n"));
 #   else
-    mch_msg(_("\nArguments recognised by gvim (Athena version):\n"));
+    mch_msg(_("\nArguments recognised by guvim (Athena version):\n"));
 #   endif
 #  endif
 # endif
-    main_msg(_("-display <display>\tRun vim on <display>"));
-    main_msg(_("-iconic\t\tStart vim iconified"));
+    main_msg(_("-display <display>\tRun uvim on <display>"));
+    main_msg(_("-iconic\t\tStart uvim iconified"));
     main_msg(_("-background <color>\tUse <color> for the background (also: -bg)"));
     main_msg(_("-foreground <color>\tUse <color> for normal text (also: -fg)"));
     main_msg(_("-font <font>\t\tUse <font> for normal text (also: -fn)"));
@@ -3366,18 +3328,18 @@ usage(void)
     main_msg(_("-xrm <resource>\tSet the specified resource"));
 #endif /* FEAT_GUI_X11 */
 #ifdef FEAT_GUI_GTK
-    mch_msg(_("\nArguments recognised by gvim (GTK+ version):\n"));
+    mch_msg(_("\nArguments recognised by guvim (GTK+ version):\n"));
     main_msg(_("-font <font>\t\tUse <font> for normal text (also: -fn)"));
     main_msg(_("-geometry <geom>\tUse <geom> for initial geometry (also: -geom)"));
     main_msg(_("-reverse\t\tUse reverse video (also: -rv)"));
-    main_msg(_("-display <display>\tRun vim on <display> (also: --display)"));
+    main_msg(_("-display <display>\tRun uvim on <display> (also: --display)"));
     main_msg(_("--role <role>\tSet a unique role to identify the main window"));
-    main_msg(_("--socketid <xid>\tOpen Vim inside another GTK widget"));
-    main_msg(_("--echo-wid\t\tMake gvim echo the Window ID on stdout"));
+    main_msg(_("--socketid <xid>\tOpen uVim inside another GTK widget"));
+    main_msg(_("--echo-wid\t\tMake guvim echo the Window ID on stdout"));
 #endif
 #ifdef FEAT_GUI_W32
-    main_msg(_("-P <parent title>\tOpen Vim inside parent application"));
-    main_msg(_("--windowid <HWND>\tOpen Vim inside another win32 widget"));
+    main_msg(_("-P <parent title>\tOpen uVim inside parent application"));
+    main_msg(_("--windowid <HWND>\tOpen uVim inside another win32 widget"));
 #endif
 
 #ifdef FEAT_GUI_GNOME
@@ -3395,7 +3357,7 @@ usage(void)
 #if defined(HAS_SWAP_EXISTS_ACTION)
 /*
  * Check the result of the ATTENTION dialog:
- * When "Quit" selected, exit Vim.
+ * When "Quit" selected, exit uVim.
  * When "Recover" selected, recover the file.
  */
     static void
@@ -3538,7 +3500,7 @@ exec_on_server(mparm_T *parmp)
 
 	/*
 	 * When a command server argument was found, execute it.  This may
-	 * exit Vim when it was successful.  Otherwise it's executed further
+	 * exit uVim when it was successful.  Otherwise it's executed further
 	 * on.  Remember the encoding used here in "serverStrEnc".
 	 */
 	if (parmp->serverArg)
@@ -3566,7 +3528,7 @@ exec_on_server(mparm_T *parmp)
 }
 
 /*
- * Prepare for running as a Vim server.
+ * Prepare for running as a uVim server.
  */
     static void
 prepare_server(mparm_T *parmp)
@@ -3884,7 +3846,7 @@ cmdsrv_main(
 }
 
 /*
- * Build a ":drop" command to send to a Vim server.
+ * Build a ":drop" command to send to a uVim server.
  */
     static char_u *
 build_drop_cmd(
@@ -3941,7 +3903,7 @@ build_drop_cmd(
     for (i = 0; i < filec; i++)
     {
 	/* On Unix the shell has already expanded the wildcards, don't want to
-	 * do it again in the Vim server.  On MS-Windows only escape
+	 * do it again in the uVim server.  On MS-Windows only escape
 	 * non-wildcard characters. */
 	p = vim_strsave_escaped((char_u *)filev[i],
 #ifdef UNIX
@@ -4076,11 +4038,11 @@ eval_client_expr_to_string(char_u *expr)
     int		save_dbl = debug_break_level;
     int		save_ro = redir_off;
 
-     /* Disable debugging, otherwise Vim hangs, waiting for "cont" to be
+     /* Disable debugging, otherwise uVim hangs, waiting for "cont" to be
       * typed. */
     debug_break_level = -1;
     redir_off = 0;
-    /* Do not display error message, otherwise Vim hangs, waiting for "cont"
+    /* Do not display error message, otherwise uVim hangs, waiting for "cont"
      * to be typed.  Do generate errors so that try/catch works. */
     ++emsg_silent;
 

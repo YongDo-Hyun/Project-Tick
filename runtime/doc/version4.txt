@@ -1,13 +1,13 @@
-*version4.txt*  For Vim version 7.4.  Last change: 2006 Apr 24
+*version4.txt*  For uVim version 7.4.  Last change: 2006 Apr 24
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
 
 
-This document lists the incompatible differences between Vim 3.0 and Vim 4.0.
+This document lists the incompatible differences between uVim 3.0 and uVim 4.0.
 Although 4.0 is mentioned here, this is also for version 4.1, 4.2, etc..
 
-This file is important for everybody upgrading from Vim 3.0.  Read it
+This file is important for everybody upgrading from uVim 3.0.  Read it
 carefully to avoid unexpected problems.
 
 'backup' option default changed			|backup-changed|
@@ -58,7 +58,7 @@ If you prefer to use ".bak", you can set the 'backupext' option: >
 Structure of swap file changed				*swapfile-changed*
 ------------------------------
 
-The contents of the swap file were extended with several parameters.  Vim
+The contents of the swap file were extended with several parameters.  uVim
 stores the user name and other information about the edited file to make
 recovery more easy and to be able to know where the swap file comes from.  The
 first part of the swap file can now be understood on a machine with a
@@ -66,7 +66,7 @@ different byte order or sizeof(int).  When you try to recover a file on such a
 machine, you will get an error message that this is not possible.
 
 Because of this change, swap files cannot be exchanged between 3.0 and 4.0.
-If you have a swap file from a crashed session with 3.0, use Vim 3.0 to
+If you have a swap file from a crashed session with 3.0, use uVim 3.0 to
 recover the file---don't use 4.0.			|swap-file|
 
 
@@ -303,7 +303,7 @@ The 'yankendofline' option has been removed.  Instead you can just use
 ----------------------------------------
 
 The 'title' option is now only set by default if the original title can be
-restored.  Avoids "Thanks for flying Vim" titles.  If you want them anyway,
+restored.  Avoids "Thanks for flying uVim" titles.  If you want them anyway,
 put ":set title" in your vimrc.				|'title'|
 
 The default for 'icon' now depends on the possibility of restoring the

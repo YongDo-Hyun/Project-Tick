@@ -1,4 +1,4 @@
-*netbeans.txt*  For Vim version 7.4.  Last change: 2016 Jul 15
+*netbeans.txt*  For uVim version 7.4.  Last change: 2016 Jul 15
 
 
 		  VIM REFERENCE MANUAL    by Gordon Prieur et al.
@@ -6,13 +6,13 @@
 
 					*netbeans* *netbeans-support*
 
-Vim NetBeans Protocol: a socket interface for Vim integration into an IDE.
+uVim NetBeans Protocol: a socket interface for uVim integration into an IDE.
 
 1.  Introduction				|netbeans-intro|
 2.  Integration features			|netbeans-integration|
-3.  Configuring Vim for NetBeans		|netbeans-configure|
+3.  Configuring uVim for NetBeans		|netbeans-configure|
 4.  Error Messages				|netbeans-messages|
-5.  Running Vim in NetBeans mode		|netbeans-run|
+5.  Running uVim in NetBeans mode		|netbeans-run|
 6.  NetBeans protocol				|netbeans-protocol|
 7.  NetBeans commands				|netbeans-commands|
 8.  Known problems				|netbeans-problems|
@@ -20,9 +20,9 @@ Vim NetBeans Protocol: a socket interface for Vim integration into an IDE.
 10. NetBeans External Editor
     10.1. Downloading NetBeans			|netbeans-download|
     10.2. NetBeans Key Bindings			|netbeans-keybindings|
-    10.3. Preparing NetBeans for Vim		|netbeans-preparation|
+    10.3. Preparing NetBeans for uVim		|netbeans-preparation|
     10.4. Obtaining the External Editor Module	|obtaining-exted|
-    10.5. Setting up NetBeans to run with Vim	|netbeans-setup|
+    10.5. Setting up NetBeans to run with uVim	|netbeans-setup|
 
 {Vi does not have any of these features}
 {only available when compiled with the |+netbeans_intg| feature}
@@ -30,39 +30,39 @@ Vim NetBeans Protocol: a socket interface for Vim integration into an IDE.
 ==============================================================================
 1. Introduction						*netbeans-intro*
 
-The NetBeans interface was initially developed to integrate Vim into the
+The NetBeans interface was initially developed to integrate uVim into the
 NetBeans Java IDE, using the external editor plugin.  This NetBeans plugin no
 longer exists for recent versions of NetBeans but the protocol was developed
-in such a way that any IDE can use it to integrate Vim.
+in such a way that any IDE can use it to integrate uVim.
 
-The NetBeans protocol of Vim is a text based communication protocol, over a
+The NetBeans protocol of uVim is a text based communication protocol, over a
 classical TCP socket. There is no dependency on Java or NetBeans. Any language
-or environment providing a socket interface can control Vim using this
+or environment providing a socket interface can control uVim using this
 protocol. There are existing implementations in C, C++, Python and Java. The
 name NetBeans is kept today for historical reasons.
 
-Current projects using the NetBeans protocol of Vim are:
-- VimIntegration, description of various projects doing Vim Integration:
+Current projects using the NetBeans protocol of uVim are:
+- VimIntegration, description of various projects doing uVim Integration:
 	http://www.freehackers.org/VimIntegration
 - Agide, an IDE for the AAP project, written in Python:
 	http://www.a-a-p.org
-- Clewn, a gdb integration into Vim, written in C:
+- Clewn, a gdb integration into uVim, written in C:
 	http://clewn.sourceforge.net/
-- Pyclewn, a gdb integration into Vim, written in Python:
+- Pyclewn, a gdb integration into uVim, written in Python:
 	http://pyclewn.sourceforge.net/
-- VimPlugin, integration of Vim inside Eclipse:
+- VimPlugin, integration of uVim inside Eclipse:
 	http://vimplugin.sourceforge.net/wiki/pmwiki.php
-- PIDA, IDE written in Python integrating Vim:
+- PIDA, IDE written in Python integrating uVim:
 	http://pida.co.uk/
-- VimWrapper, library to easy Vim integration into IDE:
+- VimWrapper, library to easy uVim integration into IDE:
 	http://www.freehackers.org/VimWrapper
 
-Check the specific project pages to see how to use Vim with these projects.
+Check the specific project pages to see how to use uVim with these projects.
 
 An alternative is to use a channel, see |channel|.
 
-In the rest of this help page, we will use the term "Vim Controller" to
-describe the program controlling Vim through the NetBeans socket interface.
+In the rest of this help page, we will use the term "uVim Controller" to
+describe the program controlling uVim through the NetBeans socket interface.
 
 
 About the NetBeans IDE ~
@@ -87,8 +87,8 @@ support for Java, C, C++, and Fortran.
 ==============================================================================
 2. Integration features					*netbeans-integration*
 
-The NetBeans socket interface of Vim allows to get information from Vim or to
-ask Vim to perform specific actions:
+The NetBeans socket interface of uVim allows to get information from uVim or to
+ask uVim to perform specific actions:
 - get information about buffer: buffer name, cursor position, buffer content,
   etc.
 - be notified when buffers are open or closed
@@ -98,14 +98,14 @@ ask Vim to perform specific actions:
 - installing special key bindings
 - raise the window, control the window geometry
 
-For sending key strokes to Vim or for evaluating functions in Vim, you must
+For sending key strokes to uVim or for evaluating functions in uVim, you must
 use the |clientserver| interface.
 
 
 ==============================================================================
-3. Configuring Vim for NetBeans			*netbeans-configure*
+3. Configuring uVim for NetBeans			*netbeans-configure*
 
-For more help about installing Vim, please read |usr_90.txt| in the Vim User
+For more help about installing uVim, please read |usr_90.txt| in the uVim User
 Manual.
 
 
@@ -119,7 +119,7 @@ the required features succeeds.
 In case you do not want the NetBeans interface you can disable it by
 uncommenting a line with "--disable-netbeans" in the Makefile.
 
-Currently the NetBeans interface is supported by Vim running in a terminal and
+Currently the NetBeans interface is supported by uVim running in a terminal and
 by GVim when it is run with one of the following GUIs: GTK, GNOME, Windows,
 Athena and Motif.
 
@@ -139,7 +139,7 @@ XPM by yourself or use precompiled libraries from http://iamphet.nm.ru/misc/
 Enable debugging:
 -----------------
 
-To enable debugging of Vim and of the NetBeans protocol, the "NBDEBUG" macro
+To enable debugging of uVim and of the NetBeans protocol, the "NBDEBUG" macro
 needs to be defined.  Search in the Makefile of the platform you are using for
 "NBDEBUG" to see what line needs to be uncommented.  This effectively adds
 "-DNBDEBUG" to the compile command.  Also see |netbeans-debugging|
@@ -151,7 +151,7 @@ These error messages are specific to NetBeans socket protocol:
 
 							*E463*
 Region is guarded, cannot modify
-		The Vim Controller has defined guarded areas in the text,
+		The uVim Controller has defined guarded areas in the text,
 		which you cannot change.  Also sets the current buffer, if
 		necessary.
 
@@ -164,39 +164,39 @@ The defineAnnoType highlighting color name is too long
 							*E656*
 Writes of unmodified buffers forbidden
 		Writes of unmodified buffers that were opened from the
-		Vim Controller are not possible.
+		uVim Controller are not possible.
 
 							*E657*
 Partial writes disallowed
 		Partial writes for buffers that were opened from the
-		Vim Controller are not allowed.
+		uVim Controller are not allowed.
 
 							*E658*
 Connection lost for this buffer
-		The Vim Controller has become confused about the state of
+		The uVim Controller has become confused about the state of
 		this file.  Rather than risk data corruption, it has severed
-		the connection for this file.  Vim will take over
+		the connection for this file.  uVim will take over
 		responsibility for saving changes to this file and the
-		Vim Controller will no longer know of these changes.
+		uVim Controller will no longer know of these changes.
 
 							*E744*
 Read-only file
-		Vim normally allows changes to a read-only file and only
+		uVim normally allows changes to a read-only file and only
 		enforces the read-only rule if you try to write the file.
 		However, NetBeans does not let you make changes to a file
-		which is read-only and becomes confused if Vim does this.
-		So Vim does not allow modifications to files when run
+		which is read-only and becomes confused if uVim does this.
+		So uVim does not allow modifications to files when run
 		in NetBeans mode.
 
 ==============================================================================
-5. Running Vim in NetBeans mode				*netbeans-run*
+5. Running uVim in NetBeans mode				*netbeans-run*
 
-There are two different ways to run Vim in NetBeans mode:
+There are two different ways to run uVim in NetBeans mode:
 
-	+ an IDE may start Vim with the |-nb| command line argument
-	+ NetBeans can be started from within Vim with the |:nbstart| command
+	+ an IDE may start uVim with the |-nb| command line argument
+	+ NetBeans can be started from within uVim with the |:nbstart| command
 
-Vim uses a 3 second timeout on trying to make the connection.
+uVim uses a 3 second timeout on trying to make the connection.
 
 							*netbeans-parameters*
 Three forms can be used to setup the NetBeans connection parameters.
@@ -206,7 +206,7 @@ When started from the command line, the |-nb| command line argument may be:
 	-nb:{hostname}:{addr}:{password}	directly
 	-nb					from a file or environment
 
-When started from within Vim, the |:nbstart| optional argument may be:
+When started from within uVim, the |:nbstart| optional argument may be:
 
 	={fname}				from a file
 	:{hostname}:{addr}:{password}	        directly
@@ -223,10 +223,10 @@ The file must contain these three lines, in any order:
 	port={addr}
 	auth={password}
 
-Other lines are ignored.  The Vim Controller is responsible for deleting the
+Other lines are ignored.  The uVim Controller is responsible for deleting the
 file afterwards.
 
-{hostname} is the name of the machine where Vim Controller is running.  When
+{hostname} is the name of the machine where uVim Controller is running.  When
 omitted the environment variable "__NETBEANS_HOST" is used or the default
 "localhost".
 
@@ -236,7 +236,7 @@ environment variable "__NETBEANS_SOCKET" is used or the default 3219.
 {password} is the password for connecting to NetBeans.  When omitted the
 environment variable "__NETBEANS_VIM_PASSWORD" is used or "changeme".
 
-Vim will initiate a socket connection (client side) to the specified host and
+uVim will initiate a socket connection (client side) to the specified host and
 port upon startup. The password will be sent with the AUTH event when the
 connection has been established.
 
@@ -244,7 +244,7 @@ connection has been established.
 ==============================================================================
 6. NetBeans protocol					*netbeans-protocol*
 
-The communication between the Vim Controller and Vim uses plain text
+The communication between the uVim Controller and uVim uses plain text
 messages.  This protocol was first designed to work with the external editor
 module of NetBeans.  Later it was extended to work with Agide (A-A-P GUI IDE,
 see http://www.a-a-p.org) and then with other IDE. The extensions are marked
@@ -267,10 +267,10 @@ The messages are currently sent over a socket.  Since the messages are in
 plain UTF-8 text this protocol could also be used with any other communication
 mechanism.
 
-Netbeans messages are processed when Vim is idle, waiting for user input.
-When Vim is run in non-interactive mode, for example when running an automated
-test case that sources a Vim script, the idle loop may not be called often
-enough. In that case, insert |:sleep| commands in the Vim script. The |:sleep|
+Netbeans messages are processed when uVim is idle, waiting for user input.
+When uVim is run in non-interactive mode, for example when running an automated
+test case that sources a uVim script, the idle loop may not be called often
+enough. In that case, insert |:sleep| commands in the uVim script. The |:sleep|
 command does invoke Netbeans messages processing.
 
 6.1 Kinds of messages		|nb-messages|
@@ -308,7 +308,7 @@ Event		bufID:name=seqno	11:keyCommand=123 "S-F2"
 
 bufID		Buffer number.  A message may be either for a specific buffer
 		or generic.  Generic messages use a bufID of zero.  NOTE: this
-		buffer ID is assigned by the IDE, it is not Vim's buffer
+		buffer ID is assigned by the IDE, it is not uVim's buffer
 		number.  The bufID must be a sequentially rising number,
 		starting at one.  When the 'switchbuf' option is set to
 		"usetab" and the "bufID" buffer is not found in the current
@@ -387,7 +387,7 @@ close		Close the buffer.  This leaves us without current buffer, very
 
 create		Creates a buffer without a name.  Replaces the current buffer
 		(it's hidden when it was changed).
-		The Vim Controller should use this as the first command for a
+		The uVim Controller should use this as the first command for a
 		file that is being opened.  The sequence of commands could be:
 			create
 			setCaretListener	(ignored)
@@ -406,11 +406,11 @@ defineAnnoType typeNum typeName tooltip glyphFile fg bg
 		   glyphFile	string	name of icon file
 		   fg		color	foreground color for line highlighting
 		   bg		color	background color for line highlighting
-		Vim will define a sign for the annotation.
+		uVim will define a sign for the annotation.
 		When color is a number, this is the "#rrggbb" Red, Green and
 		Blue values of the color (see |gui-colors|) and the
 		highlighting is only defined for GVim.
-		When color is a name, this color is defined both for Vim
+		When color is a name, this color is defined both for uVim
 		running in a color terminal and for GVim.
 		When both "fg" and "bg" are "none" no line highlighting is
 		used (new in version 2.1).
@@ -453,7 +453,7 @@ initDone	Mark the buffer as ready for use.  Implicitly makes the buffer
 		the current buffer.  Fires the BufReadPost autocommand event.
 
 insertDone
-		Sent by Vim Controller to tell Vim an initial file insert is
+		Sent by uVim Controller to tell uVim an initial file insert is
 		done.  This triggers a read message being printed.  Prior to
 		version 2.3, no read messages were displayed after opening a
 		file.  New in version 2.3.
@@ -467,7 +467,7 @@ netbeansBuffer isNetbeansBuffer
 		New in version 2.2.
 
 putBufferNumber pathname
-		Associate a buffer number with the Vim buffer by the name
+		Associate a buffer number with the uVim buffer by the name
 		"pathname", a string argument.  To be used when the editor
 		reported editing another file to the IDE and the IDE needs to
 		tell the editor what buffer number it will use for this file.
@@ -475,7 +475,7 @@ putBufferNumber pathname
 		New in version 2.1.
 
 raise		Bring the editor to the foreground.
-		Only when Vim is run with a GUI.
+		Only when uVim is run with a GUI.
 		New in version 2.1.
 
 removeAnno serNum
@@ -493,7 +493,7 @@ save		Save the buffer when it was modified.  The other side of the
 		New in version 2.2.
 
 saveDone
-		Sent by Vim Controller to tell Vim a save is done.  This
+		Sent by uVim Controller to tell uVim a save is done.  This
 		triggers a save message being printed.  Prior to version 2.3,
 		no save messages were displayed after a save.
 		New in version 2.3.
@@ -501,7 +501,7 @@ saveDone
 setAsUser	Not implemented.
 
 setBufferNumber pathname
-		Associate a buffer number with Vim buffer by the name
+		Associate a buffer number with uVim buffer by the name
 		"pathname".  To be used when the editor reported editing
 		another file to the IDE and the IDE needs to tell the editor
 		what buffer number it will use for this file.
@@ -543,7 +543,7 @@ setModified modified
 
 setModtime time
 		Update a buffers modification time after the file has been
-		saved directly by the Vim Controller.
+		saved directly by the uVim Controller.
 		New in version 2.3.
 
 setReadOnly
@@ -554,8 +554,8 @@ setStyle	Not implemented.
 
 setTitle name
 		Set the title for the buffer to "name", a string argument.
-		The title is only used for the Vim Controller functions, not
-		by Vim.
+		The title is only used for the uVim Controller functions, not
+		by uVim.
 
 setVisible visible
 		When the boolean argument "visible" is "T", goto the buffer.
@@ -565,13 +565,13 @@ showBalloon text
 		Show a balloon (popup window) at the mouse pointer position,
 		containing "text", a string argument.  The balloon should
 		disappear when the mouse is moved more than a few pixels.
-		Only when Vim is run with a GUI.
+		Only when uVim is run with a GUI.
 		New in version 2.1.
 
 specialKeys
 		Map a set of keys (mostly function keys) to be passed back
-		to the Vim Controller for processing.  This lets regular IDE
-		hotkeys be used from Vim.
+		to the uVim Controller for processing.  This lets regular IDE
+		hotkeys be used from uVim.
 		Implemented in version 2.3.
 
 startAtomic	Begin an atomic operation.  The screen will not be updated
@@ -592,7 +592,7 @@ stopDocumentListen
 		Mark the buffer to stop reporting changes to the IDE.
 		Opposite of startDocumentListen.
 		NOTE: if "netbeansBuffer" was used to mark this buffer as a
-		NetBeans buffer, then the buffer is deleted in Vim.  This is
+		NetBeans buffer, then the buffer is deleted in uVim.  This is
 		for compatibility with Sun Studio 10.
 
 unguard off len
@@ -637,7 +637,7 @@ getModified	When a buffer is specified: Return zero if the buffer does not
 		have changes, one if it does have changes.
 		When no buffer is specified (buffer number zero): Return the
 		number of buffers with changes.  When the result is zero it's
-		safe to tell Vim to exit.
+		safe to tell uVim to exit.
 		New in version 2.1.
 
 getText		Return the contents of the buffer as a string.
@@ -651,7 +651,7 @@ insert off text
 		argument, "off" a number.
 		"text" should have a "\n" (newline) at the end of each line.
 		Or "\r\n" when 'fileformat' is "dos".  When using "insert" in
-		an empty buffer Vim will set 'fileformat' accordingly.
+		an empty buffer uVim will set 'fileformat' accordingly.
 		When "off" points to the start of a line the text is inserted
 		above this line.  Thus when "off" is zero lines are inserted
 		before the first line.
@@ -675,12 +675,12 @@ remove off length
 		Note that the message in the reply is not quoted.
 		Also sets the current buffer, if necessary.
 
-saveAndExit	Perform the equivalent of closing Vim: ":confirm qall".
+saveAndExit	Perform the equivalent of closing uVim: ":confirm qall".
 		If there are no changed files or the user does not cancel the
-		operation Vim exits and no result is sent back.  The IDE can
+		operation uVim exits and no result is sent back.  The IDE can
 		consider closing the connection as a successful result.
 		If the user cancels the operation the number of modified
-		buffers that remains is returned and Vim does not exit.
+		buffers that remains is returned and uVim does not exit.
 		New in version 2.1.
 
 
@@ -699,20 +699,20 @@ balloonText text
 		Used when 'ballooneval' is set and the mouse pointer rests on
 		some text for a moment.  "text" is a string, the text under
 		the mouse pointer.
-		Only when Vim is run with a GUI.
+		Only when uVim is run with a GUI.
 		New in version 2.1.
 
 buttonRelease button lnum col
 		Report which button was pressed and the location of the cursor
 		at the time of the release.  Only for buffers that are owned
-		by the Vim Controller.  This event is not sent if the button
+		by the uVim Controller.  This event is not sent if the button
 		was released while the mouse was in the status line or in a
 		separator line.  If col is less than 1 the button release was
 		in the sign area.
 		New in version 2.2.
 
 disconnect
-		Tell the Vim Controller that Vim is exiting and not to try and
+		Tell the uVim Controller that uVim is exiting and not to try and
 		read or write more commands.
 		New in version 2.3.
 
@@ -737,7 +737,7 @@ geometry cols rows x y
 		Only works for Motif.
 
 insert off text
-		Text "text" has been inserted in Vim at position "off".
+		Text "text" has been inserted in uVim at position "off".
 		Only fired when enabled, see "startDocumentListen".
 
 invokeAction	Not implemented.
@@ -781,7 +781,7 @@ newDotAndMark off off
 quit		Not implemented.
 
 remove off len
-		Text was deleted in Vim at position "off" with byte length
+		Text was deleted in uVim at position "off" with byte length
 		"len".
 		Only fired when enabled, see "startDocumentListen".
 
@@ -797,7 +797,7 @@ startupDone	The editor has finished its startup work and is ready for
 unmodified	The buffer is now unmodified.
 		Only fired when enabled, see "startDocumentListen".
 
-version vers	Report the version of the interface implementation.  Vim
+version vers	Report the version of the interface implementation.  uVim
 		reports "2.4" (including the quotes).
 
 
@@ -848,13 +848,13 @@ These errors occur when a message violates the protocol:
 			signs.
 
 							*:nbkey*
-:nb[key] {key}		Pass the {key} to the Vim Controller for processing.
+:nb[key] {key}		Pass the {key} to the uVim Controller for processing.
 			When a hot-key has been installed with the specialKeys
 			command, this command can be used to generate a hotkey
-			message to the Vim Controller.
+			message to the uVim Controller.
 			This command can also be used to pass any text to the
-			Vim  Controller. It is used by Pyclewn, for example,
-			to build the complete set of gdb commands as Vim user
+			uVim  Controller. It is used by Pyclewn, for example,
+			to build the complete set of gdb commands as uVim user
 			commands.
 			The events newDotAndMark, keyCommand and keyAtPos are
 			generated (in this order).
@@ -866,7 +866,7 @@ These errors occur when a message violates the protocol:
 NUL bytes are not possible.  For editor -> IDE they will appear as NL
 characters.  For IDE -> editor they cannot be inserted.
 
-A NetBeans session may be initiated with Vim running in a terminal, and
+A NetBeans session may be initiated with uVim running in a terminal, and
 continued later in a GUI environment after running the |:gui| command. In this
 case, the highlighting defined for the NetBeans annotations may be cleared
 when the ":gui" command sources .gvimrc and this file loads a colorscheme
@@ -877,16 +877,16 @@ New in version 2.5.
 ==============================================================================
 9. Debugging NetBeans protocol				*netbeans-debugging*
 
-To debug the Vim protocol, you must first compile Vim with debugging support
+To debug the uVim protocol, you must first compile uVim with debugging support
 and NetBeans debugging support.  See |netbeans-configure| for instructions
-about Vim compiling and how to enable debug support.
+about uVim compiling and how to enable debug support.
 
-When running Vim, set the following environment variables:
+When running uVim, set the following environment variables:
 
     export SPRO_GVIM_DEBUG=netbeans.log
     export SPRO_GVIM_DLEVEL=0xffffffff
 
-Vim will then log all the incoming and outgoing messages of the NetBeans
+uVim will then log all the incoming and outgoing messages of the NetBeans
 protocol to the file netbeans.log .
 
 The content of netbeans.log after a session looks like this:
@@ -937,7 +937,7 @@ free trial.  See http://www.sun.com for further details.
 
 10.2. NetBeans Key Bindings			*netbeans-keybindings*
 
-Vim understands a number of key bindings that execute NetBeans commands.
+uVim understands a number of key bindings that execute NetBeans commands.
 These are typically all the Function key combinations.  To execute a NetBeans
 command, the user must press the Pause key followed by a NetBeans key binding.
 For example, in order to compile a Java file, the NetBeans key binding is
@@ -953,7 +953,7 @@ The External Editor module dynamically reads the NetBeans key bindings so vim
 should always have the latest key bindings, even when NetBeans changes them.
 
 
-10.3. Preparing NetBeans for Vim		*netbeans-preparation*
+10.3. Preparing NetBeans for uVim		*netbeans-preparation*
 
 In order for NetBeans to work with vim, the NetBeans External Editor module
 must be loaded and enabled.  If you have a Sun ONE Studio Enterprise Edition
@@ -982,7 +982,7 @@ see http://externaleditor.netbeans.org and http://www.netbeans.org.
 Unfortunately, this is not a trivial procedure.
 
 
-10.5. Setting up NetBeans to run with Vim	*netbeans-setup*
+10.5. Setting up NetBeans to run with uVim	*netbeans-setup*
 
 Assuming you have loaded and enabled the NetBeans External Editor module
 as described in |netbeans-preparation| all you need to do is verify that
@@ -991,9 +991,9 @@ the gvim command line is properly configured for your environment.
 Open the Tools->Options dialog and open the Editing category.  Select the
 External Editor.  The right hand pane should contain a Properties tab and
 an Expert tab.  In the Properties tab make sure the "Editor Type" is set
-to "Vim".  In the Expert tab make sure the "Vim Command" is correct.
+to "uVim".  In the Expert tab make sure the "uVim Command" is correct.
 
-You should be careful if you change the "Vim Command".  There are command
+You should be careful if you change the "uVim Command".  There are command
 line options there which must be there for the connection to be properly
 set up.  You can change the command name but that's about it.  If your gvim
 can be found by your $PATH then the VIM Command can start with "gvim".  If

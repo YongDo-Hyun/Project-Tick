@@ -1,10 +1,10 @@
 /* vi:set ts=8 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -125,7 +125,7 @@ struct ref
     Tcl_Interp	*interp;
     Tcl_Command cmd;	    /* Tcl command that represents this object */
     Tcl_Obj	*delcmd;    /* Tcl command to call when object is being del. */
-    void	*vimobj;    /* Vim window or buffer (win_T* or buf_T*) */
+    void	*vimobj;    /* uVim window or buffer (win_T* or buf_T*) */
 };
 static char * tclgetbuffer _ANSI_ARGS_((Tcl_Interp *interp, buf_T *buf));
 static char * tclgetwindow _ANSI_ARGS_((Tcl_Interp *interp, win_T *win));
@@ -303,7 +303,7 @@ tcl_end(void)
  * be run. Since the interpreter is now marked as deleted, an error
  * will be returned -- typically "attempt to call eval in deleted
  * interpreter". Hopefully, at this point, checks for TCL_ERROR take
- * place and control percolates back up to Vim -- but with this new error
+ * place and control percolates back up to uVim -- but with this new error
  * string in the interpreter's result value. Therefore it would be
  * useless for this routine to return the exit code via Tcl_SetResult().
  */
@@ -2032,7 +2032,7 @@ tcldelallrefs(struct ref *ref)
     char	*result;
 
 #ifdef DYNAMIC_TCL
-    /* TODO: this code currently crashes Vim on exit */
+    /* TODO: this code currently crashes uVim on exit */
     if (exiting)
 	return;
 #endif

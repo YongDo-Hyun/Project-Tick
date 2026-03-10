@@ -1,7 +1,7 @@
-README_extra.txt for version 7.4 of Vim: Vi IMproved.
+README_extra.txt for version 7.4 of uVim: Micro Vi IMproved.
 
-These extra files of Vim are for special purposes.  This README explains what
-the files are for.  For general information about Vim, see the "README.txt"
+These extra files of uVim are for special purposes.  This README explains what
+the files are for.  For general information about uVim, see the "README.txt"
 file.
 
 
@@ -42,10 +42,10 @@ src/if_ole.*		OLE automation interface, for MS Windows 95 and NT.
 src/VisVim/*		Integration of Win32 GUI with MS Visual Developer
 			Studio.
 
-src/GvimExt/*		DLL for the "Edit with Vim" context menu entry
+src/GvimExt/*		DLL for the "Edit with uVim" context menu entry
 
 nsis/*			NSIS script to build the self-installing MS-Windows exe
 
 runtime/doc/*.man	Preprocessed manual pages.
 
-runtime/macros/file_select.vim	Vim script to browse directories (Unix only).
+runtime/macros/file_select.vim	uVim script to browse directories (Unix only).

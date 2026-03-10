@@ -1,10 +1,10 @@
-*russian.txt*   For Vim version 7.4.  Last change: 2006 Apr 24
+*russian.txt*   For uVim version 7.4.  Last change: 2006 Apr 24
 
 
 		  VIM REFERENCE MANUAL    by Vassily Ragosin
 
 
-Russian language localization and support in Vim	   *russian* *Russian*
+Russian language localization and support in uVim	   *russian* *Russian*
 
 1. Introduction				  |russian-intro|
 2. Russian keymaps			  |russian-keymap|
@@ -14,14 +14,14 @@ Russian language localization and support in Vim	   *russian* *Russian*
 ===============================================================================
 1. Introduction							*russian-intro*
 
-Russian language is supported perfectly well in Vim.  You can type and view
+Russian language is supported perfectly well in uVim.  You can type and view
 Russian text just as any other, without the need to tweak the settings.
 
 ===============================================================================
 2. Russian keymaps					       *russian-keymap*
 
 To switch between languages you can use your system native keyboard switcher,
-or use one of the Russian keymaps, included in the Vim distribution.  For
+or use one of the Russian keymaps, included in the uVim distribution.  For
 example,
 >
     :set keymap=russian-jcukenwin
@@ -50,13 +50,13 @@ different codepages from
 
     http://www.sourceforge.net/projects/ruvim/
 
-Make sure that your Vim is at least 6.2.506 and use ruvim 0.5 or later for
-automatic installs.  Vim also needs to be compiled with |+gettext| feature for
+Make sure that your uVim is at least 6.2.506 and use ruvim 0.5 or later for
+automatic installs.  uVim also needs to be compiled with |+gettext| feature for
 user interface items translations to work.
 
 After downloading an archive from RuVim project, unpack it into your
 $VIMRUNTIME directory.  We recommend using UTF-8 archive, if your version of
-Vim is compiled with |+multi_byte| feature enabled.
+uVim is compiled with |+multi_byte| feature enabled.
 
 In order to use the Russian documentation, make sure you have set the
 'helplang' option to "ru".

@@ -35,7 +35,7 @@ BEGIN   {
 #
 # protect special chars
 #
-/[><&á]/ {gsub(/&/,"\\&amp;");gsub(/>/,"\\&gt;");gsub(/</,"\\&lt;");gsub("á","\\&aacute;");}
+/[><&ï¿½]/ {gsub(/&/,"\\&amp;");gsub(/>/,"\\&gt;");gsub(/</,"\\&lt;");gsub("ï¿½","\\&aacute;");}
 #
 # end of sample lines by non-blank in first column
 #
@@ -128,11 +128,11 @@ NR == 1 { nf=split(FILENAME,f,".")
 	    # common case - Latin1
 	    print "<META HTTP-EQUIV=\"Content-type\" content=\"text/html; charset=ISO-8859-1\">";
 	}
-	print "<TITLE>Vim documentation: " f[1] "</TITLE>";
+	print "<TITLE>uVim documentation: " f[1] "</TITLE>";
 	print "</HEAD>";
 
 	print "<BODY BGCOLOR=\"#ffffff\">";
-	print "<H1>Vim documentation: " f[1] "</H1>";
+	print "<H1>uVim documentation: " f[1] "</H1>";
 	print "<A NAME=\"top\"></A>";
 	if ( FILENAME != "help.txt" ) {
 	  print "<A HREF=\"index.html\">main help file</A>\n";

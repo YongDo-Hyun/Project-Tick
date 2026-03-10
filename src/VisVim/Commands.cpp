@@ -18,7 +18,7 @@ static char THIS_FILE[] = __FILE__;
 #define CD_NONE			2	// No cd
 
 
-static BOOL g_bEnableVim = TRUE;	// Vim enabled
+static BOOL g_bEnableVim = TRUE;	// uVim enabled
 static BOOL g_bDevStudioEditor = FALSE;	// Open file in Dev Studio editor simultaneously
 static BOOL g_bNewTabs = FALSE;
 static int g_ChangeDir = CD_NONE;	// CD after file open?
@@ -85,8 +85,8 @@ void CCommands::SetApplicationObject(IApplication * pApplication)
 	}
 #endif
 
-	// Get settings from registry HKEY_CURRENT_USER\Software\Vim\VisVim
-	HKEY hAppKey = GetAppKey("Vim");
+	// Get settings from registry HKEY_CURRENT_USER\Software\uVim\VisVim
+	HKEY hAppKey = GetAppKey("uVim");
 	if (hAppKey)
 	{
 		HKEY hSectionKey = GetSectionKey(hAppKey, "VisVim");
@@ -159,14 +159,14 @@ HRESULT CCommands::XApplicationEvents::BeforeApplicationShutDown()
 
 // The open document event handle is the place where the real interface work
 // is done.
-// Vim gets called from here.
+// uVim gets called from here.
 //
 HRESULT CCommands::XApplicationEvents::DocumentOpen(IDispatch * theDocument)
 {
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 
 	if (! g_bEnableVim)
-		// Vim not enabled or empty command line entered
+		// uVim not enabled or empty command line entered
 		return S_OK;
 
 	// First get the current file name and line number
@@ -198,7 +198,7 @@ HRESULT CCommands::XApplicationEvents::DocumentOpen(IDispatch * theDocument)
 		pDispSel->Release();
 	}
 
-	// Open the file in Vim and position to the current line
+	// Open the file in uVim and position to the current line
 	if (VimOpenFile(FileName, LineNr))
 	{
 		if (! g_bDevStudioEditor)
@@ -233,7 +233,7 @@ HRESULT CCommands::XApplicationEvents::NewDocument(IDispatch * theDocument)
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 
 	if (! g_bEnableVim)
-		// Vim not enabled or empty command line entered
+		// uVim not enabled or empty command line entered
 		return S_OK;
 
 	// First get the current file name and line number
@@ -249,7 +249,7 @@ HRESULT CCommands::XApplicationEvents::NewDocument(IDispatch * theDocument)
 	if (FAILED(hr))
 		return S_OK;
 
-	// Open the file in Vim and position to the current line
+	// Open the file in uVim and position to the current line
 	if (VimOpenFile(FileName, 0))
 	{
 		if (! g_bDevStudioEditor)
@@ -384,8 +384,8 @@ STDMETHODIMP CCommands::VisVimDialog()
 		g_bNewTabs = Dlg.m_bNewTabs;
 		g_ChangeDir = Dlg.m_ChangeDir;
 
-		// Save settings to registry HKEY_CURRENT_USER\Software\Vim\VisVim
-		HKEY hAppKey = GetAppKey("Vim");
+		// Save settings to registry HKEY_CURRENT_USER\Software\uVim\VisVim
+		HKEY hAppKey = GetAppKey("uVim");
 		if (hAppKey)
 		{
 			HKEY hSectionKey = GetSectionKey(hAppKey, "VisVim");
@@ -468,7 +468,7 @@ STDMETHODIMP CCommands::VisVimLoad()
 			pSel->get_CurrentLine(&LineNr);
 	}
 
-	// Open the file in Vim
+	// Open the file in uVim
 	VimOpenFile(FileName, LineNr);
 
 	SysFreeString(FileName);
@@ -477,7 +477,7 @@ STDMETHODIMP CCommands::VisVimLoad()
 
 
 //
-// Here we do the actual processing and communication with Vim
+// Here we do the actual processing and communication with uVim
 //
 
 // Set the enable state and save to registry
@@ -485,7 +485,7 @@ STDMETHODIMP CCommands::VisVimLoad()
 static void VimSetEnableState(BOOL bEnableState)
 {
 	g_bEnableVim = bEnableState;
-	HKEY hAppKey = GetAppKey("Vim");
+	HKEY hAppKey = GetAppKey("uVim");
 	if (hAppKey)
 	{
 		HKEY hSectionKey = GetSectionKey(hAppKey, "VisVim");
@@ -495,7 +495,7 @@ static void VimSetEnableState(BOOL bEnableState)
 	}
 }
 
-// Open the file 'FileName' in Vim and goto line 'LineNr'
+// Open the file 'FileName' in uVim and goto line 'LineNr'
 // 'FileName' is expected to contain an absolute DOS path including the drive
 // letter.
 // 'LineNr' must contain a valid line number or 0, e. g. for a new file
@@ -503,19 +503,19 @@ static void VimSetEnableState(BOOL bEnableState)
 static BOOL VimOpenFile(BSTR& FileName, long LineNr)
 {
 
-	// OLE automation object for com. with Vim
+	// OLE automation object for com. with uVim
 	// When the object goes out of scope, it's destructor destroys the OLE
 	// connection;
 	// This is important to avoid blocking the object
-	// (in this memory corruption would be likely when terminating Vim
+	// (in this memory corruption would be likely when terminating uVim
 	// while still running DevStudio).
 	// So keep this object local!
 	COleAutomationControl VimOle;
 
 	// :cd D:/Src2/VisVim/
 	//
-	// Get a dispatch id for the SendKeys method of Vim;
-	// enables connection to Vim if necessary
+	// Get a dispatch id for the SendKeys method of uVim;
+	// enables connection to uVim if necessary
 	DISPID DispatchId;
 	DispatchId = VimGetDispatchId(VimOle, "SendKeys");
 	if (! DispatchId)
@@ -533,18 +533,18 @@ static BOOL VimOpenFile(BSTR& FileName, long LineNr)
 	VimCmd[2] = 0;
 
 #ifdef SINGLE_WINDOW
-	// Update the current file in Vim if it has been modified.
+	// Update the current file in uVim if it has been modified.
 	// Disabled, because it could write the file when you don't want to.
 	sprintf(VimCmd + 2, ":up\n");
 #endif
 	if (! VimOle.Method(DispatchId, "s", TO_OLE_STR_BUF(VimCmd, Buf)))
 		goto OleError;
 
-	// Change Vim working directory to where the file is if desired
+	// Change uVim working directory to where the file is if desired
 	if (g_ChangeDir != CD_NONE)
 		VimChangeDir(VimOle, DispatchId, FileName);
 
-	// Make Vim open the file.
+	// Make uVim open the file.
 	// In the filename convert all \ to /, put a \ before a space.
 	if (g_bNewTabs)
 	{
@@ -580,7 +580,7 @@ static BOOL VimOpenFile(BSTR& FileName, long LineNr)
 			goto OleError;
 	}
 
-	// Make Vim come to the foreground
+	// Make uVim come to the foreground
 	if (! VimOle.Method("SetForeground"))
 		VimOle.ErrDiag();
 
@@ -594,35 +594,35 @@ static BOOL VimOpenFile(BSTR& FileName, long LineNr)
 	return false;
 }
 
-// Return the dispatch id for the Vim method 'Method'
-// Create the Vim OLE object if necessary
+// Return the dispatch id for the uVim method 'Method'
+// Create the uVim OLE object if necessary
 // Returns a valid dispatch id or null on error
 //
 static DISPID VimGetDispatchId(COleAutomationControl& VimOle, char* Method)
 {
-	// Initialize Vim OLE connection if not already done
+	// Initialize uVim OLE connection if not already done
 	if (! VimOle.IsCreated())
 	{
-		if (! VimOle.CreateObject("Vim.Application"))
+		if (! VimOle.CreateObject("uVim.Application"))
 			return NULL;
 	}
 
 	// Get the dispatch id for the SendKeys method.
-	// By doing this, we are checking if Vim is still there...
+	// By doing this, we are checking if uVim is still there...
 	DISPID DispatchId = VimOle.GetDispatchId("SendKeys");
 	if (! DispatchId)
 	{
 		// We can't get a dispatch id.
-		// This means that probably Vim has been terminated.
+		// This means that probably uVim has been terminated.
 		// Don't issue an error message here, instead
 		// destroy the OLE object and try to connect once more
 		//
 		// In fact, this should never happen, because the OLE aut. object
-		// should not be kept long enough to allow the user to terminate Vim
+		// should not be kept long enough to allow the user to terminate uVim
 		// to avoid memory corruption (why the heck is there no system garbage
 		// collection for those damned OLE memory chunks???).
 		VimOle.DeleteObject();
-		if (! VimOle.CreateObject("Vim.Application"))
+		if (! VimOle.CreateObject("uVim.Application"))
 			// If this create fails, it's time for an error msg
 			return NULL;
 
@@ -635,7 +635,7 @@ static DISPID VimGetDispatchId(COleAutomationControl& VimOle, char* Method)
 }
 
 // Output an error message for an OLE error
-// Check on the classstring error, which probably means Vim wasn't registered.
+// Check on the classstring error, which probably means uVim wasn't registered.
 //
 static void VimErrDiag(COleAutomationControl& VimOle)
 {
@@ -644,9 +644,9 @@ static void VimErrDiag(COleAutomationControl& VimOle)
 	{
 		char Buf[256];
 		sprintf(Buf, "There is no registered OLE automation server named "
-			 "\"Vim.Application\".\n"
-			 "Use the OLE-enabled version of Vim with VisVim and "
-			 "make sure to register Vim by running \"vim -register\".");
+			 "\"uVim.Application\".\n"
+			 "Use the OLE-enabled version of uVim with VisVim and "
+			 "make sure to register uVim by running \"vim -register\".");
 		MessageBox(NULL, Buf, "OLE Error", MB_OK);
 	}
 	else

@@ -1,4 +1,4 @@
-*os_qnx.txt*    For Vim version 7.4.  Last change: 2005 Mar 29
+*os_qnx.txt*    For uVim version 7.4.  Last change: 2005 Mar 29
 
 
 		  VIM REFERENCE MANUAL    by Julian Kinraid
@@ -7,7 +7,7 @@
 							*QNX* *qnx*
 
 1. General			|qnx-general|
-2. Compiling Vim		|qnx-compiling|
+2. Compiling uVim		|qnx-compiling|
 3. Terminal support		|qnx-terminal|
 4. Photon GUI			|photon-gui|
 5. Photon fonts			|photon-fonts|
@@ -17,12 +17,12 @@
 
 1. General						*qnx-general*
 
-Vim on QNX behaves much like other unix versions. |os_unix.txt|
+uVim on QNX behaves much like other unix versions. |os_unix.txt|
 
 
-2. Compiling Vim					*qnx-compiling*
+2. Compiling uVim					*qnx-compiling*
 
-Vim can be compiled using the standard configure/make approach.  If you want to
+uVim can be compiled using the standard configure/make approach.  If you want to
 compile for X11, pass the --with-x option to configure.  Otherwise, running
 ./configure without any arguments or passing --enable-gui=photon, will compile
 vim with the Photon gui support.  Run ./configure --help , to find out other
@@ -31,7 +31,7 @@ features you can enable/disable.
 
 3. Terminal support					*qnx-terminal*
 
-Vim has support for the mouse and clipboard in a pterm, if those options
+uVim has support for the mouse and clipboard in a pterm, if those options
 are compiled in, which they are normally.
 
 The options that affect mouse support are |'mouse'| and |'ttymouse'|.  When
@@ -113,7 +113,7 @@ Select a font with the requester >
 6. Bugs & things To Do
 
 Known problems:
-	- Vim hangs sometimes when running an external program.  Workaround:
+	- uVim hangs sometimes when running an external program.  Workaround:
 	  put this line in your |vimrc| file: >
 		set noguipty
 

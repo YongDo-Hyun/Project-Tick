@@ -1,10 +1,10 @@
-*tips.txt*      For Vim version 7.4.  Last change: 2009 Nov 07
+*tips.txt*      For uVim version 7.4.  Last change: 2009 Nov 07
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
 
 
-Tips and ideas for using Vim				*tips*
+Tips and ideas for using uVim				*tips*
 
 These are just a few that we thought would be helpful for many users.
 You can find many more tips on the wiki.  The URL can be found on
@@ -34,7 +34,7 @@ Highlighting matching parens			|match-parens|
 ==============================================================================
 Editing C programs					*C-editing*
 
-There are quite a few features in Vim to help you edit C program files.  Here
+There are quite a few features in uVim to help you edit C program files.  Here
 is an overview with tags to jump to:
 
 |usr_29.txt|		Moving through programs chapter in the user manual.
@@ -161,7 +161,7 @@ entries similar to: >
 PS: If you find any difference, someone (your sysadmin?) should better check
     the complete termcap and terminfo database for consistency.
 
-NOTE 1: If you recompile Vim with FEAT_XTERM_SAVE defined in feature.h, the
+NOTE 1: If you recompile uVim with FEAT_XTERM_SAVE defined in feature.h, the
 builtin xterm will include the mentioned "te" and "ti" entries.
 
 NOTE 2: If you want to disable the screen switching, and you don't want to
@@ -283,7 +283,7 @@ Example for using a script file to change a name in several files:
 		:%s/Allen/Peter/g
 		:update
 <
-	Execute Vim on all files you want to change, and source the script for
+	Execute uVim on all files you want to change, and source the script for
 	each argument: >
 
 		vim *.let
@@ -301,7 +301,7 @@ increase the speed.
 If your .cshrc (or other file, depending on the shell used) is very long, you
 should separate it into a section for interactive use and a section for
 non-interactive use (often called secondary shells).  When you execute a
-command from Vim like ":!ls", you do not need the interactive things (for
+command from uVim like ":!ls", you do not need the interactive things (for
 example, setting the prompt).  Put the stuff that is not needed after these
 lines: >
 
@@ -365,7 +365,7 @@ be able to give comments to the parts of the mapping. >
 	:execute m			      |" define the mapping
 
 (<> notation |<>|.  Note that this is all typed literally.  ^W is "^" "W", not
-CTRL-W.  You can copy/paste this into Vim if '<' is not included in
+CTRL-W.  You can copy/paste this into uVim if '<' is not included in
 'cpoptions'.)
 
 Note that the last comment starts with |", because the ":execute" command
@@ -388,7 +388,7 @@ single line >
 Compressing the help files				*gzip-helpfile*
 
 For those of you who are really short on disk space, you can compress the help
-files and still be able to view them with Vim.  This makes accessing the help
+files and still be able to view them with uVim.  This makes accessing the help
 files a bit slower and requires the "gzip" program.
 
 (1) Compress all the help files: "gzip doc/*.txt".
@@ -401,7 +401,7 @@ files a bit slower and requires the "gzip" program.
 
 Where {dirname} is the directory where the help files are.  The |gzip| plugin
 will take care of decompressing the files.
-You must make sure that $VIMRUNTIME is set to where the other Vim files are,
+You must make sure that $VIMRUNTIME is set to where the other uVim files are,
 when they are not in the same location as the compressed "doc" directory.  See
 |$VIMRUNTIME|.
 
@@ -409,8 +409,8 @@ when they are not in the same location as the compressed "doc" directory.  See
 Executing shell commands in a window			*shell-window*
 
 There have been questions for the possibility to execute a shell in a window
-inside Vim.  The answer: you can't!  Including this would add a lot of code to
-Vim, which is a good reason not to do this.  After all, Vim is an editor, it
+inside uVim.  The answer: you can't!  Including this would add a lot of code to
+uVim, which is a good reason not to do this.  After all, uVim is an editor, it
 is not supposed to do non-editing tasks.  However, to get something like this,
 you might try splitting your terminal screen or display window with the
 "splitvt" program.  You can probably find it on some ftp server.  The person
@@ -480,7 +480,7 @@ This example shows the use of a few advanced tricks:
 - using |:match| to highlight something
 - using a |pattern| to match a specific position in the file.
 
-This should be put in a Vim script file, since it uses script-local variables.
+This should be put in a uVim script file, since it uses script-local variables.
 It skips matches in strings or comments, unless the cursor started in string
 or comment.  This requires syntax highlighting.
 

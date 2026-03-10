@@ -1,12 +1,12 @@
 # This Makefile has two purposes:
-# 1. Starting the compilation of Vim for Unix.
+# 1. Starting the compilation of uVim for Unix.
 # 2. Creating the various distribution files.
 
 
 #########################################################################
-# 1. Starting the compilation of Vim for Unix.
+# 1. Starting the compilation of uVim for Unix.
 #
-# Using this Makefile without an argument will compile Vim for Unix.
+# Using this Makefile without an argument will compile uVim for Unix.
 # "make install" is also possible.
 #
 # NOTE: If this doesn't work properly, first change directory to "src" and use
@@ -14,7 +14,7 @@
 #	cd src
 #	make [arguments]
 # Noticed on AIX systems when using this Makefile: Trying to run "cproto" or
-# something else after Vim has been compiled.  Don't know why...
+# something else after uVim has been compiled.  Don't know why...
 # Noticed on OS/390 Unix: Restarts configure.
 #
 # The first (default) target is "first".  This will result in running
@@ -70,8 +70,8 @@ all install uninstall tools config configure reconfig proto depend lint tags typ
 #    To do all this you need the Unix archive and compiled binaries.
 #    Before creating an archive first delete all backup files, *.orig, etc.
 
-MAJOR = 7
-MINOR = 4
+MAJOR = 8
+MINOR = 0
 
 # Uncomment this line if the Win32s version is to be included.
 # DOSBIN_S =  dosbin_s
@@ -84,12 +84,12 @@ MINOR = 4
 
 # CHECKLIST for creating a new version:
 #
-# - Update Vim version number.  For a test version in: src/version.h, Contents,
+# - Update uVim version number.  For a test version in: src/version.h, Contents,
 #   MAJOR/MINOR above, VIMMAJOR and VIMMINOR in src/Makefile, README*.txt,
 #   runtime/doc/*.txt and nsis/gvim.nsi.
 #   For a minor/major version: src/GvimExt/GvimExt.reg, src/vim.def,
 #   src/vim16.def, src/gvim.exe.mnf.
-# - Compile Vim with GTK, Perl, Python, Python3, TCL, Ruby, MZscheme, Lua (if
+# - Compile uVim with GTK, Perl, Python, Python3, TCL, Ruby, MZscheme, Lua (if
 #   you can make it all work), Cscope and "huge" features.  Exclude workshop
 #   and SNiFF.
 # - With these features: "make proto" (requires cproto and Motif installed;
@@ -125,7 +125,7 @@ MINOR = 4
 # - "make amisrc", move the archive to the Amiga and compile:
 #   "make -f Make_manx.mak" (will use "big" features by default).
 # - Run the tests: "make -f Make_manx.mak test"
-# - Place the executables Vim and Xxd in this directory (set the executable
+# - Place the executables uVim and Xxd in this directory (set the executable
 #   flag).
 # - "make amirt", "make amibin".
 #
@@ -195,7 +195,7 @@ MINOR = 4
 #   Note: VisVim needs to be build with MSVC 5, newer versions don't work.
 #   gvimext64.dll can be obtained from http://code.google.com/p/vim-win3264/
 #	It is part of vim72.zip as vim72/gvimext.dll.
-# - Make sure there is a diff.exe two levels up (get it from a previous Vim
+# - Make sure there is a diff.exe two levels up (get it from a previous uVim
 #   version).
 # - go to ../nsis and do:
 #   > makensis gvim.nsi  (takes a few minutes).
@@ -215,7 +215,7 @@ MINOR = 4
 #
 # OBSOLETE systems: You can build these if you have an appropriate system.
 #
-# 16 bit DOS version: You need to get a very old version of Vim, for several
+# 16 bit DOS version: You need to get a very old version of uVim, for several
 # years even the tiny build is too big to fit in DOS memory.
 #
 # 32 bit DOS version: Support was removed in 7.4.1399.  When syncing to before
@@ -240,7 +240,7 @@ VERSION = $(MAJOR)$(MINOR)
 VDOT	= $(MAJOR).$(MINOR)
 VIMRTDIR = vim$(VERSION)
 
-# Vim used for conversion from "unix" to "dos"
+# uVim used for conversion from "unix" to "dos"
 VIM	= vim
 
 # How to include Filelist depends on the version of "make" you have.
@@ -279,34 +279,34 @@ COMMENT_HTML = comment/$(VERSION)-html
 COMMENT_FARSI = comment/$(VERSION)-farsi
 
 dist/$(COMMENT_RT): dist/comment
-	echo "Vim - Vi IMproved - v$(VDOT) runtime files for MS-DOS and MS-Windows" > dist/$(COMMENT_RT)
+	echo "uVim - Micro Vi IMproved - v$(VDOT) runtime files for MS-DOS and MS-Windows" > dist/$(COMMENT_RT)
 
 dist/$(COMMENT_D16): dist/comment
-	echo "Vim - Vi IMproved - v$(VDOT) binaries for MS-DOS 16 bit real mode" > dist/$(COMMENT_D16)
+	echo "uVim - Micro Vi IMproved - v$(VDOT) binaries for MS-DOS 16 bit real mode" > dist/$(COMMENT_D16)
 
 dist/$(COMMENT_D32): dist/comment
-	echo "Vim - Vi IMproved - v$(VDOT) binaries for MS-DOS 32 bit protected mode" > dist/$(COMMENT_D32)
+	echo "uVim - Micro Vi IMproved - v$(VDOT) binaries for MS-DOS 32 bit protected mode" > dist/$(COMMENT_D32)
 
 dist/$(COMMENT_W32): dist/comment
-	echo "Vim - Vi IMproved - v$(VDOT) binaries for MS-Windows NT/95" > dist/$(COMMENT_W32)
+	echo "uVim - Micro Vi IMproved - v$(VDOT) binaries for MS-Windows NT/95" > dist/$(COMMENT_W32)
 
 dist/$(COMMENT_GVIM): dist/comment
-	echo "Vim - Vi IMproved - v$(VDOT) GUI binaries for MS-Windows NT/95" > dist/$(COMMENT_GVIM)
+	echo "uVim - Micro Vi IMproved - v$(VDOT) GUI binaries for MS-Windows NT/95" > dist/$(COMMENT_GVIM)
 
 dist/$(COMMENT_OLE): dist/comment
-	echo "Vim - Vi IMproved - v$(VDOT) MS-Windows GUI binaries with OLE support" > dist/$(COMMENT_OLE)
+	echo "uVim - Micro Vi IMproved - v$(VDOT) MS-Windows GUI binaries with OLE support" > dist/$(COMMENT_OLE)
 
 dist/$(COMMENT_W32S): dist/comment
-	echo "Vim - Vi IMproved - v$(VDOT) GUI binaries for MS-Windows 3.1/3.11" > dist/$(COMMENT_W32S)
+	echo "uVim - Micro Vi IMproved - v$(VDOT) GUI binaries for MS-Windows 3.1/3.11" > dist/$(COMMENT_W32S)
 
 dist/$(COMMENT_SRC): dist/comment
-	echo "Vim - Vi IMproved - v$(VDOT) sources for MS-DOS and MS-Windows" > dist/$(COMMENT_SRC)
+	echo "uVim - Micro Vi IMproved - v$(VDOT) sources for MS-DOS and MS-Windows" > dist/$(COMMENT_SRC)
 
 dist/$(COMMENT_HTML): dist/comment
-	echo "Vim - Vi IMproved - v$(VDOT) documentation in HTML" > dist/$(COMMENT_HTML)
+	echo "uVim - Micro Vi IMproved - v$(VDOT) documentation in HTML" > dist/$(COMMENT_HTML)
 
 dist/$(COMMENT_FARSI): dist/comment
-	echo "Vim - Vi IMproved - v$(VDOT) Farsi language files" > dist/$(COMMENT_FARSI)
+	echo "uVim - Micro Vi IMproved - v$(VDOT) Farsi language files" > dist/$(COMMENT_FARSI)
 
 unixall: dist prepare
 	-rm -f dist/$(VIMVER).tar.bz2
@@ -351,9 +351,9 @@ unixall: dist prepare
 # Amiga runtime - OBSOLETE
 amirt: dist prepare
 	-rm -f dist/vim$(VERSION)rt.tar.gz
-	-rm -rf dist/Vim
-	mkdir dist/Vim
-	mkdir dist/Vim/$(VIMRTDIR)
+	-rm -rf dist/uVim
+	mkdir dist/uVim
+	mkdir dist/uVim/$(VIMRTDIR)
 	tar cf - \
 		$(ROOT_AMI) \
 		$(RT_ALL) \
@@ -362,51 +362,51 @@ amirt: dist prepare
 		$(RT_AMI) \
 		$(RT_NO_UNIX) \
 		$(RT_AMI_DOS) \
-		| (cd dist/Vim/$(VIMRTDIR); tar xf -)
+		| (cd dist/uVim/$(VIMRTDIR); tar xf -)
 	-rm $(IN_README_DIR)
-	mv dist/Vim/$(VIMRTDIR)/vimdir.info dist/Vim.info
-	mv dist/Vim/$(VIMRTDIR)/runtime.info dist/Vim/$(VIMRTDIR).info
-	mv dist/Vim/$(VIMRTDIR)/runtime/* dist/Vim/$(VIMRTDIR)
-	rmdir dist/Vim/$(VIMRTDIR)/runtime
-	cd dist && tar cf vim$(VERSION)rt.tar Vim Vim.info
+	mv dist/uVim/$(VIMRTDIR)/vimdir.info dist/uVim.info
+	mv dist/uVim/$(VIMRTDIR)/runtime.info dist/uVim/$(VIMRTDIR).info
+	mv dist/uVim/$(VIMRTDIR)/runtime/* dist/uVim/$(VIMRTDIR)
+	rmdir dist/uVim/$(VIMRTDIR)/runtime
+	cd dist && tar cf vim$(VERSION)rt.tar uVim uVim.info
 	gzip -9 dist/vim$(VERSION)rt.tar
 	mv dist/vim$(VERSION)rt.tar.gz dist/vim$(VERSION)rt.tgz
 
 # Amiga binaries - OBSOLETE
 amibin: dist prepare
 	-rm -f dist/vim$(VERSION)bin.tar.gz
-	-rm -rf dist/Vim
-	mkdir dist/Vim
-	mkdir dist/Vim/$(VIMRTDIR)
+	-rm -rf dist/uVim
+	mkdir dist/uVim
+	mkdir dist/uVim/$(VIMRTDIR)
 	tar cf - \
 		$(ROOT_AMI) \
 		$(BIN_AMI) \
-		Vim \
+		uVim \
 		Xxd \
-		| (cd dist/Vim/$(VIMRTDIR); tar xf -)
+		| (cd dist/uVim/$(VIMRTDIR); tar xf -)
 	-rm $(IN_README_DIR)
-	mv dist/Vim/$(VIMRTDIR)/vimdir.info dist/Vim.info
-	mv dist/Vim/$(VIMRTDIR)/runtime.info dist/Vim/$(VIMRTDIR).info
-	cd dist && tar cf vim$(VERSION)bin.tar Vim Vim.info
+	mv dist/uVim/$(VIMRTDIR)/vimdir.info dist/uVim.info
+	mv dist/uVim/$(VIMRTDIR)/runtime.info dist/uVim/$(VIMRTDIR).info
+	cd dist && tar cf vim$(VERSION)bin.tar uVim uVim.info
 	gzip -9 dist/vim$(VERSION)bin.tar
 	mv dist/vim$(VERSION)bin.tar.gz dist/vim$(VERSION)bin.tgz
 
 # Amiga sources - OBSOLETE
 amisrc: dist prepare
 	-rm -f dist/vim$(VERSION)src.tar.gz
-	-rm -rf dist/Vim
-	mkdir dist/Vim
-	mkdir dist/Vim/$(VIMRTDIR)
+	-rm -rf dist/uVim
+	mkdir dist/uVim
+	mkdir dist/uVim/$(VIMRTDIR)
 	tar cf - \
 		$(ROOT_AMI) \
 		$(SRC_ALL) \
 		$(SRC_AMI) \
 		$(SRC_AMI_DOS) \
-		| (cd dist/Vim/$(VIMRTDIR); tar xf -)
+		| (cd dist/uVim/$(VIMRTDIR); tar xf -)
 	-rm $(IN_README_DIR)
-	mv dist/Vim/$(VIMRTDIR)/vimdir.info dist/Vim.info
-	mv dist/Vim/$(VIMRTDIR)/runtime.info dist/Vim/$(VIMRTDIR).info
-	cd dist && tar cf vim$(VERSION)src.tar Vim Vim.info
+	mv dist/uVim/$(VIMRTDIR)/vimdir.info dist/uVim.info
+	mv dist/uVim/$(VIMRTDIR)/runtime.info dist/uVim/$(VIMRTDIR).info
+	cd dist && tar cf vim$(VERSION)src.tar uVim uVim.info
 	gzip -9 dist/vim$(VERSION)src.tar
 	mv dist/vim$(VERSION)src.tar.gz dist/vim$(VERSION)src.tgz
 

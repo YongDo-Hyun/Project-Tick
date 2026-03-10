@@ -1,11 +1,11 @@
-*usr_44.txt*	For Vim version 7.4.  Last change: 2008 Dec 28
+*usr_44.txt*	For uVim version 7.4.  Last change: 2008 Dec 28
 
 		     VIM USER MANUAL - by Bram Moolenaar
 
 			 Your own syntax highlighted
 
 
-Vim comes with highlighting for a couple of hundred different file types.  If
+uVim comes with highlighting for a couple of hundred different file types.  If
 the file you are editing isn't included, read this chapter to find out how to
 get this type of file highlighted.  Also see |:syn-define| in the reference
 manual.
@@ -73,7 +73,7 @@ commands: >
 	:syntax case match
 	:syntax case ignore
 
-The "match" argument means that Vim will match the case of syntax elements.
+The "match" argument means that uVim will match the case of syntax elements.
 Therefore, "int" differs from "Int" and "INT".  If the "ignore" argument is
 used, the following are equivalent: "Procedure", "PROCEDURE" and "procedure".
    The ":syntax case" commands can appear anywhere in a syntax file and affect
@@ -104,20 +104,20 @@ interesting name).  In a syntax file for "csh" scripts the name "cshType"
 would be used.  Thus the prefix is equal to the value of 'filetype'.
    These commands cause the words "int", "long" and "char" to be highlighted
 one way and the words "if", "then", "else" and "endif" to be highlighted
-another way.  Now you need to connect the x group names to standard Vim
+another way.  Now you need to connect the x group names to standard uVim
 names.  You do this with the following commands: >
 
 	:highlight link xType Type
 	:highlight link xStatement Statement
 
-This tells Vim to highlight "xType" like "Type" and "xStatement" like
+This tells uVim to highlight "xType" like "Type" and "xStatement" like
 "Statement".  See |group-name| for the standard names.
 
 
 UNUSUAL KEYWORDS
 
 The characters used in a keyword must be in the 'iskeyword' option.  If you
-use another character, the word will never match.  Vim doesn't give a warning
+use another character, the word will never match.  uVim doesn't give a warning
 message for this.
    The x language uses the '-' character in keywords.  This is how it's done:
 >
@@ -178,7 +178,7 @@ and end of the region.  But what about strings that look like this?
 	"A string with a double quote (\") in it" ~
 
 This creates a problem: The double quotation marks in the middle of the string
-will end the region.  You need to tell Vim to skip over any escaped double
+will end the region.  You need to tell uVim to skip over any escaped double
 quotes in the string.  Do this with the skip keyword: >
 
 	:syntax region xString start=/"/ skip=/\\"/ end=/"/
@@ -201,13 +201,13 @@ Take a look at this comment:
 	%Get input  TODO: Skip white space ~
 
 You want to highlight TODO in big yellow letters, even though it is in a
-comment that is highlighted blue.  To let Vim know about this, you define the
+comment that is highlighted blue.  To let uVim know about this, you define the
 following syntax groups: >
 
 	:syntax keyword xTodo TODO contained
 	:syntax match xComment /%.*/ contains=xTodo
 
-In the first line, the "contained" argument tells Vim that this keyword can
+In the first line, the "contained" argument tells uVim that this keyword can
 exist only inside another syntax item.  The next line has "contains=xTodo".
 This indicates that the xTodo syntax element is inside it.  The result is that
 the comment line as a whole is matched with "xComment" and made blue.  The
@@ -312,7 +312,7 @@ For example, in this text:
 The "if" is matched by xIf.  "not" doesn't match the specified nextgroup
 xIfCondition, thus only the "if" is highlighted.
 
-The "skipwhite" argument tells Vim that white space (spaces and tabs) may
+The "skipwhite" argument tells uVim that white space (spaces and tabs) may
 appear in between the items.  Similar arguments are "skipnl", which allows a
 line break in between the items, and "skipempty", which allows empty lines.
 Notice that "skipnl" doesn't skip an empty line, something must match after
@@ -331,7 +331,7 @@ the group xInside, for example, use the following command: >
 
 Suppose, that you want to highlight the parentheses differently.  You can do
 this with a lot of convoluted region statements, or you can use the
-"matchgroup" argument.  This tells Vim to highlight the start and end of a
+"matchgroup" argument.  This tells uVim to highlight the start and end of a
 region with a different highlight group (in this case, the xParen group): >
 
 	:syntax region xInside matchgroup=xParen start=/(/ end=/)/
@@ -407,7 +407,7 @@ no "then" after the "if", the region doesn't match.
 
 	Note:
 	When using "oneline" the region doesn't start if the end pattern
-	doesn't match in the same line.  Without "oneline" Vim does _not_
+	doesn't match in the same line.  Without "oneline" uVim does _not_
 	check if there is a match for the end pattern.  The region starts even
 	when the end pattern doesn't match in the rest of the file.
 
@@ -449,7 +449,7 @@ before.
 *44.8*	Clusters
 
 One of the things you will notice as you start to write a syntax file is that
-you wind up generating a lot of syntax groups.  Vim enables you to define a
+you wind up generating a lot of syntax groups.  uVim enables you to define a
 collection of syntax groups called a cluster.
    Suppose you have a language that contains for loops, if statements, while
 loops, and functions.  Each of them contains the same syntax elements: numbers
@@ -531,19 +531,19 @@ directory to be included.
 *44.10*	Synchronizing
 
 Compilers have it easy.  They start at the beginning of a file and parse it
-straight through.  Vim does not have it so easy.  It must start in the middle,
+straight through.  uVim does not have it so easy.  It must start in the middle,
 where the editing is being done.  So how does it tell where it is?
-   The secret is the ":syntax sync" command.  This tells Vim how to figure out
-where it is.  For example, the following command tells Vim to scan backward
+   The secret is the ":syntax sync" command.  This tells uVim how to figure out
+where it is.  For example, the following command tells uVim to scan backward
 for the beginning or end of a C-style comment and begin syntax coloring from
 there: >
 
 	:syntax sync ccomment
 
 You can tune this processing with some arguments.  The "minlines" argument
-tells Vim the minimum number of lines to look backward, and "maxlines" tells
+tells uVim the minimum number of lines to look backward, and "maxlines" tells
 the editor the maximum number of lines to scan.
-   For example, the following command tells Vim to look at least 10 lines
+   For example, the following command tells uVim to look at least 10 lines
 before the top of the screen: >
 
 	:syntax sync ccomment minlines=10 maxlines=500
@@ -552,7 +552,7 @@ If it cannot figure out where it is in that space, it starts looking farther
 and farther back until it figures out what to do.  But it looks no farther
 back than 500 lines.  (A large "maxlines" slows down processing.  A small one
 might cause synchronization to fail.)
-   To make synchronizing go a bit faster, tell Vim which syntax items can be
+   To make synchronizing go a bit faster, tell uVim which syntax items can be
 skipped.  Every match and region that only needs to be used when actually
 displaying text can be given the "display" argument.
    By default, the comment to be found will be colored as part of the Comment
@@ -562,20 +562,20 @@ different syntax group: >
 	:syntax sync ccomment xAltComment
 
 If your programming language does not have C-style comments in it, you can try
-another method of synchronization.  The simplest way is to tell Vim to space
+another method of synchronization.  The simplest way is to tell uVim to space
 back a number of lines and try to figure out things from there.  The following
-command tells Vim to go back 150 lines and start parsing from there: >
+command tells uVim to go back 150 lines and start parsing from there: >
 
 	:syntax sync minlines=150
 
-A large "minlines" value can make Vim slower, especially when scrolling
+A large "minlines" value can make uVim slower, especially when scrolling
 backwards in the file.
    Finally, you can specify a syntax group to look for by using this command:
 >
 	:syntax sync match {sync-group-name}
 		\ grouphere {group-name} {pattern}
 
-This tells Vim that when it sees {pattern} the syntax group named {group-name}
+This tells uVim that when it sees {pattern} the syntax group named {group-name}
 begins just after the pattern given.  The {sync-group-name} is used to give a
 name to this synchronization specification.  For example, the sh scripting
 language begins an if statement with "if" and ends it with "fi":
@@ -589,12 +589,12 @@ command: >
 
 	:syntax sync match shIfSync grouphere shIf "\<if\>"
 
-The "groupthere" argument tells Vim that the pattern ends a group.  For
+The "groupthere" argument tells uVim that the pattern ends a group.  For
 example, the end of the if/fi group is as follows: >
 
 	:syntax sync match shIfSync groupthere NONE "\<fi\>"
 
-In this example, the NONE tells Vim that you are not in any special syntax
+In this example, the NONE tells uVim that you are not in any special syntax
 region.  In particular, you are not inside an if block.
 
 You also can define matches and regions that are with no "grouphere" or
@@ -618,11 +618,11 @@ added.  Thus for the x language, the full path of the file would be:
 
 You must also make the file type be recognized.  See |43.2|.
 
-If your file works well, you might want to make it available to other Vim
+If your file works well, you might want to make it available to other uVim
 users.  First read the next section to make sure your file works well for
-others.  Then e-mail it to the Vim maintainer: <maintainer@vim.org>.  Also
+others.  Then e-mail it to the uVim maintainer: <maintainer@vim.org>.  Also
 explain how the filetype can be detected.  With a bit of luck your file will
-be included in the next Vim version!
+be included in the next uVim version!
 
 
 ADDING TO AN EXISTING SYNTAX FILE
@@ -630,7 +630,7 @@ ADDING TO AN EXISTING SYNTAX FILE
 We were assuming you were adding a completely new syntax file.  When an existing
 syntax file works, but is missing some items, you can add items in a separate
 file.  That avoids changing the distributed syntax file, which will be lost
-when installing a new version of Vim.
+when installing a new version of uVim.
    Write syntax commands in your file, possibly using group names from the
 existing syntax.  For example, to add new variable types to the C syntax file:
 >
@@ -645,14 +645,14 @@ it loaded after the original syntax file.  For Unix this would be:
 ==============================================================================
 *44.12*	Portable syntax file layout
 
-Wouldn't it be nice if all Vim users exchange syntax files?  To make this
+Wouldn't it be nice if all uVim users exchange syntax files?  To make this
 possible, the syntax file must follow a few guidelines.
 
 Start with a header that explains what the syntax file is for, who maintains
 it and when it was last updated.  Don't include too much information about
 changes history, not many people will read it.  Example: >
 
-	" Vim syntax file
+	" uVim syntax file
 	" Language:	C
 	" Maintainer:	Bram Moolenaar <Bram@vim.org>
 	" Last Change:	2001 Jun 18
@@ -673,7 +673,7 @@ syntax file, earlier in 'runtimepath' was already loaded: >
 	  finish
 	endif
 
-To be compatible with Vim 5.8 use: >
+To be compatible with uVim 5.8 use: >
 
 	if version < 600
 	  syntax clear
@@ -685,7 +685,7 @@ Set "b:current_syntax" to the name of the syntax at the end.  Don't forget
 that included files do this too, you might have to reset "b:current_syntax" if
 you include two files.
 
-If you want your syntax file to work with Vim 5.x, add a check for v:version.
+If you want your syntax file to work with uVim 5.x, add a check for v:version.
 See yacc.vim for an example.
 
 Do not include anything that is a user preference.  Don't set 'tabstop',

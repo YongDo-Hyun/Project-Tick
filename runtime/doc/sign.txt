@@ -1,4 +1,4 @@
-*sign.txt*      For Vim version 7.4.  Last change: 2016 Aug 17
+*sign.txt*      For uVim version 7.4.  Last change: 2016 Aug 17
 
 
 		  VIM REFERENCE MANUAL    by Gordon Prieur
@@ -43,7 +43,7 @@ There are two steps in using signs:
    displayed.  A defined sign can be placed several times in different lines
    and files.
 
-When signs are defined for a file, Vim will automatically add a column of two
+When signs are defined for a file, uVim will automatically add a column of two
 characters to display them in.  When the last sign is unplaced the column
 disappears again.  This behavior can be changed with the 'signcolumn' option.
 

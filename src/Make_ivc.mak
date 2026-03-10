@@ -41,30 +41,30 @@ PreLink_Cmds=@if exist .\oleDbg\gvimd.pdb del .\oleDbg\gvimd.pdb
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
 !IF "$(CFG)" == ""
-CFG=Vim - Win32 Release gvim OLE
-!MESSAGE No configuration specified.  Defaulting to Vim - Win32 Release gvim OLE.
+CFG=uVim - Win32 Release gvim OLE
+!MESSAGE No configuration specified.  Defaulting to uVim - Win32 Release gvim OLE.
 !ENDIF
 
-!IF "$(CFG)" != "Vim - Win32 Release gvim OLE"\
- && "$(CFG)" != "Vim - Win32 Debug gvim OLE"\
- && "$(CFG)" != "Vim - Win32 Release gvim"\
- && "$(CFG)" != "Vim - Win32 Debug gvim"\
- && "$(CFG)" != "Vim - Win32 Release vim"\
- && "$(CFG)" != "Vim - Win32 Debug vim"
+!IF "$(CFG)" != "uVim - Win32 Release gvim OLE"\
+ && "$(CFG)" != "uVim - Win32 Debug gvim OLE"\
+ && "$(CFG)" != "uVim - Win32 Release gvim"\
+ && "$(CFG)" != "uVim - Win32 Debug gvim"\
+ && "$(CFG)" != "uVim - Win32 Release vim"\
+ && "$(CFG)" != "uVim - Win32 Debug vim"
 !MESSAGE Invalid configuration "$(CFG)" specified.
 !MESSAGE You can specify a configuration when running NMAKE on this makefile
 !MESSAGE by defining the macro CFG on the command line.  For example:
 !MESSAGE
-!MESSAGE NMAKE /f "Make_ivc.mak" CFG="Vim - Win32 Debug vim"
+!MESSAGE NMAKE /f "Make_ivc.mak" CFG="uVim - Win32 Debug vim"
 !MESSAGE
 !MESSAGE Possible choices for configuration are:
 !MESSAGE
-!MESSAGE "Vim - Win32 Release gvim OLE" (based on "Win32 (x86) Console Application")
-!MESSAGE "Vim - Win32 Debug gvim OLE"   (based on "Win32 (x86) Console Application")
-!MESSAGE "Vim - Win32 Release gvim"     (based on "Win32 (x86) Console Application")
-!MESSAGE "Vim - Win32 Debug gvim"       (based on "Win32 (x86) Console Application")
-!MESSAGE "Vim - Win32 Release vim"      (based on "Win32 (x86) Console Application")
-!MESSAGE "Vim - Win32 Debug vim"        (based on "Win32 (x86) Console Application")
+!MESSAGE "uVim - Win32 Release gvim OLE" (based on "Win32 (x86) Console Application")
+!MESSAGE "uVim - Win32 Debug gvim OLE"   (based on "Win32 (x86) Console Application")
+!MESSAGE "uVim - Win32 Release gvim"     (based on "Win32 (x86) Console Application")
+!MESSAGE "uVim - Win32 Debug gvim"       (based on "Win32 (x86) Console Application")
+!MESSAGE "uVim - Win32 Release vim"      (based on "Win32 (x86) Console Application")
+!MESSAGE "uVim - Win32 Debug vim"        (based on "Win32 (x86) Console Application")
 !MESSAGE 
 !ERROR An invalid configuration is specified.
 !ENDIF
@@ -78,7 +78,7 @@ DEL_TREE = deltree /y
 !ENDIF
 
 # Begin Project
-# PROP Target_Last_Scanned "Vim - Win32 Debug vim"
+# PROP Target_Last_Scanned "uVim - Win32 Debug vim"
 # PROP Use_MFC 0
 
 RSC=rc.exe
@@ -95,7 +95,7 @@ LINK32_FLAGS= oldnames.lib kernel32.lib user32.lib gdi32.lib version.lib comdlg3
 RSC_PROJ= /l 0x409 /d "FEAT_GUI_W32"
 # ADD RSC /l 0x409 /d "FEAT_GUI_W32"
 
-!IF  "$(CFG)" == "Vim - Win32 Release gvim OLE"
+!IF  "$(CFG)" == "uVim - Win32 Release gvim OLE"
 
 # PROP Use_Debug_Libraries 0
 # PROP Output_Dir .\oleRel
@@ -114,7 +114,7 @@ RSC_PROJ=$(RSC_PROJ) /I ".\oleRel" /d "NDEBUG" /d "FEAT_OLE" /fo.\oleRel\vim.res
 LINK32_FLAGS=$(LINK32_FLAGS) /pdb:.\oleRel/gvim.pdb -debug:full -debugtype:cv,fixup /map:.\oleDbg\gvim.map libc.lib oleaut32.lib /subsystem:windows /out:.\gvim.exe
 # ADD LINK32                 /pdb:.\oleRel/gvim.pdb -debug:full -debugtype:cv,fixup /map:.\oleDbg\gvim.map libc.lib oleaut32.lib /subsystem:windows /out:.\gvim.exe
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Debug gvim OLE"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Debug gvim OLE"
 
 # PROP Use_Debug_Libraries 1
 # PROP Output_Dir .\oleDbg
@@ -134,7 +134,7 @@ LINK32_FLAGS=$(LINK32_FLAGS) libcd.lib oleaut32.lib /subsystem:windows /debug /p
 # ADD LINK32                 libcd.lib oleaut32.lib /subsystem:windows /debug /profile /pdb:.\oleDbg/gvimd.pdb -debug:full -debugtype:cv,fixup /map:.\oleDbg\gvimd.map /out:.\gvimd.exe
 
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Release gvim"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Release gvim"
 
 # PROP Use_Debug_Libraries 0
 # PROP Output_Dir .\gRel
@@ -153,7 +153,7 @@ RSC_PROJ=$(RSC_PROJ) /d "NDEBUG" /fo.\gRel\vim.res
 LINK32_FLAGS=$(LINK32_FLAGS) /pdb:.\gRel/gvim.pdb -debug:full -debugtype:cv,fixup /map:.\oleDbg\gvim.map libc.lib /subsystem:windows /out:.\gvim.exe
 # ADD LINK32                 /pdb:.\gRel/gvim.pdb -debug:full -debugtype:cv,fixup /map:.\oleDbg\gvim.map libc.lib /subsystem:windows /out:.\gvim.exe
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Debug gvim"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Debug gvim"
 
 # PROP Use_Debug_Libraries 1
 # PROP Output_Dir .\gDbg
@@ -172,7 +172,7 @@ RSC_PROJ=$(RSC_PROJ) /d "_DEBUG" /fo.\gDbg\vim.res
 LINK32_FLAGS=$(LINK32_FLAGS) libcd.lib /subsystem:windows /debug /profile /pdb:.\gDbg/gvimd.pdb -debug:full -debugtype:cv,fixup /map:.\gDbg\gvimd.map /out:.\gvimd.exe
 # ADD LINK32                 libcd.lib /subsystem:windows /debug /profile /pdb:.\gDbg/gvimd.pdb -debug:full -debugtype:cv,fixup /map:.\gDbg\gvimd.map /out:.\gvimd.exe
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Release vim"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Release vim"
 
 # PROP Use_Debug_Libraries 0
 # PROP Output_Dir .\Rel
@@ -188,7 +188,7 @@ CPP_PROJ=$(CPP_PROJ) /Zi /O2 /D "NDEBUG" /Fd.\Rel/ /Fo.\Rel/
 LINK32_FLAGS=$(LINK32_FLAGS) /pdb:.\Rel/vim.pdb -debug:full -debugtype:cv,fixup /map:.\oleDbg\vim.map libc.lib /subsystem:console /out:.\vim.exe
 # ADD LINK32                 /pdb:.\Rel/vim.pdb -debug:full -debugtype:cv,fixup /map:.\oleDbg\vim.map libc.lib /subsystem:console /out:.\vim.exe
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Debug vim"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Debug vim"
 
 # PROP Use_Debug_Libraries 1
 # PROP Output_Dir .\Dbg
@@ -328,12 +328,12 @@ GvimExt/gvimext.dll: GvimExt/gvimext.cpp GvimExt/gvimext.rc GvimExt/gvimext.h
 
 # Begin Target
 
-# Name "Vim - Win32 Release gvim OLE"
-# Name "Vim - Win32 Debug gvim OLE"
-# Name "Vim - Win32 Release gvim"
-# Name "Vim - Win32 Debug gvim"
-# Name "Vim - Win32 Release vim"
-# Name "Vim - Win32 Debug vim"
+# Name "uVim - Win32 Release gvim OLE"
+# Name "uVim - Win32 Debug gvim OLE"
+# Name "uVim - Win32 Release gvim"
+# Name "uVim - Win32 Debug gvim"
+# Name "uVim - Win32 Release vim"
+# Name "uVim - Win32 Debug vim"
 
 # Begin Source File
 
@@ -431,11 +431,11 @@ SOURCE=.\hashtab.c
 
 SOURCE=.\gui.c
 
-!IF      "$(CFG)" == "Vim - Win32 Release vim"
+!IF      "$(CFG)" == "uVim - Win32 Release vim"
 
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Debug vim"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Debug vim"
 
 # PROP Exclude_From_Build 1
 
@@ -446,11 +446,11 @@ SOURCE=.\gui.c
 
 SOURCE=.\gui_w32.c
 
-!IF      "$(CFG)" == "Vim - Win32 Release vim"
+!IF      "$(CFG)" == "uVim - Win32 Release vim"
 
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Debug vim"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Debug vim"
 
 # PROP Exclude_From_Build 1
 
@@ -461,11 +461,11 @@ SOURCE=.\gui_w32.c
 
 SOURCE=.\gui_beval.c
 
-!IF      "$(CFG)" == "Vim - Win32 Release vim"
+!IF      "$(CFG)" == "uVim - Win32 Release vim"
 
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Debug vim"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Debug vim"
 
 # PROP Exclude_From_Build 1
 
@@ -476,11 +476,11 @@ SOURCE=.\gui_beval.c
 
 SOURCE=.\os_w32exe.c
 
-!IF      "$(CFG)" == "Vim - Win32 Release vim"
+!IF      "$(CFG)" == "uVim - Win32 Release vim"
 
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Debug vim"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Debug vim"
 
 # PROP Exclude_From_Build 1
 
@@ -491,7 +491,7 @@ SOURCE=.\os_w32exe.c
 
 SOURCE=.\if_ole.cpp
 
-!IF  "$(CFG)" == "Vim - Win32 Release gvim OLE"
+!IF  "$(CFG)" == "uVim - Win32 Release gvim OLE"
 
 # PROP Ignore_Default_Tool 1
 # Begin Custom Build
@@ -502,7 +502,7 @@ SOURCE=.\if_ole.cpp
 
 # End Custom Build
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Debug gvim OLE"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Debug gvim OLE"
 
 # PROP Ignore_Default_Tool 1
 # Begin Custom Build
@@ -513,19 +513,19 @@ SOURCE=.\if_ole.cpp
 
 # End Custom Build
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Release gvim"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Release gvim"
 
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Debug gvim"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Debug gvim"
 
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Release vim"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Release vim"
 
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Debug vim"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Debug vim"
 
 # PROP Exclude_From_Build 1
 
@@ -536,7 +536,7 @@ SOURCE=.\if_ole.cpp
 
 SOURCE=.\if_ole.idl
 
-!IF  "$(CFG)" == "Vim - Win32 Release gvim OLE"
+!IF  "$(CFG)" == "uVim - Win32 Release gvim OLE"
 
 # PROP Ignore_Default_Tool 1
 # Begin Custom Build
@@ -547,7 +547,7 @@ SOURCE=.\if_ole.idl
 
 # End Custom Build
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Debug gvim OLE"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Debug gvim OLE"
 
 # PROP Ignore_Default_Tool 1
 # Begin Custom Build
@@ -558,19 +558,19 @@ SOURCE=.\if_ole.idl
 
 # End Custom Build
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Release gvim"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Release gvim"
 
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Debug gvim"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Debug gvim"
 
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Release vim"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Release vim"
 
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Debug vim"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Debug vim"
 
 # PROP Exclude_From_Build 1
 
@@ -713,27 +713,27 @@ SOURCE=.\version.c
 
 SOURCE=.\vim.rc
 
-!IF  "$(CFG)" == "Vim - Win32 Release gvim OLE"
+!IF  "$(CFG)" == "uVim - Win32 Release gvim OLE"
 
 "$(INTDIR)\vim.res" : $(SOURCE) "$(INTDIR)" "$(INTDIR)\if_ole.h"
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Debug gvim OLE"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Debug gvim OLE"
 
 "$(INTDIR)\vim.res" : $(SOURCE) "$(INTDIR)" "$(INTDIR)\if_ole.h"
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Release gvim"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Release gvim"
 
 "$(INTDIR)\vim.res" : $(SOURCE) "$(INTDIR)"
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Debug gvim"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Debug gvim"
 
 "$(INTDIR)\vim.res" : $(SOURCE) "$(INTDIR)"
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Release vim"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Release vim"
 
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Vim - Win32 Debug vim"
+!ELSEIF  "$(CFG)" == "uVim - Win32 Debug vim"
 
 # PROP Exclude_From_Build 1
 

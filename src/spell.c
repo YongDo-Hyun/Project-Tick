@@ -1,16 +1,16 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
  * spell.c: code for spell checking
  *
- * See spellfile.c for the Vim spell file format.
+ * See spellfile.c for the uVim spell file format.
  *
  * The spell checking mechanism uses a tree (aka trie).  Each node in the tree
  * has a list of bytes that can appear (siblings).  For each byte there is a
@@ -51,7 +51,7 @@
  *
  * Matching involves checking the caps type: Onecap ALLCAP KeepCap.
  *
- * Why doesn't Vim use aspell/ispell/myspell/etc.?
+ * Why doesn't uVim use aspell/ispell/myspell/etc.?
  * See ":help develop-spell".
  */
 
@@ -87,7 +87,7 @@
 
 #define REGION_ALL 0xff		/* word valid in all regions */
 
-#define VIMSUGMAGIC "VIMsug"	/* string at start of Vim .sug file */
+#define VIMSUGMAGIC "VIMsug"	/* string at start of uVim .sug file */
 #define VIMSUGMAGICL 6
 #define VIMSUGVERSION 1
 
@@ -1840,7 +1840,7 @@ typedef struct spelload_S
 } spelload_T;
 
 /*
- * Load word list(s) for "lang" from Vim spell file(s).
+ * Load word list(s) for "lang" from uVim spell file(s).
  * "lang" must be the language without the region: e.g., "en".
  */
     static void

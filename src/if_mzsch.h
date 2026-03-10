@@ -1,6 +1,6 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * MzScheme interface for Vim, wrapper around scheme.h
+ * MzScheme interface for uVim, wrapper around scheme.h
  */
 #ifndef _IF_MZSCH_H_
 #define _IF_MZSCH_H_

@@ -1,4 +1,4 @@
-*eval.txt*	For Vim version 7.4.  Last change: 2016 Aug 27
+*eval.txt*	For uVim version 7.4.  Last change: 2016 Aug 27
 
 
 		  VIM REFERENCE MANUAL	  by Bram Moolenaar
@@ -909,7 +909,7 @@ When dividing a Number by zero the result depends on the value:
 	  0 / 0  = -0x80000000	(like NaN for Float)
 	 >0 / 0  =  0x7fffffff	(like positive infinity)
 	 <0 / 0  = -0x7fffffff	(like negative infinity)
-	(before Vim 7.2 it was always 0x7fffffff)
+	(before uVim 7.2 it was always 0x7fffffff)
 
 When 64-bit Number support is enabled:
 	  0 / 0  = -0x8000000000000000	(like NaN for Float)
@@ -1079,13 +1079,13 @@ Rationale:
 Before floating point was introduced, the text "123.456" was interpreted as
 the two numbers "123" and "456", both converted to a string and concatenated,
 resulting in the string "123456".  Since this was considered pointless, and we
-could not find it intentionally being used in Vim scripts, this backwards
+could not find it intentionally being used in uVim scripts, this backwards
 incompatibility was accepted in favor of being able to use the normal notation
 for floating point numbers.
 
 						*floating-point-precision*
 The precision and range of floating points numbers depends on what "double"
-means in the library Vim was compiled with.  There is no way to change this at
+means in the library uVim was compiled with.  There is no way to change this at
 runtime.
 
 The default for displaying a |Float| is to use 6 decimal places, like using
@@ -1191,8 +1191,8 @@ result is an empty string.
 						*expr-env-expand*
 Note that there is a difference between using $VAR directly and using
 expand("$VAR").  Using it directly will only expand environment variables that
-are known inside the current Vim session.  Using expand() will first try using
-the environment variables known inside the current Vim session.  If that
+are known inside the current uVim session.  Using expand() will first try using
+the environment variables known inside the current uVim session.  If that
 fails, a shell will be used to expand the variable.  This can be slow, but it
 does expand all variables that the shell knows about.  Example: >
 	:echo $shell
@@ -1292,9 +1292,9 @@ specified by what is prepended:
 |tabpage-variable|   t:	  Local to the current tab page.
 |global-variable|    g:	  Global.
 |local-variable|     l:	  Local to a function.
-|script-variable|    s:	  Local to a |:source|'ed Vim script.
+|script-variable|    s:	  Local to a |:source|'ed uVim script.
 |function-argument|  a:	  Function argument (only inside a function).
-|vim-variable|       v:	  Global, predefined by Vim.
+|vim-variable|       v:	  Global, predefined by uVim.
 
 The scope name by itself can be used as a |Dictionary|.  For example, to
 delete all script-local variables: >
@@ -1341,7 +1341,7 @@ refers to "v:count".  Using "l:count" you can have a local variable with the
 same name.
 
 						*script-variable* *s:var*
-In a Vim script variables starting with "s:" can be used.  They cannot be
+In a uVim script variables starting with "s:" can be used.  They cannot be
 accessed from outside of the scripts, thus are local to the script.
 
 They can be used in:
@@ -1401,7 +1401,7 @@ when calling StartCounting().  It doesn't matter from where StartCounting() is
 called, the s:counter variable will be accessible in MyCounter().
 
 When the same script is sourced again it will use the same script variables.
-They will remain valid as long as Vim is running.  This can be used to
+They will remain valid as long as uVim is running.  This can be used to
 maintain a counter: >
 
 	if !exists("s:counter")
@@ -1416,7 +1416,7 @@ Note that this means that filetype plugins don't get a different set of script
 variables for each buffer.  Use local buffer variables instead |b:var|.
 
 
-Predefined Vim variables:			*vim-variable* *v:var* *v:*
+Predefined uVim variables:			*vim-variable* *v:var* *v:*
 
 					*v:beval_col* *beval_col-variable*
 v:beval_col	The number of the column, over which the mouse pointer is.
@@ -1507,7 +1507,7 @@ v:count1	Just like "v:count", but defaults to one when no count is
 
 						*v:ctype* *ctype-variable*
 v:ctype		The current locale setting for characters of the runtime
-		environment.  This allows Vim scripts to be aware of the
+		environment.  This allows uVim scripts to be aware of the
 		current locale encoding.  Technical: it's the value of
 		LC_CTYPE.  When not using a locale the value is "C".
 		This variable can not be set directly, use the |:language|
@@ -1517,7 +1517,7 @@ v:ctype		The current locale setting for characters of the runtime
 					*v:dying* *dying-variable*
 v:dying		Normally zero.  When a deadly signal is caught it's set to
 		one.  When multiple signals are caught the number increases.
-		Can be used in an autocommand to check if Vim didn't
+		Can be used in an autocommand to check if uVim didn't
 		terminate normally. {only works on Unix}
 		Example: >
 	:au VimLeave * if v:dying | echo "\nAAAAaaaarrrggghhhh!!!\n" | endif
@@ -1575,7 +1575,7 @@ v:fcs_reason	The reason why the |FileChangedShell| event was triggered.
 
 					*v:fcs_choice* *fcs_choice-variable*
 v:fcs_choice	What should happen after a |FileChangedShell| event was
-		triggered.  Can be used in an autocommand to tell Vim what to
+		triggered.  Can be used in an autocommand to tell uVim what to
 		do with the affected buffer:
 			reload		Reload the buffer (does not work if
 					the file was deleted).
@@ -1586,7 +1586,7 @@ v:fcs_choice	What should happen after a |FileChangedShell| event was
 			<empty>		Nothing, the autocommand should do
 					everything that needs to be done.
 		The default is empty.  If another (invalid) value is used then
-		Vim behaves like it is empty, there is no warning message.
+		uVim behaves like it is empty, there is no warning message.
 
 					*v:fname_in* *fname_in-variable*
 v:fname_in	The name of the input file.  Valid while evaluating:
@@ -1657,7 +1657,7 @@ v:key		Key of the current item of a |Dictionary|.  Only valid while
 
 						*v:lang* *lang-variable*
 v:lang		The current locale setting for messages of the runtime
-		environment.  This allows Vim scripts to be aware of the
+		environment.  This allows uVim scripts to be aware of the
 		current language.  Technical: it's the value of LC_MESSAGES.
 		The value is system dependent.
 		This variable can not be set directly, use the |:language|
@@ -1668,7 +1668,7 @@ v:lang		The current locale setting for messages of the runtime
 
 						*v:lc_time* *lc_time-variable*
 v:lc_time	The current locale setting for time messages of the runtime
-		environment.  This allows Vim scripts to be aware of the
+		environment.  This allows uVim scripts to be aware of the
 		current language.  Technical: it's the value of LC_TIME.
 		This variable can not be set directly, use the |:language|
 		command.  See |multi-lang|.
@@ -1721,7 +1721,7 @@ v:null		An empty String. Used to put "null" in JSON.  See
 
 					*v:oldfiles* *oldfiles-variable*
 v:oldfiles	List of file names that is loaded from the |viminfo| file on
-		startup.  These are the files that Vim remembers marks for.
+		startup.  These are the files that uVim remembers marks for.
 		The length of the List is limited by the ' argument of the
 		'viminfo' option (default is 100).
 		When the |viminfo| file is not used the List is empty.
@@ -1766,14 +1766,14 @@ v:profiling	Normally zero.  Set to one after using ":profile start".
 		See |profiling|.
 
 					*v:progname* *progname-variable*
-v:progname	Contains the name (with path removed) with which Vim was
+v:progname	Contains the name (with path removed) with which uVim was
 		invoked.  Allows you to do special initialisations for |view|,
-		|evim| etc., or any other name you might symlink to Vim.
+		|evim| etc., or any other name you might symlink to uVim.
 		Read-only.
 
 					*v:progpath* *progpath-variable*
-v:progpath	Contains the command with which Vim was invoked, including the
-		path.  Useful if you want to message a Vim server using a
+v:progpath	Contains the command with which uVim was invoked, including the
+		path.  Useful if you want to message a uVim server using a
 		|--remote-expr|.
 		To get the full path use: >
 			echo exepath(v:progpath)
@@ -1815,7 +1815,7 @@ v:searchforward			*v:searchforward* *searchforward-variable*
 					*v:shell_error* *shell_error-variable*
 v:shell_error	Result of the last shell command.  When non-zero, the last
 		shell command had an error.  When zero, there was no problem.
-		This only works when the shell returns the error code to Vim.
+		This only works when the shell returns the error code to uVim.
 		The value -1 is often used when the command could not be
 		executed.  Read-only.
 		Example: >
@@ -1848,7 +1848,7 @@ v:swapchoice	|SwapExists| autocommands can set this to the selected choice
 					*v:swapcommand* *swapcommand-variable*
 v:swapcommand	Normal mode command to be executed after a file has been
 		opened.  Can be used for a |SwapExists| autocommand to have
-		another Vim open the file and jump to the right place.  For
+		another uVim open the file and jump to the right place.  For
 		example, when jumping to a tag the value is ":tag tagname\r".
 		For ":edit +cmd file" the value is ":cmd\r".
 
@@ -1875,7 +1875,7 @@ v:t_string	Value of String type.  Read-only.  See: |type()|
 
 				*v:termresponse* *termresponse-variable*
 v:termresponse	The escape sequence returned by the terminal for the |t_RV|
-		termcap entry.  It is set when Vim receives an escape sequence
+		termcap entry.  It is set when uVim receives an escape sequence
 		that starts with ESC [ or CSI and ends in a 'c', with only
 		digits, ';' and '.' in between.
 		When this option is set, the TermResponse autocommand event is
@@ -1922,7 +1922,7 @@ v:val		Value of the current item of a |List| or |Dictionary|.  Only
 		|filter()|.  Read-only.
 
 					*v:version* *version-variable*
-v:version	Version number of Vim: Major version number times 100 plus
+v:version	Version number of uVim: Major version number times 100 plus
 		minor version number.  Version 5.0 is 500.  Version 5.1 (5.01)
 		is 501.  Read-only.  "version" also works, for backwards
 		compatibility.
@@ -1941,12 +1941,12 @@ v:warningmsg	Last given warning message.  It's allowed to set this variable.
 
 					*v:windowid* *windowid-variable*
 v:windowid	When any X11 based GUI is running or when running in a
-		terminal and Vim connects to the X server (|-X|) this will be
+		terminal and uVim connects to the X server (|-X|) this will be
 		set to the window ID.
 		When an MS-Windows GUI is running this will be set to the
 		window handle.
 		Otherwise the value is zero.
-		Note: for windows inside Vim use |winnr()| or |win_getid()|,
+		Note: for windows inside uVim use |winnr()| or |win_getid()|,
 		see |window-ID|.
 
 ==============================================================================
@@ -2077,7 +2077,7 @@ foldclosedend({lnum})		Number	last line of fold at {lnum} if closed
 foldlevel({lnum})		Number	fold level at {lnum}
 foldtext()			String	line displayed for closed fold
 foldtextresult({lnum})		String	text for closed fold at {lnum}
-foreground()			Number	bring the Vim window to the foreground
+foreground()			Number	bring the uVim window to the foreground
 funcref({name} [, {arglist}] [, {dict}])
 				Funcref	reference to function {name}
 function({name} [, {arglist}] [, {dict}])
@@ -2111,7 +2111,7 @@ getline({lnum})			String	line {lnum} of current buffer
 getline({lnum}, {end})		List	lines {lnum} to {end} of current buffer
 getloclist({nr}[, {what}])	List	list of location list items
 getmatches()			List	list of current matches
-getpid()			Number	process ID of Vim
+getpid()			Number	process ID of uVim
 getpos({expr})			List	position of cursor, mark, etc.
 getqflist([{what}])		List	list of quickfix items
 getreg([{regname} [, 1 [, {list}]]])
@@ -2123,8 +2123,8 @@ gettabvar({nr}, {varname} [, {def}])
 gettabwinvar({tabnr}, {winnr}, {name} [, {def}])
 				any	{name} in {winnr} in tab page {tabnr}
 getwininfo([{winid}])		List  	list of windows
-getwinposx()			Number	X coord in pixels of GUI Vim window
-getwinposy()			Number	Y coord in pixels of GUI Vim window
+getwinposx()			Number	X coord in pixels of GUI uVim window
+getwinposy()			Number	Y coord in pixels of GUI uVim window
 getwinvar({nr}, {varname} [, {def}])
 				any	variable {varname} in window {nr}
 glob({expr} [, {nosuf} [, {list} [, {alllinks}]]])
@@ -2144,7 +2144,7 @@ histget({history} [, {index}])	String	get the item {index} from a history
 histnr({history})		Number	highest index of a history
 hlexists({name})		Number	|TRUE| if highlight group {name} exists
 hlID({name})			Number	syntax ID of highlight group {name}
-hostname()			String	name of the machine Vim is running on
+hostname()			String	name of the machine uVim is running on
 iconv({expr}, {from}, {to})	String	convert encoding of {expr}
 indent({lnum})			Number	indent of line {lnum}
 index({list}, {expr} [, {start} [, {ic}]])
@@ -2234,7 +2234,7 @@ reltimefloat({time})		Float	turn the time value into a Float
 reltimestr({time})		String	turn time value into a String
 remote_expr({server}, {string} [, {idvar}])
 				String	send expression
-remote_foreground({server})	Number	bring Vim server to the foreground
+remote_foreground({server})	Number	bring uVim server to the foreground
 remote_peek({serverid} [, {retvar}])
 				Number	check for reply string
 remote_read({serverid})		String	read reply string
@@ -2811,8 +2811,8 @@ char2nr({expr}[, {utf8}])					*char2nr()*
 			char2nr("ABC")		returns 65
 <		When {utf8} is omitted or zero, the current 'encoding' is used.
 		Example for "utf-8": >
-			char2nr("á")		returns 225
-			char2nr("á"[0])		returns 195
+			char2nr("ï¿½")		returns 225
+			char2nr("ï¿½"[0])		returns 195
 <		With {utf8} set to 1, always treat as utf-8 characters.
 		A combining character is a separate character.
 		|nr2char()| does the opposite.
@@ -2822,7 +2822,7 @@ cindent({lnum})						*cindent()*
 		indenting rules, as with 'cindent'.
 		The indent is counted in spaces, the value of 'tabstop' is
 		relevant.  {lnum} is used just like in |getline()|.
-		When {lnum} is invalid or Vim was not compiled the |+cindent|
+		When {lnum} is invalid or uVim was not compiled the |+cindent|
 		feature, -1 is returned.
 		See |C-indenting|.
 
@@ -3341,9 +3341,9 @@ eval({string})	Evaluate {string} and return the result.  Especially useful to
 		functions.
 
 eventhandler()						*eventhandler()*
-		Returns 1 when inside an event handler.  That is that Vim got
+		Returns 1 when inside an event handler.  That is that uVim got
 		interrupted while waiting for the user to type a character,
-		e.g., when dropping a file on Vim.  This means interactive
+		e.g., when dropping a file on uVim.  This means interactive
 		commands cannot be used.  Otherwise zero is returned.
 
 executable({expr})					*executable()*
@@ -3362,7 +3362,7 @@ executable({expr})					*executable()*
 		extension.
 		On MS-DOS and MS-Windows it only checks if the file exists and
 		is not a directory, not if it's really executable.
-		On MS-Windows an executable in the same directory as Vim is
+		On MS-Windows an executable in the same directory as uVim is
 		always found.  Since this directory is added to $PATH it
 		should also work to execute it |win32-PATH|.
 		The result is a Number:
@@ -3400,7 +3400,7 @@ exepath({expr})						*exepath()*
 		If {expr} is an executable and is either an absolute path, a
 		relative path or found in $PATH, return the full path.
 		Note that the current directory is used when {expr} starts
-		with "./", which may be a problem for Vim: >
+		with "./", which may be a problem for uVim: >
 			echo exepath(v:progpath)
 <		If {expr} cannot be found in $PATH or is not executable then
 		an empty string is returned.
@@ -3413,9 +3413,9 @@ exists({expr})	The result is a Number, which is |TRUE| if {expr} is defined,
 		For checking if a file exists use |filereadable()|.
 
 		The {expr} argument is a string, which contains one of these:
-			&option-name	Vim option (only checks if it exists,
+			&option-name	uVim option (only checks if it exists,
 					not if it really works)
-			+option-name	Vim option that works.
+			+option-name	uVim option that works.
 			$ENVNAME	environment variable (could also be
 					done by comparing with an empty
 					string)
@@ -3646,7 +3646,7 @@ feedkeys({string} [, {mode}])				*feedkeys()*
 			similar to using ":normal!".  You can call feedkeys()
 			several times without 'x' and then one time with 'x'
 			(possibly with an empty {string}) to execute all the
-			typeahead.  Note that when Vim ends in Insert mode it
+			typeahead.  Note that when uVim ends in Insert mode it
 			will behave as if <Esc> is typed, to avoid getting
 			stuck, waiting for a character to be typed before the
 			script continues.
@@ -3863,8 +3863,8 @@ foldtextresult({lnum})					*foldtextresult()*
 		{not available when compiled without the |+folding| feature}
 
 							*foreground()*
-foreground()	Move the Vim window to the foreground.  Useful when sent from
-		a client to a Vim server. |remote_send()|
+foreground()	Move the uVim window to the foreground.  Useful when sent from
+		a client to a uVim server. |remote_send()|
 		On Win32 systems this might not work, the OS does not always
 		allow a window to bring itself to the foreground.  Use
 		|remote_foreground()| instead.
@@ -3954,7 +3954,7 @@ garbagecollect([{atexit}])				*garbagecollect()*
 		that have circular references.
 		
 		There is hardly ever a need to invoke this function, as it is
-		automatically done when Vim runs out of memory or is waiting
+		automatically done when uVim runs out of memory or is waiting
 		for the user to press a key after 'updatetime'.  Items without
 		circular references are always freed when they become unused.
 		This is useful if you have deleted a very big |List| and/or
@@ -3962,7 +3962,7 @@ garbagecollect([{atexit}])				*garbagecollect()*
 		for a long time.
 
 		When the optional {atexit} argument is one, garbage
-		collection will also be done when exiting Vim, if it wasn't
+		collection will also be done when exiting uVim, if it wasn't
 		done before.  This is useful when checking for memory leaks.
 
 		The garbage collection is not done immediately but only when
@@ -4104,7 +4104,7 @@ getchar([expr])						*getchar()*
 		not included in the character.
 
 		When [expr] is 0 and Esc is typed, there will be a short delay
-		while Vim waits to see if this is the start of an escape
+		while uVim waits to see if this is the start of an escape
 		sequence.
 
 		When [expr] is 1 only the first byte is returned.  For a
@@ -4242,7 +4242,7 @@ getcompletion({pat}, {type} [, {filtered}])		*getcompletion()*
 		dir		directory names
 		environment	environment variable names
 		event		autocommand events
-		expression	Vim expression
+		expression	uVim expression
 		file		file and directory names
 		file_in_path	file and directory names in |'path'|
 		filetype	filetype names |'filetype'|
@@ -4425,8 +4425,8 @@ getmatches()						*getmatches()*
 			:unlet m
 <
 							*getpid()*
-getpid()	Return a Number which is the process ID of the Vim process.
-		On Unix and MS-Windows this is a unique number, until Vim
+getpid()	Return a Number which is the process ID of the uVim process.
+		On Unix and MS-Windows this is a unique number, until uVim
 		exits.  On MS-DOS it's always zero.
 
 							*getpos()*
@@ -4581,12 +4581,12 @@ gettabwinvar({tabnr}, {winnr}, {varname} [, {def}])		*gettabwinvar()*
 <
 							*getwinposx()*
 getwinposx()	The result is a Number, which is the X coordinate in pixels of
-		the left hand side of the GUI Vim window.  The result will be
+		the left hand side of the GUI uVim window.  The result will be
 		-1 if the information is not available.
 
 							*getwinposy()*
 getwinposy()	The result is a Number, which is the Y coordinate in pixels of
-		the top of the GUI Vim window.  The result will be -1 if the
+		the top of the GUI uVim window.  The result will be -1 if the
 		information is not available.
 
 getwininfo([{winid}])					*getwininfo()*
@@ -4652,7 +4652,7 @@ glob({expr} [, {nosuf} [, {list} [, {alllinks}]]])		*glob()*
 <		The result of the program inside the backticks should be one
 		item per line.  Spaces inside an item are allowed.
 
-		See |expand()| for expanding special Vim variables.  See
+		See |expand()| for expanding special uVim variables.  See
 		|system()| for getting the raw output of an external command.
 
 glob2regpat({expr})					 *glob2regpat()*
@@ -4746,7 +4746,7 @@ hasmapto({what} [, {mode} [, {abbr}]])			*hasmapto()*
 		When {mode} is omitted, "nvo" is used.
 
 		This function is useful to check if a mapping already exists
-		to a function in a Vim script.  Example: >
+		to a function in a uVim script.  Example: >
 			:if !hasmapto('\ABCdoit')
 			:   map <Leader>d \ABCdoit
 			:endif
@@ -4850,7 +4850,7 @@ hlID({name})	The result is a Number, which is the ID of the highlight group
 
 hostname()						*hostname()*
 		The result is a String, which is the name of the machine on
-		which Vim is currently running.  Machine names greater than
+		which uVim is currently running.  Machine names greater than
 		256 characters long are truncated.
 
 iconv({expr}, {from}, {to})				*iconv()*
@@ -4861,14 +4861,14 @@ iconv({expr}, {from}, {to})				*iconv()*
 		are replaced with "?".
 		The encoding names are whatever the iconv() library function
 		can accept, see ":!man 3 iconv".
-		Most conversions require Vim to be compiled with the |+iconv|
+		Most conversions require uVim to be compiled with the |+iconv|
 		feature.  Otherwise only UTF-8 to latin1 conversion and back
 		can be done.
 		This can be used to display messages with special characters,
 		no matter what 'encoding' is set to.  Write the message in
 		UTF-8 and use: >
 			echo iconv(utf8_str, "utf-8", &enc)
-<		Note that Vim uses UTF-8 for all Unicode encodings, conversion
+<		Note that uVim uses UTF-8 for all Unicode encodings, conversion
 		from/to UCS-2 is automatically changed to use UTF-8.  You
 		cannot use UCS-2 in a string anyway, because of the NUL bytes.
 		{only available when compiled with the |+multi_byte| feature}
@@ -5095,8 +5095,8 @@ job_start({command} [, {options}])			*job_start()*
 		On Unix $PATH is used to search for the executable only when
 		the command does not contain a slash.
 
-		The job will use the same terminal as Vim.  If it reads from
-		stdin the job and Vim will be fighting over input, that
+		The job will use the same terminal as uVim.  If it reads from
+		stdin the job and uVim will be fighting over input, that
 		doesn't work.  Redirect stdin and stdout to avoid problems: >
 	let job = job_start(['sh', '-c', "myserver </dev/null >/dev/null"])
 <
@@ -5160,7 +5160,7 @@ job_stop({job} [, {how}])					*job_stop()*
 		job was actually stopped needs to be checked with
 		job_status().
 		The status of the job isn't checked, the operation will even
-		be done when Vim thinks the job isn't running.
+		be done when uVim thinks the job isn't running.
 
 		{only available when compiled with the |+job| feature}
 
@@ -5186,7 +5186,7 @@ js_encode({expr})					*js_encode()*
 		- Object key names are not in quotes.
 		- v:none items in an array result in an empty item between
 		  commas.
-		For example, the Vim object:
+		For example, the uVim object:
 			[1,v:none,{"one":1},v:none] ~
 		Will be encoded as:
 			[1,,{one:1},,] ~
@@ -5198,13 +5198,13 @@ js_encode({expr})					*js_encode()*
 
 json_decode({string})					*json_decode()*
 		This parses a JSON formatted string and returns the equivalent
-		in Vim values.  See |json_encode()| for the relation between
-		JSON and Vim values.
+		in uVim values.  See |json_encode()| for the relation between
+		JSON and uVim values.
 		The decoding is permissive:
 		- A trailing comma in an array and object is ignored.
 		- More floating point numbers are recognized, e.g. "1." for
 		  "1.0".
-		The result must be a valid Vim type:
+		The result must be a valid uVim type:
 		- An empty object member name is not allowed.
 		- Duplicate object member names are not allowed.
 
@@ -5212,7 +5212,7 @@ json_encode({expr})					*json_encode()*
 		Encode {expr} as JSON and return this as a string.
 		The encoding is specified in:
 		https://tools.ietf.org/html/rfc7159.html
-		Vim values are converted as follows:
+		uVim values are converted as follows:
 		   Number		decimal number
 		   Float		floating point number
 		   Float nan		"NaN"
@@ -5250,12 +5250,12 @@ libcall({libname}, {funcname}, {argument})
 		Call function {funcname} in the run-time library {libname}
 		with single argument {argument}.
 		This is useful to call functions in a library that you
-		especially made to be used with Vim.  Since only one argument
+		especially made to be used with uVim.  Since only one argument
 		is possible, calling standard library functions is rather
 		limited.
 		The result is the String returned by the function.  If the
 		function returns NULL, this will appear as an empty string ""
-		to Vim.
+		to uVim.
 		If the function returns a number, use libcallnr()!
 		If {argument} is a number, it is passed to the function as an
 		int; if {argument} is a string, it is passed as a
@@ -5263,8 +5263,8 @@ libcall({libname}, {funcname}, {argument})
 		This function will fail in |restricted-mode|.
 
 		libcall() allows you to write your own 'plug-in' extensions to
-		Vim without having to recompile the program.  It is NOT a
-		means to call system functions!  If you try to do so Vim will
+		uVim without having to recompile the program.  It is NOT a
+		means to call system functions!  If you try to do so uVim will
 		very probably crash.
 
 		For Win32, the functions you write must be placed in a DLL
@@ -5278,9 +5278,9 @@ libcall({libname}, {funcname}, {argument})
 		leak away.  Using a static buffer in the function should work,
 		it's then freed when the DLL is unloaded.
 
-		WARNING: If the function returns a non-valid pointer, Vim may
+		WARNING: If the function returns a non-valid pointer, uVim may
 		crash!	This also happens if the function returns a number,
-		because Vim thinks it's a pointer.
+		because uVim thinks it's a pointer.
 		For Win32 systems, {libname} should be the filename of the DLL
 		without the ".DLL" suffix.  A full path is only required if
 		the DLL is not in the usual places.
@@ -5347,7 +5347,7 @@ lispindent({lnum})					*lispindent()*
 		indenting rules, as with 'lisp'.
 		The indent is counted in spaces, the value of 'tabstop' is
 		relevant.  {lnum} is used just like in |getline()|.
-		When {lnum} is invalid or Vim was not compiled the
+		When {lnum} is invalid or uVim was not compiled the
 		|+lispindent| feature, -1 is returned.
 
 localtime()						*localtime()*
@@ -5379,7 +5379,7 @@ log10({expr})						*log10()*
 		
 luaeval({expr}[, {expr}])					*luaeval()*
 		Evaluate Lua expression {expr} and return its result converted 
-		to Vim data structures. Second {expr} may hold additional 
+		to uVim data structures. Second {expr} may hold additional 
 		argument accessible as _A inside first {expr}.
 		Strings are returned as they are.
 		Boolean objects are converted to numbers.
@@ -5531,10 +5531,10 @@ match({expr}, {pat}[, {start}[, {count}]])			*match()*
 			:echo match([1, 'x'], '\a')	" results in 1
 <		See |string-match| for how {pat} is used.
 								*strpbrk()*
-		Vim doesn't have a strpbrk() function.  But you can do: >
+		uVim doesn't have a strpbrk() function.  But you can do: >
 			:let sepidx = match(line, '[.,;: \t]')
 <								*strcasestr()*
-		Vim doesn't have a strcasestr() function.  But you can add
+		uVim doesn't have a strcasestr() function.  But you can add
 		"\c" to the pattern to ignore case: >
 			:let idx = match(haystack, '\cneedle')
 <
@@ -5684,7 +5684,7 @@ matchend({expr}, {pat}[, {start}[, {count}]])			*matchend()*
 			:echo matchend("testing", "ing")
 <		results in "7".
 							*strspn()* *strcspn()*
-		Vim doesn't have a strspn() or strcspn() function, but you can
+		uVim doesn't have a strspn() or strcspn() function, but you can
 		do it with matchend(): >
 			:let span = matchend(line, '[a-zA-Z]')
 			:let span = matchend(line, '[^a-zA-Z]')
@@ -5785,7 +5785,7 @@ mode([expr])	Return a string that indicates the current mode.
 			R	Replace |R|
 			Rv	Virtual Replace |gR|
 			c	Command-line
-			cv	Vim Ex mode |gQ|
+			cv	uVim Ex mode |gQ|
 			ce	Normal Ex mode |Q|
 			r	Hit-enter prompt
 			rm	The -- more -- prompt
@@ -5798,11 +5798,11 @@ mode([expr])	Return a string that indicates the current mode.
 
 mzeval({expr})							*mzeval()*
 		Evaluate MzScheme expression {expr} and return its result
-		converted to Vim data structures.
+		converted to uVim data structures.
 		Numbers and strings are returned as they are.
 		Pairs (including lists and improper lists) and vectors are
-		returned as Vim |Lists|.
-		Hash tables are represented as Vim |Dictionary| type with keys
+		returned as uVim |Lists|.
+		Hash tables are represented as uVim |Dictionary| type with keys
 		converted to strings.
 		All other types are converted to string with display function.
 		Examples: >
@@ -5853,7 +5853,7 @@ pathshorten({expr})					*pathshorten()*
 
 perleval({expr})					*perleval()*
 		Evaluate Perl expression {expr} in scalar context and return
-		its result converted to Vim data structures. If value can't be
+		its result converted to uVim data structures. If value can't be
 		converted, it is returned as a string Perl representation.
 		Note: If you want an array or hash, {expr} must return a
 		reference to it.
@@ -6084,23 +6084,23 @@ pumvisible()						*pumvisible()*
 
 py3eval({expr})						*py3eval()*
 		Evaluate Python expression {expr} and return its result
-		converted to Vim data structures.
+		converted to uVim data structures.
 		Numbers and strings are returned as they are (strings are 
 		copied though, Unicode strings are additionally converted to 
 		'encoding').
-		Lists are represented as Vim |List| type.
-		Dictionaries are represented as Vim |Dictionary| type with 
+		Lists are represented as uVim |List| type.
+		Dictionaries are represented as uVim |Dictionary| type with 
 		keys converted to strings.
 		{only available when compiled with the |+python3| feature}
 
 							*E858* *E859*
 pyeval({expr})						*pyeval()*
 		Evaluate Python expression {expr} and return its result
-		converted to Vim data structures.
+		converted to uVim data structures.
 		Numbers and strings are returned as they are (strings are 
 		copied though).
-		Lists are represented as Vim |List| type.
-		Dictionaries are represented as Vim |Dictionary| type, 
+		Lists are represented as uVim |List| type.
+		Dictionaries are represented as uVim |Dictionary| type, 
 		non-string keys result in error.
 		{only available when compiled with the |+python| feature}
 
@@ -6215,7 +6215,7 @@ remote_expr({server}, {string} [, {idvar}])
 <
 
 remote_foreground({server})				*remote_foreground()*
-		Move the Vim server with the name {server} to the foreground.
+		Move the uVim server with the name {server} to the foreground.
 		This works like: >
 			remote_expr({server}, "foreground()")
 <		Except that on Win32 systems the client does the work, to work
@@ -6254,7 +6254,7 @@ remote_read({serverid})				*remote_read()*
 							*remote_send()* *E241*
 remote_send({server}, {string} [, {idvar}])
 		Send the {string} to {server}.  The string is sent as input
-		keys and the function returns immediately.  At the Vim server
+		keys and the function returns immediately.  At the uVim server
 		the keys are not mapped |:map|.
 		If {idvar} is present, it is taken as the name of a variable
 		and a {serverid} for later use with remote_read() is stored
@@ -6546,7 +6546,7 @@ searchpair({start}, {middle}, {end} [, {flags} [, {skip}
 		that when the cursor is inside a match with the end it finds
 		the matching start.
 
-		Example, to find the "endif" command in a Vim script: >
+		Example, to find the "endif" command in a uVim script: >
 
 	:echo searchpair('\<if\>', '\<el\%[seif]\>', '\<en\%[dif]\>', 'W',
 			\ 'getline(".") =~ "^\\s*\""')
@@ -7631,7 +7631,7 @@ taglist({expr})							*taglist()*
 		search regular expression pattern.
 
 		Refer to |'tags'| for information about how the tags file is
-		located by Vim. Refer to |tags-file-format| for the format of
+		located by uVim. Refer to |tags-file-format| for the format of
 		the tags file generated by the different ctags tools.
 
 tan({expr})						*tan()*
@@ -7676,7 +7676,7 @@ test_alloc_fail({id}, {countdown}, {repeat})		*test_alloc_fail()*
 		smaller than one it fails one time.
 
 test_autochdir()					*test_autochdir()*
-		Set a flag to enable the effect of 'autochdir' before Vim
+		Set a flag to enable the effect of 'autochdir' before uVim
 		startup has finished.
 
 						*test_disable_char_avail()*
@@ -7714,7 +7714,7 @@ test_null_string()					*test_null_string()*
 		Return a String that is null. Only useful for testing.
 
 test_settime({expr})					*test_settime()*
-		Set the time Vim uses internally.  Currently only used for
+		Set the time uVim uses internally.  Currently only used for
 		timestamps in the history, as they are used in viminfo, and
 		for undo.
 		{expr} must evaluate to a number.  When the value is zero the
@@ -7761,11 +7761,11 @@ timer_start({time}, {callback} [, {options}])
 
 		{time} is the waiting time in milliseconds. This is the
 		minimum time before invoking the callback.  When the system is
-		busy or Vim is not waiting for input the time will be longer.
+		busy or uVim is not waiting for input the time will be longer.
 
 		{callback} is the function to call.  It can be the name of a
 		function or a Funcref.  It is called with one argument, which
-		is the timer ID.  The callback is only invoked when Vim is
+		is the timer ID.  The callback is only invoked when uVim is
 		waiting for input.
 
 		{options} is a dictionary.  Supported entries:
@@ -8193,7 +8193,7 @@ xor({expr}, {expr})					*xor()*
 
 							*feature-list*
 There are four types of features:
-1.  Features that are only supported when they have been enabled when Vim
+1.  Features that are only supported when they have been enabled when uVim
     was compiled |+feature-list|.  Example: >
 	:if has("cindent")
 2.  Features that are only supported when certain conditions have been met.
@@ -8201,7 +8201,7 @@ There are four types of features:
 	:if has("gui_running")
 <							*has-patch*
 3.  Included patches.  The "patch123" feature means that patch 123 has been
-    included.  Note that this form does not check the version of Vim, you need
+    included.  Note that this form does not check the version of uVim, you need
     to inspect |v:version| for that.
     Example (checking version 6.2.148 or later): >
 	:if v:version > 602 || v:version == 602 && has("patch148")
@@ -8209,7 +8209,7 @@ There are four types of features:
     included.
 
 4.  Beyond a certain version or at a certain version and including a specific
-    patch.  The "patch-7.4.237" feature means that the Vim version is 7.5 or
+    patch.  The "patch-7.4.237" feature means that the uVim version is 7.5 or
     later, or it is version 7.4 and patch 237 was included.
     Note that this only works for patch 7.4.237 and later, before that you
     need to use the example above that checks v:version.  Example: >
@@ -8217,19 +8217,19 @@ There are four types of features:
 <    Note that it's possible for patch 147 to be omitted even though 148 is
     included.
 
-Hint: To find out if Vim supports backslashes in a file name (MS-Windows),
+Hint: To find out if uVim supports backslashes in a file name (MS-Windows),
 use: `if exists('+shellslash')`
 
 
 acl			Compiled with |ACL| support.
 all_builtin_terms	Compiled with all builtin terminals enabled.
-amiga			Amiga version of Vim.
+amiga			Amiga version of uVim.
 arabic			Compiled with Arabic support |Arabic|.
 arp			Compiled with ARP support (Amiga).
 autocmd			Compiled with autocommand support. |autocommand|
 balloon_eval		Compiled with |balloon-eval| support.
 balloon_multiline	GUI supports multiline balloons.
-beos			BeOS version of Vim.
+beos			BeOS version of uVim.
 browse			Compiled with |:browse| support, and browse() will
 			work.
 browsefilter		Compiled with support for |browsefilter|.
@@ -8281,7 +8281,7 @@ gui_gtk3		Compiled with GTK+ 3 GUI (gui_gtk is also defined).
 gui_mac			Compiled with Macintosh GUI.
 gui_motif		Compiled with Motif GUI.
 gui_photon		Compiled with Photon GUI.
-gui_running		Vim is running in the GUI, or it will start soon.
+gui_running		uVim is running in the GUI, or it will start soon.
 gui_win32		Compiled with MS Windows Win32 GUI.
 gui_win32s		idem, and Win32s system being used (Windows 3.1)
 hangul_input		Compiled with Hangul input support. |hangul|
@@ -8300,7 +8300,7 @@ listcmds		Compiled with commands for the buffer list |:files|
 			and the argument list |arglist|.
 localmap		Compiled with local mappings and abbr. |:map-local|
 lua			Compiled with Lua interface |Lua|.
-mac			Any Macintosh version of Vim.
+mac			Any Macintosh version of uVim.
 macunix			Compiled for OS X, with darwin
 osx			Compiled for OS X, with or without darwin
 menu			Compiled with support for |:menu|.
@@ -8334,7 +8334,7 @@ printer			Compiled with |:hardcopy| support.
 profile			Compiled with |:profile| support.
 python			Compiled with Python 2.x interface. |has-python|
 python3			Compiled with Python 3.x interface. |has-python|
-qnx			QNX version of Vim.
+qnx			QNX version of uVim.
 quickfix		Compiled with |quickfix| support.
 reltime			Compiled with |reltime()| support.
 rightleft		Compiled with 'rightleft' support.
@@ -8368,7 +8368,7 @@ tgetent			Compiled with tgetent support, able to use a termcap
 timers			Compiled with |timer_start()| support.
 title			Compiled with window title support |'title'|.
 toolbar			Compiled with support for |gui-toolbar|.
-unix			Unix version of Vim.
+unix			Unix version of uVim.
 user_commands		User-defined commands.
 vertsplit		Compiled with vertically split windows |:vsplit|.
 vim_starting		True while initial source'ing takes place. |startup|
@@ -8378,14 +8378,14 @@ virtualedit		Compiled with 'virtualedit' option.
 visual			Compiled with Visual mode.
 visualextra		Compiled with extra Visual mode commands.
 			|blockwise-operators|.
-vms			VMS version of Vim.
+vms			VMS version of uVim.
 vreplace		Compiled with |gR| and |gr| commands.
 wildignore		Compiled with 'wildignore' option.
 wildmenu		Compiled with 'wildmenu' option.
-win32			Win32 version of Vim (MS-Windows 95 and later, 32 or
+win32			Win32 version of uVim (MS-Windows 95 and later, 32 or
 			64 bits)
-win32unix		Win32 version of Vim, using Unix files (Cygwin)
-win64			Win64 version of Vim (MS-Windows 64 bit).
+win32unix		Win32 version of uVim, using Unix files (Cygwin)
+win64			Win64 version of uVim (MS-Windows 64 bit).
 win95			Win32 version for MS-Windows 95/98/ME.
 winaltkeys		Compiled with 'winaltkeys' option.
 windows			Compiled with support for more than one window.
@@ -8685,9 +8685,9 @@ Using an autocommand ~
 
 This is introduced in the user manual, section |41.14|.
 
-The autocommand is useful if you have a plugin that is a long Vim script file.
+The autocommand is useful if you have a plugin that is a long uVim script file.
 You can define the autocommand and quickly quit the script with |:finish|.
-That makes Vim startup faster.  The autocommand should then load the same file
+That makes uVim startup faster.  The autocommand should then load the same file
 again, setting a variable to skip the |:finish| command.
 
 Use the FuncUndefined autocommand event with a pattern that matches the
@@ -8709,7 +8709,7 @@ like this: >
 
 	:call filename#funcname()
 
-When such a function is called, and it is not defined yet, Vim will search the
+When such a function is called, and it is not defined yet, uVim will search the
 "autoload" directories in 'runtimepath' for a script file called
 "filename.vim".  For example "~/.vim/autoload/filename.vim".  That file should
 then define the function like this: >
@@ -8727,7 +8727,7 @@ a path separator.  Thus when calling a function: >
 
 	:call foo#bar#func()
 
-Vim will look for the file "autoload/foo/bar.vim" in 'runtimepath'.
+uVim will look for the file "autoload/foo/bar.vim" in 'runtimepath'.
 
 This also works when reading a variable that has not been set yet: >
 
@@ -8762,7 +8762,7 @@ variable.  This is a regular variable name with one or more expressions
 wrapped in braces {} like this: >
 	my_{adjective}_variable
 
-When Vim encounters this, it evaluates the expression inside the braces, puts
+When uVim encounters this, it evaluates the expression inside the braces, puts
 that in place of the expression, and re-interprets the whole as a variable
 name.  So in the above example, if the variable "adjective" was set to
 "noisy", then the reference would be to "my_noisy_variable", whereas if
@@ -8945,7 +8945,7 @@ This does NOT work: >
 			  t:	local tab page variables
 			  s:	script-local variables
 			  l:	local function variables
-			  v:	Vim variables.
+			  v:	uVim variables.
 
 :let			List the values of all variables.  The type of the
 			variable is indicated before the value:
@@ -9024,7 +9024,7 @@ This does NOT work: >
 :en[dif]		Execute the commands until the next matching ":else"
 			or ":endif" if {expr1} evaluates to non-zero.
 
-			From Vim version 4.5 until 5.0, every Ex command in
+			From uVim version 4.5 until 5.0, every Ex command in
 			between the ":if" and ":endif" is ignored.  These two
 			commands were just to allow for future expansions in a
 			backward compatible way.  Nesting was allowed.  Note
@@ -9037,7 +9037,7 @@ This does NOT work: >
 				:  version-5-specific-commands
 				:endif
 <			The commands still need to be parsed to find the
-			"endif".  Sometimes an older Vim has a problem with a
+			"endif".  Sometimes an older uVim has a problem with a
 			new command.  For example, ":silent" is recognized as
 			a ":substitute" command.  In that case ":execute" can
 			avoid problems: >
@@ -9083,7 +9083,7 @@ This does NOT work: >
 			Changing {list} inside the loop affects what items are
 			used.  Make a copy if this is unwanted: >
 				:for item in copy(mylist)
-<			When not making a copy, Vim stores a reference to the
+<			When not making a copy, uVim stores a reference to the
 			next item in the list, before executing the commands
 			with the current item.  Thus the current item can be
 			removed without effect.  Removing any later item means
@@ -9149,17 +9149,17 @@ This does NOT work: >
 			command (see |:catch|).  In this case, the script
 			processing is not terminated.
 
-			The value "Vim:Interrupt" is used for an interrupt
-			exception.  An error in a Vim command is converted
-			to a value of the form "Vim({command}):{errmsg}",
+			The value "uVim:Interrupt" is used for an interrupt
+			exception.  An error in a uVim command is converted
+			to a value of the form "uVim({command}):{errmsg}",
 			other errors are converted to a value of the form
-			"Vim:{errmsg}".  {command} is the full command name,
+			"uVim:{errmsg}".  {command} is the full command name,
 			and {errmsg} is the message that is displayed if the
 			error exception is not caught, always beginning with
 			the error number.
 			Examples: >
-		:try | sleep 100 | catch /^Vim:Interrupt$/ | endtry
-		:try | edit | catch /^Vim(edit):E\d\+/ | echo "error" | endtry
+		:try | sleep 100 | catch /^uVim:Interrupt$/ | endtry
+		:try | edit | catch /^uVim(edit):E\d\+/ | echo "error" | endtry
 <
 					*:cat* *:catch* *E603* *E604* *E605*
 :cat[ch] /{pattern}/	The following commands until the next |:catch|,
@@ -9170,11 +9170,11 @@ This does NOT work: >
 			commands are skipped.
 			When {pattern} is omitted all errors are caught.
 			Examples: >
-		:catch /^Vim:Interrupt$/	" catch interrupts (CTRL-C)
-		:catch /^Vim\%((\a\+)\)\=:E/	" catch all Vim errors
-		:catch /^Vim\%((\a\+)\)\=:/	" catch errors and interrupts
-		:catch /^Vim(write):/		" catch all errors in :write
-		:catch /^Vim\%((\a\+)\)\=:E123/	" catch error E123
+		:catch /^uVim:Interrupt$/	" catch interrupts (CTRL-C)
+		:catch /^uVim\%((\a\+)\)\=:E/	" catch all uVim errors
+		:catch /^uVim\%((\a\+)\)\=:/	" catch errors and interrupts
+		:catch /^uVim(write):/		" catch all errors in :write
+		:catch /^uVim\%((\a\+)\)\=:E123/	" catch error E123
 		:catch /my-exception/		" catch user exception
 		:catch /.*/			" catch everything
 		:catch				" same as /.*/
@@ -9231,7 +9231,7 @@ This does NOT work: >
 		:echo "the value of 'shell' is" &shell
 <							*:echo-redraw*
 			A later redraw may make the message disappear again.
-			And since Vim mostly postpones redrawing until it's
+			And since uVim mostly postpones redrawing until it's
 			finished with a sequence of commands this happens
 			quite often.  To avoid that a command from before the
 			":echo" causes a redraw afterwards (redraws are often
@@ -9248,7 +9248,7 @@ This does NOT work: >
 				:echon "the value of 'shell' is " &shell
 <
 			Note the difference between using ":echo", which is a
-			Vim command, and ":!echo", which is an external shell
+			uVim command, and ":!echo", which is an external shell
 			command: >
 		:!echo %		--> filename
 <			The arguments of ":!" are expanded, see |:_%|. >
@@ -9318,14 +9318,14 @@ This does NOT work: >
 		:execute '!ls' | echo "theend"
 
 <			":execute" is also a nice way to avoid having to type
-			control characters in a Vim script for a ":normal"
+			control characters in a uVim script for a ":normal"
 			command: >
 		:execute "normal ixxx\<Esc>"
 <			This has an <Esc> character, see |expr-string|.
 
 			Be careful to correctly escape special characters in
 			file names.  The |fnameescape()| function can be used
-			for Vim commands, |shellescape()| for |:!| commands.
+			for uVim commands, |shellescape()| for |:!| commands.
 			Examples: >
 		:execute "e " . fnameescape(filename)
 		:execute "!ls " . shellescape(filename, 1)
@@ -9333,11 +9333,11 @@ This does NOT work: >
 			Note: The executed string may be any command-line, but
 			starting or ending "if", "while" and "for" does not
 			always work, because when commands are skipped the
-			":execute" is not evaluated and Vim loses track of
+			":execute" is not evaluated and uVim loses track of
 			where blocks start and end.  Also "break" and
 			"continue" should not be inside ":execute".
 			This example does not work, because the ":execute" is
-			not evaluated and Vim does not see the "while", and
+			not evaluated and uVim does not see the "while", and
 			gives an error for finding an ":endwhile": >
 		:if 0
 		: execute 'while i > 5'
@@ -9360,10 +9360,10 @@ This does NOT work: >
 ==============================================================================
 8. Exception handling					*exception-handling*
 
-The Vim script language comprises an exception handling feature.  This section
-explains how it can be used in a Vim script.
+The uVim script language comprises an exception handling feature.  This section
+explains how it can be used in a uVim script.
 
-Exceptions may be raised by Vim on an error or on interrupt, see
+Exceptions may be raised by uVim on an error or on interrupt, see
 |catch-errors| and |catch-interrupt|.  You can also explicitly throw an
 exception by using the ":throw" command, see |throw-catch|.
 
@@ -9470,7 +9470,7 @@ When none of the active try conditionals catches an exception, just their
 finally clauses are executed.  Thereafter, the script processing terminates.
 An error message is displayed in case of an uncaught exception explicitly
 thrown by a ":throw" command.  For uncaught error and interrupt exceptions
-implicitly raised by Vim, the error message(s) or interrupt message are shown
+implicitly raised by uVim, the error message(s) or interrupt message are shown
 as usual.
 
 For examples see |throw-catch|.
@@ -9671,7 +9671,7 @@ catch clause: >
 This displays "Caught foo, throw bar" and then "Caught bar".
 
 							*rethrow*
-There is no real rethrow in the Vim script language, but you may throw
+There is no real rethrow in the uVim script language, but you may throw
 "v:exception" instead: >
 
 	:function! Bar()
@@ -9683,10 +9683,10 @@ There is no real rethrow in the Vim script language, but you may throw
 	:  endtry
 	:endfunction
 <							*try-echoerr*
-Note that this method cannot be used to "rethrow" Vim error or interrupt
-exceptions, because it is not possible to fake Vim internal exceptions.
+Note that this method cannot be used to "rethrow" uVim error or interrupt
+exceptions, because it is not possible to fake uVim internal exceptions.
 Trying so causes an error exception.  You should throw your own exception
-denoting the situation.  If you want to cause a Vim error exception containing
+denoting the situation.  If you want to cause a uVim error exception containing
 the original error exception value, you can use the |:echoerr| command: >
 
 	:try
@@ -9701,7 +9701,7 @@ the original error exception value, you can use the |:echoerr| command: >
 
 This code displays
 
-	Vim(echoerr):Vim:E492: Not an editor command:	asdf ~
+	uVim(echoerr):uVim:E492: Not an editor command:	asdf ~
 
 
 CLEANUP CODE						*try-finally*
@@ -9811,9 +9811,9 @@ the right pattern for the ":catch" command, you have to know how the format of
 the error exception is.
    Error exceptions have the following format: >
 
-	Vim({cmdname}):{errmsg}
+	uVim({cmdname}):{errmsg}
 or >
-	Vim:{errmsg}
+	uVim:{errmsg}
 
 {cmdname} is the name of the command that failed; the second form is used when
 the command name is not known.  {errmsg} is the error message usually produced
@@ -9828,19 +9828,19 @@ The command >
 normally produces the error message >
 	E108: No such variable: "novar"
 which is converted inside try conditionals to an exception >
-	Vim(unlet):E108: No such variable: "novar"
+	uVim(unlet):E108: No such variable: "novar"
 
 The command >
 	:dwim
 normally produces the error message >
 	E492: Not an editor command: dwim
 which is converted inside try conditionals to an exception >
-	Vim:E492: Not an editor command: dwim
+	uVim:E492: Not an editor command: dwim
 
 You can catch all ":unlet" errors by a >
-	:catch /^Vim(unlet):/
+	:catch /^uVim(unlet):/
 or all errors for misspelled command names by a >
-	:catch /^Vim:E492:/
+	:catch /^uVim:E492:/
 
 Some error messages may be produced by different commands: >
 	:function nofunc
@@ -9849,12 +9849,12 @@ and >
 both produce the error message >
 	E128: Function name must start with a capital: nofunc
 which is converted inside try conditionals to an exception >
-	Vim(function):E128: Function name must start with a capital: nofunc
+	uVim(function):E128: Function name must start with a capital: nofunc
 or >
-	Vim(delfunction):E128: Function name must start with a capital: nofunc
+	uVim(delfunction):E128: Function name must start with a capital: nofunc
 respectively.  You can catch the error by its number independently on the
 command that caused it if you use the following pattern: >
-	:catch /^Vim(\a\+):E128:/
+	:catch /^uVim(\a\+):E128:/
 
 Some commands like >
 	:let x = novar
@@ -9863,16 +9863,16 @@ produce multiple error messages, here: >
 	E15: Invalid expression:  novar
 Only the first is used for the exception value, since it is the most specific
 one (see |except-several-errors|).  So you can catch it by >
-	:catch /^Vim(\a\+):E121:/
+	:catch /^uVim(\a\+):E121:/
 
 You can catch all errors related to the name "nofunc" by >
 	:catch /\<nofunc\>/
 
-You can catch all Vim errors in the ":write" and ":read" commands by >
-	:catch /^Vim(\(write\|read\)):E\d\+:/
+You can catch all uVim errors in the ":write" and ":read" commands by >
+	:catch /^uVim(\(write\|read\)):E\d\+:/
 
-You can catch all Vim errors by the pattern >
-	:catch /^Vim\((\a\+)\)\=:E\d\+:/
+You can catch all uVim errors by the pattern >
+	:catch /^uVim\((\a\+)\)\=:E\d\+:/
 <
 							*catch-text*
 NOTE: You should never catch the error message text itself: >
@@ -9880,12 +9880,12 @@ NOTE: You should never catch the error message text itself: >
 only works in the English locale, but not when the user has selected
 a different language by the |:language| command.  It is however helpful to
 cite the message text in a comment: >
-	:catch /^Vim(\a\+):E108:/   " No such variable
+	:catch /^uVim(\a\+):E108:/   " No such variable
 
 
 IGNORING ERRORS						*ignore-errors*
 
-You can ignore errors in a specific Vim command by catching them locally: >
+You can ignore errors in a specific uVim command by catching them locally: >
 
 	:try
 	:  write
@@ -9905,7 +9905,7 @@ then hide the error from the user.
 
 	:try
 	:  write
-	:catch /^Vim(write):/
+	:catch /^uVim(write):/
 	:endtry
 
 which only catches real write errors.  So catch only what you'd like to ignore
@@ -9921,7 +9921,7 @@ This works also when a try conditional is active.
 CATCHING INTERRUPTS					*catch-interrupt*
 
 When there are active try conditionals, an interrupt (CTRL-C) is converted to
-the exception "Vim:Interrupt".  You can catch it like every exception.  The
+the exception "uVim:Interrupt".  You can catch it like every exception.  The
 script is not terminated, then.
    Example: >
 
@@ -9948,7 +9948,7 @@ script is not terminated, then.
 	:      echo "\nIllegal command:" command
 	:      continue
 	:    endif
-	:  catch /^Vim:Interrupt$/
+	:  catch /^uVim:Interrupt$/
 	:    echo "\nCommand interrupted"
 	:    " Caught the interrupt.  Continue with next prompt.
 	:  endtry
@@ -9983,7 +9983,7 @@ a script in order to catch unexpected things.
 	:
 	:  " handle known problem
 	:
-	:catch /^Vim:Interrupt$/
+	:catch /^uVim:Interrupt$/
 	:    echo "Script interrupted"
 	:catch /.*/
 	:  echo "Internal error (" . v:exception . ")"
@@ -10065,7 +10065,7 @@ is thrown that can be caught by the caller of the command.
 
 This just displays: >
 
-	Vim(write):E212: Can't open file for writing (/i/m/p/o/s/s/i/b/l/e)
+	uVim(write):E212: Can't open file for writing (/i/m/p/o/s/s/i/b/l/e)
 
 If you really need to execute the autocommands even when the main action
 fails, trigger the event from the catch clause.
@@ -10139,7 +10139,7 @@ some way. >
 	:  else
 	:    echo "Error after writing"
 	:  endif
-	:catch /^Vim(write):/
+	:catch /^uVim(write):/
 	:    echo "Error on writing"
 	:endtry
 
@@ -10169,7 +10169,7 @@ EXCEPTION HIERARCHIES AND PARAMETERIZED EXCEPTIONS	*except-hier-param*
 
 Some programming languages allow to use hierarchies of exception classes or to
 pass additional information with the object of an exception class.  You can do
-similar things in Vim.
+similar things in uVim.
    In order to throw an exception from a hierarchy, just throw the complete
 class name with the components separated by a colon, for instance throw the
 string "EXCEPT:MATHERR:OVERFLOW" for an overflow in a mathematical library.
@@ -10209,7 +10209,7 @@ parentheses can be cut out from |v:exception| with the ":substitute" command.
 	:function! Write(file)
 	:  try
 	:    execute "write" fnameescape(a:file)
-	:  catch /^Vim(write):/
+	:  catch /^uVim(write):/
 	:    throw "EXCEPT:IO(" . getcwd() . ", " . a:file . "):WRITEERR"
 	:  endtry
 	:endfunction
@@ -10238,10 +10238,10 @@ parentheses can be cut out from |v:exception| with the ":substitute" command.
 	:
 	:endtry
 
-The exceptions raised by Vim itself (on error or when pressing CTRL-C) use
-a flat hierarchy:  they are all in the "Vim" class.  You cannot throw yourself
-exceptions with the "Vim" prefix; they are reserved for Vim.
-   Vim error exceptions are parameterized with the name of the command that
+The exceptions raised by uVim itself (on error or when pressing CTRL-C) use
+a flat hierarchy:  they are all in the "uVim" class.  You cannot throw yourself
+exceptions with the "uVim" prefix; they are reserved for uVim.
+   uVim error exceptions are parameterized with the name of the command that
 failed, if known.  See |catch-errors|.
 
 
@@ -10251,7 +10251,7 @@ The exception handling concept requires that the command sequence causing the
 exception is aborted immediately and control is transferred to finally clauses
 and/or a catch clause.
 
-In the Vim script language there are cases where scripts and functions
+In the uVim script language there are cases where scripts and functions
 continue after an error: in functions without the "abort" flag or in a command
 after ":silent!", control flow goes to the following line, and outside
 functions, control flow goes to the line following the outermost ":endwhile"
@@ -10268,7 +10268,7 @@ by specifying a finally clause.)
 
 When no try conditional is active, the usual abortion and continuation
 behavior is used instead of immediate abortion.  This ensures compatibility of
-scripts written for Vim 6.1 and earlier.
+scripts written for uVim 6.1 and earlier.
 
 However, when sourcing an existing script that does not use exception handling
 commands (or when calling one of its functions) from inside an active try
@@ -10306,7 +10306,7 @@ clauses, however, is executed.
 
 This displays: >
     inner finally
-    outer catch-all caught "Vim(catch):E54: Unmatched \("
+    outer catch-all caught "uVim(catch):E54: Unmatched \("
     outer finally
 The original exception is discarded and an error exception is raised, instead.
 
@@ -10330,7 +10330,7 @@ causes >
 	E121: Undefined variable: novar
 	E15: Invalid expression: novar
 The value of the error exception inside try conditionals is: >
-	Vim(echo):E121: Undefined variable: novar
+	uVim(echo):E121: Undefined variable: novar
 <							*except-syntax-error*
 But when a syntax error is detected after a normal error in the same command,
 the syntax error is used for the exception being thrown.
@@ -10340,7 +10340,7 @@ causes >
 	E108: No such variable: "novar"
 	E488: Trailing characters
 The value of the error exception inside try conditionals is: >
-	Vim(unlet):E488: Trailing characters
+	uVim(unlet):E488: Trailing characters
 This is done because the syntax error might change the execution path in a way
 not intended by the user.  Example: >
 	try
@@ -10348,7 +10348,7 @@ not intended by the user.  Example: >
 	catch /.*/
 	    echo "outer catch:" v:exception
 	endtry
-This displays "outer catch: Vim(unlet):E488: Trailing characters", and then
+This displays "outer catch: uVim(unlet):E488: Trailing characters", and then
 a "E600: Missing :endtry" error message is given, see |except-single-line|.
 
 ==============================================================================
@@ -10400,7 +10400,7 @@ As a one-liner: >
 
 scanf() replacement ~
 							*sscanf*
-There is no sscanf() function in Vim.  If you need to extract parts from a
+There is no sscanf() function in uVim.  If you need to extract parts from a
 line, you can use matchstr() and substitute() to do it.  This example shows
 how to get the file name, line number and column number out of a line like
 "foobar.txt, 123, 45". >
@@ -10449,7 +10449,7 @@ code can be used: >
 10. No +eval feature				*no-eval-feature*
 
 When the |+eval| feature was disabled at compile time, none of the expression
-evaluation commands are available.  To prevent this from causing Vim scripts
+evaluation commands are available.  To prevent this from causing uVim scripts
 to generate all kinds of errors, the ":if" and ":endif" commands are still
 recognized, though the argument of the ":if" and everything between the ":if"
 and the matching ":endif" is ignored.  Nesting of ":if" blocks is allowed, but
@@ -10507,8 +10507,8 @@ option will still be marked as it was set in the sandbox.
 12. Textlock							*textlock*
 
 In a few situations it is not allowed to change the text in the buffer, jump
-to another window and some other things that might confuse or break what Vim
-is currently doing.  This mostly applies to things that happen when Vim is
+to another window and some other things that might confuse or break what uVim
+is currently doing.  This mostly applies to things that happen when uVim is
 actually doing something else.  For example, evaluating the 'balloonexpr' may
 happen any moment the mouse cursor is resting at some position.
 
@@ -10516,13 +10516,13 @@ This is not allowed when the textlock is active:
 	- changing the buffer text
 	- jumping to another buffer or window
 	- editing another file
-	- closing a window or quitting Vim
+	- closing a window or quitting uVim
 	- etc.
 
 ==============================================================================
 13. Testing							*testing*
 
-Vim can be tested after building it, usually with "make test".
+uVim can be tested after building it, usually with "make test".
 The tests are located in the directory "src/testdir".
 
 There are several types of tests added over time:
@@ -10535,7 +10535,7 @@ New tests should be added as new style tests.  These use functions such as
 |assert_equal()| to keep the test commands and the expected result in one
 place.
 						*old-style-testing*
-In some cases an old style test needs to be used.  E.g. when testing Vim
+In some cases an old style test needs to be used.  E.g. when testing uVim
 without the |+eval| feature.
 
 Find more information in the file src/testdir/README.txt.

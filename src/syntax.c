@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -3703,7 +3703,7 @@ syn_cmd_clear(exarg_T *eap, int syncing)
     /*
      * We have to disable this within ":syn include @group filename",
      * because otherwise @group would get deleted.
-     * Only required for Vim 5.x syntax files, 6.0 ones don't contain ":syn
+     * Only required for uVim 5.x syntax files, 6.0 ones don't contain ":syn
      * clear".
      */
     if (curwin->w_s->b_syn_topgrp != 0)
@@ -8060,7 +8060,7 @@ free_highlight(void)
 #endif
 
 /*
- * Reset the cterm colors to what they were before Vim was started, if
+ * Reset the cterm colors to what they were before uVim was started, if
  * possible.  Otherwise reset them to zero.
  */
     void

@@ -38,7 +38,7 @@
  */
 
 /*
- * Heavely modified for Vim by Bram Moolenaar
+ * Heavely modified for uVim by Bram Moolenaar
  */
 
 #include "vim.h"

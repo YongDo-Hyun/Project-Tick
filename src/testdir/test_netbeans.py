@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Server that will communicate with Vim through the netbeans interface.
+# Server that will communicate with uVim through the netbeans interface.
 # Used by test_netbeans.vim.
 #
 # This requires Python 2.6 or later.

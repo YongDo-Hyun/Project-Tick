@@ -1,9 +1,9 @@
-README_dos.txt for version 7.4 of Vim: Vi IMproved.
+README_dos.txt for version 7.4 of uVim: Micro Vi IMproved.
 
-This file explains the installation of Vim on MS-DOS and MS-Windows systems.
-See "README.txt" for general information about Vim.
+This file explains the installation of uVim on MS-DOS and MS-Windows systems.
+See "README.txt" for general information about uVim.
 
-There are two ways to install Vim:
+There are two ways to install uVim:
 A. Use the self-installing .exe file.
 B. Unpack .zip files and run the install.exe program.
 
@@ -20,21 +20,21 @@ selections.  A few things to watch out for:
   confusing.  Be sure the complete the uninstalling before continuing the
   installation.  Watch the taskbar for uninstall windows.
 
-- When selecting a directory to install Vim, use the same place where other
+- When selecting a directory to install uVim, use the same place where other
   versions are located.  This makes it easier to find your _vimrc file.  For
   example "C:\Program Files\vim" or "D:\vim".  A name ending in "vim" is
   preferred.
 
-- After selecting the directory where to install Vim, clicking on "Next" will
+- After selecting the directory where to install uVim, clicking on "Next" will
   start the installation.
 
 
 B. Using .zip files
 -------------------
 
-These are the normal steps to install Vim from the .zip archives:
+These are the normal steps to install uVim from the .zip archives:
 
-1. Go to the directory where you want to put the Vim files.  Examples:
+1. Go to the directory where you want to put the uVim files.  Examples:
 	cd C:\
 	cd D:\editors
    If you already have a "vim" directory, go to the directory in which it is
@@ -44,11 +44,11 @@ These are the normal steps to install Vim from the .zip archives:
 	C:\vim\vim54
    do
 	cd C:\
-   Binary and runtime Vim archives are normally unpacked in the same location,
+   Binary and runtime uVim archives are normally unpacked in the same location,
    on top of each other.
 
 2. Unpack the zip archives.  This will create a new directory "vim\vim74",
-   in which all the distributed Vim files are placed.  Since the directory
+   in which all the distributed uVim files are placed.  Since the directory
    name includes the version number, it is unlikely that you overwrite
    existing files.
    Examples:
@@ -71,29 +71,29 @@ These are the normal steps to install Vim from the .zip archives:
 3. Change to the new directory:
 	cd vim\vim74
    Run the "install.exe" program.  It will ask you a number of questions about
-   how you would like to have your Vim setup.  Among these are:
+   how you would like to have your uVim setup.  Among these are:
    - You can tell it to write a "_vimrc" file with your preferences in the
      parent directory.
-   - It can also install an "Edit with Vim" entry in the Windows Explorer
+   - It can also install an "Edit with uVim" entry in the Windows Explorer
      popup menu.
-   - You can have it create batch files, so that you can run Vim from the
+   - You can have it create batch files, so that you can run uVim from the
      console or in a shell.  You can select one of the directories in your
-     $PATH.  If you skip this, you can add Vim to the search path manually:
+     $PATH.  If you skip this, you can add uVim to the search path manually:
      The simplest is to add a line to your autoexec.bat.  Examples:
 	set path=%path%;C:\vim\vim74
 	set path=%path%;D:\editors\vim\vim74
-   - Create entries for Vim on the desktop and in the Start menu.
+   - Create entries for uVim on the desktop and in the Start menu.
 
 That's it!
 
 
 Remarks:
 
-- If Vim can't find the runtime files, ":help" won't work and the GUI version
+- If uVim can't find the runtime files, ":help" won't work and the GUI version
   won't show a menubar.  Then you need to set the $VIM environment variable to
-  point to the top directory of your Vim files.  Example:
+  point to the top directory of your uVim files.  Example:
     set VIM=C:\editors\vim
-  Vim version 7.4 will look for your vimrc file in $VIM, and for the runtime
+  uVim version 7.4 will look for your vimrc file in $VIM, and for the runtime
   files in $VIM/vim74.  See ":help $VIM" for more information.
 
 - To avoid confusion between distributed files of different versions and your
@@ -105,28 +105,28 @@ Remarks:
 	C:\vim\vimfiles\ftplugin\*.vim	Filetype plugins
 	C:\vim\...			Other files you made.
   Distributed files:
-	C:\vim\vim74\vim.exe		The Vim version 7.4 executable.
+	C:\vim\vim74\vim.exe		The uVim version 7.4 executable.
 	C:\vim\vim74\doc\*.txt		The version 7.4 documentation files.
-	C:\vim\vim74\bugreport.vim	A Vim version 7.4 script.
+	C:\vim\vim74\bugreport.vim	A uVim version 7.4 script.
 	C:\vim\vim74\...		Other version 7.4 distributed files.
   In this case the $VIM environment variable would be set like this:
 	set VIM=C:\vim
   Then $VIMRUNTIME will automatically be set to "$VIM\vim74".  Don't add
   "vim74" to $VIM, that won't work.
 
-- You can put your Vim executable anywhere else.  If the executable is not
-  with the other Vim files, you should set $VIM. The simplest is to add a line
+- You can put your uVim executable anywhere else.  If the executable is not
+  with the other uVim files, you should set $VIM. The simplest is to add a line
   to your autoexec.bat.  Examples:
 	set VIM=c:\vim
 	set VIM=d:\editors\vim
 
-- If you have told the "install.exe" program to add the "Edit with Vim" menu
+- If you have told the "install.exe" program to add the "Edit with uVim" menu
   entry, you can remove it by running the "uninstal.exe".  See
   ":help win32-popup-menu".
 
-- In Windows 95/98/NT you can create a shortcut to Vim.  This works for all
+- In Windows 95/98/NT you can create a shortcut to uVim.  This works for all
   DOS and Win32 console versions.  For the console version this gives you the
-  opportunity to set defaults for the Console where Vim runs in.
+  opportunity to set defaults for the Console where uVim runs in.
 
   1. On the desktop, click right to get a menu.  Select New/Shortcut.
   2. In the dialog, enter Command line: "C:\command.com".  Click "Next".
@@ -135,7 +135,7 @@ Remarks:
   4. With the mouse pointer on the new shortcut, click right to get a menu.
      Select Properties.
   5. In the Program tab, change the "Cmdline" to add "/c" and the name of the
-     Vim executable.  Examples:
+     uVim executable.  Examples:
 	C:\command.com /c C:\vim\vim74\vim.exe
 	C:\command.com /c D:\editors\vim\vim74\vim.exe
   6. Select the font, window size, etc. that you like.  If this isn't
@@ -148,7 +148,7 @@ Remarks:
 	set lines=30 columns=90
 
 
-For further information, type one of these inside Vim:
+For further information, type one of these inside uVim:
 	:help dos
 	:help msdos
 	:help win32

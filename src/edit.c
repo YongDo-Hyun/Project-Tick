@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -9251,7 +9251,7 @@ ins_bs(
 
     /* vi behaviour: the cursor moves backward but the character that
      *		     was there remains visible
-     * Vim behaviour: the cursor moves backward and the character that
+     * uVim behaviour: the cursor moves backward and the character that
      *		      was there is erased from the screen.
      * We can emulate the vi behaviour by pretending there is a dollar
      * displayed even when there isn't.

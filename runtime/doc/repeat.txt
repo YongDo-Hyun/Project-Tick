@@ -1,19 +1,19 @@
-*repeat.txt*    For Vim version 7.4.  Last change: 2016 Jul 21
+*repeat.txt*    For uVim version 7.4.  Last change: 2016 Jul 21
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
 
 
-Repeating commands, Vim scripts and debugging			*repeating*
+Repeating commands, uVim scripts and debugging			*repeating*
 
 Chapter 26 of the user manual introduces repeating |usr_26.txt|.
 
 1. Single repeats		|single-repeat|
 2. Multiple repeats		|multi-repeat|
 3. Complex repeats		|complex-repeat|
-4. Using Vim scripts		|using-scripts|
-5. Using Vim packages		|packages|
-6. Creating Vim packages	|package-create|
+4. Using uVim scripts		|using-scripts|
+5. Using uVim packages		|packages|
+6. Creating uVim packages	|package-create|
 7. Debugging scripts		|debug-scripts|
 8. Profiling			|profiling|
 
@@ -82,7 +82,7 @@ unmarked line.
 
 To repeat a non-Ex command, you can use the ":normal" command: >
 	:g/pat/normal {commands}
-Make sure that {commands} ends with a whole command, otherwise Vim will wait
+Make sure that {commands} ends with a whole command, otherwise uVim will wait
 for you to type the rest of the command for each match.  The screen will not
 have been updated, so you don't know what you are doing.  See |:normal|.
 
@@ -164,16 +164,16 @@ q			Stops recording.  (Implementation note: The 'q' that
 			some versions}
 
 ==============================================================================
-4. Using Vim scripts					*using-scripts*
+4. Using uVim scripts					*using-scripts*
 
-For writing a Vim script, see chapter 41 of the user manual |usr_41.txt|.
+For writing a uVim script, see chapter 41 of the user manual |usr_41.txt|.
 
 					*:so* *:source* *load-vim-script*
 :so[urce] {file}	Read Ex commands from {file}.  These are commands that
 			start with a ":".
 			Triggers the |SourcePre| autocommand.
 
-:so[urce]! {file}	Read Vim commands from {file}.  These are commands
+:so[urce]! {file}	Read uVim commands from {file}.  These are commands
 			that are executed from Normal mode, like you type
 			them.
 			When used after |:global|, |:argdo|, |:windo|,
@@ -214,7 +214,7 @@ For writing a Vim script, see chapter 41 of the user manual |usr_41.txt|.
 			When {file} contains wildcards it is expanded to all
 			matching files.  Example: >
 				:runtime! plugin/*.vim
-<			This is what Vim uses to load the plugin files when
+<			This is what uVim uses to load the plugin files when
 			starting up.  This similar command: >
 				:runtime plugin/*.vim
 <			would source the first file only.
@@ -302,7 +302,7 @@ For writing a Vim script, see chapter 41 of the user manual |usr_41.txt|.
 			Don't use "ucs-2" or "ucs-4", scripts cannot be in
 			these encodings (they would contain NUL bytes).
 			When a sourced script starts with a BOM (Byte Order
-			Mark) in utf-8 format Vim will recognize it, no need
+			Mark) in utf-8 format uVim will recognize it, no need
 			to use ":scriptencoding utf-8" then.
 
 			When compiled without the |+multi_byte| feature this
@@ -317,7 +317,7 @@ For writing a Vim script, see chapter 41 of the user manual |usr_41.txt|.
 			|+eval| feature}
 
 						*:fini* *:finish* *E168*
-:fini[sh]		Stop sourcing a script.  Can only be used in a Vim
+:fini[sh]		Stop sourcing a script.  Can only be used in a uVim
 			script file.  This is a quick way to skip the rest of
 			the file.  If it is used after a |:try| but before the
 			matching |:finally| (if present), the commands
@@ -390,7 +390,7 @@ file made on Unix), this will be recognized if 'fileformats' is not empty and
 the first line does not end in a <CR>.  Be careful not to use a file with <NL>
 linebreaks which has a <CR> in first line.
 
-On other systems, Vim expects ":source"ed files to end in a <NL>.  These
+On other systems, uVim expects ":source"ed files to end in a <NL>.  These
 always work.  If you are using a file with <CR><NL> <EOL>s (for example, a
 file made on MS-DOS), all lines will have a trailing <CR>.  This may cause
 problems for some commands (e.g., mappings).  There is no automatic <EOL>
@@ -450,15 +450,15 @@ flag when defining the function, it is not relevant when executing it. >
 
 Rationale:
 	Most programs work with a trailing backslash to indicate line
-	continuation.  Using this in Vim would cause incompatibility with Vi.
+	continuation.  Using this in uVim would cause incompatibility with Vi.
 	For example for this Vi mapping: >
 		:map xx  asdf\
 <	Therefore the unusual leading backslash is used.
 
 ==============================================================================
-5. Using Vim packages					*packages*
+5. Using uVim packages					*packages*
 
-A Vim package is a directory that contains one or more plugins.  The
+A uVim package is a directory that contains one or more plugins.  The
 advantages over normal plugins:
 - A package can be downloaded as an archive and unpacked in its own directory.
   Thus the files are not mixed with files of other plugins.  That makes it
@@ -472,7 +472,7 @@ advantages over normal plugins:
 
 Using a package and loading automatically ~
 
-Let's assume your Vim files are in the "~/.vim" directory and you want to add a
+Let's assume your uVim files are in the "~/.vim" directory and you want to add a
 package from a zip archive "/tmp/foopack.zip":
 	% mkdir -p ~/.vim/pack/foo
 	% cd ~/.vim/pack/foo
@@ -486,18 +486,18 @@ You would now have these files under ~/.vim:
 	pack/foo/start/foobar/syntax/some.vim
 	pack/foo/opt/foodebug/plugin/debugger.vim
 
-When Vim starts up, after processing your .vimrc, it scans all directories in
+When uVim starts up, after processing your .vimrc, it scans all directories in
 'packpath' for plugins under the "pack/*/start" directory.  First all those
 directories are added to 'runtimepath'.  Then all the plugins are loaded.
 See |packload-two-steps| for how these two steps can be useful.
 
-In the example Vim will find "pack/foo/start/foobar/plugin/foo.vim" and adds 
+In the example uVim will find "pack/foo/start/foobar/plugin/foo.vim" and adds 
 "~/.vim/pack/foo/start/foobar" to 'runtimepath'.
 
-If the "foobar" plugin kicks in and sets the 'filetype' to "some", Vim will
+If the "foobar" plugin kicks in and sets the 'filetype' to "some", uVim will
 find the syntax/some.vim file, because its directory is in 'runtimepath'.
 
-Vim will also load ftdetect files, if there are any.
+uVim will also load ftdetect files, if there are any.
 
 Note that the files under "pack/foo/opt" are not loaded automatically, only the
 ones under "pack/foo/start".  See |pack-add| below for how the "opt" directory
@@ -538,12 +538,12 @@ This searches for "pack/*/opt/foodebug" in 'packpath' and will find
 ~/.vim/pack/foo/opt/foodebug/plugin/debugger.vim and source it.
 
 This could be done if some conditions are met.  For example, depending on
-whether Vim supports a feature or a dependency is missing.
+whether uVim supports a feature or a dependency is missing.
 
 You can also load an optional plugin at startup, by putting this command in
 your |.vimrc|: >
 	:packadd! foodebug
-The extra "!" is so that the plugin isn't loaded if Vim was started with
+The extra "!" is so that the plugin isn't loaded if uVim was started with
 |--noplugin|.
 
 It is perfectly normal for a package to only have files in the "opt"
@@ -571,11 +571,11 @@ The "after" directory is most likely not useful in a package.  It's not
 disallowed though.
 
 ==============================================================================
-6. Creating Vim packages				*package-create*
+6. Creating uVim packages				*package-create*
 
 This assumes you write one or more plugins that you distribute as a package.
 
-If you have two unrelated plugins you would use two packages, so that Vim
+If you have two unrelated plugins you would use two packages, so that uVim
 users can chose what they include or not.  Or you can decide to use one
 package with optional plugins, and tell the user to add the ones he wants with
 `:packadd`.
@@ -640,26 +640,26 @@ This works, because loading packages will first add all found directories to
 7. Debugging scripts					*debug-scripts*
 
 Besides the obvious messages that you can add to your scripts to find out what
-they are doing, Vim offers a debug mode.  This allows you to step through a
+they are doing, uVim offers a debug mode.  This allows you to step through a
 sourced file or user function and set breakpoints.
 
 NOTE: The debugging mode is far from perfect.  Debugging will have side
-effects on how Vim works.  You cannot use it to debug everything.  For
+effects on how uVim works.  You cannot use it to debug everything.  For
 example, the display is messed up by the debugging messages.
 {Vi does not have a debug mode}
 
 An alternative to debug mode is setting the 'verbose' option.  With a bigger
-number it will give more verbose messages about what Vim is doing.
+number it will give more verbose messages about what uVim is doing.
 
 
 STARTING DEBUG MODE						*debug-mode*
 
 To enter debugging mode use one of these methods:
-1. Start Vim with the |-D| argument: >
+1. Start uVim with the |-D| argument: >
 	vim -D file.txt
 <  Debugging will start as soon as the first vimrc file is sourced.  This is
-   useful to find out what is happening when Vim is starting up.  A side
-   effect is that Vim will switch the terminal mode before initialisations
+   useful to find out what is happening when uVim is starting up.  A side
+   effect is that uVim will switch the terminal mode before initialisations
    have finished, with unpredictable results.
    For a GUI-only version (Windows, Macintosh) the debugging will start as
    soon as the GUI window has been opened.  To make this happen early, add a
@@ -673,7 +673,7 @@ To enter debugging mode use one of these methods:
 3. Set a breakpoint in a sourced file or user function.  You could do this in
    the command line: >
 	vim -c "breakadd file */explorer.vim" .
-<  This will run Vim and stop in the first line of the "explorer.vim" script.
+<  This will run uVim and stop in the first line of the "explorer.vim" script.
    Breakpoints can also be set while in debugging mode.
 
 In debugging mode every executed command is displayed before it is executed.
@@ -705,7 +705,7 @@ There is a separate command-line history for debug mode.
 
 The line number for a function line is relative to the start of the function.
 If you have trouble figuring out where you are, edit the file that defines
-the function in another Vim, search for the start of the function and do
+the function in another uVim, search for the start of the function and do
 "99j".  Replace "99" with the line number.
 
 Additionally, these commands can be used:
@@ -790,7 +790,7 @@ DEFINING BREAKPOINTS
 <		Note that this only works for commands that are executed when
 		sourcing the file, not for a function defined in that file.
 
-The [lnum] is the line number of the breakpoint.  Vim will stop at or after
+The [lnum] is the line number of the breakpoint.  uVim will stop at or after
 this line.  When omitted line 1 is used.
 
 							*:debug-name*
@@ -864,9 +864,9 @@ OBSCURE
 ==============================================================================
 8. Profiling						*profile* *profiling*
 
-Profiling means that Vim measures the time that is spent on executing
+Profiling means that uVim measures the time that is spent on executing
 functions and/or scripts.  The |+profile| feature is required for this.
-It is only included when Vim was compiled with "huge" features.
+It is only included when uVim was compiled with "huge" features.
 {Vi does not have profiling}
 
 You can also use the |reltime()| function to measure time.  This only requires
@@ -917,7 +917,7 @@ For example, to profile the one_script.vim script file: >
 
 
 You must always start with a ":profile start fname" command.  The resulting
-file is written when Vim exits.  Here is an example of the output, with line
+file is written when uVim exits.  Here is an example of the output, with line
 numbers prepended for the explanation:
 
   1 FUNCTION  Test2() ~
@@ -947,7 +947,7 @@ The Count column shows how many times a line was executed.  Note that the
 "for" command in line 7 is executed one more time as the following lines.
 That is because the line is also executed to detect the end of the loop.
 
-The time Vim spends waiting for user input isn't counted at all.  Thus how
+The time uVim spends waiting for user input isn't counted at all.  Thus how
 long you take to respond to the input() prompt is irrelevant.
 
 Profiling should give a good indication of where time is spent, but keep in
@@ -967,7 +967,7 @@ mind there are various things that may clobber the results:
 - The time of the lines added up is mostly less than the time of the whole
   function.  There is some overhead in between.
 
-- Functions that are deleted before Vim exits will not produce profiling
+- Functions that are deleted before uVim exits will not produce profiling
   information.  You can check the |v:profiling| variable if needed: >
 	:if !v:profiling
 	:   delfunc MyFunc

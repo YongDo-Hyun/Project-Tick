@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -80,7 +80,7 @@ static int sortcmp(const void *a, const void *b);
 
 static BPTR		raw_in = (BPTR)NULL;
 static BPTR		raw_out = (BPTR)NULL;
-static int		close_win = FALSE;  /* set if Vim opened the window */
+static int		close_win = FALSE;  /* set if uVim opened the window */
 
 #ifndef __amigaos4__	/* Use autoopen for AmigaOS4 */
 struct IntuitionBase	*IntuitionBase = NULL;
@@ -259,8 +259,8 @@ mch_init(void)
 	raw_out = Output();
 	/*
 	 * If Input() is not interactive, then Output() will be (because of
-	 * check in mch_check_win()).  Used for "Vim -".
-	 * Also check the other way around, for "Vim -h | more".
+	 * check in mch_check_win()).  Used for "uVim -".
+	 * Also check the other way around, for "uVim -h | more".
 	 */
 	if (!IsInteractive(raw_in))
 	    raw_in = raw_out;
@@ -919,7 +919,7 @@ mch_exit(int r)
     if (close_win)
 	Close(raw_in);
     if (r)
-	printf(_("Vim exiting with %d\n"), r); /* somehow this makes :cq work!? */
+	printf(_("uVim exiting with %d\n"), r); /* somehow this makes :cq work!? */
     exit(r);
 }
 
@@ -1188,7 +1188,7 @@ mch_call_shell(
 
     if (close_win)
     {
-	/* if Vim opened a window: Executing a shell may cause crashes */
+	/* if uVim opened a window: Executing a shell may cause crashes */
 	EMSG(_("E360: Cannot execute shell with -f option"));
 	return -1;
     }

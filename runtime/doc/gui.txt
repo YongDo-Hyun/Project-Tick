@@ -1,10 +1,10 @@
-*gui.txt*       For Vim version 7.4.  Last change: 2014 Mar 08
+*gui.txt*       For uVim version 7.4.  Last change: 2014 Mar 08
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
 
 
-Vim's Graphical User Interface				*gui* *GUI*
+uVim's Graphical User Interface				*gui* *GUI*
 
 1. Starting the GUI		|gui-start|
 2. Scrollbars			|gui-scrollbars|
@@ -23,16 +23,16 @@ Other GUI documentation:
 ==============================================================================
 1. Starting the GUI				*gui-start* *E229* *E233*
 
-First you must make sure you actually have a version of Vim with the GUI code
+First you must make sure you actually have a version of uVim with the GUI code
 included.  You can check this with the ":version" command, it says "with xxx
 GUI", where "xxx" is X11-Motif, X11-Athena, Photon, GTK2, GTK3, etc., or
 "MS-Windows 32 bit GUI version".
 
 How to start the GUI depends on the system used.  Mostly you can run the
-GUI version of Vim with:
+GUI version of uVim with:
     gvim [options] [files...]
 
-The X11 version of Vim can run both in GUI and in non-GUI mode.  See
+The X11 version of uVim can run both in GUI and in non-GUI mode.  See
 |gui-x11-start|.
 
 			*gui-init* *gvimrc* *.gvimrc* *_gvimrc* *$MYGVIMRC*
@@ -55,7 +55,7 @@ When the GUI starts up initializations are carried out, in this order:
   The path names are truncated to 35 characters.  You can truncate them at a
   different length, for example 50, like this: >
 	:let bmenu_max_pathlen = 50
-- If the "-U {gvimrc}" command-line option has been used when starting Vim,
+- If the "-U {gvimrc}" command-line option has been used when starting uVim,
   the {gvimrc} file will be read for initializations.  The following
   initializations are skipped.  When {gvimrc} is "NONE" no file will be read
   for initializations.
@@ -78,10 +78,10 @@ When the GUI starts up initializations are carried out, in this order:
   apply.  When ".gvimrc" is not found, "_gvimrc" is tried too.  For Macintosh
   and DOS/Win32 "_gvimrc" is tried first.
 
-NOTE: All but the first one are not carried out if Vim was started with
+NOTE: All but the first one are not carried out if uVim was started with
 "-u NONE" and no "-U" argument was given, or when started with "-U NONE".
 
-All this happens AFTER the normal Vim initializations, like reading your
+All this happens AFTER the normal uVim initializations, like reading your
 .vimrc file.  See |initialization|.
 But the GUI window is only opened after all the initializations have been
 carried out.  If you want some commands to be executed just after opening the
@@ -105,7 +105,7 @@ The personal initialization files are searched in the order specified above
 and only the first one that is found is read.
 
 There are a number of options which only have meaning in the GUI version of
-Vim.  These are 'guicursor', 'guifont', 'guipty' and 'guioptions'.  They are
+uVim.  These are 'guicursor', 'guifont', 'guipty' and 'guioptions'.  They are
 documented in |options.txt| with all the other options.
 
 If using the Motif or Athena version of the GUI (but not for the GTK+ or
@@ -124,7 +124,7 @@ not used.  Use the 'guifont' option to set the font.
 Also check out the 'guicursor' option, to set the colors for the cursor in
 various modes.
 
-Vim tries to make the window fit on the screen when it starts up.  This avoids
+uVim tries to make the window fit on the screen when it starts up.  This avoids
 that you can't see part of it.  On the X Window System this requires a bit of
 guesswork.  You can change the height that is used for the window title and a
 task bar with the 'guiheadroom' option.
@@ -152,7 +152,7 @@ task bar with the 'guiheadroom' option.
 		option.
 
 If you are running the X Window System, you can get information about the
-window Vim is running in with these commands: >
+window uVim is running in with these commands: >
 	:!xwininfo -id $WINDOWID
 	:!xprop -id $WINDOWID
 	:execute '!xwininfo -id ' . v:windowid
@@ -183,7 +183,7 @@ The interface looks like this (with ":set guioptions=mlrb"):
 		       | |			    | | `
 		       |v|__________________________|v| `
  Normal status line -> |-+ File.c	       5,2  +-| `
- between Vim windows   |^|""""""""""""""""""""""""""|^| `
+ between uVim windows   |^|""""""""""""""""""""""""""|^| `
 		       | |			    | | `
 		       | | Another file buffer.     | | `
 		       | |			    | | `
@@ -203,7 +203,7 @@ only useful when 'nowrap' is set.
 
 VERTICAL SCROLLBARS					*gui-vert-scroll*
 
-Each Vim window has a scrollbar next to it which may be scrolled up and down
+Each uVim window has a scrollbar next to it which may be scrolled up and down
 to move through the text in that buffer.  The size of the scrollbar-thumb
 indicates the fraction of the buffer which can be seen in the window.
 When the scrollbar is dragged all the way down, the last line of the file
@@ -222,7 +222,7 @@ the rightmost windows.  The same happens on the other side.
 
 HORIZONTAL SCROLLBARS					*gui-horiz-scroll*
 
-The horizontal scrollbar (at the bottom of the Vim GUI) may be used to
+The horizontal scrollbar (at the bottom of the uVim GUI) may be used to
 scroll text sideways when the 'wrap' option is turned off.  The
 scrollbar-thumb size is such that the text of the longest visible line may be
 scrolled as far as possible left and right.  The cursor is moved when
@@ -345,9 +345,9 @@ A different kind of selection is used when:
 - whenever the current mode is not in the 'mouse' option
 - when holding the CTRL and SHIFT keys in the GUI
 
-Since Vim continues like the selection isn't there, and there is no mode
+Since uVim continues like the selection isn't there, and there is no mode
 associated with the selection, this is called modeless selection.  Any text in
-the Vim window can be selected.  Select the text by pressing the left mouse
+the uVim window can be selected.  Select the text by pressing the left mouse
 button at the start, drag to the end and release.  To extend the selection,
 use the right mouse button when 'mousemodel' is "extend", or the left mouse
 button with the shift key pressed when 'mousemodel' is "popup".
@@ -364,7 +364,7 @@ use CTRL-R +.
 
 3.4 Using Mouse on Status Lines				*gui-mouse-status*
 
-Clicking the left or right mouse button on the status line below a Vim
+Clicking the left or right mouse button on the status line below a uVim
 window makes that window the current window.  This actually happens on button
 release (to be able to distinguish a click from a drag action).
 
@@ -410,18 +410,18 @@ Mouse mapping with modifiers does not work for modeless selection.
 
 3.7 Drag and drop						*drag-n-drop*
 
-You can drag and drop one or more files into the Vim window, where they will
+You can drag and drop one or more files into the uVim window, where they will
 be opened as if a |:drop| command was used.
 
-If you hold down Shift while doing this, Vim changes to the first dropped
-file's directory.  If you hold Ctrl Vim will always split a new window for the
+If you hold down Shift while doing this, uVim changes to the first dropped
+file's directory.  If you hold Ctrl uVim will always split a new window for the
 file.  Otherwise it's only done if the current buffer has been changed.
 
-You can also drop a directory on Vim.  This starts the explorer plugin for
+You can also drop a directory on uVim.  This starts the explorer plugin for
 that directory (assuming it was enabled, otherwise you'll get an error
 message).  Keep Shift pressed to change to the directory instead.
 
-If Vim happens to be editing a command line, the names of the dropped files
+If uVim happens to be editing a command line, the names of the dropped files
 and directories will be inserted at the cursor.  This allows you to use these
 names with any Ex command.  Special characters (space, tab, double quote and
 '|'; backslash on non-MS-Windows systems) will be escaped.
@@ -431,9 +431,9 @@ names with any Ex command.  Special characters (space, tab, double quote and
 
 							*quotestar*
 You may make selections with the mouse (see |gui-mouse-select|), or by using
-Vim's Visual mode (see |v|).  If 'a' is present in 'guioptions', then
+uVim's Visual mode (see |v|).  If 'a' is present in 'guioptions', then
 whenever a selection is started (Visual or Select mode), or when the selection
-is changed, Vim becomes the owner of the windowing system's primary selection
+is changed, uVim becomes the owner of the windowing system's primary selection
 (on MS-Windows the |gui-clipboard| is used; under X11, the |x11-selection| is
 used - you should read whichever of these is appropriate now).
 
@@ -457,7 +457,7 @@ selection (contents of the clipboard): >
 When using this register under X11, also see |x11-selection|.  This also
 explains the related "+ register.
 
-Note that when pasting text from one Vim into another separate Vim, the type
+Note that when pasting text from one uVim into another separate uVim, the type
 of selection (character, line, or block) will also be copied.  For other
 applications the type is always character.  However, if the text gets
 transferred via the |x11-cut-buffer|, the selection type is ALWAYS lost.
@@ -476,7 +476,7 @@ For an introduction see |usr_42.txt| in the user manual.
 
 Basically, menus can be used just like mappings.  You can define your own
 menus, as many as you like.
-Long-time Vim users won't use menus much.  But the power is in adding your own
+Long-time uVim users won't use menus much.  But the power is in adding your own
 menus and menu items.  They are most useful for things that you can't remember
 what the key sequence was.
 
@@ -516,8 +516,8 @@ This does require the |+menu| feature enabled at compile time.
 							*tear-off-menus*
 GTK+ 2 and Motif support Tear-off menus.  These are sort of sticky menus or
 pop-up menus that are present all the time.  If the resizing does not work
-correctly, this may be caused by using something like "Vim*geometry" in the
-defaults.  Use "Vim.geometry" instead.
+correctly, this may be caused by using something like "uVim*geometry" in the
+defaults.  Use "uVim.geometry" instead.
 
 As to GTK+ 3, tear-off menus have been deprecated since GTK+ 3.4.
 Accordingly, they are disabled if gvim is linked against GTK+ 3.4 or later.
@@ -705,7 +705,7 @@ an image, text or both.
 
 							*toolbar-icon*
 The toolbar is defined as a special menu called ToolBar, which only has one
-level.  Vim interprets the items in this menu as follows:
+level.  uVim interprets the items in this menu as follows:
 1)  If an "icon=" argument was specified, the file with this name is used.
     The file can either be specified with the full path or with the base name.
     In the last case it is searched for in the "bitmaps" directory in
@@ -719,7 +719,7 @@ level.  Vim interprets the items in this menu as follows:
     A menu priority must come _after_ the icon argument: >
 	:amenu icon=foo 1.42 ToolBar.Foo :echo "42!"<CR>
 2)  An item called 'BuiltIn##', where ## is a number, is taken as number ## of
-    the built-in bitmaps available in Vim.  Currently there are 31 numbered
+    the built-in bitmaps available in uVim.  Currently there are 31 numbered
     from 0 to 30 which cover most common editing operations |builtin-tools|. >
 	:amenu ToolBar.BuiltIn22 :call SearchNext("back")<CR>
 3)  An item with another name is first searched for in the directory
@@ -736,7 +736,7 @@ level.  Vim interprets the items in this menu as follows:
     The light grey pixels will be changed to the Window frame color and the
     dark grey pixels to the window shadow color.  More colors might also work,
     depending on your system.
-4)  If the bitmap is still not found, Vim checks for a match against its list
+4)  If the bitmap is still not found, uVim checks for a match against its list
     of built-in names.  Each built-in button image has a name.
     So the command >
 	:amenu ToolBar.Open :e
@@ -755,13 +755,13 @@ nr  Name		Normal action  ~
 06  Copy		copy selected text to clipboard
 07  Paste		paste text from clipboard
 08  Print		print current buffer
-09  Help		open a buffer on Vim's builtin help
+09  Help		open a buffer on uVim's builtin help
 10  Find		start a search command
 11  SaveAll		write all modified buffers to file
 12  SaveSesn		write session file for current situation
 13  NewSesn		write new session file
 14  LoadSesn		load session file
-15  RunScript		browse for file to run as a Vim script
+15  RunScript		browse for file to run as a uVim script
 16  Replace		prompt for substitute command
 17  WinClose		close current window
 18  WinMax		make current window use many lines
@@ -906,7 +906,7 @@ See section |42.4| in the user manual.
 
 When a tip is defined for a menu item, it appears in the command-line area
 when the mouse is over that item, much like a standard Windows menu hint in
-the status bar.  (Except when Vim is in Command-line mode, when of course
+the status bar.  (Except when uVim is in Command-line mode, when of course
 nothing is displayed.)
 When a tip is defined for a ToolBar item, it appears as a tooltip when the
 mouse pauses over that button, in the usual fashion.  Use the |hl-Tooltip|
@@ -927,7 +927,7 @@ The ":tmenu" command works just like other menu commands, it uses the same
 arguments.  ":tunmenu" deletes an existing menu tip, in the same way as the
 other unmenu commands.
 
-If a menu item becomes invalid (i.e. its actions in all modes are deleted) Vim
+If a menu item becomes invalid (i.e. its actions in all modes are deleted) uVim
 deletes the menu tip (and the item) for you.  This means that :aunmenu deletes
 a menu item - you don't need to do a :tunmenu as well.
 
@@ -979,7 +979,7 @@ This section describes other features which are related to the GUI.
 - In the GUI, several normal keys may have modifiers in mappings etc, these
   are <Space>, <Tab>, <NL>, <CR>, <Esc>.
 
-- To check in a Vim script if the GUI is being used, you can use something
+- To check in a uVim script if the GUI is being used, you can use something
   like this: >
 
 	if has("gui_running")

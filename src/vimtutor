@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# Start Vim on a copy of the tutor file.
+# Start uVim on a copy of the tutor file.
 
 # Usage: vimtutor [-g] [xx]
 # Where optional argument -g starts vimtutor in gvim (GUI) instead of vim.
@@ -9,13 +9,13 @@
 # When this fails or no argument was given, it tries using 'v:lang'
 # When that also fails, it uses the English version.
 
-# Vim could be called "vim" or "vi".  Also check for "vimN", for people who
-# have Vim installed with its version number.
-# We anticipate up to a future Vim 8 version :-).
+# uVim could be called "vim" or "vi".  Also check for "vimN", for people who
+# have uVim installed with its version number.
+# We anticipate up to a future uVim 8 version :-).
 seq="vim vim8 vim75 vim74 vim73 vim72 vim71 vim70 vim7 vim6 vi"
 if test "$1" = "-g"; then 
-  # Try to use the GUI version of Vim if possible, it will fall back
-  # on Vim if Gvim is not installed.
+  # Try to use the GUI version of uVim if possible, it will fall back
+  # on uVim if Gvim is not installed.
   seq="gvim gvim8 gvim75 gvim74 gvim73 gvim72 gvim71 gvim70 gvim7 gvim6 $seq"
   shift
 fi
@@ -60,14 +60,14 @@ for i in $seq; do
 	fi
 done
 
-# When no Vim version was found fall back to "vim", you'll get an error message
+# When no uVim version was found fall back to "vim", you'll get an error message
 # below.
 if test -z "$VIM"; then
 	VIM=vim
 fi
 
-# Use Vim to copy the tutor, it knows the value of $VIMRUNTIME
-# The script tutor.vim tells Vim which file to copy
+# Use uVim to copy the tutor, it knows the value of $VIMRUNTIME
+# The script tutor.vim tells uVim which file to copy
 $VIM -f -u NONE -c 'so $VIMRUNTIME/tutor/tutor.vim'
 
 # Start vim without any .vimrc, set 'nocompatible'

@@ -1,9 +1,9 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
  */
 
 /*
@@ -623,7 +623,7 @@ EXTERN int	ru_wid;		/* 'rulerfmt' width of ruler when non-zero */
 EXTERN int	sc_col;		/* column for shown command */
 
 #ifdef TEMPDIRNAMES
-EXTERN char_u	*vim_tempdir INIT(= NULL); /* Name of Vim's own temp dir.
+EXTERN char_u	*vim_tempdir INIT(= NULL); /* Name of uVim's own temp dir.
 					      Ends in a slash. */
 #endif
 
@@ -635,7 +635,7 @@ EXTERN int	starting INIT(= NO_SCREEN);
 				/* first NO_SCREEN, then NO_BUFFERS and then
 				 * set to 0 when starting up finished */
 EXTERN int	exiting INIT(= FALSE);
-				/* TRUE when planning to exit Vim.  Might
+				/* TRUE when planning to exit uVim.  Might
 				 * still keep on running if there is a changed
 				 * buffer. */
 EXTERN int	really_exiting INIT(= FALSE);
@@ -918,7 +918,7 @@ EXTERN char_u		composing_hangul_buffer[5];
 #endif
 
 /*
- * "State" is the main state of Vim.
+ * "State" is the main state of uVim.
  * There are other variables that modify the state:
  * "Visual_mode"    When State is NORMAL or INSERT.
  * "finish_op"	    When State is NORMAL, after typing the operator and before

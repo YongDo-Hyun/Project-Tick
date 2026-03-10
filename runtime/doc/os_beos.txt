@@ -1,19 +1,19 @@
-*os_beos.txt*	For Vim version 7.4.  Last change: 2016 Mar 28
+*os_beos.txt*	For uVim version 7.4.  Last change: 2016 Mar 28
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
 
 
 							*BeOS* *BeBox*
-This is a port of Vim 5.1 to the BeOS Preview Release 2 (also known as PR2)
+This is a port of uVim 5.1 to the BeOS Preview Release 2 (also known as PR2)
 or later.
 
-This file contains the particularities for the BeBox/BeOS version of Vim.  For
-matters not discussed in this file, Vim behaves very much like the Unix
+This file contains the particularities for the BeBox/BeOS version of uVim.  For
+matters not discussed in this file, uVim behaves very much like the Unix
 |os_unix.txt| version.
 
  1. General			|beos-general|
- 2. Compiling Vim		|beos-compiling|
+ 2. Compiling uVim		|beos-compiling|
  3. Timeout in the Terminal	|beos-timeout|
  4. Unicode vs. Latin1		|beos-unicode|
  5. The BeOS GUI		|beos-gui|
@@ -45,9 +45,9 @@ the escape character): >
   :endif
 
 
-2. Compiling Vim					*beos-compiling*
+2. Compiling uVim					*beos-compiling*
 
-From the Advanced Access Preview Release (AAPR) on, Vim can be configured with
+From the Advanced Access Preview Release (AAPR) on, uVim can be configured with
 the standard configure script.  To get the compiler and its flags right, use
 the following command-line in the shell (you can cut and paste it in one go):
 
@@ -76,17 +76,17 @@ Also, create a dummy file "strip":
     mimeset $1
     exit 0
 
-You will need it when using "make install" to install Vim.
+You will need it when using "make install" to install uVim.
 
-Now type "make" to compile Vim, then "make install" to install it.
+Now type "make" to compile uVim, then "make install" to install it.
 
-If you want to install Vim by hand, you must copy Vim to $HOME/config/bin, and
+If you want to install uVim by hand, you must copy uVim to $HOME/config/bin, and
 create a bunch of symlinks to it ({g,r,rg}{vim,ex,view}).  Furthermore you must
-copy Vim's configuration files to $HOME/config/share/vim:
+copy uVim's configuration files to $HOME/config/share/vim:
 vim-5.0s/{*.vim,doc,syntax}.  For completeness, you should also copy the nroff
 manual pages to $HOME/config/man/man1.  Don't forget ctags/ctags and xxd/xxd!
 
-Obviously, you need the unlimited linker to actually link Vim.  See
+Obviously, you need the unlimited linker to actually link uVim.  See
 http://www.metrowerks.com for purchasing the CodeWarrior compiler for BeOS.
 There are currently no other linkers that can do the job.
 
@@ -103,7 +103,7 @@ use :mappings of more than one character, unless you also :set notimeout.
 
 To circumvent this problem, I added a workaround to provide the necessary
 input with timeout by using an extra thread which reads ahead one character.
-As a side effect, it also makes Vim recognize when the Terminal window
+As a side effect, it also makes uVim recognize when the Terminal window
 resizes.
 
 Function keys are not supported in the Terminal since they produce very
@@ -119,7 +119,7 @@ least and still has not been fixed as of PR2.
 4. Unicode vs. Latin1					*beos-utf8*
 
 BeOS uses Unicode and UTF-8 for text strings (16-bit characters encoded to
-8-bit characters).  Vim assumes ISO-Latin1 or other 8-bit character codes.
+8-bit characters).  uVim assumes ISO-Latin1 or other 8-bit character codes.
 This does not produce the desired results for non-ASCII characters.  Try the
 command :digraphs to see.  If they look messed up, use :set isprint=@ to
 (slightly) improve the display of ISO-Latin1 characters 128-255.  This works
@@ -132,7 +132,7 @@ You may also use the /boot/bin/xtou command to convert UTF-8 files from (xtou
 5. The BeOS GUI						*beos-gui*
 
 The BeOS GUI is no longer included.  It was not maintained for a while and
-most likely didn't work.  If you want to work on this: get the Vim 6.x version
+most likely didn't work.  If you want to work on this: get the uVim 6.x version
 and merge it back in.
 
 
@@ -155,22 +155,22 @@ set the VIM environment variable to override this, or set 'helpfile' in your
 
 7. Drag & Drop						*beos-dragndrop*
 
-You can drop files and directories on either the Vim icon (starts a new Vim
-session, unless you use the File Types application to set Vim to be "Single
-Launch") or on the Vim window (starts editing the files).  Dropping a folder
-sets Vim's current working directory. |:cd| |:pwd| If you drop files or
-folders with either SHIFT key pressed, Vim changes directory to the folder
-that contains the first item dropped.  When starting Vim, there is no need to
-press shift: Vim behaves as if you do.
+You can drop files and directories on either the uVim icon (starts a new uVim
+session, unless you use the File Types application to set uVim to be "Single
+Launch") or on the uVim window (starts editing the files).  Dropping a folder
+sets uVim's current working directory. |:cd| |:pwd| If you drop files or
+folders with either SHIFT key pressed, uVim changes directory to the folder
+that contains the first item dropped.  When starting uVim, there is no need to
+press shift: uVim behaves as if you do.
 
 Files dropped set the current argument list. |argument-list|
 
 
 8. Single Launch vs. Multiple Launch			*beos-launch*
 
-As distributed Vim's Application Flags (as seen in the FileTypes preference)
+As distributed uVim's Application Flags (as seen in the FileTypes preference)
 are set to Multiple Launch.  If you prefer, you can set them to Single Launch
-instead.  Attempts to start a second copy of Vim will cause the first Vim to
+instead.  Attempts to start a second copy of uVim will cause the first uVim to
 open the files instead.  This works from the Tracker but also from the command
 line.  In the latter case, non-file (option) arguments are not supported.
 
@@ -188,11 +188,11 @@ where the first part is the font family, the second part the style, and the
 third part the size.  You can use underscores instead of spaces in family and
 style.
 
-Best results are obtained with monospaced fonts (such as Courier).  Vim
+Best results are obtained with monospaced fonts (such as Courier).  uVim
 attempts to use all fonts in B_FIXED_SPACING mode but apparently this does not
 work for proportional fonts (despite what the BeBook says).
 
-Vim also tries to use the B_ISO8859_1 encoding, also known as ISO Latin 1.
+uVim also tries to use the B_ISO8859_1 encoding, also known as ISO Latin 1.
 This also does not work for all fonts.  It does work for Courier, but not for
 ProFontISOLatin1/Regular (strangely enough).  You can verify this by giving the >
 
@@ -239,9 +239,9 @@ because the ALT (aka COMMAND) keys are not passed to applications.
 
 11. Mouse key mappings					*beos-mouse*
 
-Vim calls the various mouse buttons LeftMouse, MiddleMouse and RightMouse.  If
+uVim calls the various mouse buttons LeftMouse, MiddleMouse and RightMouse.  If
 you use the default Mouse preference settings these names indeed correspond to
-reality.  Vim uses this mapping:
+reality.  uVim uses this mapping:
 
     Button 1 -> LeftMouse,
     Button 2 -> RightMouse,
@@ -255,7 +255,7 @@ $VIMRUNTIME/pack/dist/opt/swapmouse/plugin/swapmouse.vim
 
 12. Color names						*beos-colors*
 
-Vim has a number of color names built-in.  Additional names are read from the
+uVim has a number of color names built-in.  Additional names are read from the
 file $VIMRUNTIME/rgb.txt, if present.  This file is basically the color
 database from X.  Names used from this file are cached for efficiency.
 
@@ -264,7 +264,7 @@ database from X.  Names used from this file are cached for efficiency.
 
 Compiling with Perl support enabled is slightly tricky.  The Metrowerks
 compiler has some strange ideas where to search for include files.  Since
-several include files with Perl have the same names as some Vim header
+several include files with Perl have the same names as some uVim header
 files, the wrong ones get included.  To fix this, run the following Perl
 script while in the vim-5.0/src directory: >
 
@@ -306,9 +306,9 @@ script while in the vim-5.0/src directory: >
 
 It expands the "perl.h" header file, using only other Perl header files.
 
-Now you can configure & make Vim with the --enable-perlinterp option.
-Be warned though that this adds about 616 kilobytes to the size of Vim!
-Without Perl, Vim with default features and GUI is about 575K, with Perl
+Now you can configure & make uVim with the --enable-perlinterp option.
+Be warned though that this adds about 616 kilobytes to the size of uVim!
+Without Perl, uVim with default features and GUI is about 575K, with Perl
 it is about 1191K.
 
 -Olaf Seibert

@@ -1,5 +1,5 @@
 @echo off
-:: Batch file for building/testing Vim on AppVeyor
+:: Batch file for building/testing uVim on AppVeyor
 
 setlocal ENABLEDELAYEDEXPANSION
 cd %APPVEYOR_BUILD_FOLDER%

@@ -1,9 +1,9 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
  */
 
 #ifndef VIM__H
@@ -1324,10 +1324,10 @@ enum auto_event
     EVENT_TERMCHANGED,		/* after changing 'term' */
     EVENT_TERMRESPONSE,		/* after setting "v:termresponse" */
     EVENT_USER,			/* user defined autocommand */
-    EVENT_VIMENTER,		/* after starting Vim */
-    EVENT_VIMLEAVE,		/* before exiting Vim */
-    EVENT_VIMLEAVEPRE,		/* before exiting Vim and writing .viminfo */
-    EVENT_VIMRESIZED,		/* after Vim window was resized */
+    EVENT_VIMENTER,		/* after starting uVim */
+    EVENT_VIMLEAVE,		/* before exiting uVim */
+    EVENT_VIMLEAVEPRE,		/* before exiting uVim and writing .viminfo */
+    EVENT_VIMRESIZED,		/* after uVim window was resized */
     EVENT_WINENTER,		/* after entering a window */
     EVENT_WINLEAVE,		/* before leaving a window */
     EVENT_WINNEW,		/* when entering a new window */
@@ -1338,8 +1338,8 @@ enum auto_event
     EVENT_FUNCUNDEFINED,	/* if calling a function which doesn't exist */
     EVENT_REMOTEREPLY,		/* upon string reception from a remote vim */
     EVENT_SWAPEXISTS,		/* found existing swap file */
-    EVENT_SOURCEPRE,		/* before sourcing a Vim script */
-    EVENT_SOURCECMD,		/* sourcing a Vim script using command */
+    EVENT_SOURCEPRE,		/* before sourcing a uVim script */
+    EVENT_SOURCECMD,		/* sourcing a uVim script using command */
     EVENT_SPELLFILEMISSING,	/* spell file missing */
     EVENT_CURSORMOVED,		/* cursor was moved */
     EVENT_CURSORMOVEDI,		/* cursor was moved in Insert mode */
@@ -1922,7 +1922,7 @@ typedef int sock_T;
 #define VALID_PATH		1
 #define VALID_HEAD		2
 
-/* Defines for Vim variables.  These must match vimvars[] in eval.c! */
+/* Defines for uVim variables.  These must match vimvars[] in eval.c! */
 #define VV_COUNT	0
 #define VV_COUNT1	1
 #define VV_PREVCOUNT	2
@@ -2026,8 +2026,8 @@ typedef int sock_T;
 
 #ifdef FEAT_CLIPBOARD
 
-/* VIM_ATOM_NAME is the older Vim-specific selection type for X11.  Still
- * supported for when a mix of Vim versions is used. VIMENC_ATOM_NAME includes
+/* VIM_ATOM_NAME is the older uVim-specific selection type for X11.  Still
+ * supported for when a mix of uVim versions is used. VIMENC_ATOM_NAME includes
  * the encoding to support Vims using different 'encoding' values. */
 # define VIM_ATOM_NAME "_VIM_TEXT"
 # define VIMENC_ATOM_NAME "_VIMENC_TEXT"
@@ -2076,8 +2076,8 @@ typedef struct VimClipboard
 # endif
 
 # if defined(MSWIN) || defined(FEAT_CYGWIN_WIN32_CLIPBOARD)
-    int_u	format;		/* Vim's own special clipboard format */
-    int_u	format_raw;	/* Vim's raw text clipboard format */
+    int_u	format;		/* uVim's own special clipboard format */
+    int_u	format_raw;	/* uVim's raw text clipboard format */
 # endif
 } VimClipboard;
 #else
@@ -2162,13 +2162,13 @@ typedef enum
 #ifdef FEAT_BROWSE
 # ifdef BACKSLASH_IN_FILENAME
 #  define BROWSE_FILTER_MACROS \
-	(char_u *)"Vim macro files (*.vim)\t*.vim\nAll Files (*.*)\t*.*\n"
+	(char_u *)"uVim macro files (*.vim)\t*.vim\nAll Files (*.*)\t*.*\n"
 #  define BROWSE_FILTER_ALL_FILES (char_u *)"All Files (*.*)\t*.*\n"
 #  define BROWSE_FILTER_DEFAULT \
 	(char_u *)"All Files (*.*)\t*.*\nC source (*.c, *.h)\t*.c;*.h\nC++ source (*.cpp, *.hpp)\t*.cpp;*.hpp\nVB code (*.bas, *.frm)\t*.bas;*.frm\nVim files (*.vim, _vimrc, _gvimrc)\t*.vim;_vimrc;_gvimrc\n"
 # else
 #  define BROWSE_FILTER_MACROS \
-	(char_u *)"Vim macro files (*.vim)\t*.vim\nAll Files (*)\t*\n"
+	(char_u *)"uVim macro files (*.vim)\t*.vim\nAll Files (*)\t*\n"
 #  define BROWSE_FILTER_ALL_FILES (char_u *)"All Files (*)\t*\n"
 #  define BROWSE_FILTER_DEFAULT \
 	(char_u *)"All Files (*)\t*\nC source (*.c, *.h)\t*.c;*.h\nC++ source (*.cpp, *.hpp)\t*.cpp;*.hpp\nVim files (*.vim, _vimrc, _gvimrc)\t*.vim;_vimrc;_gvimrc\n"
@@ -2321,7 +2321,7 @@ typedef enum
 
 #ifdef IN_PERL_FILE
   /*
-   * Avoid clashes between Perl and Vim namespace.
+   * Avoid clashes between Perl and uVim namespace.
    */
 # undef NORMAL
 # undef STRLEN

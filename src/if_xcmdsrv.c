@@ -1,11 +1,11 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  * X command server by Flemming Madsen
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  *
  * if_xcmdsrv.c: Functions for passing commands through an X11 display.
  *
@@ -23,10 +23,10 @@
 
 /*
  * This file provides procedures that implement the command server
- * functionality of Vim when in contact with an X11 server.
+ * functionality of uVim when in contact with an X11 server.
  *
  * Adapted from TCL/TK's send command  in tkSend.c of the tk 3.6 distribution.
- * Adapted for use in Vim by Flemming Madsen. Protocol changed to that of tk 4
+ * Adapted for use in uVim by Flemming Madsen. Protocol changed to that of tk 4
  */
 
 /*
@@ -58,7 +58,7 @@
  * sent commands.  The information in the structure is used to
  * process the result when it arrives.  You're probably wondering
  * how there could ever be multiple outstanding sent commands.
- * This could happen if Vim instances invoke each other recursively.
+ * This could happen if uVim instances invoke each other recursively.
  * It's unlikely, but possible.
  */
 
@@ -145,7 +145,7 @@ static PendingCommand *pendingCommands = NULL;
  *
  * -i errorInfo
  * -e errorCode
- *	Not applicable for Vim
+ *	Not applicable for uVim
  *
  * Options may appear in any order, and only the -s option must be
  * present.  As with commands, there may be additional options besides
@@ -210,7 +210,7 @@ static int	got_x_error = FALSE;
 static char_u	*empty_prop = (char_u *)"";	/* empty GetRegProp() result */
 
 /*
- * Associate an ASCII name with Vim.  Try real hard to get a unique one.
+ * Associate an ASCII name with uVim.  Try real hard to get a unique one.
  * Returns FAIL or OK.
  */
     int
@@ -338,7 +338,7 @@ serverChangeRegisteredWindow(
 
     commWindow = newwin;
 
-    /* Always call SendInit() here, to make sure commWindow is marked as a Vim
+    /* Always call SendInit() here, to make sure commWindow is marked as a uVim
      * window. */
     if (SendInit(dpy) < 0)
 	return;
@@ -362,7 +362,7 @@ serverChangeRegisteredWindow(
 #endif
 
 /*
- * Send to an instance of Vim via the X display.
+ * Send to an instance of uVim via the X display.
  * Returns 0 for OK, negative for an error.
  */
     int
@@ -540,7 +540,7 @@ WaitForPend(void *p)
 }
 
 /*
- * Return TRUE if window "w" exists and has a "Vim" property on it.
+ * Return TRUE if window "w" exists and has a "uVim" property on it.
  */
     static int
 WindowValid(Display *dpy, Window w)
@@ -616,7 +616,7 @@ ServerWait(
 	if (seconds >= 0 && (now - start) >= seconds)
 	    break;
 
-	/* Just look out for the answer without calling back into Vim */
+	/* Just look out for the answer without calling back into uVim */
 	if (localLoop)
 	{
 #ifndef HAVE_SELECT
@@ -639,7 +639,7 @@ ServerWait(
 
 
 /*
- * Fetch a list of all the Vim instance names currently registered for the
+ * Fetch a list of all the uVim instance names currently registered for the
  * display.
  *
  * Returns a newline separated list in allocated memory or NULL.
@@ -882,7 +882,7 @@ SendInit(Display *dpy)
     if (commProperty == None)
 	commProperty = XInternAtom(dpy, "Comm", False);
     if (vimProperty == None)
-	vimProperty = XInternAtom(dpy, "Vim", False);
+	vimProperty = XInternAtom(dpy, "uVim", False);
     if (registryProperty == None)
 	registryProperty = XInternAtom(dpy, "VimRegistry", False);
 

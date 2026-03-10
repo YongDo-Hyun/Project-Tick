@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -3659,7 +3659,7 @@ ex_source(exarg_T *eap)
     {
 	char_u *fname = NULL;
 
-	fname = do_browse(0, (char_u *)_("Source Vim script"), eap->arg,
+	fname = do_browse(0, (char_u *)_("Source uVim script"), eap->arg,
 				      NULL, NULL, BROWSE_FILTER_MACROS, NULL);
 	if (fname != NULL)
 	{
@@ -3829,6 +3829,10 @@ do_source(
 #ifdef FEAT_PROFILE
     proftime_T		    wait_start;
 #endif
+
+    /* Vimscript support is intentionally removed in this tree. */
+    EMSG(_("E319: Sorry, Vimscript support has been removed"));
+    return FAIL;
 
     p = expand_env_save(fname);
     if (p == NULL)

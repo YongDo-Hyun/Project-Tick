@@ -1,4 +1,4 @@
-*tagsrch.txt*   For Vim version 7.4.  Last change: 2016 Aug 20
+*tagsrch.txt*   For uVim version 7.4.  Last change: 2016 Aug 20
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
@@ -144,7 +144,7 @@ that this doesn't change when using ":pop" or ":tag".
 The line number and file name are remembered to be able to get back to where
 you were before the tag command.  The line number will be correct, also when
 deleting/inserting lines, unless this was done by another program (e.g.
-another instance of Vim).
+another instance of uVim).
 
 For the current file, the "file/text" column shows the text at the position.
 An indent is removed and a long line is truncated to fit in the window.
@@ -287,10 +287,10 @@ g CTRL-]		Like CTRL-], but use ":tjump" instead of ":tag".
 			See |tag-!| for [!].
 			{not in Vi}
 
-When there is no other message, Vim shows which matching tag has been jumped
+When there is no other message, uVim shows which matching tag has been jumped
 to, and the number of matching tags: >
 	tag 1 of 3 or more
-The " or more" is used to indicate that Vim didn't try all the tags files yet.
+The " or more" is used to indicate that uVim didn't try all the tags files yet.
 When using ":tnext" a few times, or with ":tlast", more matches may be found.
 
 When you didn't see this message because of some other message, or you just
@@ -300,7 +300,7 @@ same tag as last time): >
 <
 							*tag-skip-file*
 When a matching tag is found for which the file doesn't exist, this match is
-skipped and the next matching tag is used.  Vim reports this, to notify you of
+skipped and the next matching tag is used.  uVim reports this, to notify you of
 missing files.  When the end of the list of matches has been reached, an error
 message is given.
 
@@ -350,12 +350,12 @@ this could be a static function.
 
 In Vi jumping to a tag sets the current search pattern.  This means that
 the "n" command after jumping to a tag does not search for the same pattern
-that it did before jumping to the tag.  Vim does not do this as we consider it
+that it did before jumping to the tag.  uVim does not do this as we consider it
 to be a bug.  You can still find the tag search pattern in the search history.
 If you really want the old Vi behavior, set the 't' flag in 'cpoptions'.
 
 							*tag-binary-search*
-Vim uses binary searching in the tags file to find the desired tag quickly
+uVim uses binary searching in the tags file to find the desired tag quickly
 (when enabled at compile time |+tag_binary|).  But this only works if the
 tags file was sorted on ASCII byte value.  Therefore, if no match was found,
 another try is done with a linear search.  If you only want the linear search,
@@ -418,7 +418,7 @@ current file  changed	!   option	  action	~
   the changes you can use the ":tag!" command.
 
 							*tag-security*
-Note that Vim forbids some commands, for security reasons.  This works like
+Note that uVim forbids some commands, for security reasons.  This works like
 using the 'secure' option for exrc/vimrc files in the current directory.  See
 |trojan-horse| and |sandbox|.
 When the {tagaddress} changes a buffer, you will get a warning message:
@@ -430,16 +430,16 @@ would otherwise go unnoticed.  Example: >
 {this security prevention is not present in Vi}
 
 In Vi the ":tag" command sets the last search pattern when the tag is searched
-for.  In Vim this is not done, the previous search pattern is still remembered,
+for.  In uVim this is not done, the previous search pattern is still remembered,
 unless the 't' flag is present in 'cpoptions'.  The search pattern is always
 put in the search history, so you can modify it if searching fails.
 
 					*emacs-tags* *emacs_tags* *E430*
-Emacs style tag files are only supported if Vim was compiled with the
+Emacs style tag files are only supported if uVim was compiled with the
 |+emacs_tags| feature enabled.  Sorry, there is no explanation about Emacs tag
 files here, it is only supported for backwards compatibility :-).
 
-Lines in Emacs tags files can be very long.  Vim only deals with lines of up
+Lines in Emacs tags files can be very long.  uVim only deals with lines of up
 to about 510 bytes.  To see whether lines are ignored set 'verbose' to 5 or
 higher.
 
@@ -540,7 +540,7 @@ also works.  The <CR> and <NL> characters can never appear inside a line.
 
 							*tag-old-static*
 The second format is for a static tag only.  It is obsolete now, replaced by
-the third format.  It is only supported by Elvis 1.x and Vim and a few
+the third format.  It is only supported by Elvis 1.x and uVim and a few
 versions of ctags.  A static tag is often used for functions that are local,
 only referenced in the file {tagfile}.  Note that for the static tag, the two
 occurrences of {tagfile} must be exactly the same.  Also see |tags-option|
@@ -585,14 +585,14 @@ only supported by new versions of ctags (such as Exuberant ctags).
 		of the tag.  It is handled like it was preceded with "kind:".
 		See the documentation of ctags for the kinds it produces.
 
-		The only other field currently recognized by Vim is "file:"
+		The only other field currently recognized by uVim is "file:"
 		(with an empty value).  It is used for a static tag.
 
 The first lines in the tags file can contain lines that start with
 	!_TAG_
 These are sorted to the first lines, only rare tags that start with "!" can
-sort to before them.  Vim recognizes two items.  The first one is the line
-that indicates if the file was sorted.  When this line is found, Vim uses
+sort to before them.  uVim recognizes two items.  The first one is the line
+that indicates if the file was sorted.  When this line is found, uVim uses
 binary searching for the tags file:
 	!_TAG_FILE_SORTED<Tab>1<Tab>{anything} ~
 
@@ -602,10 +602,10 @@ ignored.  (Case is ignored when 'ignorecase' is set and 'tagcase' is
 The value '2' should be used then:
 	!_TAG_FILE_SORTED<Tab>2<Tab>{anything} ~
 
-The other tag that Vim recognizes, but only when compiled with the
+The other tag that uVim recognizes, but only when compiled with the
 |+multi_byte| feature, is the encoding of the tags file:
 	!_TAG_FILE_ENCODING<Tab>utf-8<Tab>{anything} ~
-Here "utf-8" is the encoding used for the tags.  Vim will then convert the tag
+Here "utf-8" is the encoding used for the tags.  uVim will then convert the tag
 being searched for from 'encoding' to the encoding of the tags file.  And when
 listing tags the reverse happens.  When the conversion fails the unconverted
 tag is used.
@@ -676,7 +676,7 @@ The commands that start with "[" start searching from the start of the current
 file.  The commands that start with "]" start at the current cursor position.
 
 The 'include' option is used to define a line that includes another file.  The
-default is "\^#\s*include", which is for C programs.  Note: Vim does not
+default is "\^#\s*include", which is for C programs.  Note: uVim does not
 recognize C syntax, if the 'include' option matches a line inside
 "#ifdef/#endif" or inside a comment, it is searched anyway.  The 'isfname'
 option is used to recognize the file name that comes after the matched

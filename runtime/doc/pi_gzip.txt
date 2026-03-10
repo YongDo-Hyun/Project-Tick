@@ -1,10 +1,10 @@
-*pi_gzip.txt*   For Vim version 7.4.  Last change: 2012 Jul 19
+*pi_gzip.txt*   For uVim version 7.4.  Last change: 2012 Jul 19
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
 
 
-Editing compressed files with Vim		*gzip* *bzip2* *compress*
+Editing compressed files with uVim		*gzip* *bzip2* *compress*
 
 1. Autocommands			|gzip-autocmd|
 

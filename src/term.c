@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 /*
  *
@@ -71,7 +71,7 @@ struct builtin_term
     char	*bt_string;
 };
 
-/* start of keys that are not directly used by Vim but can be mapped */
+/* start of keys that are not directly used by uVim but can be mapped */
 #define BT_EXTRA_KEYS	0x101
 
 static struct builtin_term *find_builtin_term(char_u *name);
@@ -960,7 +960,7 @@ static struct builtin_term builtin_termcaps[] =
 #  else
     {(int)KS_CDL,	"\033[%dM"},
 #  endif
-#if 0	/* The scroll region is not working as Vim expects. */
+#if 0	/* The scroll region is not working as uVim expects. */
 #  ifdef TERMINFO
     {(int)KS_CS,	"\033[%i%p1%d;%p2%dr"},
 #  else
@@ -2923,7 +2923,7 @@ win_new_shellsize(void)
 }
 
 /*
- * Call this function when the Vim shell has been resized in any way.
+ * Call this function when the uVim shell has been resized in any way.
  * Will obtain the current size and redraw (also when size didn't change).
  */
     void
@@ -2958,7 +2958,7 @@ shell_resized_check(void)
 }
 
 /*
- * Set size of the Vim shell.
+ * Set size of the uVim shell.
  * If 'mustset' is TRUE, we must set Rows and Columns, do not get the real
  * window size (this is used for the :win command).
  * If 'mustset' is FALSE, we may try to get the real window size and if
@@ -3440,7 +3440,7 @@ mouse_model_popup(void)
 /*
  * By outputting the 'cursor very visible' termcap code, for some windowed
  * terminals this makes the screen scrolled to the correct position.
- * Used when starting Vim or returning from a shell.
+ * Used when starting uVim or returning from a shell.
  */
     void
 scroll_start(void)
@@ -4163,7 +4163,7 @@ check_termcode(
 		    col = 0;
 
 		/* Eat it when it has 2 arguments and ends in 'R'. Also when
-		 * u7_status is not "sent", it may be from a previous Vim that
+		 * u7_status is not "sent", it may be from a previous uVim that
 		 * just exited.  But not for <S-F3>, it sends something
 		 * similar, check for row and column to make sense. */
 		if (j == 1 && tp[i] == 'R')

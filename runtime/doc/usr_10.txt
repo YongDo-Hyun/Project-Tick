@@ -1,4 +1,4 @@
-*usr_10.txt*	For Vim version 7.4.  Last change: 2006 Nov 05
+*usr_10.txt*	For uVim version 7.4.  Last change: 2006 Nov 05
 
 		     VIM USER MANUAL - by Bram Moolenaar
 
@@ -189,7 +189,7 @@ following: >
 
 	:%s/Professor/Teacher/c
 
-Vim finds the first occurrence of "Professor" and displays the text it is
+uVim finds the first occurrence of "Professor" and displays the text it is
 about to change.  You get the following prompt: >
 
 	replace with Teacher (y/n/a/q/l/^E/^Y)?
@@ -316,7 +316,7 @@ was visually selected.
 	Note:
 	When using Visual mode to select part of a line, or using CTRL-V to
 	select a block of text, the colon commands will still apply to whole
-	lines.  This might change in a future version of Vim.
+	lines.  This might change in a future version of uVim.
 
 The '< and '> are actually marks, placed at the start and end of the Visual
 selection.  The marks remain at their position until another Visual selection
@@ -342,7 +342,7 @@ Now you can type the command you want to use.  It will use the range "."
 ==============================================================================
 *10.4*	The global command
 
-The ":global" command is one of the more powerful features of Vim.  It allows
+The ":global" command is one of the more powerful features of uVim.  It allows
 you to find a match for a pattern and execute a command there.  The general
 form is: >
 
@@ -450,7 +450,7 @@ this result:
 	short XXX ~
 	Any other long line XXX ~
 
-This really requires using the "$" command.  Vim remembers that it was used.
+This really requires using the "$" command.  uVim remembers that it was used.
 Making the same selection by moving the cursor to the end of the longest line
 with other movement commands will not have the same result.
 
@@ -591,7 +591,7 @@ lines are written: >
 	:.,$write tempo
 
 This writes the lines from the cursor until the end of the file into the file
-"tempo".  If this file already exists you will get an error message.  Vim
+"tempo".  If this file already exists you will get an error message.  uVim
 protects you from accidentally overwriting an existing file.  If you know what
 you are doing and want to overwrite the file, append !: >
 
@@ -614,7 +614,7 @@ Now move the cursor to the second line you want to collect, and type this: >
 
 	:.write >>collection
 
-The ">>" tells Vim the "collection" file is not to be written as a new file,
+The ">>" tells uVim the "collection" file is not to be written as a new file,
 but the line must be appended at the end.   You can repeat this as many times
 as you like.
 
@@ -635,8 +635,8 @@ using it.  To check the current value of 'textwidth': >
 
 Now lines will be broken to take only up to 72 characters.  But when you
 insert text halfway a line, or when you delete a few words, the lines will get
-too long or too short.  Vim doesn't automatically reformat the text.
-   To tell Vim to format the current paragraph: >
+too long or too short.  uVim doesn't automatically reformat the text.
+   To tell uVim to format the current paragraph: >
 
 	gqap
 
@@ -692,7 +692,7 @@ lowercase.  This can be shortened to "guu".  "gUgU" is shortened to "gUU" and
 ==============================================================================
 *10.9*	Using an external program
 
-Vim has a very powerful set of commands, it can do anything.  But there may
+uVim has a very powerful set of commands, it can do anything.  But there may
 still be something that an external command can do better or faster.
    The command "!{motion}{program}" takes a block of text and filters it
 through an external program.  In other words, it runs the system command
@@ -705,15 +705,15 @@ output.txt.  (This works on both UNIX and Microsoft Windows.) >
 
 	sort <input.txt >output.txt
 
-Now do the same thing in Vim.  You want to sort lines 1 through 5 of a file.
+Now do the same thing in uVim.  You want to sort lines 1 through 5 of a file.
 You start by putting the cursor on line 1.  Next you execute the following
 command: >
 
 	!5G
 
-The "!" tells Vim that you are performing a filter operation.  The Vim editor
+The "!" tells uVim that you are performing a filter operation.  The uVim editor
 expects a motion command to follow, indicating which part of the file to
-filter.  The "5G" command tells Vim to go to line 5, so it now knows that it
+filter.  The "5G" command tells uVim to go to line 5, so it now knows that it
 is to filter lines 1 (the current line) through 5.
    In anticipation of the filtering, the cursor drops to the bottom of the
 screen and a ! prompt displays.  You can now type in the name of the filter
@@ -738,11 +738,11 @@ line with the output of "date".  This is useful to add a timestamp to a file.
 
 WHEN IT DOESN'T WORK
 
-Starting a shell, sending it text and capturing the output requires that Vim
+Starting a shell, sending it text and capturing the output requires that uVim
 knows how the shell works exactly.  When you have problems with filtering,
 check the values of these options:
 
-	'shell'		specifies the program that Vim uses to execute
+	'shell'		specifies the program that uVim uses to execute
 			external programs.
 	'shellcmdflag'	argument to pass a command to the shell
 	'shellquote'	quote to be used around the command
@@ -753,7 +753,7 @@ check the values of these options:
 	'shellredir'	string used to write the command output into a file
 
 On Unix this is hardly ever a problem, because there are two kinds of shells:
-"sh" like and "csh" like.  Vim checks the 'shell' option and sets related
+"sh" like and "csh" like.  uVim checks the 'shell' option and sets related
 options automatically, depending on whether it sees "csh" somewhere in
 'shell'.
    On MS-Windows, however, there are many different shells and you might have
@@ -772,8 +772,8 @@ on MS-Windows: >
 
 The output of the "ls" or "dir" command is captured and inserted in the text,
 below the cursor.  This is similar to reading a file, except that the "!" is
-used to tell Vim that a command follows.
-   The command may have arguments.  And a range can be used to tell where Vim
+used to tell uVim that a command follows.
+   The command may have arguments.  And a range can be used to tell where uVim
 should put the lines: >
 
 	:0read !date -u
@@ -811,9 +811,9 @@ space is important here!
 REDRAWING THE SCREEN
 
 If the external command produced an error message, the display may have been
-messed up.  Vim is very efficient and only redraws those parts of the screen
+messed up.  uVim is very efficient and only redraws those parts of the screen
 that it knows need redrawing.  But it can't know about what another program
-has written.  To tell Vim to redraw the screen: >
+has written.  To tell uVim to redraw the screen: >
 
 	CTRL-L
 

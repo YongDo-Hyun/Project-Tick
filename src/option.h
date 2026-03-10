@@ -1,9 +1,9 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
  */
 
 /*
@@ -168,7 +168,7 @@
 #define CPO_CHDIR	'.'	/* don't chdir if buffer is modified */
 #define CPO_SCOLON	';'	/* using "," and ";" will skip over char if
 				 * cursor would not move */
-/* default values for Vim, Vi and POSIX */
+/* default values for uVim, Vi and POSIX */
 #define CPO_VIM		"aABceFs"
 #define CPO_VI		"aAbBcCdDeEfFgHiIjJkKlLmMnoOpPqrRsStuvwWxXyZ$!%*-+<>;"
 #define CPO_ALL		"aAbBcCdDeEfFgHiIjJkKlLmMnoOpPqrRsStuvwWxXyZ$!%*-+<>#{|&/\\.;"
@@ -222,7 +222,7 @@
 #define GO_FORG		'f'		/* start GUI in foreground */
 #define GO_GREY		'g'		/* use grey menu items */
 #define GO_HORSCROLL	'h'		/* flexible horizontal scrolling */
-#define GO_ICON		'i'		/* use Vim icon */
+#define GO_ICON		'i'		/* use uVim icon */
 #define GO_LEFT		'l'		/* use left scrollbar */
 #define GO_VLEFT	'L'		/* left scrollbar with vert split */
 #define GO_MENUS	'm'		/* use menu bar */

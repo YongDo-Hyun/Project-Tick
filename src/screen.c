@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -3146,7 +3146,7 @@ win_line(
 
 	/* Get the start of the next line, so that words that wrap to the next
 	 * line are found too: "et<line-break>al.".
-	 * Trick: skip a few chars for C/shell/Vim comments */
+	 * Trick: skip a few chars for C/shell/uVim comments */
 	nextline[SPWORDLEN] = NUL;
 	if (lnum < wp->w_buffer->b_ml.ml_line_count)
 	{
@@ -5026,7 +5026,7 @@ win_line(
 
 #if defined(FEAT_XIM) && defined(FEAT_GUI_GTK)
 	/* XIM don't send preedit_start and preedit_end, but they send
-	 * preedit_changed and commit.  Thus Vim can't set "im_is_active", use
+	 * preedit_changed and commit.  Thus uVim can't set "im_is_active", use
 	 * im_is_preediting() here. */
 	if (xic != NULL
 		&& lnum == wp->w_cursor.lnum
@@ -7745,7 +7745,7 @@ next_search_hl(
 		}
 		shl->rm.regprog = NULL;
 		shl->lnum = 0;
-		got_int = FALSE;  /* avoid the "Type :quit to exit Vim"
+		got_int = FALSE;  /* avoid the "Type :quit to exit uVim"
 				     message */
 		break;
 	    }
@@ -8042,7 +8042,7 @@ screen_stop_highlight(void)
 }
 
 /*
- * Reset the colors for a cterm.  Used when leaving Vim.
+ * Reset the colors for a cterm.  Used when leaving uVim.
  * The machine specific code may override this again.
  */
     void
@@ -10298,7 +10298,7 @@ recording_mode(int attr)
 
 #if defined(FEAT_WINDOWS)
 /*
- * Draw the tab pages line at the top of the Vim window.
+ * Draw the tab pages line at the top of the uVim window.
  */
     static void
 draw_tabline(void)

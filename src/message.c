@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -4019,7 +4019,7 @@ infinity_str(int positive,
  *
  * This code is based on snprintf.c - a portable implementation of snprintf
  * by Mark Martinec <mark.martinec@ijs.si>, Version 2.2, 2000-10-06.
- * Included with permission.  It was heavily modified to fit in Vim.
+ * Included with permission.  It was heavily modified to fit in uVim.
  * The original code, including useful comments, can be found here:
  *	http://www.ijs.si/software/snprintf/
  *

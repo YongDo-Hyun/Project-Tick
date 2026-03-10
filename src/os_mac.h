@@ -1,9 +1,9 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
  */
 
 /* Before Including the MacOS specific files,
@@ -73,7 +73,7 @@
 #define USE_CMD_KEY
 /* On MacOS X use the / not the : */
 /* TODO: Should file such as ~/.vimrc reside instead in
- *       ~/Library/Vim or ~/Library/Preferences/org.vim.vim/ ? (Dany)
+ *       ~/Library/uVim or ~/Library/Preferences/org.vim.vim/ ? (Dany)
  */
 /* When compiled under MacOS X (including CARBON version)
  * we use the Unix File path style.  Also when UNIX is defined. */
@@ -81,7 +81,7 @@
 
 
 /*
- * Generic Vim #define
+ * Generic uVim #define
  */
 
 #define FEAT_SOURCE_FFS
@@ -236,7 +236,7 @@
 #endif
 
 #ifndef DFLT_MAXMEMTOT
-# define DFLT_MAXMEMTOT	2048	/* use up to 2048 Kbyte for Vim */
+# define DFLT_MAXMEMTOT	2048	/* use up to 2048 Kbyte for uVim */
 #endif
 
 #define WILDCHAR_LIST "*?[{`$"

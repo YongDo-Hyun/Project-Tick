@@ -30,7 +30,7 @@ vim \- VI Migliorato, un editor di testi per programmatori
 .B rgvim
 .B rgview
 .SH DESCRIZIONE
-.B Vim
+.B uVim
 Un editore di testi, compatibile con, e migliore di, Vi.
 Può essere usato per editare qualsiasi file di testo.
 Particolarmente utile per editare programmi.
@@ -40,22 +40,22 @@ finestre e buffer multipli, evidenziazione sintattica, possibilità
 di modificare la linea di comando, completamento nomi file, help
 in linea, selezione testi in Modo Visual, etc..
 Vedere ":help vi_diff.txt" per un sommario delle differenze fra
-.B Vim
+.B uVim
 e Vi.
 .PP
 Mentre usate
-.B Vim
+.B uVim
 potete ricevere molto aiuto dal sistema di help online, col comando ":help".
 Vedere qui sotto la sezione AIUTO ONLINE.
 .PP
 Quasi sempre
-.B Vim
+.B uVim
 viene invocato, per modificare un file, col comando
 .PP
 	vim nome_file
 .PP
 Più in generale
-.B Vim
+.B uVim
 viene invocato con:
 .PP
 	vim [opzioni] [lista_file]
@@ -97,7 +97,7 @@ per l'Amiga, "errors.err" su altri sistemi).
 Si può saltare all'errore successivo col comando ":cn".
 Vedere ":help quickfix".
 .PP
-.B Vim
+.B uVim
 si comporta in modo diverso se invocato con nomi differenti (il programma
 eseguibile "sottostante" può essere sempre lo stesso).
 .TP 10
@@ -126,7 +126,7 @@ Si può invocare il Modo Easy anche con l'argomento "\-y".
 rvim rview rgvim rgview
 Come sopra, ma con restrizioni ai comandi.  Non si potranno eseguire comandi
 della shell o sospendere
-.B Vim.
+.B uVim.
 Si può chiedere la stessa cosa anche con l'argomento "\-Z".
 .SH OPZIONI
 Le opzioni possono essere in un ordine qualsiasi, prima o dopo i nomi di
@@ -150,7 +150,7 @@ primo file è stato letto.
 {comando} è interpretato come un comando Ex.
 Se il {comando} contiene spazi deve essere incluso fra doppi apici
 (o altro delimitatore, a seconda della shell che si sta usando).
-Esempio: Vim "+set si" main.c
+Esempio: uVim "+set si" main.c
 .br
 Note: Si possono avere fino a 10 comandi "+" o "\-c".
 .TP
@@ -169,13 +169,13 @@ Si possono usare fino a 10 di questi comandi, indipendentemente dai comandi
 .TP
 \-A
 Se
-.B Vim
+.B uVim
 è stato compilato con supporto Arabic per editare file con orientamento
 destra-sinistra e tastiera con mappatura Araba, questa opzione inizia
-.B Vim
+.B uVim
 in Modo Arabic, cioè impostando 'arabic'.
 Altrimenti viene dato un messaggio di errore e
-.B Vim
+.B uVim
 termina in modo anormale.
 .TP
 \-b
@@ -186,14 +186,14 @@ binario o un programma eseguibile.
 \-C
 Compatibile.  Imposta l'opzione 'compatible'.
 In questo modo
-.B Vim
+.B uVim
 ha quasi lo stesso comportamento di Vi, anche in presenza di un file
-di configurazione .vimrc [proprio di Vim, vi usa .exrc \- Ndt].
+di configurazione .vimrc [proprio di uVim, vi usa .exrc \- Ndt].
 .TP
 \-d
 Inizia in Modo Diff [differenze].
 Dovrebbero esserci come argomenti due o tre o quattro nomi di file.
-.B Vim
+.B uVim
 aprirà tutti i file evidenziando le differenze fra gli stessi.
 Funziona come vimdiff(1).
 .TP
@@ -204,71 +204,71 @@ Esempio:
 "\-d con:20/30/600/150".
 .TP
 \-D
-Debugging.  Vim si mette in Modo "debugging" a partire
+Debugging.  uVim si mette in Modo "debugging" a partire
 dall'esecuzione del primo comando da uno script.
 .TP
 \-e
 Eseguire
-.B Vim
+.B uVim
 in Modo Ex, come se il programma eseguito sia "ex".
 .TP
 \-E
 Eseguire
-.B Vim
+.B uVim
 in Modo Ex migliorato, come se il programma eseguito sia "exim".
 .TP
 \-f
 Direttamente [Foreground].  Per la versione GUI,
-.B Vim
+.B uVim
 non crea [fork] una nuova finestra, indipendente dalla shell di invocazione.
 Per l'Amiga,
-.B Vim
+.B uVim
 non è fatto ripartire per aprire una nuova finestra.
 Opzione da usare quando
-.B Vim
+.B uVim
 è eseguito da un programma che attende la fine della
 sessione di edit (ad es. mail).
 Sull'Amiga i comandi ":sh" e ":!" non sono disponibili.
 .TP
 \-\-nofork
 Direttamente [Foreground].  Per la versione GUI,
-.B Vim
+.B uVim
 non crea [fork] una nuova finestra, indipendente dalla shell di invocazione.
 .TP
 \-F
 Se
-.B Vim
+.B uVim
 è stato compilato con supporto FKMAP per editare file con orientamento
 destra-sinistra e tastiera con mappatura Farsi, questa opzione inizia
-.B Vim
+.B uVim
 in Modo Farsi, cioè impostando 'fkmap' e 'rightleft'.
 Altrimenti viene dato un messaggio di errore e
-.B Vim
+.B uVim
 termina in modo anormale.
 .TP
 \-g
 Se
-.B Vim
+.B uVim
 è stato compilato con supporto GUI, questa opzione chiede di usarla.
-Se Vim è stato compilato senza supporto GUI viene dato un messaggio di errore e
-.B Vim
+Se uVim è stato compilato senza supporto GUI viene dato un messaggio di errore e
+.B uVim
 termina in modo anormale.
 .TP
 \-h
-Un po' di aiuto su opzioni e argomenti che si possono dare invocando Vim.
+Un po' di aiuto su opzioni e argomenti che si possono dare invocando uVim.
 Subito dopo
-.B Vim
+.B uVim
 esce.
 .TP
 \-H
 Se
-.B Vim
+.B uVim
 è stato compilato col supporto RIGHTLEFT per editare file con orientamento
 destra-sinistra e tastiera con mappatura Ebraica, questa opzione inizia
-.B Vim
+.B uVim
 in Modo Ebraico, cioè impostando 'hkmap' e 'rightleft'.
 Altrimenti viene dato un messaggio di errore e
-.B Vim
+.B uVim
 termina in modo anormale.
 .TP
 \-i {viminfo}
@@ -296,7 +296,7 @@ opzioni possono essere abilitate in seguito, permettendo così modifiche.
 \-N
 Modo "Non-compatibile".  Annulla l'opzione 'compatible'.
 Così
-.B Vim
+.B uVim
 va un po' meglio, ma è meno compatibile con Vi, anche in assenza di un
 file .vimrc.
 .TP
@@ -347,16 +347,16 @@ Modo silenzioso.  Solo quando invocato come "Ex" o quando l'opzione
 Lo script file {scriptin} è letto.
 I caratteri nel file sono interpretati come se immessi da voi.
 Lo stesso si può ottenere col comando ":source! {scriptin}".
-Se la fine del file di input viene raggiunta prima che Vim termini,
+Se la fine del file di input viene raggiunta prima che uVim termini,
 l'ulteriore input viene preso dalla tastiera.
 .TP
 \-T {terminale}
 Dice a
-.B Vim
+.B uVim
 quale tipo di terminale state usando.
-Utile solo se il terminale non viene riconosciuto correttamente da Vim.
+Utile solo se il terminale non viene riconosciuto correttamente da uVim.
 Dovrebbe essere un terminale noto a
-.B Vim
+.B uVim
 (internamente) o definito nel file termcap o terminfo.
 .TP
 \-u {vimrc}
@@ -375,21 +375,21 @@ come nome "NONE".
 Vedere ":help gui-init" da vim per ulteriori dettagli.
 .TP
 \-V[N]
-Verboso.  Vim manda messaggi relativi agli script file che esegue
+Verboso.  uVim manda messaggi relativi agli script file che esegue
 e quando legge o scrive un file viminfo.  Il numero opzionale N è il valore
 dell'opzione 'verbose'.
 Il valore predefinito è 10.
 .TP
 \-v
 Inizia
-.B Vim
+.B uVim
 in Modo Vi, come se il programma eseguibile fosse "vi".  Questo ha
-effetto solo quando Vim viene invocato con il nome "ex".
+effetto solo quando uVim viene invocato con il nome "ex".
 .TP
 \-w {scriptout}
 Ogni carattere immesso viene registrato nel file {scriptout},
 finché non uscite da
-.B Vim.
+.B uVim.
 Utile se si vuole creare uno script file da usare con "vim \-s" o
 ":source!".
 Se il file {scriptout} esiste, quel che immettete viene aggiunto in fondo.
@@ -402,20 +402,20 @@ Uso di cifratura nella scrittura dei file.  E' necessario immettere
 una chiave di cifratura.
 .TP
 \-X
-Non connetterti al server X.  Vim parte più rapidamente,
+Non connetterti al server X.  uVim parte più rapidamente,
 ma il titolo della finestra e la clipboard non sono disponibili.
 .TP
 \-y
 Eseguire
-.B Vim
+.B uVim
 in Modo Easy (semplificata), come se l'eseguibile invocato
 sia "evim" o "eview".
 Fa sì che
-.B Vim
+.B uVim
 si comporti come un editor che usa solo il mouse e i caratteri.
 .TP
 \-Z
-Modo ristretto.  Vim si comporta come se invocato con un nome
+Modo ristretto.  uVim si comporta come se invocato con un nome
 che inizia per "r".
 .TP
 \-\-
@@ -427,7 +427,7 @@ Si può usare per editare un file il cui nome inizi per '-'.
 Solo con GUI GTK: Visualizza Window ID su "stdout".
 .TP
 \-\-help
-Vim dà un messaggio ed esce, come con l'argomento "\-h".
+uVim dà un messaggio ed esce, come con l'argomento "\-h".
 .TP
 \-\-literal
 Considera i nomi passati come argomenti letterali, senza espandere
@@ -437,31 +437,31 @@ metacaratteri.  Non necessario in Unix, la shell espande i metacaratteri.
 Non caricare plugin.  Implicito se si specifica \-u NONE.
 .TP
 \-\-remote
-Connettersi a un server Vim e chiedere di editare i file elencati come altri
+Connettersi a un server uVim e chiedere di editare i file elencati come altri
 argomenti.  Se non si trova un server viene dato un messaggio e i file sono
-editati nel Vim corrente.
+editati nel uVim corrente.
 .TP
 \-\-remote\-expr {expr}
-Connettersi a un server Vim, valutare ivi {expr} e stampare il risultato
+Connettersi a un server uVim, valutare ivi {expr} e stampare il risultato
 su "stdout".
 .TP
 \-\-remote\-send {chiavi}
-Connettersi a un server Vim e spedirgli {chiavi}.
+Connettersi a un server uVim e spedirgli {chiavi}.
 .TP
 \-\-remote\-silent
 Come \-\-remote, ma senza avvisare se non si trova un server.
 .TP
 \-\-remote-wait
-Come \-\-remote, ma Vim non termina finché i file non sono stati editati.
+Come \-\-remote, ma uVim non termina finché i file non sono stati editati.
 .TP
 \-\-remote\-wait\-silent
 Come \-\-remote\-wait, ma senza avvisare se non si trova un server.
 .TP
 \-\-serverlist
-Lista i nomi di tutti i server Vim disponibili.
+Lista i nomi di tutti i server uVim disponibili.
 .TP
 \-\-servername {nome}
-Usa {nome} come nome server.  Usato per il Vim corrente, a meno che sia
+Usa {nome} come nome server.  Usato per il uVim corrente, a meno che sia
 usato con l'argomento \-\-remote, nel qual caso indica il server a cui
 connettersi.
 .TP
@@ -470,10 +470,10 @@ Solo con GUI GTK: Usa il meccanismo GtkPlug per eseguire gvim in un'altra
 finestra.
 .TP
 \-\-version
-Stampa la versione di Vim ed esci.
+Stampa la versione di uVim ed esci.
 .SH AIUTO ONLINE
 Battere ":help" in
-.B Vim
+.B uVim
 per iniziare.
 Battere ":help argomento" per ricevere aiuto su uno specifico argomento.
 Per esempio: ":help ZZ" per ricevere aiuto sul comando "ZZ".
@@ -487,7 +487,7 @@ Tutti i file di documentazione possono essere navigati così.  Ad es.:
 .TP 15
 /usr/local/lib/vim/doc/*.txt
 I file di documentazione di
-.B Vim
+.B uVim
 .
 Usate ":help doc\-file\-list" per avere la lista completa.
 .TP
@@ -502,12 +502,12 @@ File di colorazione sintattica per vari linguaggi.
 .TP
 /usr/local/lib/vim/vimrc
 Inizializzazioni
-.B Vim
+.B uVim
 a livello di sistema.
 .TP
 ~/.vimrc
 Le vostre personali inizializzazioni di
-.B Vim
+.B uVim
 .
 .TP
 /usr/local/lib/vim/gvimrc
@@ -517,39 +517,39 @@ Inizializzazioni gvim a livello di sistema.
 Le vostre personali inizializzazioni di gvim.
 .TP
 /usr/local/lib/vim/optwin.vim
-Script Vim usato dal comando ":options", un modo semplice
+Script uVim usato dal comando ":options", un modo semplice
 per visualizzare e impostare opzioni.
 .TP
 /usr/local/lib/vim/menu.vim
 Inizializzazioni del menù gvim a livello di sistema.
 .TP
 /usr/local/lib/vim/bugreport.vim
-Script Vim per generare una segnalazione di errore.  Vedere ":help bugs".
+Script uVim per generare una segnalazione di errore.  Vedere ":help bugs".
 .TP
 /usr/local/lib/vim/filetype.vim
-Script Vim per determinare il tipo di un file a partire dal suo nome.
+Script uVim per determinare il tipo di un file a partire dal suo nome.
 Vedere ":help 'filetype'".
 .TP
 /usr/local/lib/vim/scripts.vim
-Script Vim per determinare il tipo di un file a partire dal suo contenuto.
+Script uVim per determinare il tipo di un file a partire dal suo contenuto.
 Vedere ":help 'filetype'".
 .TP
 /usr/local/lib/vim/print/*.ps
 File usati per stampa PostScript.
 .PP
-Per informazioni aggiornate [in inglese \- NdT] vedere la home page di Vim:
+Per informazioni aggiornate [in inglese \- NdT] vedere la home page di uVim:
 .br
 <URL:http://www.vim.org/>
 .SH VEDERE ANCHE
 vimtutor(1)
 .SH AUTORE
 Buona parte di
-.B Vim
+.B uVim
 è stato scritto da Bram Moolenaar, con molto aiuto da altri.
 Vedere ":help credits" in
-.B Vim.
+.B uVim.
 .br
-.B Vim
+.B uVim
 è basato su Stevie, scritto da: Tim Thompson,
 Tony Andrews e G.R. (Fred) Walter.
 In verità, poco o nulla è rimasto del loro codice originale.
@@ -562,5 +562,5 @@ errori da qualcuno, sono in effetti causati da una riproduzione fin troppo
 fedele del comportamento di Vi.
 Se ritenete che altre cose siano errori "perché Vi si comporta diversamente",
 date prima un'occhiata al file vi_diff.txt
-(o battere :help vi_diff.txt da Vim).
+(o battere :help vi_diff.txt da uVim).
 Date anche un'occhiata alle opzioni 'compatible' e 'cpoptions.

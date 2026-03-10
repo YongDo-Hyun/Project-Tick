@@ -1,14 +1,14 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved		by Bram Moolenaar
+ * VIM - Micro Vi IMproved		by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
  */
 /*
  * feature.h: Defines for optional code and preferences
  *
- * Edit this file to include/exclude parts of Vim, before compiling.
+ * Edit this file to include/exclude parts of uVim, before compiling.
  * The only other file that may be edited is Makefile, it contains machine
  * specific options.
  *
@@ -103,7 +103,7 @@
 #endif
 
 /*
- * +listcmds		Vim commands for the buffer list and the argument
+ * +listcmds		uVim commands for the buffer list and the argument
  *			list.  Without this there is no ":buffer" ":bnext",
  *			":bdel", ":argdelete", etc.
  */
@@ -151,7 +151,7 @@
  *			In insert mode and on the command line you will be
  *			able to use digraphs. The CTRL-K command will work.
  *			Define OLD_DIGRAPHS to get digraphs compatible with
- *			Vim 5.x.  The new ones are from RFC 1345.
+ *			uVim 5.x.  The new ones are from RFC 1345.
  */
 #ifdef FEAT_NORMAL
 # define FEAT_DIGRAPHS
@@ -851,7 +851,7 @@
 
 /*
  * +xterm_save		The t_ti and t_te entries for the builtin xterm will
- *			be set to save the screen when starting Vim and
+ *			be set to save the screen when starting uVim and
  *			restoring it when exiting.
  */
 /* #define FEAT_XTERM_SAVE */
@@ -986,7 +986,7 @@
 #endif
 
 /*
- * RUNTIME_GLOBAL	Directory name for global Vim runtime directory.
+ * RUNTIME_GLOBAL	Directory name for global uVim runtime directory.
  *			Don't define this if the preprocessor can't handle
  *			string concatenation.
  *			Also set by "--with-global-runtime" configure argument.
@@ -994,8 +994,8 @@
 /* #define RUNTIME_GLOBAL "/etc/vim" */
 
 /*
- * MODIFIED_BY		Name of who modified Vim.  Required when distributing
- *			a modified version of Vim.
+ * MODIFIED_BY		Name of who modified uVim.  Required when distributing
+ *			a modified version of uVim.
  *			Also from the "--with-modified-by" configure argument.
  */
 /* #define MODIFIED_BY "John Doe" */
@@ -1218,7 +1218,7 @@
 #endif
 
 /*
- * +GUI_Athena		To compile Vim with or without the GUI (gvim) you have
+ * +GUI_Athena		To compile uVim with or without the GUI (gvim) you have
  * +GUI_Motif		to edit the Makefile.
  */
 

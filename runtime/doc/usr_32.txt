@@ -1,11 +1,11 @@
-*usr_32.txt*	For Vim version 7.4.  Last change: 2010 Jul 20
+*usr_32.txt*	For uVim version 7.4.  Last change: 2010 Jul 20
 
 		     VIM USER MANUAL - by Bram Moolenaar
 
 			      The undo tree
 
 
-Vim provides multi-level undo.  If you undo a few changes and then make a new
+uVim provides multi-level undo.  If you undo a few changes and then make a new
 change you create a branch in the undo tree.  This text is about moving
 through the branches.
 

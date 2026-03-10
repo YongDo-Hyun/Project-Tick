@@ -1,11 +1,11 @@
-*usr_09.txt*	For Vim version 7.4.  Last change: 2006 Apr 24
+*usr_09.txt*	For uVim version 7.4.  Last change: 2006 Apr 24
 
 		     VIM USER MANUAL - by Bram Moolenaar
 
 				Using the GUI
 
 
-Vim works in an ordinary terminal.  GVim can do the same things and a few
+uVim works in an ordinary terminal.  GVim can do the same things and a few
 more.  The GUI offers menus, a toolbar, scrollbars and other items.  This
 chapter is about these extra things that the GUI offers.
 
@@ -27,10 +27,10 @@ these commands should do it: >
 	gvim file.txt
 	vim -g file.txt
 
-If this doesn't work you don't have a version of Vim with GUI support.  You
+If this doesn't work you don't have a version of uVim with GUI support.  You
 will have to install one first.
-   Vim will open a window and display "file.txt" in it.  What the window looks
-like depends on the version of Vim.  It should resemble the following picture
+   uVim will open a window and display "file.txt" in it.  What the window looks
+like depends on the version of uVim.  It should resemble the following picture
 (for as far as this can be shown in ASCII!).
 
 	+----------------------------------------------------+
@@ -58,7 +58,7 @@ perhaps.
 THE WINDOW TITLE
 
 At the very top is the window title.  This is drawn by your window system.
-Vim will set the title to show the name of the current file.  First comes the
+uVim will set the title to show the name of the current file.  First comes the
 name of the file.  Then some special characters and the directory of the file
 in parens.  These special character can be present:
 
@@ -72,7 +72,7 @@ If nothing is shown you have an ordinary, unchanged file.
 
 THE MENUBAR
 
-You know how menus work, right?  Vim has the usual items, plus a few more.
+You know how menus work, right?  uVim has the usual items, plus a few more.
 Browse them to get an idea of what you can use them for.  A relevant submenu
 is Edit/Global Settings.  You will find these entries:
 
@@ -128,7 +128,7 @@ Standards are wonderful.  In Microsoft Windows, you can use the mouse to
 select text in a standard manner.  The X Window system also has a standard
 system for using the mouse.  Unfortunately, these two standards are not the
 same.
-   Fortunately, you can customize Vim.  You can make the behavior of the mouse
+   Fortunately, you can customize uVim.  You can make the behavior of the mouse
 work like an X Window system mouse or a Microsoft Windows mouse.  The following
 command makes the mouse behave like an X Window mouse: >
 
@@ -166,7 +166,7 @@ Right mouse click		display a pop-up menu
 The mouse can be further tuned.  Check out these options if you want to change
 the way how the mouse works:
 
-	'mouse'			in which mode the mouse is used by Vim
+	'mouse'			in which mode the mouse is used by uVim
 	'mousemodel'		what effect a mouse click has
 	'mousetime'		time between clicks for a double-click
 	'mousehide'		hide the mouse while typing
@@ -180,10 +180,10 @@ essential thing to explain about X-windows: There are actually two places to
 exchange text between programs.  MS-Windows doesn't have this.
 
 In X-Windows there is the "current selection".  This is the text that is
-currently highlighted.  In Vim this is the Visual area (this assumes you are
+currently highlighted.  In uVim this is the Visual area (this assumes you are
 using the default option settings).  You can paste this selection in another
 application without any further action.
-   For example, in this text select a few words with the mouse.  Vim will
+   For example, in this text select a few words with the mouse.  uVim will
 switch to Visual mode and highlight the text.  Now start another gVim, without
 a file name argument, so that it displays an empty window.  Click the middle
 mouse button.  The selected text will be inserted.
@@ -248,7 +248,7 @@ from the cursor position until the end of the line to the clipboard: >
 
 	"+y$
 
-Remember, "y" is yank, which is Vim's copy command.
+Remember, "y" is yank, which is uVim's copy command.
    To insert the contents of the real clipboard before the cursor: >
 
 	"+P

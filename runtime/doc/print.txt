@@ -1,4 +1,4 @@
-*print.txt*     For Vim version 7.4.  Last change: 2010 Jul 20
+*print.txt*     For uVim version 7.4.  Last change: 2010 Jul 20
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
@@ -21,7 +21,7 @@ Printing						*printing*
 ==============================================================================
 1. Introduction						*print-intro*
 
-On MS-Windows Vim can print your text on any installed printer.  On other
+On MS-Windows uVim can print your text on any installed printer.  On other
 systems a PostScript file is produced.  This can be directly sent to a
 PostScript printer.  For other printers a program like ghostscript needs to be
 used.
@@ -170,7 +170,7 @@ file.  If you delete the file too soon it will not be printed.  These programs
 usually offer an option to have them remove the file when printing is done.
 							*E365*
 If evaluating the expression fails or it results in a non-zero number, you get
-an error message.  In that case Vim will delete the file.  In the default
+an error message.  In that case uVim will delete the file.  In the default
 value for non-MS-Windows a trick is used: Adding "v:shell_error" will result
 in a non-zero number when the system() call fails.
 
@@ -194,7 +194,7 @@ the font.  When omitted, the point size is 10.
 'printheader' 'pheader'  string  (default "%<%f%h%m%=Page %N")
 			 global
 This defines the format of the header produced in |:hardcopy| output.  The
-option is defined in the same way as the 'statusline' option.  If Vim has not
+option is defined in the same way as the 'statusline' option.  If uVim has not
 been compiled with the |+statusline| feature, this option has no effect and a
 simple default header is used, which shows the page number.  The same simple
 header is used when this option is empty.

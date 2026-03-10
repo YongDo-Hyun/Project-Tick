@@ -5,7 +5,7 @@
 	<dict>
 
 		<key>CFBundleIdentifier</key>
-		<string>org.vim.Vim-APP_VER</string>
+		<string>org.vim.uVim-APP_VER</string>
 		<key>CFBundleInfoDictionaryVersion</key>
 		<string>6.0</string>
 

@@ -1,11 +1,11 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved		by Bram Moolenaar
+ * VIM - Micro Vi IMproved		by Bram Moolenaar
  *				GUI/Motif support by Robert Webb
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 /*
  * Common code for the Motif and Athena GUI.
@@ -55,7 +55,7 @@
 #endif
 
 #define VIM_NAME	"vim"
-#define VIM_CLASS	"Vim"
+#define VIM_CLASS	"uVim"
 
 /* Default resource values */
 #define DFLT_FONT		"7x13"
@@ -1429,7 +1429,7 @@ gui_mch_init(void)
     gui_x11_create_widgets();
 
    /*
-    * Add an icon to Vim (Marcel Douben: 11 May 1998).
+    * Add an icon to uVim (Marcel Douben: 11 May 1998).
     */
     if (vim_strchr(p_go, GO_ICON) != NULL)
     {
@@ -1527,7 +1527,7 @@ gui_mch_init(void)
     }
 
     if (gui.color_approx)
-	EMSG(_("Vim E458: Cannot allocate colormap entry, some colors may be incorrect"));
+	EMSG(_("uVim E458: Cannot allocate colormap entry, some colors may be incorrect"));
 
 #ifdef FEAT_SUN_WORKSHOP
     if (usingSunWorkShop)
@@ -2185,7 +2185,7 @@ check_fontset_sanity(XFontSet fs)
     static int
 fontset_width(XFontSet fs)
 {
- return XmbTextEscapement(fs, "Vim", 3) / 3;
+ return XmbTextEscapement(fs, "uVim", 3) / 3;
 }
 
     int
@@ -2574,7 +2574,7 @@ gui_mch_iconify(void)
 
 #if defined(FEAT_EVAL) || defined(PROTO)
 /*
- * Bring the Vim window to the foreground.
+ * Bring the uVim window to the foreground.
  */
     void
 gui_mch_set_foreground(void)
@@ -2953,7 +2953,7 @@ gui_x11_wm_protocol_handler(
 
     /*
      * The WM_SAVE_YOURSELF event arrives when the window manager wants to
-     * exit.  That can be cancelled though, thus Vim shouldn't exit here.
+     * exit.  That can be cancelled though, thus uVim shouldn't exit here.
      * Just sync our swap files.
      */
     if ((Atom)((XClientMessageEvent *)event)->data.l[0] ==

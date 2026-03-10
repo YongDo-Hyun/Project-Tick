@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -627,7 +627,7 @@ aucmd_abort:
 	if (del_buf)
 	{
 	    /* Free all internal variables and reset option values, to make
-	     * ":bdel" compatible with Vim 5.7. */
+	     * ":bdel" compatible with uVim 5.7. */
 	    free_buffer_stuff(buf, TRUE);
 
 	    /* Make it look like a new buffer. */
@@ -5333,7 +5333,7 @@ chk_modeline(
 	    if ((prev != -1 && STRNCMP(s, "ex:", (size_t)3) == 0)
 		    || STRNCMP(s, "vi:", (size_t)3) == 0)
 		break;
-	    /* Accept both "vim" and "Vim". */
+	    /* Accept both "vim" and "uVim". */
 	    if ((s[0] == 'v' || s[0] == 'V') && s[1] == 'i' && s[2] == 'm')
 	    {
 		if (s[3] == '<' || s[3] == '=' || s[3] == '>')

@@ -8,7 +8,7 @@
  */
 
 /*
- * Modified for Vim by Bill Foster and Bram Moolenaar
+ * Modified for uVim by Bill Foster and Bram Moolenaar
  */
 
 /*

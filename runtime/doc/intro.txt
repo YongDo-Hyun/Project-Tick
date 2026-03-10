@@ -1,13 +1,13 @@
-*intro.txt*     For Vim version 7.4.  Last change: 2015 Jan 20
+*intro.txt*     For uVim version 7.4.  Last change: 2015 Jan 20
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
 
 
-Introduction to Vim					*ref* *reference*
+Introduction to uVim					*ref* *reference*
 
 1. Introduction			|intro|
-2. Vim on the internet		|internet|
+2. uVim on the internet		|internet|
 3. Credits			|credits|
 4. Notation			|notation|
 5. Modes, introduction		|vim-modes-intro|
@@ -18,8 +18,8 @@ Introduction to Vim					*ref* *reference*
 ==============================================================================
 1. Introduction						*intro*
 
-Vim stands for Vi IMproved.  It used to be Vi IMitation, but there are so many
-improvements that a name change was appropriate.  Vim is a text editor which
+uVim stands for Micro Vi IMproved.  It used to be Vi IMitation, but there are so many
+improvements that a name change was appropriate.  uVim is a text editor which
 includes almost all the commands from the Unix program "Vi" and a lot of new
 ones.  It is very useful for editing programs and other plain text.
    All commands are given with the keyboard.  This has the advantage that you
@@ -28,60 +28,59 @@ who want it, there is mouse support and a GUI version with scrollbars and
 menus (see |gui.txt|).
 
 An overview of this manual can be found in the file "help.txt", |help.txt|.
-It can be accessed from within Vim with the <Help> or <F1> key and with the
+It can be accessed from within uVim with the <Help> or <F1> key and with the
 |:help| command (just type ":help", without the bars or quotes).
    The 'helpfile' option can be set to the name of the help file, in case it
 is not located in the default place.  You can jump to subjects like with tags:
 Use CTRL-] to jump to a subject under the cursor, use CTRL-T to jump back.
 
-Throughout this manual the differences between Vi and Vim are mentioned in
+Throughout this manual the differences between Vi and uVim are mentioned in
 curly braces, like this: {Vi does not have on-line help}.  See |vi_diff.txt|
-for a summary of the differences between Vim and Vi.
+for a summary of the differences between uVim and Vi.
 
-This manual refers to Vim on various machines.  There may be small differences
+This manual refers to uVim on various machines.  There may be small differences
 between different computers and terminals.  Besides the remarks given in this
 document, there is a separate document for each supported system, see
 |sys-file-list|.
 
 							*pronounce*
-Vim is pronounced as one word, like Jim, not vi-ai-em.  It's written with a
+uVim is pronounced as one word, like Jim, not vi-ai-em.  It's written with a
 capital, since it's a name, again like Jim.
 
-This manual is a reference for all the Vim commands and options.  This is not
-an introduction to the use of Vi or Vim, it gets a bit complicated here and
-there.  For beginners, there is a hands-on |tutor|.  To learn using Vim, read
+This manual is a reference for all the uVim commands and options.  This is not
+an introduction to the use of Vi or uVim, it gets a bit complicated here and
+there.  For beginners, there is a hands-on |tutor|.  To learn using uVim, read
 the user manual |usr_toc.txt|.
 
 							*book*
 There are many books on Vi that contain a section for beginners.  There are
 two books I can recommend:
 
-	"Vim - Vi Improved" by Steve Oualline
+	"uVim - Vi Improved" by Steve Oualline
 
-This is the very first book completely dedicated to Vim.  It is very good for
+This is the very first book completely dedicated to uVim.  It is very good for
 beginners.  The most often used commands are explained with pictures and
 examples.  The less often used commands are also explained, the more advanced
 features are summarized.  There is a comprehensive index and a quick
 reference.  Parts of this book have been included in the user manual
 |frombook|.
 Published by New Riders Publishing.  ISBN: 0735710015
-For more information try one of these:
-	http://iccf-holland.org/click5.html
-	http://www.vim.org/iccf/click5.html
+For more information see:
+	https://www.vim.org/books.php
 
 	"Learning the Vi editor" by Linda Lamb and Arnold Robbins
 
-This is a book about Vi that includes a chapter on Vim (in the sixth edition).
-The first steps in Vi are explained very well.  The commands that Vim adds are
+This is a book about Vi that includes a chapter on uVim (in the sixth edition).
+The first steps in Vi are explained very well.  The commands that uVim adds are
 only briefly mentioned.  There is also a German translation.
 Published by O'Reilly.  ISBN: 1-56592-426-6.
 
 ==============================================================================
-2. Vim on the internet					*internet*
+2. uVim on the internet					*internet*
 
 			*www* *WWW*  *faq* *FAQ* *distribution* *download*
-The Vim pages contain the most recent information about Vim.  They also
-contain links to the most recent version of Vim.  The FAQ is a list of
+The uVim pages contain the most recent information about uVim.  They also
+contain links to the most recent version of uVim.  The FAQ is a list of
 Frequently Asked Questions.  Read this if you have problems.
 
 	VIM home page:	  http://www.vim.org/
@@ -89,30 +88,30 @@ Frequently Asked Questions.  Read this if you have problems.
 	Downloading:	  ftp://ftp.vim.org/pub/vim/MIRRORS
 
 
-Usenet News group where Vim is discussed:		*news* *usenet*
+Usenet News group where uVim is discussed:		*news* *usenet*
 	comp.editors
-This group is also for other editors.  If you write about Vim, don't forget to
+This group is also for other editors.  If you write about uVim, don't forget to
 mention that.
 
 						*mail-list* *maillist*
-There are several mailing lists for Vim:
+There are several mailing lists for uVim:
 <vim@vim.org>
-	For discussions about using existing versions of Vim: Useful mappings,
+	For discussions about using existing versions of uVim: Useful mappings,
 	questions, answers, where to get a specific version, etc.  There are
 	quite a few people watching this list and answering questions, also
 	for beginners.  Don't hesitate to ask your question here.
 <vim-dev@vim.org>				*vim-dev* *vimdev*
-	For discussions about changing Vim: New features, porting, patches,
+	For discussions about changing uVim: New features, porting, patches,
 	beta-test versions, etc.
 <vim-announce@vim.org>				*vim-announce*
-	Announcements about new versions of Vim; also for beta-test versions
+	Announcements about new versions of uVim; also for beta-test versions
 	and ports to different systems.  This is a read-only list.
 <vim-multibyte@vim.org>				*vim-multibyte*
 	For discussions about using and improving the multi-byte aspects of
-	Vim.
+	uVim.
 <vim-mac@vim.org>				*vim-mac*
 	For discussions about using and improving the Macintosh version of
-	Vim.
+	uVim.
 
 See http://www.vim.org/maillist.php for the latest information.
 
@@ -129,31 +128,31 @@ Make sure that your "From:" address is correct.  Then the list server will
 give you help on how to subscribe.
 
 						*maillist-archive*
-For more information and archives look on the Vim maillist page:
+For more information and archives look on the uVim maillist page:
 http://www.vim.org/maillist.php
 
 
 Bug reports:				*bugs* *bug-reports* *bugreport.vim*
 
-Send bug reports to: Vim Developers <vim-dev@vim.org>
+Send bug reports to: uVim Developers <vim-dev@vim.org>
 This is a maillist, you need to become a member first and many people will see
 the message.  If you don't want that, e.g. because it is a security issue,
-send it to <bugs@vim.org>, this only goes to the Vim maintainer (that's Bram).
+send it to <bugs@vim.org>, this only goes to the uVim maintainer (that's Bram).
 
 Please be brief; all the time that is spent on answering mail is subtracted
-from the time that is spent on improving Vim!  Always give a reproducible
+from the time that is spent on improving uVim!  Always give a reproducible
 example and try to find out which settings or other things influence the
 appearance of the bug.  Try different machines, if possible.  Send me patches
 if you can!
 
-It will help to include information about the version of Vim you are using and
+It will help to include information about the version of uVim you are using and
 your setup.  You can get the information with this command: >
    :so $VIMRUNTIME/bugreport.vim
 This will create a file "bugreport.txt" in the current directory, with a lot
 of information of your environment.  Before sending this out, check if it
 doesn't contain any confidential information!
 
-If Vim crashes, please try to find out where.  You can find help on this here:
+If uVim crashes, please try to find out where.  You can find help on this here:
 |debug.txt|.
 
 In case of doubt or when you wonder if the problem has already been fixed but
@@ -161,8 +160,8 @@ you can't find a fix for it, become a member of the vim-dev maillist and ask
 your question there. |maillist|
 
 							*year-2000* *Y2K*
-Since Vim internally doesn't use dates for editing, there is no year 2000
-problem to worry about.  Vim does use the time in the form of seconds since
+Since uVim internally doesn't use dates for editing, there is no year 2000
+problem to worry about.  uVim does use the time in the form of seconds since
 January 1st 1970.  It is used for a time-stamp check of the edited file and
 the swap file, which is not critical and should only cause warning messages.
 
@@ -172,29 +171,29 @@ Specifically, time_t and the ctime() function are used.  And the time_t is
 stored in four bytes in the swap file.  But that's only used for printing a
 file date/time for recovery, it will never affect normal editing.
 
-The Vim strftime() function directly uses the strftime() system function.
+The uVim strftime() function directly uses the strftime() system function.
 localtime() uses the time() system function.  getftime() uses the time
 returned by the stat() system function.  If your system libraries are year
-2000 compliant, Vim is too.
+2000 compliant, uVim is too.
 
-The user may create scripts for Vim that use external commands.  These might
-introduce Y2K problems, but those are not really part of Vim itself.
+The user may create scripts for uVim that use external commands.  These might
+introduce Y2K problems, but those are not really part of uVim itself.
 
 ==============================================================================
 3. Credits				*credits* *author* *Bram* *Moolenaar*
 
-Most of Vim was written by Bram Moolenaar <Bram@vim.org>.
+Most of uVim was written by Bram Moolenaar <Bram@vim.org>.
 
 Parts of the documentation come from several Vi manuals, written by:
 	W.N. Joy
 	Alan P.W. Hewett
 	Mark Horton
 
-The Vim editor is based on Stevie and includes (ideas from) other software,
+The uVim editor is based on Stevie and includes (ideas from) other software,
 worked on by the people mentioned here.  Other people helped by sending me
-patches, suggestions and giving feedback about what is good and bad in Vim.
+patches, suggestions and giving feedback about what is good and bad in uVim.
 
-Vim would never have become what it is now, without the help of these people!
+uVim would never have become what it is now, without the help of these people!
 
 	Ron Aaron		Win32 GUI changes
 	Mohsin Ahmed		encryption
@@ -214,19 +213,19 @@ Vim would never have become what it is now, without the help of these people!
 	Eric Fischer		Mac port, 'cindent', and other improvements
 	Benji Fisher		Answering lots of user questions
 	Bill Foster		Athena GUI port
-	Google			Lets me work on Vim one day a week
+	Google			Lets me work on uVim one day a week
 	Loic Grenie		xvim (ideas for multi windows version)
-	Sven Guckes		Vim promoter and previous WWW page maintainer
+	Sven Guckes		uVim promoter and previous WWW page maintainer
 	Darren Hiebert		Exuberant ctags
 	Jason Hildebrand	GTK+ 2 port
 	Bruce Hunsaker		improvements for VMS port
 	Andy Kahn		Cscope support, GTK+ GUI port
-	Oezguer Kesim		Maintainer of Vim Mailing Lists
+	Oezguer Kesim		Maintainer of uVim Mailing Lists
 	Axel Kielhorn		work on the Macintosh port
 	Steve Kirkendall	Elvis
 	Roger Knobbe		original port to Windows NT
-	Sergey Laskavy		Vim's help from Moscow
-	Felix von Leitner	Previous maintainer of Vim Mailing Lists
+	Sergey Laskavy		uVim's help from Moscow
+	Felix von Leitner	Previous maintainer of uVim Mailing Lists
 	David Leonard		Port of Python extensions to Unix
 	Avner Lottem		Edit in right-to-left windows
 	Flemming Madsen		X11 client-server, various features and patches
@@ -235,7 +234,7 @@ Vim would never have become what it is now, without the help of these people!
 	Katsuhito Nagano	Work on multi-byte versions
 	Sung-Hyun Nam		Work on multi-byte versions
 	Vince Negri		Win32 GUI and generic console enhancements
-	Steve Oualline		Author of the first Vim book |frombook|
+	Steve Oualline		Author of the first uVim book |frombook|
 	Dominique Pelle		valgrind reports and many fixes
 	A.Politz		Many bug reports and some fixes
 	George V. Reilly	Win32 port, Win32 GUI start-off
@@ -260,8 +259,8 @@ Vim would never have become what it is now, without the help of these people!
 	Stefan 'Sec' Zehl	Maintainer of vim.org
 
 I wish to thank all the people that sent me bug reports and suggestions.  The
-list is too long to mention them all here.  Vim would not be the same without
-the ideas from all these people: They keep Vim alive!
+list is too long to mention them all here.  uVim would not be the same without
+the ideas from all these people: They keep uVim alive!
 *love* *peace* *friendship* *gross-national-happiness*
 
 
@@ -287,7 +286,7 @@ Nvi	The "New" Vi.  The version of Vi that comes with BSD 4.4 and FreeBSD.
 	Source code is freely available.
 							*Elvis*
 Elvis	Another Vi clone, made by Steve Kirkendall.  Very compact but isn't
-	as flexible as Vim.
+	as flexible as uVim.
 	The version used is 2.1.  It is still being developed.  Source code is
 	freely available.
 
@@ -298,7 +297,7 @@ When syntax highlighting is used to read this, text that is not typed
 literally is often highlighted with the Special group.  These are items in [],
 {} and <>, and CTRL-X.
 
-Note that Vim uses all possible characters in commands.  Sometimes the [], {}
+Note that uVim uses all possible characters in commands.  Sometimes the [], {}
 and <> are part of what you type, the context should make this clear.
 
 
@@ -328,7 +327,7 @@ and <> are part of what you type, the context should make this clear.
 							*{}*
 {}		Curly braces denote parts of the command which must appear,
 		but which can take a number of different values.  The
-		differences between Vim and Vi are also given in curly braces
+		differences between uVim and Vi are also given in curly braces
 		(this will be clear from the context).
 
 							*{char1-char2}*
@@ -479,7 +478,7 @@ Note: The keypad keys are used in the same way as the corresponding "normal"
 keys.  For example, <kHome> has the same effect as <Home>.  If a keypad key
 sends the same raw key code as its non-keypad equivalent, it will be
 recognized as the non-keypad code.  For example, when <kHome> sends the same
-code as <Home>, when pressing <kHome> Vim will think <Home> was pressed.
+code as <Home>, when pressing <kHome> uVim will think <Home> was pressed.
 Mapping <kHome> will not work then.
 
 								*<>*
@@ -501,7 +500,7 @@ the ":map" command.  The rules are:
 	   <M-A>		Meta- A  ('A' with bit 8 set)
 	   <t_kd>		"kd" termcap entry (cursor down key)
 
-If you want to use the full <> notation in Vim, you have to make sure the '<'
+If you want to use the full <> notation in uVim, you have to make sure the '<'
 flag is excluded from 'cpoptions' (when 'compatible' is not set, it already is
 by default). >
 	:set cpo-=<
@@ -524,7 +523,7 @@ examples and use them directly.  Or type them literally, including the '<' and
 ==============================================================================
 5. Modes, introduction				*vim-modes-intro* *vim-modes*
 
-Vim has six BASIC modes:
+uVim has six BASIC modes:
 
 					*Normal* *Normal-mode* *command-mode*
 Normal mode		In Normal mode you can enter all the normal editor
@@ -564,7 +563,7 @@ There are six ADDITIONAL modes.  These are variants of the BASIC modes:
 
 				*Operator-pending* *Operator-pending-mode*
 Operator-pending mode	This is like Normal mode, but after an operator
-			command has started, and Vim is waiting for a {motion}
+			command has started, and uVim is waiting for a {motion}
 			to specify the text that the operator will work on.
 
 Replace mode		Replace mode is a special case of Insert mode.  You
@@ -581,21 +580,21 @@ Virtual Replace mode	Virtual Replace mode is similar to Replace mode, but
 			shown at the bottom of the window.
 
 Insert Normal mode	Entered when CTRL-O given in Insert mode.  This is
-			like Normal mode, but after executing one command Vim
+			like Normal mode, but after executing one command uVim
 			returns to Insert mode.
 			If the 'showmode' option is on "-- (insert) --" is
 			shown at the bottom of the window.
 
 Insert Visual mode	Entered when starting a Visual selection from Insert
 			mode, e.g., by using CTRL-O and then "v", "V" or
-			CTRL-V.  When the Visual selection ends, Vim returns
+			CTRL-V.  When the Visual selection ends, uVim returns
 			to Insert mode.
 			If the 'showmode' option is on "-- (insert) VISUAL --"
 			is shown at the bottom of the window.
 
 Insert Select mode	Entered when starting Select mode from Insert mode.
 			E.g., by dragging the mouse or <S-Right>.
-			When the Select mode ends, Vim returns to Insert mode.
+			When the Select mode ends, uVim returns to Insert mode.
 			If the 'showmode' option is on "-- (insert) SELECT --"
 			is shown at the bottom of the window.
 
@@ -638,7 +637,7 @@ Ex		 :vi	  --	  --	 --	    --	      --
    option, in which case it will start command-line completion.  You can
    ignore that and type <Esc> again.  {Vi: when hitting <Esc> the command-line
    is executed.  This is unexpected for most people; therefore it was changed
-   in Vim.  But when the <Esc> is part of a mapping, the command-line is
+   in uVim.  But when the <Esc> is part of a mapping, the command-line is
    executed.  If you want the Vi behaviour also when typing <Esc>, use ":cmap
    ^V<Esc> ^V^M"}
 *4 Go from Normal to Select mode by:
@@ -656,7 +655,7 @@ If the 'insertmode' option is on, editing a file will start in Insert mode.
 
 	*CTRL-\_CTRL-N* *i_CTRL-\_CTRL-N* *c_CTRL-\_CTRL-N* *v_CTRL-\_CTRL-N*
 Additionally the command CTRL-\ CTRL-N or <C-\><C-N> can be used to go to
-Normal mode from any other mode.  This can be used to make sure Vim is in
+Normal mode from any other mode.  This can be used to make sure uVim is in
 Normal mode, without causing a beep like <Esc> would.  However, this does not
 work in Ex mode.  When used after a command that takes an argument, such as
 |f| or |m|, the timeout set with 'ttimeoutlen' applies.
@@ -664,8 +663,8 @@ work in Ex mode.  When used after a command that takes an argument, such as
 	*CTRL-\_CTRL-G* *i_CTRL-\_CTRL-G* *c_CTRL-\_CTRL-G* *v_CTRL-\_CTRL-G*
 The command CTRL-\ CTRL-G or <C-\><C-G> can be used to go to Insert mode when
 'insertmode' is set.  Otherwise it goes to Normal mode.  This can be used to
-make sure Vim is in the mode indicated by 'insertmode', without knowing in
-what mode Vim currently is.
+make sure uVim is in the mode indicated by 'insertmode', without knowing in
+what mode uVim currently is.
 
 				    *Q* *mode-Ex* *Ex-mode* *Ex* *EX* *E501*
 Q			Switch to "Ex" mode.  This is a bit like typing ":"
@@ -677,10 +676,10 @@ Q			Switch to "Ex" mode.  This is a bit like typing ":"
 			In fact, you are editing the lines with the "standard"
 			line-input editing commands (<Del> or <BS> to erase,
 			CTRL-U to kill the whole line).
-			Vim will enter this mode by default if it's invoked as
+			uVim will enter this mode by default if it's invoked as
 			"ex" on the command-line.
 			Use the ":vi" command |:visual| to exit "Ex" mode.
-			Note: In older versions of Vim "Q" formatted text,
+			Note: In older versions of uVim "Q" formatted text,
 			that is now done with |gq|.  But if you use the
 			|vimrc_example.vim| script "Q" works like "gq".
 
@@ -707,7 +706,7 @@ exceptions:
 Lines longer than the window width will wrap, unless the 'wrap' option is off
 (see below).  The 'linebreak' option can be set to wrap at a blank character.
 
-If the window has room after the last line of the buffer, Vim will show '~' in
+If the window has room after the last line of the buffer, uVim will show '~' in
 the first column of the last lines in the window, like this:
 
 	+-----------------------+
@@ -719,7 +718,7 @@ the first column of the last lines in the window, like this:
 
 Thus the '~' lines indicate that the end of the buffer was reached.
 
-If the last line in a window doesn't fit, Vim will indicate this with a '@' in
+If the last line in a window doesn't fit, uVim will indicate this with a '@' in
 the first column of the last lines in the window, like this:
 
 	+-----------------------+
@@ -745,7 +744,7 @@ the last line are replaced with "@@@", like this:
 	+-----------------------+
 
 If there is a single line that is too long to fit in the window, this is a
-special situation.  Vim will show only part of the line, around where the
+special situation.  uVim will show only part of the line, around where the
 cursor is.  There are no special characters shown, so that you can edit all
 parts of this line.
 {Vi: gives an "internal error" on lines that do not fit in the window}
@@ -809,21 +808,21 @@ messages before you have a chance to read them}
 Some commands show how many lines were affected.  Above which threshold this
 happens can be controlled with the 'report' option (default 2).
 
-On the Amiga Vim will run in a CLI window.  The name Vim and the full name of
+On the Amiga uVim will run in a CLI window.  The name uVim and the full name of
 the current file name will be shown in the title bar.  When the window is
-resized, Vim will automatically redraw the window.  You may make the window as
+resized, uVim will automatically redraw the window.  You may make the window as
 small as you like, but if it gets too small not a single line will fit in it.
 Make it at least 40 characters wide to be able to read most messages on the
 last line.
 
 On most Unix systems, resizing the window is recognized and handled correctly
-by Vim.  {Vi: not ok}
+by uVim.  {Vi: not ok}
 
 ==============================================================================
 8. Definitions						*definitions*
 
-  screen		The whole area that Vim uses to work in.  This can be
-			a terminal emulator window.  Also called "the Vim
+  screen		The whole area that uVim uses to work in.  This can be
+			a terminal emulator window.  Also called "the uVim
 			window".
   window		A view on a buffer.
 
@@ -858,7 +857,7 @@ A difference is made between four types of lines:
 			lines with wrapping, line breaks, etc.  applied.  They
 			can only be as long as the width of the window allows,
 			longer lines are wrapped or truncated.
-  screen lines		The lines of the screen that Vim uses.  Consists of
+  screen lines		The lines of the screen that uVim uses.  Consists of
 			the window lines of all windows, with status lines
 			and the command line added.  They can only be as long
 			as the width of the screen allows.  When the command

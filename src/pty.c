@@ -1,21 +1,21 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved		by Bram Moolenaar
+ * VIM - Micro Vi IMproved		by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 /*
  * The stuff in this file mostly comes from the "screen" program.
  * Included with permission from Juergen Weigert.
  * Copied from "pty.c".  "putenv.c" was used for putenv() in misc2.c.
  *
- * It has been modified to work better with Vim.
- * The parts that are not used in Vim have been deleted.
+ * It has been modified to work better with uVim.
+ * The parts that are not used in uVim have been deleted.
  * See the "screen" sources for the complete stuff.
  *
- * This specific version is distibuted under the Vim license (attribution by
+ * This specific version is distibuted under the uVim license (attribution by
  * Juergen Weigert), the GPL applies to the original version, see the
  * copyright notice below.
  */

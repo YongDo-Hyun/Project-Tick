@@ -3,7 +3,7 @@
 Author:  Charles E. Campbell  <NdrOchip@ScampbellPfamily.AbizM>
 Copyright: (c) 2004-2015 by Charles E. Campbell	*logiPat-copyright*
            The VIM LICENSE applies to LogiPat.vim and LogiPat.txt
-           (see |copyright|) except use "LogiPat" instead of "Vim"
+           (see |copyright|) except use "LogiPat" instead of "uVim"
 	   No warranty, express or implied.  Use At-Your-Own-Risk.
 
 ==============================================================================

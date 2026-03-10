@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved		by Bram Moolenaar
+ * VIM - Micro Vi IMproved		by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -12,7 +12,7 @@
  */
 
 #ifndef MACOS_X_UNIX
-    Error: MACOS 9 is no longer supported in Vim 7
+    Error: MACOS 9 is no longer supported in uVim 7
 #endif
 
 /* Avoid a conflict for the definition of Boolean between Mac header files and
@@ -32,7 +32,7 @@
  */
 #if defined(FEAT_CLIPBOARD) && (!defined(FEAT_GUI_ENABLED) || defined(FEAT_GUI_MACVIM))
 
-/* Used to identify clipboard data copied from Vim. */
+/* Used to identify clipboard data copied from uVim. */
 
 NSString *VimPboardType = @"VimPboardType";
 

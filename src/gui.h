@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved		by Bram Moolenaar
+ * VIM - Micro Vi IMproved		by Bram Moolenaar
  *				Motif support by Robert Webb
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
  */
 
 #ifdef FEAT_GUI_MOTIF
@@ -67,7 +67,7 @@
 #endif
 
 /*
- * GUIs that support dropping files on a running Vim.
+ * GUIs that support dropping files on a running uVim.
  */
 #if defined(FEAT_GUI_MSWIN) || defined(FEAT_GUI_MAC) \
 	|| defined(FEAT_GUI_GTK)
@@ -241,7 +241,7 @@ typedef long	    guicolor_T;	/* handle for a GUI color; for X11 this should
 
 typedef struct Gui
 {
-    int		in_focus;	    /* Vim has input focus */
+    int		in_focus;	    /* uVim has input focus */
     int		in_use;		    /* Is the GUI being used? */
     int		starting;	    /* GUI will start in a little while */
     int		shell_created;	    /* Has the shell been created yet? */
@@ -513,7 +513,7 @@ typedef enum
  * rare occasions where the comma operator comes in handy :)
  *
  * Note: Do NOT keep the result around when handling control back to
- * the main Vim!  The user could change 'encoding' at any time.
+ * the main uVim!  The user could change 'encoding' at any time.
  */
 # define CONVERT_TO_UTF8(String)				\
     ((output_conv.vc_type == CONV_NONE || (String) == NULL)	\

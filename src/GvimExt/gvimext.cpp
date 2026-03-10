@@ -1,13 +1,13 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	gvimext by Tianmiao Hu
+ * VIM - Micro Vi IMproved	gvimext by Tianmiao Hu
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
  */
 
 /*
- * gvimext is a DLL which is used for the "Edit with Vim" context menu
+ * gvimext is a DLL which is used for the "Edit with uVim" context menu
  * extension.  It implements a MS defined interface with the Shell.
  *
  * If you have any questions or any suggestions concerning gvimext, please
@@ -55,7 +55,7 @@ getGvimName(char *name, int runtime)
 
     // Get the location of gvim from the registry.
     name[0] = 0;
-    if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Vim\\Gvim", 0,
+    if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\uVim\\Gvim", 0,
 				       KEY_READ, &keyhandle) == ERROR_SUCCESS)
     {
 	hlen = BUFSIZE;
@@ -86,7 +86,7 @@ getGvimName(char *name, int runtime)
 getGvimInvocation(char *name, int runtime)
 {
     getGvimName(name, runtime);
-    // avoid that Vim tries to expand wildcards in the file names
+    // avoid that uVim tries to expand wildcards in the file names
     strcat(name, " --literal");
 }
 
@@ -102,7 +102,7 @@ getGvimInvocationW(wchar_t *nameW)
 }
 
 //
-// Get the Vim runtime directory into buf[BUFSIZE].
+// Get the uVim runtime directory into buf[BUFSIZE].
 // The result is empty when it failed.
 // When it works, the path ends in a slash or backslash.
 //
@@ -203,7 +203,7 @@ dyn_libintl_init(char *dir)
     if (hLibintlDLL)
 	return 1;
 
-    // Load gettext library from the Vim runtime directory.
+    // Load gettext library from the uVim runtime directory.
     // Add the directory to $PATH temporarily.
     len = GetEnvironmentVariableW(L"PATH", NULL, 0);
     len2 = MAX_PATH + 1 + len;
@@ -285,7 +285,7 @@ dyn_gettext_load(void)
 
     // First try getting the language from the registry, this can be
     // used to overrule the system language.
-    if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Vim\\Gvim", 0,
+    if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\uVim\\Gvim", 0,
 				       KEY_READ, &keyhandle) == ERROR_SUCCESS)
     {
 	len = BUFSIZE;
@@ -645,8 +645,8 @@ STDMETHODIMP CShellExt::QueryContextMenu(HMENU hMenu,
     bool showExisting = true;
     bool showIcons = true;
 
-    // Check whether "Edit with existing Vim" entries are disabled.
-    if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Vim\\Gvim", 0,
+    // Check whether "Edit with existing uVim" entries are disabled.
+    if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\uVim\\Gvim", 0,
 				       KEY_READ, &keyhandle) == ERROR_SUCCESS)
     {
 	if (RegQueryValueEx(keyhandle, "DisableEditWithExisting", 0, NULL,
@@ -678,7 +678,7 @@ STDMETHODIMP CShellExt::QueryContextMenu(HMENU hMenu,
 	InsertMenuItem(hMenu, indexMenu++, TRUE, &mii);
 
 	mii.wID = idCmd++;
-	mii.dwTypeData = _("Edit with single &Vim");
+	mii.dwTypeData = _("Edit with single &uVim");
 	mii.cch = lstrlen(mii.dwTypeData);
 	InsertMenuItem(hMenu, indexMenu++, TRUE, &mii);
 
@@ -686,7 +686,7 @@ STDMETHODIMP CShellExt::QueryContextMenu(HMENU hMenu,
 	{
 	    // Can edit up to 4 files in diff mode
 	    mii.wID = idCmd++;
-	    mii.dwTypeData = _("Diff with Vim");
+	    mii.dwTypeData = _("Diff with uVim");
 	    mii.cch = lstrlen(mii.dwTypeData);
 	    InsertMenuItem(hMenu, indexMenu++, TRUE, &mii);
 	    m_edit_existing_off = 3;
@@ -698,7 +698,7 @@ STDMETHODIMP CShellExt::QueryContextMenu(HMENU hMenu,
     else
     {
 	mii.wID = idCmd++;
-	mii.dwTypeData = _("Edit with &Vim");
+	mii.dwTypeData = _("Edit with &uVim");
 	mii.cch = lstrlen(mii.dwTypeData);
 	InsertMenuItem(hMenu, indexMenu++, TRUE, &mii);
 	m_edit_existing_off = 1;
@@ -722,7 +722,7 @@ STDMETHODIMP CShellExt::QueryContextMenu(HMENU hMenu,
 	    *pos = 0;
 	}
 	// Now concatenate
-	strncpy(temp, _("Edit with existing Vim - "), BUFSIZE - 1);
+	strncpy(temp, _("Edit with existing uVim - "), BUFSIZE - 1);
 	temp[BUFSIZE - 1] = '\0';
 	strncat(temp, title, BUFSIZE - 1 - strlen(temp));
 	temp[BUFSIZE - 1] = '\0';
@@ -837,7 +837,7 @@ STDMETHODIMP CShellExt::GetCommandString(UINT_PTR  /* idCmd */,
 					 UINT cchMax)
 {
     if (uFlags == GCS_HELPTEXT && cchMax > 35)
-	lstrcpy(pszName, _("Edits the selected file(s) with Vim"));
+	lstrcpy(pszName, _("Edits the selected file(s) with uVim"));
 
     return NOERROR;
 }
@@ -851,7 +851,7 @@ BOOL CALLBACK CShellExt::EnumWindowsProc(HWND hWnd, LPARAM lParam)
     if (!IsWindowVisible(hWnd)) return TRUE;
     // No child window ???
     // if (GetParent(hWnd)) return TRUE;
-    // Class name should be Vim, if failed to get class name, return
+    // Class name should be uVim, if failed to get class name, return
     if (GetClassName(hWnd, temp, sizeof(temp)) == 0)
 	return TRUE;
     // Compare class name to that of vim, if not, return

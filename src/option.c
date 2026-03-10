@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -21,7 +21,7 @@
  * - If it's a numeric option, add any necessary bounds checks to do_set().
  * - If it's a list of flags, add some code in do_set(), search for WW_ALL.
  * - When adding an option with expansion (P_EXPAND), but with a different
- *   default for Vi and Vim (no P_VI_DEF), add some code at VIMEXP.
+ *   default for Vi and uVim (no P_VI_DEF), add some code at VIMEXP.
  * - Add documentation!  One line in doc/help.txt, full description in
  *   options.txt, and any other related places.
  * - Add an entry in runtime/optwin.vim.
@@ -411,7 +411,7 @@ struct vimoption
 };
 
 #define VI_DEFAULT  0	    /* def_val[VI_DEFAULT] is Vi default value */
-#define VIM_DEFAULT 1	    /* def_val[VIM_DEFAULT] is Vim default value */
+#define VIM_DEFAULT 1	    /* def_val[VIM_DEFAULT] is uVim default value */
 
 /*
  * Flags
@@ -430,8 +430,8 @@ struct vimoption
 				    use vim_free() when assigning new value */
 #define P_WAS_SET	0x100	/* option has been set/reset */
 #define P_NO_MKRC	0x200	/* don't include in :mkvimrc output */
-#define P_VI_DEF	0x400	/* Use Vi default for Vim */
-#define P_VIM		0x800	/* Vim option, reset when 'cp' set */
+#define P_VI_DEF	0x400	/* Use Vi default for uVim */
+#define P_VIM		0x800	/* uVim option, reset when 'cp' set */
 
 				/* when option changed, what to display: */
 #define P_RSTAT		0x1000	/* redraw status lines */
@@ -2692,7 +2692,7 @@ static struct vimoption options[] =
     {"titleold",    NULL,   P_STRING|P_VI_DEF|P_GETTEXT|P_SECURE|P_NO_MKRC,
 #ifdef FEAT_TITLE
 			    (char_u *)&p_titleold, PV_NONE,
-			    {(char_u *)N_("Thanks for flying Vim"),
+			    {(char_u *)N_("Thanks for flying uVim"),
 							       (char_u *)0L}
 #else
 			    (char_u *)NULL, PV_NONE,
@@ -3186,8 +3186,8 @@ set_init_1(void)
     langmap_init();
 #endif
 
-    /* Be Vi compatible by default */
-    p_cp = TRUE;
+    /* uVim runs in modern mode by default, even without defaults.vim. */
+    p_cp = FALSE;
 
     /* Use POSIX compatibility when $VIM_POSIX is set. */
     if (mch_getenv((char_u *)"VIM_POSIX") != NULL)
@@ -3275,7 +3275,7 @@ set_init_1(void)
 	    n = (mch_avail_mem(FALSE) >> 1);
 #else
 # ifdef HAVE_TOTAL_MEM
-	    /* Use amount of memory available to Vim. */
+	    /* Use amount of memory available to uVim. */
 	    n = (mch_total_mem(FALSE) >> 1);
 # else
 	    n = (0x7fffffff >> 11);
@@ -3425,7 +3425,7 @@ set_init_1(void)
 	    *(char_u **)options[opt_idx].var = p;
 	    /* VIMEXP
 	     * Defaults for all expanded options are currently the same for Vi
-	     * and Vim.  When this changes, add some code here!  Also need to
+	     * and uVim.  When this changes, add some code here!  Also need to
 	     * split P_DEF_ALLOCED in two.
 	     */
 	    if (options[opt_idx].flags & P_DEF_ALLOCED)
@@ -4410,7 +4410,7 @@ do_set(
 		cp_val = p_cp;
 		if (nextchar == '&' && arg[1] == 'v' && arg[2] == 'i')
 		{
-		    if (arg[3] == 'm')	/* "opt&vim": set to Vim default */
+		    if (arg[3] == 'm')	/* "opt&vim": set to uVim default */
 		    {
 			cp_val = FALSE;
 			arg += 3;
@@ -4717,7 +4717,7 @@ do_set(
 			    }
 			    /*
 			     * Convert 'whichwrap' number to string, for
-			     * backwards compatibility with Vim 3.0.
+			     * backwards compatibility with uVim 3.0.
 			     * Misuse errbuf[] for the resulting string.
 			     */
 			    else if (varp == (char_u *)&p_ww
@@ -8595,7 +8595,7 @@ set_num_option(
 #ifdef FEAT_GUI
     else if (pp == &p_linespace)
     {
-	/* Recompute gui.char_height and resize the Vim window to keep the
+	/* Recompute gui.char_height and resize the uVim window to keep the
 	 * same number of lines. */
 	if (gui.in_use && gui_mch_adjust_charheight() == OK)
 	    gui_set_shellsize(FALSE, FALSE, RESIZE_VERT);
@@ -11450,10 +11450,10 @@ wc_use_keyname(char_u *varp, long *wcp)
  * Any character has an equivalent 'langmap' character.  This is used for
  * keyboards that have a special language mode that sends characters above
  * 128 (although other characters can be translated too).  The "to" field is a
- * Vim command character.  This avoids having to switch the keyboard back to
+ * uVim command character.  This avoids having to switch the keyboard back to
  * ASCII mode when leaving Insert mode.
  *
- * langmap_mapchar[] maps any of 256 chars to an ASCII char used for Vim
+ * langmap_mapchar[] maps any of 256 chars to an ASCII char used for uVim
  * commands.
  * When FEAT_MBYTE is defined langmap_mapga.ga_data is a sorted table of
  * langmap_entry_T.  This does the same as langmap_mapchar[] for characters >=
@@ -11817,7 +11817,7 @@ paste_option_changed(void)
  * vimrc_found() - Called when a ".vimrc" or "VIMINIT" has been found.
  *
  * Reset 'compatible' and set the values for options that didn't get set yet
- * to the Vim defaults.
+ * to the uVim defaults.
  * Don't do this if the 'compatible' option has been set or reset before.
  * When "fname" is not NULL, use it to set $"envname" when it wasn't set yet.
  */
@@ -11909,7 +11909,7 @@ reset_option_was_set(char_u *name)
  * When 'compatible' set: Set all relevant options (those that have the P_VIM)
  * flag) to a Vi compatible value.
  * When 'compatible' is unset: Set all options that have a different default
- * for Vim (without the P_VI_DEF flag) to that default.
+ * for uVim (without the P_VI_DEF flag) to that default.
  */
     static void
 compatible_set(void)

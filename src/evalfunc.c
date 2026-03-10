@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -4039,7 +4039,7 @@ static void get_buffer_lines(buf_T *buf, linenr_T start, linenr_T end, int retli
  * Get line or list of lines from buffer "buf" into "rettv".
  * Return a range (from start to end) of lines in rettv from the specified
  * buffer.
- * If 'retlist' is TRUE, then the lines are returned as a Vim List.
+ * If 'retlist' is TRUE, then the lines are returned as a uVim List.
  */
     static void
 get_buffer_lines(
@@ -8412,7 +8412,7 @@ check_connection(void)
     make_connection();
     if (X_DISPLAY == NULL)
     {
-	EMSG(_("E240: No connection to Vim server"));
+	EMSG(_("E240: No connection to uVim server"));
 	return FAIL;
     }
     return OK;

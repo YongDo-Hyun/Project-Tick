@@ -14,7 +14,7 @@ CFLAGS =	-c						\
 								\
 		-noixemul
 
-PRG =		Vim
+PRG =		uVim
 LIBS =		-noixemul -s
 CC =		gcc
 LD =		gcc

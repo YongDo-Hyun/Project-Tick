@@ -1,10 +1,10 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 
 /*
@@ -814,7 +814,7 @@ readfile(
 	if (read_stdin)
 	{
 #ifndef ALWAYS_USE_GUI
-	    mch_msg(_("Vim: Reading from stdin...\n"));
+	    mch_msg(_("uVim: Reading from stdin...\n"));
 #endif
 #ifdef FEAT_GUI
 	    /* Also write a message in the GUI window, if there is one. */
@@ -2719,7 +2719,7 @@ failed:
  * Returns TRUE if the file name argument is of the form "/dev/fd/\d\+",
  * which is the name of files used for process substitution output by
  * some shells on some operating systems, e.g., bash on SunOS.
- * Do not accept "/dev/fd/[012]", opening these may hang Vim.
+ * Do not accept "/dev/fd/[012]", opening these may hang uVim.
  */
     int
 is_dev_fd_file(char_u *fname)
@@ -4460,7 +4460,7 @@ restore_backup:
 	    end = 0;
 	else
 	{
-	    /* Write magic number, so that Vim knows how this file is
+	    /* Write magic number, so that uVim knows how this file is
 	     * encrypted when reading it back. */
 	    write_info.bw_buf = header;
 	    write_info.bw_len = header_len;
@@ -6914,7 +6914,7 @@ buf_check_timestamp(
 		     */
 		    if (reason[2] == 'n')
 		    {
-			mesg = _("W12: Warning: File \"%s\" has changed and the buffer was changed in Vim as well");
+			mesg = _("W12: Warning: File \"%s\" has changed and the buffer was changed in uVim as well");
 			mesg2 = _("See \":help W12\" for more info.");
 		    }
 		    else if (reason[1] == 'h')
@@ -7056,7 +7056,7 @@ buf_check_timestamp(
 
 /*
  * Reload a buffer that is already loaded.
- * Used when the file was changed outside of Vim.
+ * Used when the file was changed outside of uVim.
  * "orig_mode" is buf->b_orig_mode before the need for reloading was detected.
  * buf->b_orig_mode may have been reset already.
  */
@@ -7354,7 +7354,7 @@ vim_tempname(
 # endif
 
     /*
-     * This will create a directory for private use by this instance of Vim.
+     * This will create a directory for private use by this instance of uVim.
      * This is done once, and the same directory is used for all temp files.
      * This method avoids security problems because of symlink attacks et al.
      * It's also a bit faster, because we only need to check for an existing

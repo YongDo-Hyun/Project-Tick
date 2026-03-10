@@ -1,13 +1,13 @@
-*develop.txt*   For Vim version 7.4.  Last change: 2016 Jan 31
+*develop.txt*   For uVim version 7.4.  Last change: 2016 Jan 31
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
 
 
-Development of Vim.					*development*
+Development of uVim.					*development*
 
 This text is important for those who want to be involved in further developing
-Vim.
+uVim.
 
 1. Design goals		|design-goals|
 2. Coding style		|coding-style|
@@ -17,8 +17,8 @@ Vim.
 See the file README.txt in the "src" directory for an overview of the source
 code.
 
-Vim is open source software.  Everybody is encouraged to contribute to help
-improving Vim.  For sending patches a context diff "diff -c" is preferred.
+uVim is open source software.  Everybody is encouraged to contribute to help
+improving uVim.  For sending patches a context diff "diff -c" is preferred.
 Also see http://vim.wikia.com/wiki/How_to_make_and_submit_a_patch.
 
 ==============================================================================
@@ -32,18 +32,18 @@ balance must be found between them.
 
 VIM IS... VI COMPATIBLE					*design-compatible*
 
-First of all, it should be possible to use Vim as a drop-in replacement for
-Vi.  When the user wants to, he can use Vim in compatible mode and hardly
+First of all, it should be possible to use uVim as a drop-in replacement for
+Vi.  When the user wants to, he can use uVim in compatible mode and hardly
 notice any difference with the original Vi.
 
 Exceptions:
-- We don't reproduce obvious Vi bugs in Vim.
+- We don't reproduce obvious Vi bugs in uVim.
 - There are different versions of Vi.  I am using Version 3.7 (6/7/85) as a
   reference.  But support for other versions is also included when possible.
   The Vi part of POSIX is not considered a definitive source.
-- Vim adds new commands, you cannot rely on some command to fail because it
+- uVim adds new commands, you cannot rely on some command to fail because it
   didn't exist in Vi.
-- Vim will have a lot of features that Vi doesn't have.  Going back from Vim
+- uVim will have a lot of features that Vi doesn't have.  Going back from uVim
   to Vi will be a problem, this cannot be avoided.
 - Some things are hardly ever used (open mode, sending an e-mail when
   crashing, etc.).  Those will only be included when someone has a good reason
@@ -54,7 +54,7 @@ Exceptions:
 
 VIM IS... IMPROVED					*design-improved*
 
-The IMproved bits of Vim should make it a better Vi, without becoming a
+The IMproved bits of uVim should make it a better Vi, without becoming a
 completely different editor.  Extensions are done with a "Vi spirit".
 - Use the keyboard as much as feasible.  The mouse requires a third hand,
   which we don't have.  Many terminals don't have a mouse.
@@ -66,8 +66,8 @@ completely different editor.  Extensions are done with a "Vi spirit".
 - A feature that people do not know about is a useless feature.  Don't add
   obscure features, or at least add hints in documentation that they exist.
 - Minimize using CTRL and other modifiers, they are more difficult to type.
-- There are many first-time and inexperienced Vim users.  Make it easy for
-  them to start using Vim and learn more over time.
+- There are many first-time and inexperienced uVim users.  Make it easy for
+  them to start using uVim and learn more over time.
 - There is no limit to the features that can be added.  Selecting new features
   is one based on (1) what users ask for, (2) how much effort it takes to
   implement and (3) someone actually implementing it.
@@ -75,12 +75,12 @@ completely different editor.  Extensions are done with a "Vi spirit".
 
 VIM IS... MULTI PLATFORM				*design-multi-platform*
 
-Vim tries to help as many users on as many platforms as possible.
+uVim tries to help as many users on as many platforms as possible.
 - Support many kinds of terminals.  The minimal demands are cursor positioning
   and clear-screen.  Commands should only use key strokes that most keyboards
   have.  Support all the keys on the keyboard for mapping.
 - Support many platforms.  A condition is that there is someone willing to do
-  Vim development on that platform, and it doesn't mean messing up the code.
+  uVim development on that platform, and it doesn't mean messing up the code.
 - Support many compilers and libraries.  Not everybody is able or allowed to
   install another compiler or GUI library.
 - People switch from one platform to another, and from GUI to terminal
@@ -104,18 +104,18 @@ VIM IS... WELL DOCUMENTED				*design-documented*
 
 VIM IS... HIGH SPEED AND SMALL IN SIZE			*design-speed-size*
 
-Using Vim must not be a big attack on system resources.  Keep it small and
+Using uVim must not be a big attack on system resources.  Keep it small and
 fast.
-- Computers are becoming faster and bigger each year.  Vim can grow too, but
-  no faster than computers are growing.  Keep Vim usable on older systems.
-- Many users start Vim from a shell very often.  Startup time must be short.
+- Computers are becoming faster and bigger each year.  uVim can grow too, but
+  no faster than computers are growing.  Keep uVim usable on older systems.
+- Many users start uVim from a shell very often.  Startup time must be short.
 - Commands must work efficiently.  The time they consume must be as small as
   possible.  Useful commands may take longer.
-- Don't forget that some people use Vim over a slow connection.  Minimize the
+- Don't forget that some people use uVim over a slow connection.  Minimize the
   communication overhead.
 - Items that add considerably to the size and are not used by many people
   should be a feature that can be disabled.
-- Vim is a component among other components.  Don't turn it into a massive
+- uVim is a component among other components.  Don't turn it into a massive
   application, but have it work well together with other programs.
 
 
@@ -133,31 +133,31 @@ VIM IS... MAINTAINABLE					*design-maintain*
 
 VIM IS... FLEXIBLE					*design-flexible*
 
-Vim should make it easy for users to work in their preferred styles rather
+uVim should make it easy for users to work in their preferred styles rather
 than coercing its users into particular patterns of work.  This can be for
 items with a large impact (e.g., the 'compatible' option) or for details.  The
-defaults are carefully chosen such that most users will enjoy using Vim as it
-is.  Commands and options can be used to adjust Vim to the desire of the user
+defaults are carefully chosen such that most users will enjoy using uVim as it
+is.  Commands and options can be used to adjust uVim to the desire of the user
 and its environment.
 
 
 VIM IS... NOT						*design-not*
 
-- Vim is not a shell or an Operating System.  You will not be able to run a
-  shell inside Vim or use it to control a debugger.  This should work the
-  other way around: Use Vim as a component from a shell or in an IDE.
-  A satirical way to say this: "Unlike Emacs, Vim does not attempt to include
+- uVim is not a shell or an Operating System.  You will not be able to run a
+  shell inside uVim or use it to control a debugger.  This should work the
+  other way around: Use uVim as a component from a shell or in an IDE.
+  A satirical way to say this: "Unlike Emacs, uVim does not attempt to include
   everything but the kitchen sink, but some people say that you can clean one
   with it.  ;-)"
-  To use Vim with gdb see: http://www.agide.org and http://clewn.sf.net.
-- Vim is not a fancy GUI editor that tries to look nice at the cost of
+  To use uVim with gdb see: http://www.agide.org and http://clewn.sf.net.
+- uVim is not a fancy GUI editor that tries to look nice at the cost of
   being less consistent over all platforms.  But functional GUI features are
   welcomed.
 
 ==============================================================================
 2. Coding style						*coding-style*
 
-These are the rules to use when making changes to the Vim source code.  Please
+These are the rules to use when making changes to the uVim source code.  Please
 stick to these rules, to keep the sources readable and maintainable.
 
 This list is not complete.  Look in the source code for more examples.
@@ -191,8 +191,8 @@ One restriction that this implies: no // comments, only /* comments */.
 
 USE OF COMMON FUNCTIONS					*style-functions*
 
-Some functions that are common to use, have a special Vim version.  Always
-consider using the Vim version, because they were introduced with a reason.
+Some functions that are common to use, have a special uVim version.  Always
+consider using the uVim version, because they were introduced with a reason.
 
 NORMAL NAME	VIM NAME	DIFFERENCE OF VIM VERSION
 free()		vim_free()	Checks for freeing NULL
@@ -214,7 +214,7 @@ Function names can not be more than 31 characters long (because of VMS).
 
 Don't use "delete" or "this" as a variable name, C++ doesn't like it.
 
-Because of the requirement that Vim runs on as many systems as possible, we
+Because of the requirement that uVim runs on as many systems as possible, we
 need to avoid using names that are already defined by the system.  This is a
 list of names that are known to cause trouble.  The name is given as a regexp
 pattern.
@@ -398,32 +398,32 @@ in a buffer (buffer lines) and the text displayed in a window (logical lines).
 Naming the window
 
 The word "window" is commonly used for several things: A window on the screen,
-the xterm window, a window inside Vim to view a buffer.
+the xterm window, a window inside uVim to view a buffer.
 To avoid confusion, other items that are sometimes called window have been
 given another name.  Here is an overview of the related items:
 
 screen		The whole display.  For the GUI it's something like 1024x768
-		pixels.  The Vim shell can use the whole screen or part of it.
-shell		The Vim application.  This can cover the whole screen (e.g.,
+		pixels.  The uVim shell can use the whole screen or part of it.
+shell		The uVim application.  This can cover the whole screen (e.g.,
 		when running in a console) or part of it (xterm or GUI).
-window		View on a buffer.  There can be several windows in Vim,
+window		View on a buffer.  There can be several windows in uVim,
 		together with the command line, menubar, toolbar, etc. they
 		fit in the shell.
 
 
 Spell checking						*develop-spell*
 
-When spell checking was going to be added to Vim a survey was done over the
+When spell checking was going to be added to uVim a survey was done over the
 available spell checking libraries and programs.  Unfortunately, the result
 was that none of them provided sufficient capabilities to be used as the spell
-checking engine in Vim, for various reasons:
+checking engine in uVim, for various reasons:
 
 - Missing support for multi-byte encodings.  At least UTF-8 must be supported,
   so that more than one language can be used in the same file.
   Doing on-the-fly conversion is not always possible (would require iconv
   support).
 - For the programs and libraries: Using them as-is would require installing
-  them separately from Vim.  That's mostly not impossible, but a drawback.
+  them separately from uVim.  That's mostly not impossible, but a drawback.
 - Performance: A few tests showed that it's possible to check spelling on the
   fly (while redrawing), just like syntax highlighting.  But the mechanisms
   used by other code are much slower.  Myspell uses a hashtable, for example.
@@ -513,7 +513,7 @@ displaying.  A hashtable is used to quickly find the word count.  The count is
 initialized from words listed in COMMON items in the affix file, so that it
 also works when starting a new file.
 
-This isn't ideal, because the longer Vim is running the higher the counts
+This isn't ideal, because the longer uVim is running the higher the counts
 become.  But in practice it is a noticeable improvement over not using the word
 count.
 

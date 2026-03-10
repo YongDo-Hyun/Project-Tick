@@ -35,9 +35,9 @@ typedef interface IVim IVim;
 #define __Vim_FWD_DEFINED__
 
 #ifdef __cplusplus
-typedef class Vim Vim;
+typedef class uVim uVim;
 #else
-typedef struct Vim Vim;
+typedef struct uVim uVim;
 #endif /* __cplusplus */
 
 #endif	/* __Vim_FWD_DEFINED__ */
@@ -258,7 +258,7 @@ void __RPC_STUB IVim_GetHwnd_Stub(
 #define __Vim_LIBRARY_DEFINED__
 
 /****************************************
- * Generated header for library: Vim
+ * Generated header for library: uVim
  * at Wed Jun 06 18:20:37 2001
  * using MIDL 3.01.75
  ****************************************/
@@ -272,7 +272,7 @@ EXTERN_C const IID LIBID_Vim;
 EXTERN_C const CLSID CLSID_Vim;
 
 class DECLSPEC_UUID("0F0BFAE1-4C90-11d1-82D7-0004AC368519")
-Vim;
+uVim;
 #endif
 #endif /* __Vim_LIBRARY_DEFINED__ */
 

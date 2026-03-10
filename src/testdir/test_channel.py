@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Server that will accept connections from a Vim channel.
+# Server that will accept connections from a uVim channel.
 # Used by test_channel.vim.
 #
 # This requires Python 2.6 or later.
@@ -131,7 +131,7 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
                         print("sending: {0}".format(cmd))
                         self.request.sendall(cmd.encode('utf-8'))
                         response = "ok"
-                        # Need to wait for Vim to give up, otherwise the double
+                        # Need to wait for uVim to give up, otherwise the double
                         # quote in the "ok" response terminates the string.
                         time.sleep(0.2)
                     elif decoded[1] == 'malformed3':
@@ -139,7 +139,7 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
                         print("sending: {0}".format(cmd))
                         self.request.sendall(cmd.encode('utf-8'))
                         response = "ok"
-                        # Need to wait for Vim to give up, otherwise the ]
+                        # Need to wait for uVim to give up, otherwise the ]
                         # in the "ok" response terminates the list.
                         time.sleep(0.2)
                     elif decoded[1] == 'split':

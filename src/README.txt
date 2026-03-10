@@ -1,4 +1,4 @@
-README for the Vim source code
+README for the uVim source code
 
 Here are a few hints for finding your way around the source code.  This
 doesn't make it less complex than it is, but it gets you started.
@@ -61,9 +61,9 @@ This is conveniently called main_loop().  It updates a few things and then
 calls normal_cmd() to process a command.  This returns when the command is
 finished.
 
-The basic idea is that Vim waits for the user to type a character and
+The basic idea is that uVim waits for the user to type a character and
 processes it until another character is needed.  Thus there are several places
-where Vim waits for a character to be typed.  The vgetc() function is used for
+where uVim waits for a character to be typed.  The vgetc() function is used for
 this.  It also handles mapping.
 
 Updating the screen is mostly postponed until a command or a sequence of
@@ -135,9 +135,9 @@ system-specific GUI code will be called to do the work.
 
 DEBUGGING THE GUI
 
-Remember to prevent that gvim forks and the debugger thinks Vim has exited,
+Remember to prevent that gvim forks and the debugger thinks uVim has exited,
 add the "-f" argument.  In gdb: "run -f -g".
 
 When stepping through display updating code, the focus event is triggered
-when going from the debugger to Vim and back.  To avoid this, recompile with
+when going from the debugger to uVim and back.  To avoid this, recompile with
 some code in gui_focus_change() disabled.

@@ -1,13 +1,13 @@
-*debug.txt*     For Vim version 7.4.  Last change: 2012 Feb 11
+*debug.txt*     For uVim version 7.4.  Last change: 2012 Feb 11
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
 
 
-Debugging Vim						*debug-vim*
+Debugging uVim						*debug-vim*
 
-This is for debugging Vim itself, when it doesn't work properly.
-For debugging Vim scripts, functions, etc. see |debug-scripts|
+This is for debugging uVim itself, when it doesn't work properly.
+For debugging uVim scripts, functions, etc. see |debug-scripts|
 
 1. Location of a crash, using gcc and gdb	|debug-gcc|
 2. Locating memory leaks			|debug-leaks|
@@ -17,11 +17,11 @@ For debugging Vim scripts, functions, etc. see |debug-scripts|
 
 1. Location of a crash, using gcc and gdb		*debug-gcc* *gdb*
 
-When Vim crashes in one of the test files, and you are using gcc for
-compilation, here is what you can do to find out exactly where Vim crashes.
+When uVim crashes in one of the test files, and you are using gcc for
+compilation, here is what you can do to find out exactly where uVim crashes.
 This also applies when using the MingW tools.
 
-1. Compile Vim with the "-g" option (there is a line in the src/Makefile for
+1. Compile uVim with the "-g" option (there is a line in the src/Makefile for
    this, which you can uncomment).  Also make sure "strip" is disabled (do not
    install it, or use the line "STRIP = /bin/true").
 
@@ -30,7 +30,7 @@ This also applies when using the MingW tools.
 	gdb ../vim
 	run -u unix.vim -U NONE -s dotest.in test11.in
 
-3. Check where Vim crashes, gdb should give a message for this.
+3. Check where uVim crashes, gdb should give a message for this.
 
 4. Get a stack trace from gdb with this command: >
 	where
@@ -42,17 +42,17 @@ This also applies when using the MingW tools.
 
 2. Locating memory leaks			*debug-leaks* *valgrind*
 
-If you suspect Vim is leaking memory and you are using Linux, the valgrind
+If you suspect uVim is leaking memory and you are using Linux, the valgrind
 tool is very useful to pinpoint memory leaks.
 
-First of all, build Vim with EXITFREE defined.  Search for this in MAKEFILE
+First of all, build uVim with EXITFREE defined.  Search for this in MAKEFILE
 and uncomment the line.
 
-Use this command to start Vim:
+Use this command to start uVim:
 >
 	valgrind --log-file=valgrind.log --leak-check=full ./vim
 
-Note: Vim will run much slower.  If your .vimrc is big or you have several
+Note: uVim will run much slower.  If your .vimrc is big or you have several
 plugins you need to be patient for startup, or run with the "-u NONE"
 argument.
 
@@ -64,7 +64,7 @@ very small a Kbyte or less.
 
 3. Windows Bug Reporting				*debug-win32*
 
-If the Windows version of Vim crashes in a reproducible manner, you can take
+If the Windows version of uVim crashes in a reproducible manner, you can take
 some steps to provide a useful bug report.
 
 
@@ -85,21 +85,21 @@ you can do all kinds of debugging (set breakpoints, watch variables, etc.).
 If you have Visual Studio, use that instead of the VC Toolkit and WinDbg.
 
 For other compilers, you should always use the corresponding debugger: TD for
-a Vim executable compiled with the Borland compiler; gdb (see above
+a uVim executable compiled with the Borland compiler; gdb (see above
 |debug-gcc|) for the Cygwin and MinGW compilers.
 
 
 								*debug-vs2005*
-3.2 Debugging Vim crashes with Visual Studio 2005/Visual C++ 2005 Express ~
+3.2 Debugging uVim crashes with Visual Studio 2005/Visual C++ 2005 Express ~
 
 First launch vim.exe or gvim.exe and then launch Visual Studio.  (If you don't
 have Visual Studio, follow the instructions at |get-ms-debuggers| to obtain a
 free copy of Visual C++ 2005 Express Edition.)
 
-On the Tools menu, click Attach to Process.  Choose the Vim process.
+On the Tools menu, click Attach to Process.  Choose the uVim process.
 
-In Vim, reproduce the crash.  A dialog will appear in Visual Studio, telling
-you about the unhandled exception in the Vim process.  Click Break to break
+In uVim, reproduce the crash.  A dialog will appear in Visual Studio, telling
+you about the unhandled exception in the uVim process.  Click Break to break
 into the process.
 
 Visual Studio will pop up another dialog, telling you that no symbols are
@@ -111,7 +111,7 @@ to the directory where you have the PDB file and click Open.
 
 At this point, you should have a full call stack with vim function names and
 line numbers.  Double-click one of the lines and the Find Source dialog will
-appear.  Navigate to the directory where the Vim source is (if you have it.)
+appear.  Navigate to the directory where the uVim source is (if you have it.)
 
 If you don't know how to debug this any further, follow the instructions
 at ":help bug-reports".  Paste the call stack into the bug report.
@@ -124,26 +124,26 @@ installed as a just-in-time debugger. Use WinDbg, |debug-windbg|, if you
 need to save minidumps or you want a just-in-time (postmortem) debugger.
 
 								*debug-windbg*
-3.3 Debugging Vim crashes with WinDbg ~
+3.3 Debugging uVim crashes with WinDbg ~
 
 See |get-ms-debuggers| to obtain a copy of WinDbg.
 
-As with the Visual Studio IDE, you can attach WinDbg to a running Vim process.
+As with the Visual Studio IDE, you can attach WinDbg to a running uVim process.
 You can also have your system automatically invoke WinDbg as a postmortem
 debugger. To set WinDbg as your postmortem debugger, run "windbg -I".
 
-To attach WinDbg to a running Vim process, launch WinDbg. On the File menu,
-choose Attach to a Process. Select the Vim process and click OK.
+To attach WinDbg to a running uVim process, launch WinDbg. On the File menu,
+choose Attach to a Process. Select the uVim process and click OK.
 
 At this point, choose Symbol File Path on the File menu, and add the folder
-containing your Vim PDB to the sympath. If you have Vim source available,
+containing your uVim PDB to the sympath. If you have uVim source available,
 use Source File Path on the File menu. You can now open source files in WinDbg
 and set breakpoints, if you like. Reproduce your crash. WinDbg should open the
 source file at the point of the crash. Using the View menu, you can examine
 the call stack, local variables, watch windows, and so on.
 
 If WinDbg is your postmortem debugger, you do not need to attach WinDbg to
-your Vim process. Simply reproduce the crash and WinDbg will launch
+your uVim process. Simply reproduce the crash and WinDbg will launch
 automatically. As above, set the Symbol File Path and the Source File Path.
 
 To save a minidump, type the following at the WinDbg command line: >

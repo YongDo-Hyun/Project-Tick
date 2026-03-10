@@ -1,11 +1,11 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  * Multibyte extensions partly by Sung-Hoon Baek
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
- * See README.txt for an overview of the Vim source code.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
+ * See README.txt for an overview of the uVim source code.
  */
 /*
  * mbyte.c: Code specifically for handling multi-byte characters.
@@ -73,7 +73,7 @@
  *     is to be done when it's different from 'encoding'.
  *
  * The viminfo file is a special case: Only text is converted, not file names.
- * Vim scripts may contain an ":encoding" command.  This has an effect for
+ * uVim scripts may contain an ":encoding" command.  This has an effect for
  * some commands, like ":menutrans"
  */
 
@@ -801,7 +801,7 @@ codepage_invalid:
 
 #ifdef FEAT_AUTOCMD
     /* Fire an autocommand to let people do custom font setup. This must be
-     * after Vim has been setup for the new encoding. */
+     * after uVim has been setup for the new encoding. */
     apply_autocmds(EVENT_ENCODINGCHANGED, NULL, (char_u *)"", FALSE, curbuf);
 #endif
 
@@ -4184,7 +4184,7 @@ mb_fix_col(int col, int row)
 static int enc_alias_search(char_u *name);
 
 /*
- * Skip the Vim specific head of a 'encoding' name.
+ * Skip the uVim specific head of a 'encoding' name.
  */
     char_u *
 enc_skip(char_u *p)
@@ -4897,7 +4897,7 @@ im_commit_cb(GtkIMContext *context UNUSED,
     /* The thing which setting "preedit_start_col" to MAXCOL means that
      * "preedit_start_col" will be set forcedly when calling
      * preedit_changed_cb() next time.
-     * "preedit_start_col" should not reset with MAXCOL on this part. Vim
+     * "preedit_start_col" should not reset with MAXCOL on this part. uVim
      * is simulating the preediting by using add_to_input_str(). when
      * preedit begin immediately before committed, the typebuf is not
      * flushed to screen, then it can't get correct "preedit_start_col".
@@ -5019,7 +5019,7 @@ im_preedit_end_cb(GtkIMContext *context UNUSED, gpointer data UNUSED)
  *   for proper operation.
  *
  * Conclusions:  I think support for preediting needs to be moved to the
- * core parts of Vim.  Ideally, until it has been committed, the preediting
+ * core parts of uVim.  Ideally, until it has been committed, the preediting
  * string should only be displayed and not affect the buffer content at all.
  * The question how to deal with the synchronization issue still remains.
  * Circumventing the input buffer is probably not desirable.  Anyway, I think
@@ -5121,8 +5121,8 @@ im_preedit_changed_cb(GtkIMContext *context, gpointer data UNUSED)
 }
 
 /*
- * Translate the Pango attributes at iter to Vim highlighting attributes.
- * Ignore attributes not supported by Vim highlighting.  This shouldn't have
+ * Translate the Pango attributes at iter to uVim highlighting attributes.
+ * Ignore attributes not supported by uVim highlighting.  This shouldn't have
  * too much impact -- right now we handle even more attributes than necessary
  * for the IM modules I tested with.
  */
@@ -5477,7 +5477,7 @@ xim_queue_key_press_event(GdkEventKey *event, int down)
 		    && (State & (INSERT | CMDLINE | NORMAL | EXTERNCMD)) != 0)
     {
 	/*
-	 * Filter 'imactivatekey' and map it to CTRL-^.  This way, Vim is
+	 * Filter 'imactivatekey' and map it to CTRL-^.  This way, uVim is
 	 * always aware of the current status of IM, and can even emulate
 	 * the activation key for modules that don't support one.
 	 */
@@ -5535,7 +5535,7 @@ xim_queue_key_press_event(GdkEventKey *event, int down)
 	     * 3. line changed key.
 	     * 4. preedited string.
 	     * 5. remove preedited string.
-	     * if 3, Vim can't move back the above line for 5.
+	     * if 3, uVim can't move back the above line for 5.
 	     * thus, this part should not parse the key. */
 	    if (!imresult && preedit_start_col != MAXCOL
 					       && event->keyval == GDK_Return)
@@ -5604,7 +5604,7 @@ im_is_preediting(void)
 
 static int	xim_is_active = FALSE;  /* XIM should be active in the current
 					   mode */
-static int	xim_has_focus = FALSE;	/* XIM is really being used for Vim */
+static int	xim_has_focus = FALSE;	/* XIM is really being used for uVim */
 #ifdef FEAT_GUI_X11
 static XIMStyle	input_style;
 static int	status_area_enabled = TRUE;
@@ -5626,11 +5626,11 @@ im_set_active(int active)
     else if (input_style & XIMPreeditPosition)
 	/* There is a problem in switching XIM off when preediting is used,
 	 * and it is not clear how this can be solved.  For now, keep XIM on
-	 * all the time, like it was done in Vim 5.8. */
+	 * all the time, like it was done in uVim 5.8. */
 	active = TRUE;
 #endif
 
-    /* Remember the active state, it is needed when Vim gets keyboard focus. */
+    /* Remember the active state, it is needed when uVim gets keyboard focus. */
     xim_is_active = active;
     xim_set_preedit();
 }
@@ -5646,7 +5646,7 @@ xim_set_focus(int focus)
 	return;
 
     /*
-     * XIM only gets focus when the Vim window has keyboard focus and XIM has
+     * XIM only gets focus when the uVim window has keyboard focus and XIM has
      * been set active for the current mode.
      */
     if (focus && xim_is_active)

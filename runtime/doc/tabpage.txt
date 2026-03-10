@@ -1,4 +1,4 @@
-*tabpage.txt*   For Vim version 7.4.  Last change: 2015 Jan 04
+*tabpage.txt*   For uVim version 7.4.  Last change: 2015 Jan 04
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
@@ -27,7 +27,7 @@ A tab page holds one or more windows.  You can easily switch between tab
 pages, so that you have several collections of windows to work on different
 things.
 
-Usually you will see a list of labels at the top of the Vim window, one for
+Usually you will see a list of labels at the top of the uVim window, one for
 each tab page.  With the mouse you can click on the label to jump to that tab
 page.  There are other ways to move between tab pages, see below.
 
@@ -45,7 +45,7 @@ close the tab page.
 
 OPENING A NEW TAB PAGE:
 
-When starting Vim "vim -p filename ..." opens each file argument in a separate
+When starting uVim "vim -p filename ..." opens each file argument in a separate
 tab page (up to 'tabpagemax').  See |-p|
 
 A double click with the mouse in the non-GUI tab pages line opens a new, empty

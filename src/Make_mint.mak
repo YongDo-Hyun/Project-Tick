@@ -1,8 +1,8 @@
 #
-# Makefile for Vim on MiNT				vim:ts=8:sw=8:tw=78
+# Makefile for uVim on MiNT				vim:ts=8:sw=8:tw=78
 #
 # This is a wrapper around the Unix Makefile. It is configured to accompany
-# the MiNT distribution of Vim.
+# the MiNT distribution of uVim.
 #
 # See "Makefile" for instructions how to run "make".
 #
@@ -13,7 +13,7 @@
 
 ### This Makefile has been successfully tested on these systems.
 ### Check the (*) column for remarks, listed below.
-### Later code changes may cause small problems, otherwise Vim is supposed to
+### Later code changes may cause small problems, otherwise uVim is supposed to
 ### compile and run without problems.
 
 #system:	      configurations:			version (*) tested by:

@@ -1,9 +1,9 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved		by Bram Moolenaar
+ * uVim - Micro Vi IMproved		by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
  */
 
 /*
@@ -13,10 +13,10 @@
  * This doesn't use string concatenation, some compilers don't support it.
  */
 
-#define VIM_VERSION_MAJOR		 7
-#define VIM_VERSION_MAJOR_STR		"7"
-#define VIM_VERSION_MINOR		 4
-#define VIM_VERSION_MINOR_STR		"4"
+#define VIM_VERSION_MAJOR		 8
+#define VIM_VERSION_MAJOR_STR		"8"
+#define VIM_VERSION_MINOR		 0
+#define VIM_VERSION_MINOR_STR		"0"
 #define VIM_VERSION_100	    (VIM_VERSION_MAJOR * 100 + VIM_VERSION_MINOR)
 
 #define VIM_VERSION_BUILD		 280
@@ -31,10 +31,10 @@
  * VIM_VERSION_NODOT is used for the runtime directory name.
  * VIM_VERSION_SHORT is copied into the swap file (max. length is 6 chars).
  * VIM_VERSION_MEDIUM is used for the startup-screen.
- * VIM_VERSION_LONG is used for the ":version" command and "Vim -h".
+ * VIM_VERSION_LONG is used for the ":version" command and "uvim -h".
  */
-#define VIM_VERSION_NODOT	"vim74"
-#define VIM_VERSION_SHORT	"7.4"
-#define VIM_VERSION_MEDIUM	"7.4"
-#define VIM_VERSION_LONG	"VIM - Vi IMproved 7.4 (2013 Aug 10)"
-#define VIM_VERSION_LONG_DATE	"VIM - Vi IMproved 7.4 (2013 Aug 10, compiled "
+#define VIM_VERSION_NODOT	"vim80"
+#define VIM_VERSION_SHORT	"8.0"
+#define VIM_VERSION_MEDIUM	"8.0"
+#define VIM_VERSION_LONG	"uVim - Micro Vi IMproved 8.0 (2026 Mar 10)"
+#define VIM_VERSION_LONG_DATE	"uVim - Micro Vi IMproved 8.0 (2026 Mar 10, compiled "

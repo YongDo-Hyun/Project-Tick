@@ -1,9 +1,9 @@
 /* vi:set ts=8 sts=4 sw=4:
  *
- * VIM - Vi IMproved	by Bram Moolenaar
+ * VIM - Micro Vi IMproved	by Bram Moolenaar
  *
- * Do ":help uganda"  in Vim to read copying and usage conditions.
- * Do ":help credits" in Vim to see a list of people who contributed.
+ * Do ":help uganda"  in uVim to read copying and usage conditions.
+ * Do ":help credits" in uVim to see a list of people who contributed.
  */
 /*
  * if_perl.xs: Main code for Perl interface support.
@@ -76,7 +76,7 @@
 #endif
 
 /*
- * Work around clashes between Perl and Vim namespace.	proto.h doesn't
+ * Work around clashes between Perl and uVim namespace.	proto.h doesn't
  * include if_perl.pro and perlsfio.pro when IN_PERL_FILE is defined, because
  * we need the CV typedef.  proto.h can't be moved to after including
  * if_perl.h, because we get all sorts of name clashes then.
@@ -875,7 +875,7 @@ struct ufuncs cw_funcs = { cur_val, 0, 0 };
 struct ufuncs cb_funcs = { cur_val, 0, 1 };
 
 /*
- * VIM_init(): Vim-specific initialisation.
+ * VIM_init(): uVim-specific initialisation.
  * Make the magical main::curwin and main::curbuf variables
  */
     static void
@@ -1388,7 +1388,7 @@ PerlIOVim_write(pTHX_ PerlIO *f, const void *vbuf, Size_t count)
 
 static PERLIO_FUNCS_DECL(PerlIO_Vim) = {
     sizeof(PerlIO_funcs),
-    "Vim",
+    "uVim",
     sizeof(PerlIOVim),
     PERLIO_K_DUMMY,	/* flags */
     PerlIOVim_pushed,
@@ -1417,13 +1417,13 @@ static PERLIO_FUNCS_DECL(PerlIO_Vim) = {
     NULL		/* set_ptrcnt */
 };
 
-/* Use Vim routine for print operator */
+/* Use uVim routine for print operator */
     static void
 vim_IOLayer_init(void)
 {
     PerlIO_define_layer(aTHX_ PERLIO_FUNCS_CAST(&PerlIO_Vim));
-    (void)eval_pv(   "binmode(STDOUT, ':Vim')"
-                "  && binmode(STDERR, ':Vim(ErrorMsg)');", 0);
+    (void)eval_pv(   "binmode(STDOUT, ':uVim')"
+                "  && binmode(STDERR, ':uVim(ErrorMsg)');", 0);
 }
 #endif /* PERLIO_LAYERS && !USE_SFIO */
 

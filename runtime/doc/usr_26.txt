@@ -1,4 +1,4 @@
-*usr_26.txt*	For Vim version 7.4.  Last change: 2006 Apr 24
+*usr_26.txt*	For uVim version 7.4.  Last change: 2006 Apr 24
 
 		     VIM USER MANUAL - by Bram Moolenaar
 
@@ -12,7 +12,7 @@ will be explained.
 |26.1|	Repeating with Visual mode
 |26.2|	Add and subtract
 |26.3|	Making a change in many files
-|26.4|	Using Vim from a shell script
+|26.4|	Using uVim from a shell script
 
      Next chapter: |usr_27.txt|  Search commands and patterns
  Previous chapter: |usr_25.txt|  Editing formatted text
@@ -91,7 +91,7 @@ Using CTRL-A on these numbers results in:
 	007	foo bar ~
 	010	foo bar ~
 
-7 plus one is 10?  What happened here is that Vim recognized "007" as an octal
+7 plus one is 10?  What happened here is that uVim recognized "007" as an octal
 number, because there is a leading zero.  This notation is often used in C
 programs.  If you do not want a number with leading zeros to be handled as
 octal, use this: >
@@ -134,12 +134,12 @@ this, because you might have more files in the buffer list than you think.
 Check this with the ":buffers" command (or ":ls").
 
 ==============================================================================
-*26.4*	Using Vim from a shell script
+*26.4*	Using uVim from a shell script
 
 Suppose you have a lot of files in which you need to change the string
 "-person-" to "Jones" and then print it.  How do you do that?  One way is to
 do a lot of typing.  The other is to write a shell script to do the work.
-   The Vim editor does a superb job as a screen-oriented editor when using
+   The uVim editor does a superb job as a screen-oriented editor when using
 Normal mode commands.  For batch processing, however, Normal mode commands do
 not result in clear, commented command files; so here you will use Ex mode
 instead.  This mode gives you a nice command-line interface that makes it easy
@@ -161,9 +161,9 @@ batch mode, use this shell script: >
 
 The for-done loop is a shell construct to repeat the two lines in between,
 while the $file variable is set to a different file name each time.
-   The second line runs the Vim editor in Ex mode (-e argument) on the file
+   The second line runs the uVim editor in Ex mode (-e argument) on the file
 $file and reads commands from the file "change.vim".  The -s argument tells
-Vim to operate in silent mode.  In other words, do not keep outputting the
+uVim to operate in silent mode.  In other words, do not keep outputting the
 :prompt, or any other prompt for that matter.
    The "lpr -r tempfile" command prints the resulting "tempfile" and deletes
 it (that's what the -r argument does).
@@ -171,8 +171,8 @@ it (that's what the -r argument does).
 
 READING FROM STDIN
 
-Vim can read text on standard input.  Since the normal way is to read commands
-there, you must tell Vim to read text instead.  This is done by passing the
+uVim can read text on standard input.  Since the normal way is to read commands
+there, you must tell uVim to read text instead.  This is done by passing the
 "-" argument in place of a file.  Example: >
 
 	ls | vim -

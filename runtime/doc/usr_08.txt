@@ -1,4 +1,4 @@
-*usr_08.txt*	For Vim version 7.4.  Last change: 2014 Jul 06
+*usr_08.txt*	For uVim version 7.4.  Last change: 2014 Jul 06
 
 		     VIM USER MANUAL - by Bram Moolenaar
 
@@ -64,7 +64,7 @@ To close a window, use the command: >
 	:close
 
 Actually, any command that quits editing a file works, like ":quit" and "ZZ".
-But ":close" prevents you from accidentally exiting Vim when you close the
+But ":close" prevents you from accidentally exiting uVim when you close the
 last window.
 
 
@@ -142,7 +142,7 @@ count.
 
 USING THE MOUSE
 
-In Vim you can do many things very quickly from the keyboard.  Unfortunately,
+In uVim you can do many things very quickly from the keyboard.  Unfortunately,
 the window resizing commands require quite a bit of typing.  In this case,
 using the mouse is faster.  Position the mouse pointer on a status line.  Now
 press the left mouse button and drag.  The status line will move, thus making
@@ -155,7 +155,7 @@ The 'winheight' option can be set to a minimal desired height of a window and
 'winminheight' to a hard minimum height.
    Likewise, there is 'winwidth' for the minimal desired width and
 'winminwidth' for the hard minimum width.
-   The 'equalalways' option, when set, makes Vim equalize the windows sizes
+   The 'equalalways' option, when set, makes uVim equalize the windows sizes
 when a window is closed or opened.
 
 ==============================================================================
@@ -242,7 +242,7 @@ and the type this command: >
 This uses the uppercase letter K.  What happens is that the window is moved to
 the very top.  You will notice that K is again used for moving upwards.
    When you have vertical splits, CTRL-W K will move the current window to the
-top and make it occupy the full width of the Vim window.  If this is your
+top and make it occupy the full width of the uVim window.  If this is your
 layout:
 
 	+-------------------------------------------+
@@ -278,12 +278,12 @@ The other three similar commands (you can probably guess these now):
 ==============================================================================
 *08.6*	Commands for all windows
 
-When you have several windows open and you want to quit Vim, you can close
+When you have several windows open and you want to quit uVim, you can close
 each window separately.  A quicker way is using this command: >
 
 	:qall
 
-This stands for "quit all".  If any of the windows contain changes, Vim will
+This stands for "quit all".  If any of the windows contain changes, uVim will
 not exit.  The cursor will automatically be positioned in a window with
 changes.  You can then either use ":write" to save the changes, or ":quit!" to
 throw them away.
@@ -294,15 +294,15 @@ changes, use this command: >
 	:wall
 
 This stands for "write all".  But actually, it only writes files with
-changes.  Vim knows it doesn't make sense to write files that were not
+changes.  uVim knows it doesn't make sense to write files that were not
 changed.
    And then there is the combination of ":qall" and ":wall": the "write and
 quit all" command: >
 
 	:wqall
 
-This writes all modified files and quits Vim.
-   Finally, there is a command that quits Vim and throws away all changes: >
+This writes all modified files and quits uVim.
+   Finally, there is a command that quits uVim and throws away all changes: >
 
 	:qall!
 
@@ -311,7 +311,7 @@ Be careful, there is no way to undo this command!
 
 OPENING A WINDOW FOR ALL ARGUMENTS
 
-To make Vim open a window for each file, start it with the "-o" argument: >
+To make uVim open a window for each file, start it with the "-o" argument: >
 
 	vim -o one.txt two.txt three.txt
 
@@ -331,21 +331,21 @@ This results in:
 	+-------------------------------+
 
 The "-O" argument is used to get vertically split windows.
-   When Vim is already running, the ":all" command opens a window for each
+   When uVim is already running, the ":all" command opens a window for each
 file in the argument list.  ":vertical all" does it with vertical splits.
 
 ==============================================================================
 *08.7*	Viewing differences with vimdiff
 
-There is a special way to start Vim, which shows the differences between two
+There is a special way to start uVim, which shows the differences between two
 files.  Let's take a file "main.c" and insert a few characters in one line.
 Write this file with the 'backup' option set, so that the backup file
 "main.c~" will contain the previous version of the file.
-   Type this command in a shell (not in Vim): >
+   Type this command in a shell (not in uVim): >
 
 	vimdiff main.c~ main.c
 
-Vim will start, with two windows side by side.  You will only see the line
+uVim will start, with two windows side by side.  You will only see the line
 in which you added characters, and a few lines above and below it.
 
 	 VV		      VV
@@ -398,7 +398,7 @@ this -, the fold will close.
 
 DIFFING IN VIM
 
-Another way to start in diff mode can be done from inside Vim.  Edit the
+Another way to start in diff mode can be done from inside uVim.  Edit the
 "main.c" file, then make a split and show the differences: >
 
 	:edit main.c
@@ -408,7 +408,7 @@ The ":vertical" command is used to make the window split vertically.  If you
 omit this, you will get a horizontal split.
 
 If you have a patch or diff file, you can use the third way to start diff
-mode.  First edit the file to which the patch applies.  Then tell Vim the name
+mode.  First edit the file to which the patch applies.  Then tell uVim the name
 of the patch file: >
 
 	:edit main.c
@@ -417,13 +417,13 @@ of the patch file: >
 WARNING: The patch file must contain only one patch, for the file you are
 editing.  Otherwise you will get a lot of error messages, and some files might
 be patched unexpectedly.
-   The patching will only be done to the copy of the file in Vim.  The file on
+   The patching will only be done to the copy of the file in uVim.  The file on
 your harddisk will remain unmodified (until you decide to write the file).
 
 
 SCROLL BINDING
 
-When the files have more changes, you can scroll in the usual way.  Vim will
+When the files have more changes, you can scroll in the usual way.  uVim will
 try to keep both the windows start at the same position, so you can easily see
 the differences side by side.
    When you don't want this for a moment, use this command: >
@@ -448,7 +448,7 @@ Prepended a count to jump further away.
 REMOVING CHANGES
 
 You can move text from one window to the other.  This either removes
-differences or adds new ones.  Vim doesn't keep the highlighting updated in
+differences or adds new ones.  uVim doesn't keep the highlighting updated in
 all situations.  To update it use this command: >
 
 	:diffupdate
@@ -468,7 +468,7 @@ window, to the line where "changed" was inserted.  Now type this command: >
 	do
 
 The change will now be removed by getting the text from the other window.
-Since there are no changes left now, Vim puts all text in a closed fold.
+Since there are no changes left now, uVim puts all text in a closed fold.
 "do" stands for "diff obtain".  "dg" would have been better, but that already
 has a different meaning ("dgg" deletes from the cursor until the first line).
 
@@ -502,8 +502,8 @@ window is to appear:
 	:aboveleft {cmd}	idem
 	:rightbelow {cmd}	right or below the current window
 	:belowright {cmd}	idem
-	:topleft {cmd}		at the top or left of the Vim window
-	:botright {cmd}		at the bottom or right of the Vim window
+	:topleft {cmd}		at the top or left of the uVim window
+	:botright {cmd}		at the bottom or right of the uVim window
 
 
 ==============================================================================
@@ -516,7 +516,7 @@ Assume you are editing "thisfile".  To create a new tab page use this command: >
 
 	:tabedit thatfile
 
-This will edit the file "thatfile" in a window that occupies the whole Vim
+This will edit the file "thatfile" in a window that occupies the whole uVim
 window.  And you will notice a bar at the top with the two file names:
 
 	+----------------------------------+

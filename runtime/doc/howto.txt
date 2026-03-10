@@ -1,4 +1,4 @@
-*howto.txt*	For Vim version 7.4.  Last change: 2006 Apr 02
+*howto.txt*	For uVim version 7.4.  Last change: 2006 Apr 02
 
 
 		  VIM REFERENCE MANUAL	  by Bram Moolenaar
@@ -8,9 +8,9 @@ How to ...				*howdoi* *how-do-i* *howto* *how-to*
 
 |tutor|			get started
 |:quit|			exit?  I'm trapped, help me!
-|initialization|	initialize Vim
-|vimrc-intro|		write a Vim script file (vimrc)
-|suspend|		suspend Vim
+|initialization|	initialize uVim
+|vimrc-intro|		write a uVim script file (vimrc)
+|suspend|		suspend uVim
 |usr_11.txt|		recover after a crash
 |07.4|			keep a backup of my file when writing over it
 
@@ -49,7 +49,7 @@ How to ...				*howdoi* *how-do-i* *howto* *how-to*
 
 |mode-switching|	change modes
 |04.4|			use Visual mode
-|'insertmode'|		start Vim in Insert mode
+|'insertmode'|		start uVim in Insert mode
 
 |40.1|			map keys
 |24.7|			create abbreviations
@@ -69,7 +69,7 @@ How to ...				*howdoi* *how-do-i* *howto* *how-to*
 
 |'autowrite'|		write automatically
 |30.1|			speedup edit-compile-edit cycle or compile and fix
-			errors within Vim
+			errors within uVim
 
 |options|		set options
 |auto-setting|		set options automatically
@@ -83,14 +83,14 @@ How to ...				*howdoi* *how-do-i* *howto* *how-to*
 |'report'|		avoid seeing the change messages on every line
 |'shortmess'|		avoid |hit-enter| prompts
 
-|mouse-using|		use mouse with Vim
+|mouse-using|		use mouse with uVim
 |usr_08.txt|		manage multiple windows and buffers
 |gui.txt|		use the gui
 
-|You can't! (yet)|	do dishes using Vim
+|You can't! (yet)|	do dishes using uVim
 
 |usr_06.txt|		switch on syntax highlighting
 |2html.vim|		convert a colored file to HTML
-|less|			use Vim like less or more with syntax highlighting
+|less|			use uVim like less or more with syntax highlighting
 
  vim:tw=78:ts=8:ft=help:norl:

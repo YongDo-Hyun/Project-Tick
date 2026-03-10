@@ -1,4 +1,4 @@
-*mlang.txt*     For Vim version 7.4.  Last change: 2016 Jan 16
+*mlang.txt*     For uVim version 7.4.  Last change: 2016 Jan 16
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
@@ -23,7 +23,7 @@ Also see |help-translated| for multi-language help.
 ==============================================================================
 1. Messages						*multilang-messages*
 
-Vim picks up the locale from the environment.  In most cases this means Vim
+uVim picks up the locale from the environment.  In most cases this means uVim
 will use the language that you prefer, unless it's not available.
 
 To see a list of supported locale names on your system, look in one of these
@@ -67,7 +67,7 @@ use of "-" and "_".
 			text.  This sets $LC_MESSAGES.
 			With the "ctype" argument the language used for
 			character encoding is set.  This affects the libraries
-			that Vim was linked with.  It's unusual to set this to
+			that uVim was linked with.  It's unusual to set this to
 			a different value from 'encoding' or "C".  This sets
 			$LC_CTYPE.
 			With the "time" argument the language used for time
@@ -103,7 +103,7 @@ Or:
 This also contains tools xgettext, msgformat and others.
 
 libintl.dll should be placed in same directory with (g)vim.exe, or some
-place where PATH environment value describe.  Vim also finds libintl-8.dll.
+place where PATH environment value describe.  uVim also finds libintl-8.dll.
 Message files (vim.mo) have to be placed in "$VIMRUNTIME/lang/xx/LC_MESSAGES",
 where "xx" is the abbreviation of the language (mostly two letters).
 
@@ -146,7 +146,7 @@ translations you expected, check the output of this command: >
 Now check the "$VIMRUNTIME/lang" directory for menu translation files that use
 a similar language.  A difference in a "-" being a "_" already causes a file
 not to be found!  Another common difference to watch out for is "iso8859-1"
-versus "iso_8859-1".  Fortunately Vim makes all names lowercase, thus you
+versus "iso_8859-1".  Fortunately uVim makes all names lowercase, thus you
 don't have to worry about case differences.  Spaces are changed to
 underscores, to avoid having to escape them.
 
@@ -166,9 +166,9 @@ TRANSLATING MENUS
 
 If you want to do your own translations, you can use the |:menutrans| command,
 explained below.  It is recommended to put the translations for one language
-in a Vim script.  For a language that has no translation yet, please consider
-becoming the maintainer and make your translations available to all Vim users.
-Send an e-mail to the Vim maintainer <maintainer@vim.org>.
+in a uVim script.  For a language that has no translation yet, please consider
+becoming the maintainer and make your translations available to all uVim users.
+Send an e-mail to the uVim maintainer <maintainer@vim.org>.
 
 					*:menut* *:menutrans* *:menutranslate*
 :menut[ranslate] clear
@@ -183,19 +183,19 @@ Send an e-mail to the Vim maintainer <maintainer@vim.org>.
 See the $VIMRUNTIME/lang directory for examples.
 
 To try out your translations you first have to remove all menus.  This is how
-you can do it without restarting Vim: >
+you can do it without restarting uVim: >
 	:source $VIMRUNTIME/delmenu.vim
 	:source <your-new-menu-file>
 	:source $VIMRUNTIME/menu.vim
 
 Each part of a menu path is translated separately.  The result is that when
-"Help" is translated to "Hilfe" and "Overview" to "Überblick" then
-"Help.Overview" will be translated to "Hilfe.Überblick".
+"Help" is translated to "Hilfe" and "Overview" to "ï¿½berblick" then
+"Help.Overview" will be translated to "Hilfe.ï¿½berblick".
 
 ==============================================================================
 3. Scripts						*multilang-scripts*
 
-In Vim scripts you can use the |v:lang| variable to get the current language
+In uVim scripts you can use the |v:lang| variable to get the current language
 (locale).  The default value is "C" or comes from the $LANG environment
 variable.
 

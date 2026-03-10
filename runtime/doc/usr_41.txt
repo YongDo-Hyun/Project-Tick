@@ -1,12 +1,12 @@
-*usr_41.txt*	For Vim version 7.4.  Last change: 2016 Aug 07
+*usr_41.txt*	For uVim version 7.4.  Last change: 2016 Aug 07
 
 		     VIM USER MANUAL - by Bram Moolenaar
 
-			      Write a Vim script
+			      Write a uVim script
 
 
-The Vim script language is used for the startup vimrc file, syntax files, and
-many other things.  This chapter explains the items that can be used in a Vim
+The uVim script language is used for the startup vimrc file, syntax files, and
+many other things.  This chapter explains the items that can be used in a uVim
 script.  There are a lot of them, thus this is a long chapter.
 
 |41.1|	Introduction
@@ -24,7 +24,7 @@ script.  There are a lot of them, thus this is a long chapter.
 |41.13|	Writing a compiler plugin
 |41.14|	Writing a plugin that loads quickly
 |41.15|	Writing library scripts
-|41.16|	Distributing Vim scripts
+|41.16|	Distributing uVim scripts
 
      Next chapter: |usr_42.txt|  Add new menus
  Previous chapter: |usr_40.txt|  Make new commands
@@ -33,12 +33,12 @@ Table of contents: |usr_toc.txt|
 ==============================================================================
 *41.1*	Introduction				*vim-script-intro* *script*
 
-Your first experience with Vim scripts is the vimrc file.  Vim reads it when
+Your first experience with uVim scripts is the vimrc file.  uVim reads it when
 it starts up and executes the commands.  You can set options to values you
 prefer.  And you can use any colon command in it (commands that start with a
 ":"; these are sometimes referred to as Ex commands or command-line commands).
-   Syntax files are also Vim scripts.  As are files that set options for a
-specific file type.  A complicated macro can be defined by a separate Vim
+   Syntax files are also uVim scripts.  As are files that set options for a
+specific file type.  A complicated macro can be defined by a separate uVim
 script file.  You can think of other uses yourself.
 
 Let's start with a simple example: >
@@ -51,7 +51,7 @@ Let's start with a simple example: >
 <
 	Note:
 	The ":" characters are not really needed here.  You only need to use
-	them when you type a command.  In a Vim script file they can be left
+	them when you type a command.  In a uVim script file they can be left
 	out.  We will use them here anyway to make clear these are colon
 	commands and make them stand out from Normal mode commands.
 	Note:
@@ -171,7 +171,7 @@ used ones are:
 	b:name		variable local to a buffer
 	w:name		variable local to a window
 	g:name		global variable (also in a function)
-	v:name		variable predefined by Vim
+	v:name		variable predefined by uVim
 
 
 DELETING VARIABLES
@@ -208,9 +208,9 @@ exists() checks.  That's not what you want.
    The exclamation mark ! negates a value.  When the value was true, it
 becomes false.  When it was false, it becomes true.  You can read it as "not".
 Thus "if !exists()" can be read as "if not exists()".
-   What Vim calls true is anything that is not zero.  Zero is false.
+   What uVim calls true is anything that is not zero.  Zero is false.
 	Note:
-	Vim automatically converts a string to a number when it is looking for
+	uVim automatically converts a string to a number when it is looking for
 	a number.  When using a string that doesn't start with a digit the
 	resulting number is zero.  Thus look out for this: >
 		:if "true"
@@ -220,7 +220,7 @@ Thus "if !exists()" can be read as "if not exists()".
 STRING VARIABLES AND CONSTANTS
 
 So far only numbers were used for the variable value.  Strings can be used as
-well.  Numbers and strings are the basic types of variables that Vim supports.
+well.  Numbers and strings are the basic types of variables that uVim supports.
 The type is dynamic, it is set each time when assigning a value to the
 variable with ":let".  More about types in |41.8|.
    To assign a string value to a variable, you need to use a string constant.
@@ -267,7 +267,7 @@ the special key "name".
 ==============================================================================
 *41.3*	Expressions
 
-Vim has a rich, yet simple way to handle expressions.  You can read the
+uVim has a rich, yet simple way to handle expressions.  You can read the
 definition here: |expression-syntax|.  Here we will show the most common
 items.
    The numbers, strings and variables mentioned above are expressions by
@@ -354,7 +354,7 @@ The ":if" commands executes the following statements, until the matching
 
 Only when the expression {condition} evaluates to true (non-zero) will the
 {statements} be executed.  These must still be valid commands.  If they
-contain garbage, Vim won't be able to find the ":endif".
+contain garbage, uVim won't be able to find the ":endif".
    You can also use ":else".  The generic form for this is:
 
 	:if {condition}
@@ -406,9 +406,9 @@ The result is one if the condition is met and zero otherwise.  An example: >
 	:  echo "you are using an old version, upgrade!"
 	:endif
 
-Here "v:version" is a variable defined by Vim, which has the value of the Vim
+Here "v:version" is a variable defined by uVim, which has the value of the uVim
 version.  600 is for version 6.0.  Version 6.1 has the value 601.  This is
-very useful to write a script that works with multiple versions of Vim.
+very useful to write a script that works with multiple versions of uVim.
 |v:version|
 
 The logic operators work both for numbers and strings.  When comparing two
@@ -474,7 +474,7 @@ Example: >
 	:  sleep 50m
 	:endwhile
 
-The ":sleep" command makes Vim take a nap.  The "50m" specifies fifty
+The ":sleep" command makes uVim take a nap.  The "50m" specifies fifty
 milliseconds.  Another example is ":sleep 4", which sleeps for four seconds.
 
 Even more looping can be done with the ":for" command, see below in |41.8|.
@@ -482,7 +482,7 @@ Even more looping can be done with the ":for" command, see below in |41.8|.
 ==============================================================================
 *41.5*	Executing an expression
 
-So far the commands in the script were executed by Vim directly.  The
+So far the commands in the script were executed by uVim directly.  The
 ":execute" command allows executing the result of an expression.  This is a
 very powerful way to build commands and execute them.
    An example is to jump to a tag, which is contained in a variable: >
@@ -509,7 +509,7 @@ Example: >
 
 The variable "normal_commands" must contain the Normal mode commands.
    Make sure that the argument for ":normal" is a complete command.  Otherwise
-Vim will run into the end of the argument and abort the command.  For example,
+uVim will run into the end of the argument and abort the command.  For example,
 if you start Insert mode, you must leave Insert mode as well.  This works: >
 
 	:execute "normal Inew text \<Esc>"
@@ -532,7 +532,7 @@ A "&" character is prepended to "path", thus the argument to eval() is
 ==============================================================================
 *41.6*	Using functions
 
-Vim defines many functions and provides a large amount of functionality that
+uVim defines many functions and provides a large amount of functionality that
 way.  A few examples will be given in this section.  You can find the whole
 list here: |functions|.
 
@@ -584,7 +584,7 @@ String manipulation:					*string-functions*
 	printf()		format a string according to % items
 	escape()		escape characters in a string with a '\'
 	shellescape()		escape a string for use with a shell command
-	fnameescape()		escape a file name for use with a Vim command
+	fnameescape()		escape a file name for use with a uVim command
 	tr()			translate characters from one set to another
 	strtrans()		translate a string to make it printable
 	tolower()		turn a string to lowercase
@@ -882,18 +882,18 @@ Interactive:					*interactive-functions*
 
 GUI:						*gui-functions*
 	getfontname()		get name of current font being used
-	getwinposx()		X position of the GUI Vim window
-	getwinposy()		Y position of the GUI Vim window
+	getwinposx()		X position of the GUI uVim window
+	getwinposy()		Y position of the GUI uVim window
 
-Vim server:					*server-functions*
+uVim server:					*server-functions*
 	serverlist()		return the list of server names
-	remote_send()		send command characters to a Vim server
-	remote_expr()		evaluate an expression in a Vim server
-	server2client()		send a reply to a client of a Vim server
-	remote_peek()		check if there is a reply from a Vim server
-	remote_read()		read a reply from a Vim server
-	foreground()		move the Vim window to the foreground
-	remote_foreground()	move the Vim server window to the foreground
+	remote_send()		send command characters to a uVim server
+	remote_expr()		evaluate an expression in a uVim server
+	server2client()		send a reply to a client of a uVim server
+	remote_peek()		check if there is a reply from a uVim server
+	remote_read()		read a reply from a uVim server
+	foreground()		move the uVim window to the foreground
+	remote_foreground()	move the uVim server window to the foreground
 
 Window size and position:			*window-size-functions*
 	winheight()		get height of a specific window
@@ -946,9 +946,9 @@ Inter-process communication:		    *channel-functions*
 	ch_logfile()		set the channel log file
 	ch_setoptions()		set the options for a channel
 	json_encode()		encode an expression to a JSON string
-	json_decode()		decode a JSON string to Vim types
+	json_decode()		decode a JSON string to uVim types
 	js_encode()		encode an expression to a JSON string
-	js_decode()		decode a JSON string to Vim types
+	js_decode()		decode a JSON string to uVim types
 
 Jobs:		    			        *job-functions*
 	job_start()		start a job
@@ -969,12 +969,12 @@ Various:					*various-functions*
 	mode()			get current editing mode
 	visualmode()		last visual mode used
 	exists()		check if a variable, function, etc. exists
-	has()			check if a feature is supported in Vim
+	has()			check if a feature is supported in uVim
 	changenr()		return number of most recent change
 	cscope_connection()	check if a cscope connection exists
 	did_filetype()		check if a FileType autocommand was used
 	eventhandler()		check if invoked by an event handler
-	getpid()		get process ID of Vim
+	getpid()		get process ID of uVim
 
 	libcall()		call a function in an external library
 	libcallnr()		idem, returning a number
@@ -1002,7 +1002,7 @@ Various:					*various-functions*
 ==============================================================================
 *41.7*	Defining a function
 
-Vim enables you to define your own functions.  The basic function declaration
+uVim enables you to define your own functions.  The basic function declaration
 begins as follows: >
 
 	:function {name}({var1}, {var2}, ...)
@@ -1017,13 +1017,13 @@ with this line: >
 
 	:function Min(num1, num2)
 
-This tells Vim that the function is named "Min" and it takes two arguments:
+This tells uVim that the function is named "Min" and it takes two arguments:
 "num1" and "num2".
    The first thing you need to do is to check to see which number is smaller:
    >
 	:  if a:num1 < a:num2
 
-The special prefix "a:" tells Vim that the variable is a function argument.
+The special prefix "a:" tells uVim that the variable is a function argument.
 Let's assign the variable "smaller" the value of the smallest number: >
 
 	:  if a:num1 < a:num2
@@ -1073,7 +1073,7 @@ this: >
 
 	:echo Min(5, 8)
 
-Only now will the function be executed and the lines be interpreted by Vim.
+Only now will the function be executed and the lines be interpreted by uVim.
 If there are mistakes, like using an undefined variable or function, you will
 now get an error message.  When defining the function these errors are not
 detected.
@@ -1128,7 +1128,7 @@ The function will be called six times.
 
 VARIABLE NUMBER OF ARGUMENTS
 
-Vim enables you to define functions that have a variable number of arguments.
+uVim enables you to define functions that have a variable number of arguments.
 The following command, for instance, defines a function that must have 1
 argument (start) and can have up to 20 additional arguments: >
 
@@ -1229,7 +1229,7 @@ explained in the next section.
 ==============================================================================
 *41.8*	Lists and Dictionaries
 
-So far we have used the basic types String and Number.  Vim also supports two
+So far we have used the basic types String and Number.  uVim also supports two
 composite types: List and Dictionary.
 
 A List is an ordered sequence of things.  The things can be any kind of value,
@@ -1572,7 +1572,7 @@ manual: |exception-handling|.
 ==============================================================================
 *41.10*	Various remarks
 
-Here is a summary of items that apply to Vim scripts.  They are also mentioned
+Here is a summary of items that apply to uVim scripts.  They are also mentioned
 elsewhere, but form a nice checklist.
 
 The end-of-line character depends on the system.  For Unix a single <NL>
@@ -1655,10 +1655,10 @@ trailing whitespace is included: >
 To spot these problems, you can set the 'list' option when editing vimrc
 files.
 
-For Unix there is one special way to comment a line, that allows making a Vim
+For Unix there is one special way to comment a line, that allows making a uVim
 script executable: >
 	#!/usr/bin/env vim -S
-	echo "this is a Vim script"
+	echo "this is a uVim script"
 	quit
 
 The "#" command by itself lists a line with the line number.  Adding an
@@ -1683,7 +1683,7 @@ command: >
 
 	:unmap ,ab     " comment
 
-Here the comment part will be ignored.  However, Vim will try to unmap
+Here the comment part will be ignored.  However, uVim will try to unmap
 ',ab     ', which does not exist.  Rewrite it as: >
 
 	:unmap ,ab|    " comment
@@ -1742,8 +1742,8 @@ Example: >
 ==============================================================================
 *41.11*	Writing a plugin				*write-plugin*
 
-You can write a Vim script in such a way that many people can use it.  This is
-called a plugin.  Vim users can drop your script in their plugin directory and
+You can write a uVim script in such a way that many people can use it.  This is
+called a plugin.  uVim users can drop your script in their plugin directory and
 use its features right away |add-plugin|.
 
 There are actually two types of plugins:
@@ -1795,13 +1795,13 @@ versions lying around.  And when distributing this file, people will want to
 know who wrote this wonderful plugin and where they can send remarks.
 Therefore, put a header at the top of your plugin: >
 
-  1	" Vim global plugin for correcting typing mistakes
+  1	" uVim global plugin for correcting typing mistakes
   2	" Last Change:	2000 Oct 15
   3	" Maintainer:	Bram Moolenaar <Bram@vim.org>
 
 About copyright and licensing: Since plugins are very useful and it's hardly
 worth restricting their distribution, please consider making your plugin
-either public domain or use the Vim |license|.  A short note about this near
+either public domain or use the uVim |license|.  A short note about this near
 the top of the plugin should be sufficient.  Example: >
 
   4	" License:	This file is placed in the public domain.
@@ -1812,7 +1812,7 @@ LINE CONTINUATION, AVOIDING SIDE EFFECTS		*use-cpo-save*
 In line 18 above, the line-continuation mechanism is used |line-continuation|.
 Users with 'compatible' set will run into trouble here, they will get an error
 message.  We can't just reset 'compatible', because that has a lot of side
-effects.  To avoid this, we will set the 'cpoptions' option to its Vim default
+effects.  To avoid this, we will set the 'cpoptions' option to its uVim default
 value and restore it later.  That will allow the use of line-continuation and
 make the script work for most people.  It is done like this: >
 
@@ -1851,7 +1851,7 @@ plugin, literally.  The "g:" is prepended just to avoid mistakes when using
 the variable in a function (without "g:" it would be a variable local to the
 function).
 
-Using "finish" stops Vim from reading the rest of the file, it's much quicker
+Using "finish" stops uVim from reading the rest of the file, it's much quicker
 than using if-endif around the whole file.
 
 
@@ -1932,7 +1932,7 @@ thus define another mapping.
 
 Note that instead of s:Add() we use <SID>Add() here.  That is because the
 mapping is typed by the user, thus outside of the script.  The <SID> is
-translated to the script ID, so that Vim knows in which script to look for
+translated to the script ID, so that uVim knows in which script to look for
 the Add() function.
 
 This is a bit complicated, but it's required for the plugin to work together
@@ -1973,7 +1973,7 @@ difference between using <SID> and <Plug>:
 	starts.
 
 <SID>	is the script ID, a unique identifier for a script.
-	Internally Vim translates <SID> to "<SNR>123_", where "123" can be any
+	Internally uVim translates <SID> to "<SNR>123_", where "123" can be any
 	number.  Thus a function "<SID>Add()" will have a name "<SNR>11_Add()"
 	in one script, and "<SNR>22_Add()" in another.  You can see this if
 	you use the ":function" command to get a list of functions.  The
@@ -2000,7 +2000,7 @@ SCRIPT VARIABLES
 When a variable starts with "s:" it is a script variable.  It can only be used
 inside a script.  Outside the script it's not visible.  This avoids trouble
 with using the same variable name in different scripts.  The variables will be
-kept as long as Vim is running.  And the same variables are used when sourcing
+kept as long as uVim is running.  And the same variables are used when sourcing
 the same script again. |s:var|
 
 The fun is that these variables can also be used in functions, autocommands
@@ -2025,7 +2025,7 @@ THE RESULT
 
 Here is the resulting complete example: >
 
-  1	" Vim global plugin for correcting typing mistakes
+  1	" uVim global plugin for correcting typing mistakes
   2	" Last Change:	2000 Oct 15
   3	" Maintainer:	Bram Moolenaar <Bram@vim.org>
   4	" License:	This file is placed in the public domain.
@@ -2074,7 +2074,7 @@ the cursor.  The |:normal| command is used to use the new abbreviation.  Note
 that mappings and abbreviations are expanded here, even though the function
 was called from a mapping defined with ":noremap".
 
-Using "unix" for the 'fileformat' option is recommended.  The Vim scripts will
+Using "unix" for the 'fileformat' option is recommended.  The uVim scripts will
 then work everywhere.  Scripts with 'fileformat' set to "dos" do not work on
 Unix.  Also see |:source_crnl|.  To be sure it is set right, do this before
 writing the file: >
@@ -2124,7 +2124,7 @@ it easy for the user to find associated help.
 
 FILETYPE DETECTION					*plugin-filetype*
 
-If your filetype is not already detected by Vim, you should create a filetype
+If your filetype is not already detected by uVim, you should create a filetype
 detection snippet in a separate file.  It is usually in the form of an
 autocommand that sets the filetype when the file name matches a pattern.
 Example: >
@@ -2378,8 +2378,8 @@ When you write a compiler file and put it in your personal runtime directory
 make the default file skip the settings.
 							*:CompilerSet*
 The second mechanism is to use ":set" for ":compiler!" and ":setlocal" for
-":compiler".  Vim defines the ":CompilerSet" user command for this.  However,
-older Vim versions don't, thus your plugin should define it then.  This is an
+":compiler".  uVim defines the ":CompilerSet" user command for this.  However,
+older uVim versions don't, thus your plugin should define it then.  This is an
 example: >
 
   if exists(":CompilerSet") != 2
@@ -2388,7 +2388,7 @@ example: >
   CompilerSet errorformat&		" use the default 'errorformat'
   CompilerSet makeprg=nmake
 
-When you write a compiler plugin for the Vim distribution or for a system-wide
+When you write a compiler plugin for the uVim distribution or for a system-wide
 runtime directory, use the mechanism mentioned above.  When
 "current_compiler" was already set by a user plugin nothing will be done.
 
@@ -2413,12 +2413,12 @@ mean is that it loads quickly the first time, postponing the bulk of the
 script to the second time, which only happens when you actually use it.  When
 you always use the functionality it actually gets slower!
 
-Note that since Vim 7 there is an alternative: use the |autoload|
+Note that since uVim 7 there is an alternative: use the |autoload|
 functionality |41.15|.
 
 The following example shows how it's done: >
 
-	" Vim global plugin for demonstrating quick loading
+	" uVim global plugin for demonstrating quick loading
 	" Last Change:	2005 Feb 25
 	" Maintainer:	Bram Moolenaar <Bram@vim.org>
 	" License:	This file is placed in the public domain.
@@ -2450,7 +2450,7 @@ The second time the script is loaded "s:did_load" exists and the commands
 after the "endif" are executed.  This defines the (possible long)
 BufNetRead() and BufNetWrite() functions.
 
-If you drop this script in your plugin directory Vim will execute it on
+If you drop this script in your plugin directory uVim will execute it on
 startup.  This is the sequence of events that happens:
 
 1. The "BNRead" command is defined and the <F19> key is mapped when the script
@@ -2460,7 +2460,7 @@ startup.  This is the sequence of events that happens:
 2. The user types the BNRead command or presses the <F19> key.  The
    BufNetRead() or BufNetWrite() function will be called.
 
-3. Vim can't find the function and triggers the |FuncUndefined| autocommand
+3. uVim can't find the function and triggers the |FuncUndefined| autocommand
    event.  Since the pattern "BufNet*" matches the invoked function, the
    command "source fname" will be executed.  "fname" will be equal to the name
    of the script, no matter where it is located, because it comes from
@@ -2492,18 +2492,18 @@ Example: >
 Here you need to know that MyLibFunction() is defined in a script
 "library/mylibscript.vim" in one of the directories in 'runtimepath'.
 
-To make this a bit simpler Vim offers the autoload mechanism.  Then the
+To make this a bit simpler uVim offers the autoload mechanism.  Then the
 example looks like this: >
 
 	call mylib#myfunction(arg)
 
-That's a lot simpler, isn't it?  Vim will recognize the function name and when
+That's a lot simpler, isn't it?  uVim will recognize the function name and when
 it's not defined search for the script "autoload/mylib.vim" in 'runtimepath'.
 That script must define the "mylib#myfunction()" function.
 
 You can put many other functions in the mylib.vim script, you are free to
 organize your functions in library scripts.  But you must use function names
-where the part before the '#' matches the script name.  Otherwise Vim would
+where the part before the '#' matches the script name.  Otherwise uVim would
 not know what script to load.
 
 If you get really enthusiastic and write lots of library scripts, you may
@@ -2538,16 +2538,16 @@ like: >
 Further reading: |autoload|.
 
 ==============================================================================
-*41.16*	Distributing Vim scripts			*distribute-script*
+*41.16*	Distributing uVim scripts			*distribute-script*
 
-Vim users will look for scripts on the Vim website: http://www.vim.org.
+uVim users will look for scripts on the uVim website: http://www.vim.org.
 If you made something that is useful for others, share it!
 
-Vim scripts can be used on any system.  There might not be a tar or gzip
+uVim scripts can be used on any system.  There might not be a tar or gzip
 command.  If you want to pack files together and/or compress them the "zip"
 utility is recommended.
 
-For utmost portability use Vim itself to pack scripts together.  This can be
+For utmost portability use uVim itself to pack scripts together.  This can be
 done with the Vimball utility.  See |vimball|.
 
 It's good if you add a line to allow automatic updating.  See |glvs-plugins|.

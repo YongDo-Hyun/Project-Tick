@@ -1,4 +1,4 @@
-*usr_toc.txt*	For Vim version 7.4.  Last change: 2016 Mar 25
+*usr_toc.txt*	For uVim version 7.4.  Last change: 2016 Mar 25
 
 		     VIM USER MANUAL - by Bram Moolenaar
 
@@ -9,7 +9,7 @@ Overview ~
 
 Getting Started
 |usr_01.txt|  About the manuals
-|usr_02.txt|  The first steps in Vim
+|usr_02.txt|  The first steps in uVim
 |usr_03.txt|  Moving around
 |usr_04.txt|  Making small changes
 |usr_05.txt|  Set your settings
@@ -36,16 +36,16 @@ Editing Effectively
 |usr_31.txt|  Exploiting the GUI
 |usr_32.txt|  The undo tree
 
-Tuning Vim
+Tuning uVim
 |usr_40.txt|  Make new commands
-|usr_41.txt|  Write a Vim script
+|usr_41.txt|  Write a uVim script
 |usr_42.txt|  Add new menus
 |usr_43.txt|  Using filetypes
 |usr_44.txt|  Your own syntax highlighted
 |usr_45.txt|  Select your language
 
-Making Vim Run
-|usr_90.txt|  Installing Vim
+Making uVim Run
+|usr_90.txt|  Installing uVim
 
 
 Reference manual
@@ -62,12 +62,12 @@ Read this from start to end to learn the essential commands.
 
 |usr_01.txt|  About the manuals
 		|01.1|	Two manuals
-		|01.2|	Vim installed
-		|01.3|	Using the Vim tutor
+		|01.2|	uVim installed
+		|01.3|	Using the uVim tutor
 		|01.4|	Copyright
 
-|usr_02.txt|  The first steps in Vim
-		|02.1|	Running Vim for the First Time
+|usr_02.txt|  The first steps in uVim
+		|02.1|	Running uVim for the First Time
 		|02.2|	Inserting text
 		|02.3|	Moving around
 		|02.4|	Deleting characters
@@ -226,7 +226,7 @@ Subjects that can be read independently.
 		|26.1|	Repeating with Visual mode
 		|26.2|	Add and subtract
 		|26.3|	Making a change in many files
-		|26.4|	Using Vim from a shell script
+		|26.4|	Using uVim from a shell script
 
 |usr_27.txt|  Search commands and patterns
 		|27.1|	Ignoring case
@@ -270,7 +270,7 @@ Subjects that can be read independently.
 		|31.1|	The file browser
 		|31.2|	Confirmation
 		|31.3|	Menu shortcuts
-		|31.4|	Vim window position and size
+		|31.4|	uVim window position and size
 		|31.5|	Various
 
 |usr_32.txt|  The undo tree
@@ -280,16 +280,16 @@ Subjects that can be read independently.
 		|32.4|	Time travelling
 
 ==============================================================================
-Tuning Vim ~
+Tuning uVim ~
 
-Make Vim work as you like it.
+Make uVim work as you like it.
 
 |usr_40.txt|  Make new commands
 		|40.1|	Key mapping
 		|40.2|	Defining command-line commands
 		|40.3|	Autocommands
 
-|usr_41.txt|  Write a Vim script
+|usr_41.txt|  Write a uVim script
 		|41.1|	Introduction
 		|41.2|	Variables
 		|41.3|	Expressions
@@ -305,7 +305,7 @@ Make Vim work as you like it.
 		|41.13|	Writing a compiler plugin
 		|41.14|	Writing a plugin that loads quickly
 		|41.15|	Writing library scripts
-		|41.16|	Distributing Vim scripts
+		|41.16|	Distributing uVim scripts
 
 |usr_42.txt|  Add new menus
 		|42.1|	Introduction
@@ -339,16 +339,16 @@ Make Vim work as you like it.
 		|45.5|	Entering language text
 
 ==============================================================================
-Making Vim Run ~
+Making uVim Run ~
 
-Before you can use Vim.
+Before you can use uVim.
 
-|usr_90.txt|  Installing Vim
+|usr_90.txt|  Installing uVim
 		|90.1|	Unix
 		|90.2|	MS-Windows
 		|90.3|	Upgrading
 		|90.4|	Common installation issues
-		|90.5|	Uninstalling Vim
+		|90.5|	Uninstalling uVim
 
 ==============================================================================
 

@@ -1,10 +1,10 @@
-*if_lua.txt*    For Vim version 7.4.  Last change: 2015 Oct 16
+*if_lua.txt*    For uVim version 7.4.  Last change: 2015 Oct 16
 
 
 		  VIM REFERENCE MANUAL    by Luis Carvalho
 
 
-The Lua Interface to Vim				*lua* *Lua*
+The Lua Interface to uVim				*lua* *Lua*
 
 1. Commands			|lua-commands|
 2. The vim module		|lua-vim|
@@ -18,7 +18,7 @@ The Lua Interface to Vim				*lua* *Lua*
 
 {Vi does not have any of these commands}
 
-The Lua interface is available only when Vim was compiled with the
+The Lua interface is available only when uVim was compiled with the
 |+lua| feature.
 
 ==============================================================================
@@ -30,7 +30,7 @@ The Lua interface is available only when Vim was compiled with the
 
 Examples:
 >
-	:lua print("Hello, Vim!")
+	:lua print("Hello, uVim!")
 	:lua local curbuf = vim.buffer() curbuf[7] = "line #7"
 <
 
@@ -46,7 +46,7 @@ Examples:
 omitted from after the "<<", a dot '.' must be used after {script}, like
 for the |:append| and |:insert| commands.
 This form of the |:lua| command is mainly useful for including Lua code
-in Vim scripts.
+in uVim scripts.
 
 Example:
 >
@@ -95,10 +95,10 @@ All these commands execute a Lua chunk from either the command line (:lua and
 :luado) or a file (:luafile) with the given line [range]. Similarly to the Lua
 interpreter, each chunk has its own scope and so only global variables are
 shared between command calls. All Lua default libraries are available. In
-addition, Lua "print" function has its output redirected to the Vim message
+addition, Lua "print" function has its output redirected to the uVim message
 area, with arguments separated by a white space instead of a tab.
 
-Lua uses the "vim" module (see |lua-vim|) to issue commands to Vim
+Lua uses the "vim" module (see |lua-vim|) to issue commands to uVim
 and manage buffers (|lua-buffer|) and windows (|lua-window|). However,
 procedures that alter buffer content, open new buffers, and change cursor
 position are restricted when the command is executed in the |sandbox|.
@@ -107,10 +107,10 @@ position are restricted when the command is executed in the |sandbox|.
 ==============================================================================
 2. The vim module					*lua-vim*
 
-Lua interfaces Vim through the "vim" module. The first and last line of the
+Lua interfaces uVim through the "vim" module. The first and last line of the
 input range are stored in "vim.firstline" and "vim.lastline" respectively. The
 module also includes routines for buffer, window, and current line queries,
-Vim evaluation and command execution, and others.
+uVim evaluation and command execution, and others.
 
 	vim.list([arg])		Returns an empty list or, if "arg" is a Lua
 				table with numeric keys 1, ..., n (a
@@ -135,7 +135,7 @@ Vim evaluation and command execution, and others.
 					:" {'say': 'hi'}, numeric keys ignored
 <
 	vim.funcref({name})	Returns a Funcref to function {name} (see
-				|Funcref|). It is equivalent to Vim's
+				|Funcref|). It is equivalent to uVim's
 				"function". NOT IMPLEMENTED YET
 
 	vim.buffer([arg])	If "arg" is a number, returns buffer with
@@ -169,8 +169,8 @@ Vim evaluation and command execution, and others.
 <
 	vim.eval({expr})	Evaluates expression {expr} (see |expression|),
 				converts the result to Lua, and returns it.
-				Vim strings and numbers are directly converted
-				to Lua strings and numbers respectively. Vim
+				uVim strings and numbers are directly converted
+				to Lua strings and numbers respectively. uVim
 				lists and dictionaries are converted to Lua
 				userdata (see |lua-list| and |lua-dict|).
 				Examples: >
@@ -191,15 +191,15 @@ Vim evaluation and command execution, and others.
 3. List userdata					*lua-list*
 
 List userdata represent vim lists, and the interface tries to follow closely
-Vim's syntax for lists. Since lists are objects, changes in list references in
-Lua are reflected in Vim and vice-versa. A list "l" has the following
+uVim's syntax for lists. Since lists are objects, changes in list references in
+Lua are reflected in uVim and vice-versa. A list "l" has the following
 properties and methods:
 
 Properties
 ----------
 	o "#l" is the number of items in list "l", equivalent to "len(l)"
-	    in Vim.
-	o "l[k]" returns the k-th item in "l"; "l" is zero-indexed, as in Vim.
+	    in uVim.
+	o "l[k]" returns the k-th item in "l"; "l" is zero-indexed, as in uVim.
 	    To modify the k-th item, simply do "l[k] = newitem"; in
 	    particular, "l[k] = nil" removes the k-th item from "l".
 	o "l()" returns an iterator for "l".
@@ -227,18 +227,18 @@ Examples:
 4. Dict userdata					*lua-dict*
 
 Similarly to list userdata, dict userdata represent vim dictionaries; since
-dictionaries are also objects, references are kept between Lua and Vim. A dict
+dictionaries are also objects, references are kept between Lua and uVim. A dict
 "d" has the following properties:
 
 Properties
 ----------
 	o "#d" is the number of items in dict "d", equivalent to "len(d)"
-	    in Vim.
+	    in uVim.
 	o "d.key" or "d['key']" returns the value at entry "key" in "d".
 	    To modify the entry at this key, simply do "d.key = newvalue"; in
 	    particular, "d.key = nil" removes the entry from "d".
 	o "d()" returns an iterator for "d" and is equivalent to "items(d)" in
-	    Vim.
+	    uVim.
 
 Examples:
 >
@@ -255,7 +255,7 @@ Examples:
 ==============================================================================
 5. Funcref userdata					*lua-funcref*
 
-Funcref userdata represent funcref variables in Vim. Funcrefs that were
+Funcref userdata represent funcref variables in uVim. Funcrefs that were
 defined with a "dict" attribute need to be obtained as a dictionary key
 in order to have "self" properly assigned to the dictionary (see examples
 below.) A funcref "f" has the following properties:
@@ -312,7 +312,7 @@ Methods
 	o "b:previous()" returns the buffer previous to "b" in the buffer
 	    list.
 	o "b:isvalid()" returns 'true' (boolean) if buffer "b" corresponds to
-	    a "real" (not freed from memory) Vim buffer.
+	    a "real" (not freed from memory) uVim buffer.
 
 Examples:
 >
@@ -357,7 +357,7 @@ Methods
 	o "w:next()" returns the window next to "w".
 	o "w:previous()" returns the window previous to "w".
 	o "w:isvalid()" returns 'true' (boolean) if window "w" corresponds to
-	    a "real" (not freed from memory) Vim window.
+	    a "real" (not freed from memory) uVim window.
 
 Examples:
 >
@@ -372,7 +372,7 @@ Examples:
 ==============================================================================
 8. The luaeval function					*lua-luaeval* *lua-eval*
 
-The (dual) equivalent of "vim.eval" for passing Lua values to Vim is
+The (dual) equivalent of "vim.eval" for passing Lua values to uVim is
 "luaeval". "luaeval" takes an expression string and an optional argument and
 returns the result of the expression. It is semantically equivalent in Lua to:
 >
@@ -383,7 +383,7 @@ returns the result of the expression. It is semantically equivalent in Lua to:
 	end
 <
 Note that "_A" receives the argument to "luaeval". Lua numbers, strings, and
-list, dict, and funcref userdata are converted to their Vim respective types,
+list, dict, and funcref userdata are converted to their uVim respective types,
 while Lua booleans are converted to numbers. An error is thrown if conversion
 of any of the remaining Lua types, including userdata other than lists, dicts,
 and funcrefs, is attempted.
@@ -406,9 +406,9 @@ Examples: >
 On MS-Windows and Unix the Lua library can be loaded dynamically.  The
 |:version| output then includes |+lua/dyn|.
 
-This means that Vim will search for the Lua DLL or shared library file only
+This means that uVim will search for the Lua DLL or shared library file only
 when needed.  When you don't use the Lua interface you don't need it, thus
-you can use Vim without this file.
+you can use uVim without this file.
 
 
 MS-Windows ~
@@ -416,14 +416,14 @@ MS-Windows ~
 To use the Lua interface the Lua DLL must be in your search path.  In a
 console window type "path" to see what directories are used.  The 'luadll'
 option can be also used to specify the Lua DLL.  The version of the DLL must
-match the Lua version Vim was compiled with.
+match the Lua version uVim was compiled with.
 
 
 Unix ~
 
 The 'luadll' option can be used to specify the Lua shared library file instead
 of DYNAMIC_LUA_DLL file what was specified at compile time.  The version of
-the shared library must match the Lua version Vim was compiled with.
+the shared library must match the Lua version uVim was compiled with.
 
 
 ==============================================================================

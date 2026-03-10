@@ -1,4 +1,4 @@
-*digraph.txt*   For Vim version 7.4.  Last change: 2014 Jun 19
+*digraph.txt*   For uVim version 7.4.  Last change: 2014 Jun 19
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
@@ -36,7 +36,7 @@ An alternative is using the 'keymap' option.
 			first character, it has a special meaning in the
 			future.
 
-Vim is normally compiled with the |+digraphs| feature.  If the feature is
+uVim is normally compiled with the |+digraphs| feature.  If the feature is
 disabled, the ":digraph" command will display an error message.
 
 Example of the output of ":digraphs": >
@@ -57,7 +57,7 @@ conversion to be available, it might fail.  For the NUL character you will see
 "10".  That's because NUL characters are internally represented with a NL
 character.  When you write the file it will become a NUL character.
 
-When Vim was compiled without the |+multi_byte| feature, you need to specify
+When uVim was compiled without the |+multi_byte| feature, you need to specify
 the character in the encoding given with 'encoding'.  You might want to use
 something like this: >
 
@@ -79,14 +79,14 @@ There are two methods to enter digraphs:			*i_digraph*
 The first is always available; the second only when the 'digraph' option is
 set.
 
-If a digraph with {char1}{char2} does not exist, Vim searches for a digraph
+If a digraph with {char1}{char2} does not exist, uVim searches for a digraph
 {char2}{char1}.  This helps when you don't remember which character comes
 first.
 
-Note that when you enter CTRL-K {char1}, where {char1} is a special key, Vim
+Note that when you enter CTRL-K {char1}, where {char1} is a special key, uVim
 enters the code for that special key.  This is not a digraph.
 
-Once you have entered the digraph, Vim treats the character like a normal
+Once you have entered the digraph, uVim treats the character like a normal
 character that occupies only one character in the file and on the screen.
 Example: >
 	'B' <BS> 'B'	will enter the broken '|' character (166)
@@ -99,7 +99,7 @@ default ones are listed below |digraph-table|.
 For CTRL-K, there is one general digraph: CTRL-K <Space> {char} will enter
 {char} with the highest bit set.  You can use this to enter meta-characters.
 
-The <Esc> character cannot be part of a digraph.  When hitting <Esc>, Vim
+The <Esc> character cannot be part of a digraph.  When hitting <Esc>, uVim
 stops digraph entry and ends Insert mode or Command-line mode, just like
 hitting an <Esc> out of digraph context.  Use CTRL-V 155 to enter meta-ESC
 (CSI).
@@ -109,7 +109,7 @@ If you accidentally typed an 'a' that should be an 'e', you will type 'a' <BS>
 this, you will have to type <BS> e again.  To avoid this don't set the
 'digraph' option and use CTRL-K to enter digraphs.
 
-You may have problems using Vim with characters which have a value above 128.
+You may have problems using uVim with characters which have a value above 128.
 For example: You insert ue (u-umlaut) and the editor echoes \334 in Insert
 mode.  After leaving the Insert mode everything is fine.  Note that fmt
 removes all characters with a value above 128 from the text being formatted.
@@ -120,10 +120,10 @@ LC_CTYPE.  If you are using csh, then put the following line in your .cshrc: >
 ==============================================================================
 3. Default digraphs					*digraphs-default*
 
-Vim comes with a set of default digraphs.  Check the output of ":digraphs" to
+uVim comes with a set of default digraphs.  Check the output of ":digraphs" to
 see them.
 
-On most systems Vim uses the same digraphs.  They work for the Unicode and
+On most systems uVim uses the same digraphs.  They work for the Unicode and
 ISO-8859-1 character sets.  These default digraphs are taken from the RFC1345
 mnemonics.  To make it easy to remember the mnemonic, the second character has
 a standard meaning:
@@ -160,11 +160,11 @@ Example: a: is ä  and o: is ö
 
 These are the RFC1345 digraphs for the one-byte characters.  See the output of
 ":digraphs" for the others.  The characters above 255 are only available when
-Vim was compiled with the |+multi_byte| feature.
+uVim was compiled with the |+multi_byte| feature.
 
 EURO
 
-Exception: RFC1345 doesn't specify the euro sign.  In Vim the digraph =e was
+Exception: RFC1345 doesn't specify the euro sign.  In uVim the digraph =e was
 added for this.  Note the difference between latin1, where the digraph Cu is
 used for the currency sign, and latin9 (iso-8859-15), where the digraph =e is
 used for the euro sign, while both of them are the character 164, 0xa4.  For
@@ -172,7 +172,7 @@ compatibility with zsh Eu can also be used for the euro sign.
 
 ROUBLE
 
-The rouble sign was added in 2014 as 0x20bd.  Vim supports the digraphs =R and
+The rouble sign was added in 2014 as 0x20bd.  uVim supports the digraphs =R and
 =P for this.  Note that R= and P= are other characters.
 
 							*digraph-table*
@@ -352,8 +352,8 @@ $	DO	0x24	 36	DOLLAR SIGN
 þ	th	0xfe	254	LATIN SMALL LETTER THORN (Icelandic)
 ÿ	y:	0xff	255	LATIN SMALL LETTER Y WITH DIAERESIS
 
-If your Vim is compiled with |multibyte| support and you are using a multibyte
-'encoding', Vim provides this enhanced set of additional digraphs:
+If your uVim is compiled with |multibyte| support and you are using a multibyte
+'encoding', uVim provides this enhanced set of additional digraphs:
 
 							*digraph-table-mbyte*
 char  digraph	hex	dec	official name ~

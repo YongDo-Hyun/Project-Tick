@@ -1,4 +1,4 @@
-*motion.txt*    For Vim version 7.4.  Last change: 2016 Jul 12
+*motion.txt*    For uVim version 7.4.  Last change: 2016 Jul 12
 
 
 		  VIM REFERENCE MANUAL    by Bram Moolenaar
@@ -25,7 +25,7 @@ General remarks:
 If you want to know where you are in the file use the "CTRL-G" command
 |CTRL-G| or the "g CTRL-G" command |g_CTRL-G|.  If you set the 'ruler' option,
 the cursor position is continuously shown in the status line (which slows down
-Vim a little).
+uVim a little).
 
 Experienced users prefer the hjkl keys because they are always right under
 their fingers.  Beginners often prefer the arrow keys, because they do not
@@ -423,9 +423,9 @@ next line.
 
 The original Vi implementation of "e" is buggy.  For example, the "e" command
 will stop on the first character of a line if the previous line was empty.
-But when you use "2e" this does not happen.  In Vim "ee" and "2e" are the
+But when you use "2e" this does not happen.  In uVim "ee" and "2e" are the
 same, which is more logical.  However, this causes a small incompatibility
-between Vi and Vim.
+between Vi and uVim.
 
 ==============================================================================
 5. Text object motions					*object-motions*
@@ -647,7 +647,7 @@ a`							*v_a`* *a`*
 			quote until the next quote.  The 'quoteescape' option
 			is used to skip escaped quotes.
 			Only works within one line.
-			When the cursor starts on a quote, Vim will figure out
+			When the cursor starts on a quote, uVim will figure out
 			which quote pairs form a string by searching from the
 			start of the line.
 			Any trailing white space is included, unless there is
@@ -847,7 +847,7 @@ the .viminfo file.  See |viminfo-file-marks|.
 
 Numbered marks '0 to '9 are quite different.  They can not be set directly.
 They are only present when using a viminfo file |viminfo-file|.  Basically '0
-is the location of the cursor when you last exited Vim, '1 the last but one
+is the location of the cursor when you last exited uVim, '1 the last but one
 time, etc.  Use the "r" flag in 'viminfo' to specify files for which no
 Numbered mark should be stored.  See |viminfo-file-marks|.
 
@@ -1113,7 +1113,7 @@ if you stop editing a file without writing, like with ":n!".
 When you split a window, the jumplist will be copied to the new window.
 
 If you have included the ' item in the 'viminfo' option the jumplist will be
-stored in the viminfo file and restored when starting Vim.
+stored in the viminfo file and restored when starting uVim.
 
 
 CHANGE LIST JUMPS			*changelist* *change-list-jumps* *E664*
