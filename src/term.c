@@ -43,7 +43,7 @@
 #  ifdef HAVE_OUTFUNTYPE
 #   define TPUTSFUNCAST (outfuntype)
 #  else
-#   define TPUTSFUNCAST (int (*)())
+#   define TPUTSFUNCAST (int (*)(int))
 #  endif
 # endif
 #endif
@@ -2454,13 +2454,13 @@ out_char(unsigned c)
 	out_flush();
 }
 
-static void out_char_nf(unsigned);
+static int out_char_nf(int);
 
 /*
  * out_char_nf(c): like out_char(), but don't flush when p_wd is set
  */
-    static void
-out_char_nf(unsigned c)
+    static int
+out_char_nf(int c)
 {
 #if defined(UNIX) || defined(VMS) || defined(AMIGA) || defined(MACOS_X_UNIX)
     if (c == '\n')	/* turn LF into CR-LF (CRMOD doesn't seem to do this) */
@@ -2471,6 +2471,8 @@ out_char_nf(unsigned c)
 
     if (out_pos >= OUT_SIZE)
 	out_flush();
+
+    return 0;
 }
 
 #if defined(FEAT_TITLE) || defined(FEAT_MOUSE_TTY) || defined(FEAT_GUI) \

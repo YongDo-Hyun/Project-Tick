@@ -45,8 +45,7 @@ CONVERTED = \
 		pl.UTF-8 \
 		ru.cp1251 \
 		sk.cp1250 \
-		uk.cp1251 \
-		zh_CN.cp936
+		uk.cp1251
 
 MOFILES = \
 		af.mo \
@@ -86,8 +85,7 @@ MOCONVERTED = \
 		pl.UTF-8.mo \
 		ru.cp1251.mo \
 		sk.cp1250.mo \
-		uk.cp1251.mo \
-		zh_CN.cp936.mo
+		uk.cp1251.mo
 
 CHECKFILES = \
 		af.ck \
@@ -125,8 +123,7 @@ CHECKFILES = \
 		pl.UTF-8.ck \
 		ru.cp1251.ck \
 		sk.cp1250.ck \
-		uk.cp1251.ck \
-		zh_CN.cp936.ck
+		uk.cp1251.ck
 
 PACKAGE = vim
 SHELL = /bin/sh

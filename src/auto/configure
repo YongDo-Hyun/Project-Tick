@@ -8499,7 +8499,7 @@ else
 # include <stdlib.h>
 # include <stddef.h>
 #endif
-		main()
+		int main(void)
 		{
 		  if (sizeof(wchar_t) <= 2)
 		    exit(1);
@@ -10152,7 +10152,7 @@ else
 # include <stdlib.h>
 # include <stddef.h>
 #endif
-main() { exit(toupper('A') == 'A' && tolower('z') == 'z'); }
+int main(void) { exit(toupper('A') == 'A' && tolower('z') == 'z'); }
 
 _ACEOF
 if ac_fn_c_try_run "$LINENO"; then :
@@ -11374,7 +11374,7 @@ else
 # include <stdlib.h>
 # include <stddef.h>
 #endif
-main() {char *s; s=(char *)tgoto("%p1%d", 0, 1); exit(0); }
+int main(void) {char *s; s=(char *)tgoto("%p1%d", 0, 1); exit(0); }
 _ACEOF
 if ac_fn_c_try_run "$LINENO"; then :
   res="OK"
@@ -11450,7 +11450,7 @@ else
 # include <stdlib.h>
 # include <stddef.h>
 #endif
-main()
+int main(void)
 {char *s; s=(char *)tgoto("%p1%d", 0, 1); exit(!strcmp(s==0 ? "" : s, "1")); }
 
 _ACEOF
@@ -11500,7 +11500,7 @@ else
 # include <stdlib.h>
 # include <stddef.h>
 #endif
-main()
+int main(void)
 {char s[10000]; int res = tgetent(s, "thisterminaldoesnotexist"); exit(res != 0); }
 
 _ACEOF
@@ -11804,7 +11804,7 @@ else
 #endif
 #include <sys/stat.h>
 #include <stdio.h>
-main()
+int main(void)
 {
   struct stat sb;
   char *x,*ttyname();
@@ -11968,7 +11968,7 @@ else
 #include <unistd.h>
 #endif
 char *dagger[] = { "IFS=pwd", 0 };
-main()
+int main(void)
 {
   char buffer[500];
   extern char **environ;
@@ -12337,7 +12337,7 @@ else
 #endif
 #include <sys/types.h>
 #include <sys/stat.h>
-main() {struct stat st;  exit(stat("configure/", &st) != 0); }
+int main(void) {struct stat st;  exit(stat("configure/", &st) != 0); }
 
 _ACEOF
 if ac_fn_c_try_run "$LINENO"; then :
@@ -13337,11 +13337,11 @@ else
 #ifdef HAVE_INTTYPES_H
 # include <inttypes.h>
 #endif
-main() {
+int main(void) {
   uint32_t nr1 = (uint32_t)-1;
   uint32_t nr2 = (uint32_t)0xffffffffUL;
-  if (sizeof(uint32_t) != 4 || nr1 != 0xffffffffUL || nr2 + 1 != 0) exit(1);
-  exit(0);
+  if (sizeof(uint32_t) != 4 || nr1 != 0xffffffffUL || nr2 + 1 != 0) return 1;
+  return 0;
 }
 _ACEOF
 if ac_fn_c_try_run "$LINENO"; then :
@@ -13365,7 +13365,7 @@ bcopy_test_prog='
 # include <stdlib.h>
 # include <stddef.h>
 #endif
-main() {
+int main(void) {
   char buf[10];
   strcpy(buf, "abcdefghi");
   mch_memmove(buf, buf + 2, 3);
@@ -15379,5 +15379,3 @@ if test -n "$ac_unrecognized_opts" && test "$enable_option_checking" != no; then
   { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: unrecognized options: $ac_unrecognized_opts" >&5
 $as_echo "$as_me: WARNING: unrecognized options: $ac_unrecognized_opts" >&2;}
 fi
-
-

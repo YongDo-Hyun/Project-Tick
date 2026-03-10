@@ -135,9 +135,6 @@ extern void perror __P((char *));
 # endif
 #endif
 
-extern long int strtol();
-extern long int ftell();
-
 char version[] = "xxd V1.10 27oct98 by Juergen Weigert";
 #ifdef WIN32
 char osver[] = " (Win32)";

@@ -207,17 +207,18 @@ static RETSIGTYPE sig_alarm SIGPROTOARG;
 static volatile int sig_alarm_called;
 #endif
 static RETSIGTYPE deathtrap SIGPROTOARG;
+typedef RETSIGTYPE (*sig_handler_T) SIGPROTOARG;
 
 static void catch_int_signal(void);
 static void set_signals(void);
-static void catch_signals(RETSIGTYPE (*func_deadly)(), RETSIGTYPE (*func_other)());
+static void catch_signals(sig_handler_T func_deadly, sig_handler_T func_other);
 static int  have_wildcard(int, char_u **);
 static int  have_dollars(int, char_u **);
 
 static int save_patterns(int num_pat, char_u **pat, int *num_file, char_u ***file);
 
 #ifndef SIG_ERR
-# define SIG_ERR	((RETSIGTYPE (*)())-1)
+# define SIG_ERR	((sig_handler_T)-1)
 #endif
 
 /* volatile because it is used in signal handler sig_winch(). */
@@ -906,7 +907,7 @@ init_signal_stack(void)
 sig_winch SIGDEFARG(sigarg)
 {
     /* this is not required on all systems, but it doesn't hurt anybody */
-    signal(SIGWINCH, (RETSIGTYPE (*)())sig_winch);
+    signal(SIGWINCH, (sig_handler_T)sig_winch);
     do_resize = TRUE;
     SIGRETURN;
 }
@@ -917,7 +918,7 @@ sig_winch SIGDEFARG(sigarg)
 catch_sigint SIGDEFARG(sigarg)
 {
     /* this is not required on all systems, but it doesn't hurt anybody */
-    signal(SIGINT, (RETSIGTYPE (*)())catch_sigint);
+    signal(SIGINT, (sig_handler_T)catch_sigint);
     got_int = TRUE;
     SIGRETURN;
 }
@@ -928,7 +929,7 @@ catch_sigint SIGDEFARG(sigarg)
 catch_sigpwr SIGDEFARG(sigarg)
 {
     /* this is not required on all systems, but it doesn't hurt anybody */
-    signal(SIGPWR, (RETSIGTYPE (*)())catch_sigpwr);
+    signal(SIGPWR, (sig_handler_T)catch_sigpwr);
     /*
      * I'm not sure we get the SIGPWR signal when the system is really going
      * down or when the batteries are almost empty.  Just preserve the swap
@@ -1348,7 +1349,7 @@ set_signals(void)
     /*
      * WINDOW CHANGE signal is handled with sig_winch().
      */
-    signal(SIGWINCH, (RETSIGTYPE (*)())sig_winch);
+    signal(SIGWINCH, (sig_handler_T)sig_winch);
 #endif
 
     /*
@@ -1385,7 +1386,7 @@ set_signals(void)
      * work will be lost.
      */
 #ifdef SIGPWR
-    signal(SIGPWR, (RETSIGTYPE (*)())catch_sigpwr);
+    signal(SIGPWR, (sig_handler_T)catch_sigpwr);
 #endif
 
     /*
@@ -1409,7 +1410,7 @@ set_signals(void)
     static void
 catch_int_signal(void)
 {
-    signal(SIGINT, (RETSIGTYPE (*)())catch_sigint);
+    signal(SIGINT, (sig_handler_T)catch_sigint);
 }
 #endif
 
@@ -1425,8 +1426,8 @@ reset_signals(void)
 
     static void
 catch_signals(
-    RETSIGTYPE (*func_deadly)(),
-    RETSIGTYPE (*func_other)())
+    sig_handler_T func_deadly,
+    sig_handler_T func_other)
 {
     int	    i;
 
@@ -1687,7 +1688,7 @@ x_connect_to_server(void)
     static int
 test_x11_window(Display *dpy)
 {
-    int			(*old_handler)();
+    XErrorHandler	old_handler;
     XTextProperty	text_prop;
 
     old_handler = XSetErrorHandler(x_error_check);
@@ -1813,7 +1814,7 @@ get_x11_windis(void)
     if (x11_window != 0 && x11_display == NULL)
     {
 #ifdef SET_SIG_ALARM
-	RETSIGTYPE (*sig_save)();
+	sig_handler_T sig_save;
 #endif
 #if defined(HAVE_GETTIMEOFDAY) && defined(HAVE_SYS_TIME_H)
 	struct timeval  start_tv;
@@ -1828,15 +1829,14 @@ get_x11_windis(void)
 	 * the network connection is bad.  Set an alarm timer to get out.
 	 */
 	sig_alarm_called = FALSE;
-	sig_save = (RETSIGTYPE (*)())signal(SIGALRM,
-						 (RETSIGTYPE (*)())sig_alarm);
+	sig_save = (sig_handler_T)signal(SIGALRM, (sig_handler_T)sig_alarm);
 	alarm(2);
 #endif
 	x11_display = XOpenDisplay(NULL);
 
 #ifdef SET_SIG_ALARM
 	alarm(0);
-	signal(SIGALRM, (RETSIGTYPE (*)())sig_save);
+	signal(SIGALRM, sig_save);
 	if (p_verbose > 0 && sig_alarm_called)
 	    verb_msg((char_u *)_("Opening the X display timed out"));
 #endif
@@ -6661,7 +6661,7 @@ sysmouse_open(void)
     mouse.u.mode.signal = SIGUSR2;
     if (ioctl(1, CONS_MOUSECTL, &mouse) != -1)
     {
-	signal(SIGUSR2, (RETSIGTYPE (*)())sig_sysmouse);
+	signal(SIGUSR2, (sig_handler_T)sig_sysmouse);
 	mouse.operation = MOUSE_SHOW;
 	ioctl(1, CONS_MOUSECTL, &mouse);
 	return OK;
@@ -6941,9 +6941,9 @@ setup_term_clip(void)
     open_app_context();
     if (app_context != NULL && xterm_Shell == (Widget)0)
     {
-	int (*oldhandler)();
+	XErrorHandler oldhandler;
 #if defined(HAVE_SETJMP_H)
-	int (*oldIOhandler)();
+	XIOErrorHandler oldIOhandler;
 #endif
 # if defined(HAVE_GETTIMEOFDAY) && defined(HAVE_SYS_TIME_H)
 	struct timeval  start_tv;
