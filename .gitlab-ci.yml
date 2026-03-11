@@ -1,10 +1,11 @@
 stages:
   - test
 
+variables:
+  DEBIAN_FRONTEND: noninteractive
+
 default:
   image: debian:bookworm-slim
-  variables:
-    DEBIAN_FRONTEND: noninteractive
   before_script:
     - apt-get update -qq
     - apt-get install -y --no-install-recommends build-essential gcc make gawk libncurses-dev ca-certificates
