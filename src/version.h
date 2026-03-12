@@ -33,7 +33,7 @@
  * VIM_VERSION_MEDIUM is used for the startup-screen.
  * VIM_VERSION_LONG is used for the ":version" command and "uvim -h".
  */
-#define VIM_VERSION_NODOT	"vim80"
+#define VIM_VERSION_NODOT	"uvim80"
 #define VIM_VERSION_SHORT	"8.0"
 #define VIM_VERSION_MEDIUM	"8.0"
 #define VIM_VERSION_LONG	"uVim - Micro Vi IMproved 8.0 (2026 Mar 10)"

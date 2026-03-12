@@ -38,7 +38,7 @@ through the help of many others.  See |credits|.
 BASIC:
 |quickref|	Overview of the most common commands you will use
 |tutor|		30 minutes training course for beginners
-|copying|	About copyrights
+|license|	About license and copyrights
 |www|		uVim on the World Wide Web
 |bugs|		Where to send bug reports
 

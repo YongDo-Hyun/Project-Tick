@@ -1418,6 +1418,7 @@ $VIM_POSIX	vi_diff.txt	/*$VIM_POSIX*
 -q	starting.txt	/*-q*
 -qf	starting.txt	/*-qf*
 -r	starting.txt	/*-r*
+-register	if_ole.txt	/*-register*
 -reverse	gui_x11.txt	/*-reverse*
 -rv	gui_x11.txt	/*-rv*
 -s	starting.txt	/*-s*
@@ -1429,6 +1430,7 @@ $VIM_POSIX	vi_diff.txt	/*$VIM_POSIX*
 -tag	starting.txt	/*-tag*
 -u	starting.txt	/*-u*
 -ul	gui_x11.txt	/*-ul*
+-unregister	if_ole.txt	/*-unregister*
 -v	starting.txt	/*-v*
 -vim	starting.txt	/*-vim*
 -w	starting.txt	/*-w*
@@ -2132,6 +2134,7 @@ $VIM_POSIX	vi_diff.txt	/*$VIM_POSIX*
 :command-count	map.txt	/*:command-count*
 :command-nargs	map.txt	/*:command-nargs*
 :command-range	map.txt	/*:command-range*
+:command-register	map.txt	/*:command-register*
 :command-verbose	map.txt	/*:command-verbose*
 :comment	cmdline.txt	/*:comment*
 :comp	quickfix.txt	/*:comp*
@@ -2432,6 +2435,7 @@ $VIM_POSIX	vi_diff.txt	/*$VIM_POSIX*
 :let-@	eval.txt	/*:let-@*
 :let-environment	eval.txt	/*:let-environment*
 :let-option	eval.txt	/*:let-option*
+:let-register	eval.txt	/*:let-register*
 :let-unpack	eval.txt	/*:let-unpack*
 :let.=	eval.txt	/*:let.=*
 :lex	quickfix.txt	/*:lex*
@@ -2742,6 +2746,7 @@ $VIM_POSIX	vi_diff.txt	/*$VIM_POSIX*
 :redraws	various.txt	/*:redraws*
 :redrawstatus	various.txt	/*:redrawstatus*
 :reg	change.txt	/*:reg*
+:registers	change.txt	/*:registers*
 :res	windows.txt	/*:res*
 :resize	windows.txt	/*:resize*
 :ret	change.txt	/*:ret*
@@ -3384,6 +3389,7 @@ $VIM_POSIX	vi_diff.txt	/*$VIM_POSIX*
 <nomodeline>	autocmd.txt	/*<nomodeline>*
 <q-args>	map.txt	/*<q-args>*
 <reg>	map.txt	/*<reg>*
+<register>	map.txt	/*<register>*
 <sfile>	cmdline.txt	/*<sfile>*
 <slnum>	cmdline.txt	/*<slnum>*
 <xCSI>	intro.txt	/*<xCSI>*
@@ -4724,6 +4730,7 @@ Transact-SQL	ft_sql.txt	/*Transact-SQL*
 U	undo.txt	/*U*
 UTF-8	mbyte.txt	/*UTF-8*
 UTF8-xterm	mbyte.txt	/*UTF8-xterm*
+Uganda	license.txt	/*Uganda*
 Unicode	mbyte.txt	/*Unicode*
 Unix	os_unix.txt	/*Unix*
 Unix-format	editing.txt	/*Unix-format*
@@ -5075,6 +5082,7 @@ binary-number	eval.txt	/*binary-number*
 bitwise-function	usr_41.txt	/*bitwise-function*
 blockwise-examples	visual.txt	/*blockwise-examples*
 blockwise-operators	visual.txt	/*blockwise-operators*
+blockwise-register	change.txt	/*blockwise-register*
 blockwise-visual	visual.txt	/*blockwise-visual*
 blowfish	options.txt	/*blowfish*
 blowfish2	options.txt	/*blowfish2*
@@ -5291,6 +5299,7 @@ channel.txt	channel.txt	/*channel.txt*
 char-variable	eval.txt	/*char-variable*
 char2nr()	eval.txt	/*char2nr()*
 characterwise	motion.txt	/*characterwise*
+characterwise-register	change.txt	/*characterwise-register*
 characterwise-visual	visual.txt	/*characterwise-visual*
 charconvert_from-variable	eval.txt	/*charconvert_from-variable*
 charconvert_to-variable	eval.txt	/*charconvert_to-variable*
@@ -5431,6 +5440,8 @@ convert-to-XML	syntax.txt	/*convert-to-XML*
 copy()	eval.txt	/*copy()*
 copy-diffs	diff.txt	/*copy-diffs*
 copy-move	change.txt	/*copy-move*
+copying	license.txt	/*copying*
+copyright	license.txt	/*copyright*
 cos()	eval.txt	/*cos()*
 cosh()	eval.txt	/*cosh()*
 count	intro.txt	/*count*
@@ -5834,6 +5845,7 @@ expr-nesting	eval.txt	/*expr-nesting*
 expr-number	eval.txt	/*expr-number*
 expr-option	eval.txt	/*expr-option*
 expr-quote	eval.txt	/*expr-quote*
+expr-register	eval.txt	/*expr-register*
 expr-star	eval.txt	/*expr-star*
 expr-string	eval.txt	/*expr-string*
 expr-unary-+	eval.txt	/*expr-unary-+*
@@ -6579,7 +6591,6 @@ hebrew.txt	hebrew.txt	/*hebrew.txt*
 help	helphelp.txt	/*help*
 help-context	help.txt	/*help-context*
 help-summary	usr_02.txt	/*help-summary*
-help-tags	tags	1
 help-translated	helphelp.txt	/*help-translated*
 help-writing	helphelp.txt	/*help-writing*
 help-xterm-window	helphelp.txt	/*help-xterm-window*
@@ -7016,6 +7027,8 @@ lex.vim	syntax.txt	/*lex.vim*
 lhaskell.vim	syntax.txt	/*lhaskell.vim*
 libcall()	eval.txt	/*libcall()*
 libcallnr()	eval.txt	/*libcallnr()*
+license	license.txt	/*license*
+license.txt	license.txt	/*license.txt*
 lid	quickfix.txt	/*lid*
 lifelines.vim	syntax.txt	/*lifelines.vim*
 limits	vi_diff.txt	/*limits*
@@ -7024,6 +7037,7 @@ line-continuation	repeat.txt	/*line-continuation*
 line2byte()	eval.txt	/*line2byte()*
 linefeed	intro.txt	/*linefeed*
 linewise	motion.txt	/*linewise*
+linewise-register	change.txt	/*linewise-register*
 linewise-visual	visual.txt	/*linewise-visual*
 lisp.vim	syntax.txt	/*lisp.vim*
 lispindent()	eval.txt	/*lispindent()*
@@ -7934,11 +7948,14 @@ recover.txt	recover.txt	/*recover.txt*
 recovery	recover.txt	/*recovery*
 recursive_mapping	map.txt	/*recursive_mapping*
 redo	undo.txt	/*redo*
+redo-register	undo.txt	/*redo-register*
 ref	intro.txt	/*ref*
 reference	intro.txt	/*reference*
 reference_toc	help.txt	/*reference_toc*
 regexp	pattern.txt	/*regexp*
 regexp-changes-5.4	version5.txt	/*regexp-changes-5.4*
+register-variable	eval.txt	/*register-variable*
+registers	change.txt	/*registers*
 regular-expression	pattern.txt	/*regular-expression*
 reload	editing.txt	/*reload*
 reltime()	eval.txt	/*reltime()*
@@ -8736,6 +8753,7 @@ type-mistakes	tips.txt	/*type-mistakes*
 typecorr-settings	usr_41.txt	/*typecorr-settings*
 typecorr.txt	usr_41.txt	/*typecorr.txt*
 u	undo.txt	/*u*
+uganda	license.txt	/*uganda*
 undercurl	syntax.txt	/*undercurl*
 underline	syntax.txt	/*underline*
 undo	undo.txt	/*undo*
@@ -8863,6 +8881,7 @@ v:prevcount	eval.txt	/*v:prevcount*
 v:profiling	eval.txt	/*v:profiling*
 v:progname	eval.txt	/*v:progname*
 v:progpath	eval.txt	/*v:progpath*
+v:register	eval.txt	/*v:register*
 v:scrollstart	eval.txt	/*v:scrollstart*
 v:searchforward	eval.txt	/*v:searchforward*
 v:servername	eval.txt	/*v:servername*

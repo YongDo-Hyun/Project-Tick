@@ -25,7 +25,7 @@ Date: 23 Oct 1997
 
 VisVim was originally GNU GPL licensed, as stated below.  On March 21 2012
 Heiko Erhardt declared this work to be relicensed under the uVim license, as
-stated in ../../runtime/doc/uganda.txt (or ":help uganda" in uVim).
+stated in ../../runtime/doc/license.txt (or ":help uganda" in uVim).
 
 VisVim is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -323,4 +323,3 @@ Have fun!
 
 Heiko Erhardt
 heiko.erhardt@gmx.net
-

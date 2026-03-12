@@ -83,9 +83,9 @@ uVim.  See `:help user-manual`.
 
 ## Copying ##
 
-uVim is Charityware.  You can use and copy it as much as you like, but you are
-encouraged to make a donation to help orphans in Uganda.  Please read the file
-`runtime/doc/uganda.txt` for details (do `:help uganda` inside uVim).
+uVim is derived from Vim and preserves its licensing notices.  Please read
+`runtime/doc/license.txt` for a local summary (or use `:help license` /
+`:help uganda` inside uVim).
 
 Summary of the license: There are no restrictions on using or distributing an
 unmodified copy of uVim.  Parts of uVim may also be distributed, but the license
@@ -101,7 +101,7 @@ your appreciation for the work and motivate Bram and others to continue
 working on uVim please send a donation.
 
 Since Bram is back to a paid job the money will now be used to help children
-in Uganda.  See `runtime/doc/uganda.txt`.  But at the same time donations
+in Uganda.  See `runtime/doc/license.txt`.  But at the same time donations
 increase Bram's motivation to keep working on uVim!
 
 For the most recent information about sponsoring look on the uVim web site:

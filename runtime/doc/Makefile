@@ -52,6 +52,7 @@ DOCS = \
 	index.txt \
 	insert.txt \
 	intro.txt \
+	license.txt \
 	map.txt \
 	mbyte.txt \
 	message.txt \
@@ -334,9 +335,9 @@ vimtutor.man: vimtutor.1
 xxd.man: xxd.1
 	nroff -man xxd.1 | sed -e s/.//g > xxd.man
 
-uganda.nsis.txt: uganda.txt
+uganda.nsis.txt: license.txt
 	sed -e 's/[ 	]*\*[-a-zA-Z0-9.]*\*//g' -e 's/vim:tw=78://' \
-		uganda.txt | uniq >uganda.nsis.txt
+		license.txt | uniq >uganda.nsis.txt
 
 # Awk version of .txt to .html conversion.
 html: noerrors tags $(HTMLS)
