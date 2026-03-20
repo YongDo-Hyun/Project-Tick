@@ -1,0 +1,589 @@
+.\" Traduction lundi 7 ao�t 2000 par Richard Hitier
+.\" (richard.hitier@dial.oleane.com)
+.\" Mise � jour de la traduction par David Blanchet
+.\" (david.blanchet@free.fr) 2006-06-10
+.\" Mise � jour de la traduction par Dominique Pell�
+.\" (dominique.pelle@gmail.com) 2013-05-10
+.\"
+.TH VIM 1 "22 f�vrier 2002"
+.SH NOM
+vim \- Micro Vi IMproved, �diteur de texte pour programmeurs
+.SH SYNOPSIS
+.br
+.B vim
+[options] [fichier ...]
+.br
+.B vim
+[options] \-
+.br
+.B vim
+[options] \-t marqueur
+.br
+.B vim
+[options] \-q [fichiererreurs]
+.PP
+.br
+.B ex
+.br
+.B view
+.br
+.B gvim
+.B gview
+.B evim
+.B eview
+.br
+.B rvim
+.B rview
+.B rgvim
+.B rgview
+.SH DESCRIPTION
+.B uVim
+est un �diteur de texte proposant une compatibilit� ascendante
+avec Vi. Il permet d'�diter n'importe quel type de texte brut.
+Il est particuli�rement adapt� pour l'�dition des programmes.
+.PP
+Il comporte de nombreuses am�liorations par rapport � Vi : annulation sur
+plusieurs niveaux, fen�tres et tampons multiples, coloration syntaxique,
+�dition en ligne de commande, compl�tement des noms de fichiers, aide en
+ligne, s�lection visuelle, etc.
+Voir ":help vi_diff.txt" pour un r�sum� des diff�rences entre
+.B uVim
+et Vi.
+.PP
+Pendant l'ex�cution de
+.B uVim
+\, une aide abondante est accessible au travers du syst�me d'aide
+en ligne, gr�ce � la commande ":help".
+Voir la section AIDE EN LIGNE plus bas.
+.PP
+Le plus souvent
+.B uVim
+est d�marr� pour �diter un unique fichier avec la commande
+.PP
+	vim fichier
+.PP
+Plus g�n�ralement,
+.B uVim
+est lanc� avec :
+.PP
+	vim [options] [listefichiers]
+.PP
+Si la listefichiers est omise, l'�diteur d�marre avec un tampon vide.
+Autrement, l'une des quatre m�thodes suivantes vous permettra de choisir
+un ou plusieurs fichiers � �diter.
+.TP 12
+fichier ...
+Une liste de noms de fichiers.
+Le premier sera le fichier courant et sera lu dans le tampon.
+Le curseur sera plac� sur la premi�re ligne du tampon.
+Vous pouvez passer aux autres fichiers avec la commande ":next".
+Pour �diter un fichier d�butant par un tiret, faites pr�c�der la
+liste de fichiers par "\-\-".
+.TP
+\-
+Le fichier � �diter est lu sur l'entr�e standard (stdin). Les commandes sont
+lues depuis stderr, qui devrait �tre un terminal.
+.TP
+\-t {marqueur}
+Le fichier � �diter et la position initiale du curseur d�pendent
+d'un "marqueur", qui est une sorte d'�tiquette.
+{marqueur} est recherch� dans le fichier des marqueurs, le fichier correspondant
+devient le fichier courant et la commande associ�e est ex�cut�e.
+Principalement utile pour les programmes en C ; dans ce cas, {marqueur}
+peut �tre le nom d'une fonction.
+Au final, le fichier contenant cette fonction devient le fichier
+courant et le curseur est plac� au d�but de la fonction.
+Voir ":help tag\-commands".
+.TP
+\-q [fichiererreurs]
+D�marre en mode Mise-au-point (QuickFix).
+Le fichier [fichiererreurs] est lu et la premi�re erreur est affich�e.
+Si [fichiererreurs] est omis, le nom du fichier est lu dans
+l'option 'errorfile' ("AztecC.Err" par d�faut sur Amiga, "errors.err" sur les
+autres syst�mes).
+La commande ":cn" permet de sauter aux erreurs suivantes.
+Voir ":help quickfix".
+.PP
+.B uVim
+se comporte diff�remment selon le nom de la commande (l'ex�cutable peut
+cependant �tre le m�me fichier).
+.TP 10
+vim
+La fa�on "normale", le comportement par d�faut.
+.TP
+ex
+D�marre en mode Ex.
+La commande ":vi" permet de passer en mode Normal.
+Ce mode est �galement accessible avec l'argument "\-e".
+.TP
+view
+D�marre en mode Lecture-Seule. Vous �tes prot�g� de l'�criture accidentelle
+des fichiers. Ce mode est �galement accessible avec l'argument "\-R".
+.TP
+gvim gview
+La version graphique.
+Ouvre une nouvelle fen�tre.
+�galement accessible avec l'argument "\-g".
+.TP
+evim eview
+La version graphique en mode D�butant (easy).
+Ouvre une nouvelle fen�tre.
+�galement accessible avec l'argument "\-y".
+.TP
+rvim rview rgvim rgview
+Comme ci-dessus, mais avec des restrictions. Il vous sera impossible de
+lancer des commandes du shell, ou de suspendre
+.B uVim.
+�galement accessible avec l'argument "\-Z".
+.SH OPTIONS
+Les options peuvent �tre sp�cifi�es dans n'importe quel ordre,
+avant ou apr�s les noms de fichiers. Les options sans arguments
+peuvent �tre combin�es apr�s un unique tiret.
+.TP 12
++[num]
+Place le curseur sur la ligne "num" dans le premier fichier.
+Si "num" est omis, le curseur sera plac� sur la derni�re ligne.
+.TP
++/{motif}
+Place le curseur sur la premi�re occurrence de {motif} dans le premier fichier.
+Voir ":help search\-pattern" pour conna�tre les motifs de recherches
+disponibles.
+.TP
++{commande}
+.TP
+\-c {commande}
+Ex�cute {commande} apr�s la lecture du premier fichier.
+{commande} est interpr�t�e comme une commande Ex.
+Si la {commande} contient des espaces, elle doit �tre entour�e
+de doubles-apostrophes (cela d�pend du shell utilis�).
+Exemple : uVim "+set si" main.c
+.br
+Note : vous pouvez utiliser jusqu'� 10 commandes "+" ou "\-c".
+.TP
+\-S {fichier}
+Source {fichier} apr�s la lecture du premier fichier.
+C'est �quivalent � \-c "source {fichier}".
+{fichier} ne peut pas d�buter par un '\-'.
+Si {fichier} est omis, "Session.vim" est utilis� (cela ne fonctionne que si
+\-S est le dernier argument).
+.TP
+\-\-cmd {commande}
+Comme "\-c", mais la commande est ex�cut�e juste avant de traiter les fichiers
+vimrc.
+Vous pouvez utiliser jusqu'� 10 de ces commandes, ind�pendamment des
+commandes "\-c".
+.TP
+\-A
+Si
+.B uVim
+a �t� compil� avec le support de la fonctionnalit� ARABIC pour l'�dition de
+fichiers de droite � gauche et les claviers arabes, cette option lance
+.B uVim
+en mode Arabe, c.-�-d. que l'option 'arabic' est activ�e.
+Sinon, un message d'erreur est �mis et
+.B uVim
+quitte.
+.TP
+\-b
+Mode Binaire.
+Active plusieurs options pour permettre l'�dition
+d'un fichier binaire ou ex�cutable.
+.TP
+\-C
+Compatible. Active l'option 'compatible'.
+.B uVim
+se comportera alors quasiment comme Vi, m�me s'il existe un fichier .vimrc.
+.TP
+\-d
+D�marre en mode Diff.
+Deux, trois ou quatre noms de fichiers doivent �tre sp�cifi�s.
+.B uVim
+ouvrira alors tous les fichiers et affichera leurs diff�rences.
+Fonctionne comme vimdiff(1).
+.TP
+\-d {p�riph}
+Ouvre {p�riph} pour l'utiliser comme terminal.
+Uniquement sur Amiga.
+Exemple :
+"\-d con:20/30/600/150".
+.TP
+\-D
+Debogage. Passe en mode D�bogage lors de l'ex�cution de la premi�re commande
+d'un script.
+.TP
+\-e
+D�marre
+.B uVim
+en mode Ex, comme si l'ex�cutable s'appelait "ex".
+.TP
+\-E
+D�marre
+.B uVim
+en mode Ex am�lior�, comme si l'ex�cutable "exim" avait �t� invoqu�.
+.TP
+\-f
+Premier-plan (Foreground). Pour la version graphique,
+.B uVim
+ne forke pas et ne se d�tache pas du shell dans lequel il a �t� invoqu�.
+Sur Amiga,
+.B uVim
+n'est pas relanc� pour ouvrir une nouvelle fen�tre.
+Cette option est utile quand
+.B uVim
+est ex�cut� par un programme qui attend la fin de la session d'�dition
+(par exemple mail).
+Sur Amiga, les commandes ":sh" et ":!" ne fonctionneront pas.
+.TP
+\-\-nofork
+Premier-plan (Foreground). Pour la version graphique,
+.B uVim
+ne forkera pas et ne se d�tachera pas du shell dans lequel il a �t� lanc�.
+.TP
+\-F
+Si
+.B uVim
+a �t� compil� avec le support de la fonctionnalit� FKMAP pour l'�dition de
+fichiers de droite � gauche et les claviers farsi, cette option lance
+.B uVim
+en mode Farsi, c.-�-d. avec les options 'fkmap' et 'rightleft' activ�es.
+Sinon, un message d'erreur est �mis et
+.B uVim
+quitte.
+.TP
+\-g
+Si
+.B uVim
+a �t� compil� avec le support de l'IHM graphique, cette option active
+l'IHM graphique. Si le support n'a pas �t� compil�, un message d'erreur
+est �mis et
+.B uVim
+quitte.
+.TP
+\-h
+Donne une aide succincte sur les arguments et les options de la ligne de
+commande. Apr�s cela,
+.B uVim
+quitte.
+.TP
+\-H
+Si
+.B uVim
+a �t� compil� avec le support de la fonctionnalit� RIGHTLEFT pour l'�dition de
+fichiers de droite � gauche et les claviers h�breux, cette option lance
+.B uVim
+en mode H�breu, c.-�-d. avec les options 'hkmap' et 'rightleft' activ�es.
+Sinon, un message d'erreur est �mis et
+.B uVim
+quitte.
+.TP
+\-i {viminfo}
+Lorsque l'utilisation d'un fichier viminfo est activ�e, cette option indique
+le nom de fichier � utiliser � la place de "~/.viminfo" par d�faut.
+Il est possible d'emp�cher l'utilisation d'un fichier ".viminfo", en
+sp�cifiant le nom de fichier "NONE".
+.TP
+\-L
+Comme \-r.
+.TP
+\-l
+Mode Lisp.
+Active les options 'lisp' et 'showmatch'.
+.TP
+\-m
+Emp�che la modification des fichiers.
+D�sactive l'option 'write'.
+Vous pouvez toujours modifier le tampon, mais il vous sera impossible
+d'�crire le fichier.
+.TP
+\-M
+N'autorise aucune modification. les options 'modifiable' et 'write' sont
+d�sactiv�es, de sorte que les changements ne sont pas autoris�s et que les
+fichiers ne peuvent pas �tre �crits. Note : ces options peuvent �tre activ�es
+pour autoriser les modifications.
+.TP
+\-N
+Mode Non-compatible. D�sactive l'option 'compatible'.
+Cela am�liorera le comportement de
+.B uVim
+\, mais il sera moins conforme � celui de Vi, m�me s'il n'existe aucun
+fichier ".vimrc".
+.TP
+\-n
+N'utilise pas de fichier d'�change (swapfile).
+Le recouvrement apr�s un plantage sera impossible.
+Utile pour �diter un fichier sur un support tr�s lent (disquette par ex.).
+�galement activable avec ":set uc=0".
+Il est possible de l'annuler avec ":set uc=200".
+.TP
+\-nb
+Devient un serveur d'�dition pour NetBeans. Consulter la documentation � ce
+sujet pour davantage de d�tails.
+.TP
+\-o[N]
+Ouvre N fen�tres les unes au-dessus des autres.
+Quand N est omis, ouvre une fen�tre pour chaque fichier.
+.TP
+\-O[N]
+Ouvre N fen�tres c�te � c�te.
+Quand N est omis, ouvre une fen�tre pour chaque fichier fichier.
+.TP
+\-p[N]
+Ouvre N onglets.
+Quand N est omis, ouvre un onglet pour chaque fichier fichier.
+.TP
+\-R
+Mode Lecture-Seule.
+Active l'option 'readonly'.
+Vous pouvez toujours �diter le tampon, mais il vous sera impossible de
+d'�craser accidentellement un fichier.
+Si vous voulez �craser un fichier, ajoutez un point d'exclamation � la commande
+Ex, comme dans ":w!".
+L'option \-R impose l'option \-n (voir ci-dessus).
+L'option 'readonly' peut �tre d�sactiv�e avec ":set noro".
+Voir ":help 'readonly'".
+.TP
+\-r
+Donne la liste des fichiers d'�change, avec des informations pour les utiliser
+� des fins de recouvrement.
+.TP
+\-r {file}
+Mode Recouvrement.
+Utilise le fichier d'�change pour r�couvrer d'une session d'�dition plant�e.
+Le fichier d'�change est un fichier avec le m�me nom que le fichier texte,
+suivi du suffixe ".swp".
+Voir ":help recovery".
+.TP
+\-s
+Mode Silencieux. Disponible uniquement quand
+.B uVim
+est lanc� en tant que "ex" ou quand l'option "\-e" a �t� sp�cifi�e avant
+l'option "\-s".
+.TP
+\-s {scriptEntr�e}
+Lit le fichier de script {scriptEntr�e}.
+Les caract�res du fichier sont interpr�t�s comme si vous les tapiez.
+La commande ":source! {scriptEntr�e}" donne le m�me r�sultat.
+Si la fin du fichier est atteinte avant que l'�diteur quitte, les caract�res
+suivants sont lus depuis le clavier.
+.TP
+\-T {terminal}
+Indique �
+.B uVim
+le nom du terminal utilis�.
+Cela n'est requis que lorsque la d�tection automatique �choue.
+Le {terminal} devrait �tre connu de
+.B uVim
+(int�gr�) ou d�fini dans le fichier termcap ou terminfo.
+.TP
+\-u {vimrc}
+Utilise les commandes du fichier {vimrc} pour les initialisations.
+Toutes les autres initialisations sont omises.
+� utiliser pour �diter un type de fichiers particulier.
+Cela permet aussi d'omettre toute initialisation en sp�cifiant le nom de
+fichier "NONE".
+Voir ":help initialization" dans uVim pour davantage de d�tails.
+.TP
+\-U {gvimrc}
+Utilise les commandes du fichier {gvimrc} pour l'initialisation de l'IHM
+graphique.
+Toutes les autres initialisations graphiques sont omises.
+Cela permet aussi d'omettre toute initialisation graphique en sp�cifiant le nom
+de fichier "NONE".
+Voir ":help gui\-init" dans uVim pour davantage de d�tails.
+.TP
+\-V[N]
+Mode Verbeux.
+Donne des messages � propos des fichiers sourc�s, ainsi que sur la lecture
+et les �critures dans le fichier viminfo. le nombre optionnel N pr�cise la
+valeur de l'option 'verbose' (10 par d�faut).
+.TP
+\-v
+D�marre
+.B uVim
+en mode Vi, comme si l'ex�cutable s'appelait "vi". Cela n'a d'effet que si
+l'ex�cutable invoqu� est "ex".
+.TP
+\-w {scriptSortie}
+Tous les caract�res que vous tapez sont enregistr�s dans le fichier
+{scriptSortie}, jusqu'� ce que vous quittiez
+.B uVim.
+C'est utile quand vous voulez cr�er un fichier de script � utiliser avec
+"vim \-s" ou ":source!".
+Si le fichier {scriptSortie} existe, les caract�res sont ajout�s � la fin.
+.TP
+\-W {scriptSortie}
+Comme \-w, mais un fichier existant sera �cras�.
+.TP
+\-x
+Chiffre les fichiers lors de l'�criture. Une cl� de chiffrement sera demand�e.
+.TP
+\-X
+Ne se connecte pas au serveur X. Acc�l�re le temps de d�marrage dans un
+terminal, mais le titre de la fen�tre et le presse-papier seront inaccessibles.
+.TP
+\-y
+D�marre
+.B uVim
+en mode D�butant (easy), comme si l'ex�cutable s'appelait "evim" ou "eview".
+Donne �
+.B uVim
+un comportement plus proche des �diteurs � cliquez-tapez �.
+.TP
+\-Z
+Mode restreint. Fonctionne comme si l'ex�cutable commen�ait par la lettre 'r'.
+.TP
+\-\-
+D�limite la fin des options.
+Les arguments qui suivent seront consid�r�s comme des noms de fichiers.
+Cela permet d'�diter des fichiers d�butant par un '\-'.
+.TP
+\-\-echo\-wid
+IHM graphique GTK uniquement : retourne la Window ID sur stdout.
+.TP
+\-\-help
+Donne un message d'aide et quitte, comme "\-h".
+.TP
+\-\-literal
+Prend les arguments de noms de fichiers litt�ralement, sans �tendre les
+jokers. N'a aucun effet sur Unix, o� le shell �tend les jokers.
+.TP
+\-\-noplugin
+Ne charge pas les greffons. Implicite avec \-u NONE.
+.TP
+\-\-remote
+Se connecte � un serveur uVim et lui fait �diter les fichiers sp�cifi�s dans
+le reste des arguments. Si aucun serveur n'est trouv�, un avertissement est
+�mis et les fichiers sont �dit�s dans le uVim courant.
+.TP
+\-\-remote\-expr {expr}
+Se connecte � un serveur uVim, y �value {expr} et affiche le r�sultat sur la
+sortie standard (stdout).
+.TP
+\-\-remote\-send {touches}
+Se connecte � un serveur uVim et y envoie {touches}.
+.TP
+\-\-remote\-silent
+Comme \-\-remote, mais sans �mettre d'avertissement si aucun serveur n'est
+trouv�.
+.TP
+\-\-remote\-wait
+Comme \-\-remote, mais uVim ne quitte pas tant que le fichier est en cours
+d'�dition.
+.TP
+\-\-remote\-wait\-silent
+Comme \-\-remote\-wait, mais sans �mettre d'avertissement si aucun serveur n'est
+trouv�.
+.TP
+\-\-serverlist
+Donne la liste des noms de tous les serveurs uVim disponibles.
+.TP
+\-\-servername {nom}
+Utilise {nom} pour le nom de serveur. Ce nom est donn� au uVim courant, � moins
+qu'il ne soit utilis� avec un argument \-\-remote. Dans ce cas, il s'agit du nom
+du serveur auquel se connecter.
+.TP
+\-\-socketid {id}
+IHM graphique GTK+ uniquement : utilise le m�canisme GtkPlug pour faire
+fonctionner gvim dans une autre fen�tre.
+.TP
+\-\-version
+Affiche les informations sur la version puis quitte.
+.SH AIDE EN LIGNE
+Taper ":help" dans
+.B uVim
+pour commencer.
+Taper ":help sujet" pour obtenir de l'aide sur un sujet pr�cis.
+Par exemple : ":help ZZ" pour consulter l'aide sur la commande "ZZ".
+Utiliser <Tab> et CTRL\-D pour compl�ter les sujets (":help
+cmdline\-completion").
+Des marqueurs sont inclus dans l'aide et vous permettent de sauter d'un endroit
+� un autre (comme des liens hypertextes, voir ":help").
+L'ensemble des fichiers de la documentation peut �tre consult� de cette
+fa�on, par exemple ":help syntax.txt".
+.SH FICHIERS
+.TP 15
+/usr/local/lib/vim/doc/*.txt
+Les fichiers de la documentation de
+.B uVim.
+Utiliser ":help doc\-file\-list" pour obtenir la liste compl�te.
+.TP
+/usr/local/lib/vim/doc/tags
+Le fichier des marqueurs utilis� pour trouver les informations dans les
+fichiers de la documentation.
+.TP
+/usr/local/lib/vim/syntax/syntax.vim
+Initialisation de la syntaxe pour l'ensemble du syst�me.
+.TP
+/usr/local/lib/vim/syntax/*.vim
+Fichiers de syntaxe pour diff�rents langages.
+.TP
+/usr/local/lib/vim/vimrc
+Initialisation de
+.B uVim
+pour l'ensemble du syst�me.
+.TP
+~/.vimrc
+Initialisation de
+.B uVim
+de votre compte utilisateur.
+.TP
+/usr/local/lib/vim/gvimrc
+Initialisation de gvim pour l'ensemble du syst�me.
+.TP
+~/.gvimrc
+Initialisation de gvim pour votre compte utilisateur.
+.TP
+/usr/local/lib/vim/optwin.vim
+Script utilis� pour la commande ":options", une mani�re pratique de consulter
+et de modifier les options.
+.TP
+/usr/local/lib/vim/menu.vim
+Initialisation des menus de gvim pour l'ensemble du syst�me.
+.TP
+/usr/local/lib/vim/bugreport.vim
+Script pour g�n�rer un rapport de bogue. Voir ":help bugs".
+.TP
+/usr/local/lib/vim/filetype.vim
+Script pour d�tecter le type d'un fichier d'apr�s son nom.
+Voir ":help 'filetype'".
+.TP
+/usr/local/lib/vim/scripts.vim
+Script pour d�tecter le type d'un fichier d'apr�s son contenu.
+Voir ":help 'filetype'".
+.TP
+/usr/local/lib/vim/print/*.ps
+Fichiers utilis�s pour l'impression PostScript.
+.PP
+Pour disposer d'informations r�centes, consulter le site Internet de VIM :
+.br
+<URL:http://www.vim.org/>
+.SH VOIR AUSSI
+vimtutor(1)
+.SH AUTEUR
+La majeure partie de
+.B uVim
+a �t� �crite par Bram Moolenaar, avec l'aide de nombreux autres contributeurs.
+Voir ":help credits" dans
+.B uVim.
+.br
+.B uVim
+est bas� sur Stevie, r�alis� par Tim Thompson,
+Tony Andrews et G.R. (Fred) Walter.
+Toutefois, pratiquement rien du code original ne subsiste.
+.SH BOGUES
+Probablement.
+Voir ":help todo" pour consulter la liste des probl�mes connus.
+.PP
+NOTE : Remarquez que bon nombre de points, qui pourraient �tre consid�r�s comme
+des bugs par certains, sont en fait dus � une reproduction trop fid�le
+du comportement de Vi. Et si vous pensez que d'autres points sont des
+bugs "parce que Vi le fait diff�remment", vous devriez jeter un oeil
+attentif au fichier vi_diff.txt (ou taper ":help vi_diff.txt" dans uVim).
+Regardez aussi les options 'compatible' et 'coptions'.
+.SH TRADUCTION
+Cette page de manuel a �t� traduite par Richard Hitier.
+<richard.hitier@dial.oleane.com> 2000-08-07.
+.br
+Cette page de manuel a �t� mise � jour par David Blanchet.
+<david.blanchet@free.fr> 2006-04-10.
+Mise � jour 2013-05-10, Dominique Pell� <dominique.pelle@gmail.com>

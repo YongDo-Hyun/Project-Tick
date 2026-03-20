@@ -1,0 +1,78 @@
+*license.txt*   For uVim version 8.0.  Last change: 2026 Mar 12
+
+
+		  UVIM REFERENCE MANUAL
+
+
+Licensing and copying				*license* *copying* *copyright*
+						*uganda* *Uganda*
+
+This file summarizes the licensing notices that apply to uVim.  It exists so
+that `:help license`, `:help copying` and legacy references such as
+`:help uganda` resolve inside this tree.
+
+uVim is a modified distribution derived from Vim.  Unless a file states
+otherwise, source code and runtime files inherited from Vim remain subject to
+the Vim license.  User and reference manuals are documented separately under
+the Open Publication License; see |manual-copyright|.
+
+The original Vim project was created by Bram Moolenaar, and the original
+copyright notices in the Vim-derived parts of this tree name Bram Moolenaar as
+the primary copyright holder.
+
+==============================================================================
+Summary
+
+1. Unmodified copies may be used and redistributed.
+
+2. When redistributing uVim, preserve the applicable copyright and license
+   notices in the distribution.
+
+3. When redistributing a modified version, make it clear that it was modified.
+   The original Vim license also expects modified distributors to keep contact
+   information and to make their changes available under terms compatible with
+   upstream integration.
+
+4. This help entry is a guide for users and distributors.  It does not replace
+   the notices embedded in source files, documentation headers, or other
+   per-file licensing statements.
+
+==============================================================================
+Source and runtime code
+
+The original Vim license is a permissive, GPL-compatible license used by the
+upstream project.  In practical terms, that means:
+
+- You may use, copy, and redistribute unmodified copies.
+- You may redistribute modified versions, but you must preserve the license
+  text and clearly indicate that the result is modified.
+- If you redistribute modifications, do not remove the upstream notices that
+  describe how such changes are to be shared and identified.
+
+If your distribution adds third-party code, that code may carry additional
+terms.  In that case, compliance requires satisfying both the Vim license and
+the license of the added component.
+
+==============================================================================
+Documentation
+
+The user manual and reference manual use the Open Publication License, v1.0 or
+later.  See |manual-copyright| in |usr_01.txt| for the documentation terms and
+historical notes.
+
+==============================================================================
+Project guidance
+
+If you ship binaries, source archives, runtime files, container images, or
+packages built from this repository:
+
+- Keep this help file and other upstream notices in the distributed runtime.
+- Keep source file headers intact unless you have a specific legal reason to
+  update them.
+- Ensure your modified build identifies itself as modified in user-visible
+  places such as startup/version output when applicable.
+
+The presence of this help page improves discoverability of the license, but it
+does not by itself cure a non-compliant redistribution.
+
+ vim:tw=78:ts=8:noet:ft=help:norl:

@@ -1,0 +1,558 @@
+.TH VIM 1 "2006 kwi 11"
+.SH NAME
+vim \- Vi rozbudowany, edytor tekstu dla programisty
+.SH SYNOPSIS
+.br
+.B vim
+[opcje] [plik ..]
+.br
+.B vim
+[opcje] \-
+.br
+.B vim
+[opcje] \-t znacznik
+.br
+.B vim
+[opcje] \-q [plik_b��du]
+.PP
+.br
+.B ex
+.br
+.B view
+.br
+.B gvim
+.B gview
+.B evim
+.B eview
+.br
+.B rvim
+.B rview
+.B rgvim
+.B rgview
+.SH OPIS
+.B uVim
+jest edytorem tekstu kompatybilnym z Vi. Mo�e by�
+u�ywany do edycji wszelkiego rodzaju plik�w tekstowych.
+U�yteczny zw�aszcza przy edycji program�w.
+.PP
+Posiada wiele usprawnie� w por�wnaniu z Vi: wielopoziomowe cofanie zmian,
+wiele okien i bufor�w, pod�wietlanie sk�adni, edycja linii polece�,
+uzupe�nianie nazw plik�w, pomoc on-line, wizualna selekcja, itd.
+Zobacz ":help vi_diff.txt" dla podsumowania r�nic pomi�dzy
+.B Vimem
+i Vi.
+.PP
+W czasie korzystania z
+.B Vima
+mo�na uzyska� obszern� pomoc z systemu pomocy on-line dzi�ki poleceniu ":help".
+Zobacz rozdzia� POMOC ON-LINE poni�ej.
+.PP
+Najcz�ciej
+.B uVim
+jest uruchamiany do edycji pojedynczego pliku poleceniem
+.PP
+	vim plik
+.PP
+Bardziej og�lnie
+.B uVim
+jest uruchamiany poprzez:
+.PP
+	vim [opcje] [lista plik�w]
+.PP
+Je�li brak listy plik�w edytor rozpocznie z pustym buforem. W innym
+wypadku istnieje dok�adnie jedna z czterech mo�liwo�ci by wybra� jeden
+lub wi�cej plik�w do edycji.
+.TP 12
+plik ..
+Lista nazw plik�w.
+Pierwsza nazwa b�dzie nazw� bie��cego pliku, kt�ry zostanie wczytany
+do bufora. Kursor zostanie umieszczony w pierwszym wierszu. Do
+kolejnych plik�w mo�na przej�� dzi�ki poleceniu ":next". By otworzy�
+plik, kt�rego nazwa zaczyna si� od my�lnika nale�y list� plik�w
+poprzedzi� "\-\-".
+.TP
+\-
+Plik do edycji jest wczytany ze standardowego wej�cia. Polecenia s�
+odczytywane ze standardowego wyj�cia b��d�w, kt�rym powinien by�
+terminal (tty).
+.TP
+\-t {znacznik}
+Plik do edycji i pocz�tkowa pozycja kursora zale�y od "znacznika",
+rodzaju etykiety goto.
+{znacznika} szuka si� w pliku tags, zwi�zany z nim plik staje si�
+plikiem bie��cym i wykonuje si� powi�zane polecenie.
+Zazwyczaj u�ywa si� tego sposobu dla program�w w C, w kt�rych wypadku
+{znacznik} mo�e by� nazw� funkcji.
+W efekcie plik zawieraj�cy okre�lon� funkcj� staje si� plikiem
+bie��cym a kursor jest umieszczony na pocz�tku funkcji.
+Zobacz ":help tag-commands".
+.TP
+\-q [plik_b��d�w]
+Zacznij w trybie quickFix.
+Plik [plik_b��d�w] zostaje zinterpretowany i poka�e si� pierwszy b��d.
+Je�li brak opcji [plik_b��d�w] nazwa pliku zostanie pobrana z opcji
+\&'errorfile' (domy�lnie "AztecC.Err" dla Amigi, "errros.err" dla innych
+system�w.
+Do kolejnych b��d�w mo�na przeskoczy� dzi�ki poleceniu ":cn".
+Zobacz ":help quickfix".
+.PP
+W zale�no�ci od wywo�ania
+.B uVim
+zachowuje si� inaczej (program mo�e by� ca�y czas tym samym
+plikiem).
+.TP 10
+vim
+"Normalny" spos�b, wszystko jest domy�lne.
+.TP
+ex
+Zacznij w trybie Ex.
+Przejd� do trybu Normalnego poleceniem ":vi".
+Mo�na tak�e uruchomi� poprzez argument "\-e".
+.TP
+view
+Zacznij w trybie tylko do odczytu. W ten spos�b b�dziesz chroniony
+przed zapisywaniem pliku. Mo�na tak�e uruchomi� poprzez argument
+"\-R".
+.TP
+gvim gview
+Wersja GUI.
+Uruchamia nowe okno.
+Mo�na tak�e uruchomi� poprzez argument "\-g".
+.TP
+evim eview
+Wersja GUI w �atwym trybie.
+Uruchamia nowe okno.
+Mo�na tak�e uruchomi� poprzez argument "\-y".
+.TP
+rvim rview rgvim rgview
+Podobnie jak powy�ej, ale z ograniczeniami. Nie b�dzie mo�na uruchomi�
+polece� pow�oki lub zawiesi�
+.B Vima.
+Mo�na tak�e uruchomi� poprzez argument "\-Z".
+.SH OPCJE
+Opcje mo�na poda� w dowolnej kolejno�ci, przed lub po nazwach plik�w.
+Opcje bez argument�w mo�na ��czy� po pojedynczym my�lniku.
+.TP 12
++[num]
+W pierwszym pliku kursor zostanie umieszczony w wierszu "num".
+Je�li brak "num" kursor zostanie umieszczony w ostatnim wierszu.
+.TP
++/{wz�r}
+W pierwszym pliku kursor zostanie umieszczony na pierwszym wyst�pieniu
+{wz�r}.
+Zobacz ":help search-pattern" by dowiedzie� si� jakie s� mo�liwe
+wzorce wyszukiwania.
+.TP
++{polecenie}
+.TP
+\-c {polecenie}
+{polecenie} zostanie wykonane po tym jak wczyta si� pierwszy plik.
+{polecenie} jest interpretowane jako polecenie Ex.
+Je�li {poleceni} zawiera bia�e znaki musi by� umieszczone w podw�jnych
+cudzys�owach (zale�y to od u�ywanej pow�oki).
+Przyk�aduVimim "+set si" main.c
+.br
+Uwaga: Mo�na u�y� do 10 polece� "+" lub "\-c".
+.TP
+\-S {plik}
+{plik} zostanie zinterpretowany po wczytaniu pierwszego pliku.
+Jest r�wnowa�ne \-c "source {plik}".
+{plik} nie mo�e zaczyna� si� '\-'.
+Je�li nie podano {plik} zostanie u�yty "Session.vim" (dzia�a tylko
+wtedy je�li \-S jest ostatnim argumentem).
+.TP
+\-\-cmd {polecenie}
+Podobne do "\-c", ale polecenie jest wykonywane tu� przed
+interpretacj� jakiegokolwiek pliku vimrc.
+Mo�na u�y� do 10 takich polece�, niezale�nie od polece� od "\-c"
+.TP
+\-A
+Je�li
+.B uVim
+zosta� skompilowany ze wsparciem dla j�zyk�w arabskich (edycja od
+prawej do lewej i arabska mapa klawiatury) ta opcja uruchamia
+.B Vima
+w trybie arabskim, np. ustawia si� opcja 'arabic'. W innym wypadku
+pojawi si� komunikat b��du i
+.B uVim
+zako�czy dzia�anie.
+.TP
+\-b
+Tryb binarny.
+Ustawi si� kilka opcji, kt�re umo�liwi� edycj� plik�w binarnych lub
+wykonywalnych.
+.TP
+\-C
+Kompatybilny. Ustawia opcj� 'compatible'.
+W ten spos�b 
+.B uVim
+b�dzie zachowywa� si� jak Vi, nawet je�li istnieje plik .vimrc.
+.TP
+\-d
+Uruchom w trybie diff.
+Powinno si� u�y� dw�ch, trzech lub czterech nazwy plik�w jako argument�w.
+.B uVim
+otworzy wszystkie te pliki i poka�e r�nice mi�dzy nimi.
+Dzia�a jak vimdiff(1).
+.TP
+\-d {urz�dzenie}
+Otw�rz {urz�dzenie} by u�ywa� jako terminal.
+Tylko na Amidze.
+Przyk�ad:
+"\-d con:20/30/600/150".
+.TP
+\-D
+Debugowanie. Przejd� do trybu debugowanie wykonuj�c pierwsze polecenie
+ze skryptu.
+.TP
+\-e
+Uruchom
+.B Vima
+w trybie Ex, dzia�a tak samo jakby wywo�ano program jako "ex".
+.TP
+\-E
+Uruchom
+.B Vima
+w ulepszonym trybie Ex, dzia�a tak samo jakby wywo�ano program jako
+"exim".
+.TP
+\-f
+Pierszy plan. Dla wersji GUI.
+.B uVim
+nie nie oddzieli si� od pow�oki w jakiej zosta� uruchomiony. Na Amidze
+.B uVim
+nie jest uruchomiony ponownie by otworzy� nowe okno.
+Opcja powinna by� u�yta kiedy
+.B uVim
+jest wywo�ywany przez program, kt�ry ma zaczeka� na koniec sesji (np.
+mail).
+Na Amidze polecenia ":sh" i ":!" nie b�d� dzia�a�.
+.TP
+\-\-nofork
+Pierwszy plan. Dla wersji GUI.
+.B uVim
+nie oddzieli si� od pow�oki w jakiej zosta� uruchomiony.
+.TP
+\-F
+Je�luVimim zosta� skompilowany ze wsparciem FKMAP dla edycji tekst�w od
+prawej do lewej i mapowania klawiatury Farsi, ta opcja uruchomi
+.B Vima
+w trybie Farsi, np. zostawi� ustawione opcje 'fkmap' i 'rightleft'.
+W innym wypadku pojawi si� komunikat b��du i
+.B uVim
+zako�czy dzia�anie.
+.TP
+\-g
+Je�li
+.B uVim
+zosta� skompilowany ze wsparciem dla GUI ta opcja uruchomi GUI.
+W innym wypadku pojawi si� komunikat b��du i
+.B uVim
+zako�czy dzia�anie.
+.TP
+\-h
+Wy�wietli kr�tk� pomoc o argumentach linii polece� i opcjach. Potem
+.B uVim
+zako�czy dzia�anie.
+.TP
+\-H
+Je�li
+.B uVim
+zosta� skompilowany ze wsparciem RIGHTLEFT dla edycji od prawej do
+lewej oraz ma mapowanie klawiatury dla hebrajskiego, ta opcja uruchomi
+.B Vima
+w trybie hebrajskim, np. ustawi opcje 'hkmap' i 'rightleft'.
+W innym wypadku pojawi si� komunikat b��du i
+.B uVim
+zako�czy dzia�anie.
+.TP
+\-i {viminfo}
+Kiedy
+.B uVim
+u�ywa pliku viminfo ta opcja wska�e jakiego pliku u�y� zamiast
+domy�lnego "~/.viminfo".
+Mo�na te� omin�� u�ycie pliku .viminfo przez podanie nazwy "NONE".
+.TP
+\-L
+To samo co \-r.
+.TP
+\-l
+Tryb Lisp.
+Ustawia opcje 'lisp' i 'showmatch'.
+.TP
+\-m
+Zmiana pliku jest niemo�liwa.
+Przestawia opcj� 'write'.
+Mo�na zmienia� zawarto�� bufora, ale zapisanie pliku nie jest
+mo�liwe.
+.TP
+\-M
+Opcje 'modifiable' i 'write' zostan� wy��czone, tak wi�c zmiany
+w pliku oraz ich zapisanie nie s� mo�liwe. Warto�� tych opcji mo�na
+zmieni�.
+.TP
+\-N
+Tryb niekompatybilny. Przestawia opcj� 'compatible'. Dzi�ki temu
+.B uVim
+b�dzie zachowywa� si� odrobin� lepiej, ale mniej zgodnie z Vi nawet
+je�li nie istnieje plik .vimrc.
+.TP
+\-n
+Nie powstanie plik wymiany. Odzyskanie pliku po wypadku nie b�dzie
+mo�liwe.
+Wygodne je�li instnieje potrzeba edycji na bardzo wolnym medium (np.
+dyskietce). Ten cel mo�na osi�gn�� tak�e przez ":set uc=0". Mo�na
+odwr�ci� przez ":set uc=200".
+.TP
+\-nb
+Uruchom jako serwer edytora dla NetBeans. Zobacz dokumentacj� by
+dowiedzie� si� wi�cej.
+.TP
+\-o[N]
+Otw�rz N okien w stosie.
+Kiedy brak N, otw�rz jedno okno dla ka�dego pliku.
+.TP
+\-O[N]
+Otw�rz N okien obok siebie.
+Kiedy brak N, otw�rz jedno okno dla ka�dego pliku.
+.TP
+\-p[N]
+Otw�rz N kart.
+Kiedy brak N, otw�rz jedn� kart� dla ka�dego pliku.
+.TP
+\-R
+Tryb tylko do odczytu.
+Zostanie ustawiona opcja 'readonly'.
+Ca�y czas mo�na zmienia� bufor, ale b�dzie istnia�a blokada by chroni�
+przed przypadkowym zapisaniem pliku.
+Je�li chcesz zapisa� plik dodaj wykrzyknik do polecenia Ex, np. ":w!".
+Opcja \-R implikuje opcj� \-n (zobacz poni�ej).
+Opcja 'readonly' mo�e zosta� przestawiona poprzez ":set noro".
+Zobacz ":help 'readonly'".
+.TP
+\-r
+Wypisz list� plik�w wymiany razem z informacjami o nich.
+.TP
+\-r {plik}
+Tryb odzyskiwania danych.
+Plik wymiany zostanie wykorzystany do odzyskania gwa�townie przerwanej sesji.
+Plik wymiany to plik z tak� sam� nazw� co plik oryginalny z dodanym ".swp".
+Zobacz ":help recovery".
+.TP
+\-s
+Tryb cichy. Rozpocz�ty tylko kiedy uruchomiony jako "Ex" lub opcja
+"\-e" zosta�a podana przed opcj� "\-s".
+.TP
+\-s {skrypt}
+Zostanie wczytany plik {skrypt}.
+Znaki w pliku zostan� zinterpretowane jakby by�y wpisywane.
+To samo mo�na osi�gn�� poprzez polecenie ":source! {skrypt}".
+Je�li osi�gni�to koniec pliku zanim edytor zako�czy� dzia�anie, dalsze
+znaki odczytywane s� z klawiatury.
+.TP
+\-T {terminal}
+Przekazuje
+.B Vimowi
+nazw� terminalu jakiego u�ywasz.
+Wymagane tylko wtedy je�li nie dzia�a automatycznie.
+Powinien by� to terminal znany
+.B Vimowi
+(builtin) lub zdefiniowany w plikach termcap lub terminfo.
+.TP
+\-u {vimrc}
+U�yj polece� z pliku {vimrc} w czasie uruchamiania.
+Wszystkie inne mo�liwe pliki uruchamiania zostan� pomini�te.
+U�ywaj do edytowania plik�w specjalnych.
+Mo�na pomin�� tak�e wszystkie mo�liwe pliki uruchamiania poprzez
+podanie nazwy "NONE".
+Zobacz ":help initialization" by pozna� wi�cej szczeg��w.
+.TP
+\-U {gvimrc}
+U�yj polece� z pliku {gvimrc} w czasie uruchamiania GUI.
+Wszystkie inne mo�liwe pliki uruchamiania GUI zostan� pomini�te.
+Mo�na pomin�� tak�e wszystkie mo�liwe pliki uruchamiania GUI poprzez
+podanie nazwy "NONE".
+Zobacz ":help gui-init" by pozna� wi�cej szczeg��w.
+.TP
+\-V[N]
+Tryb gadatliwy. Wypisz wiadomo�ci o tym jaki pliki s� wczytywane
+i o informacjach pobieranych i dodawanych do pliku viminfo. Opcjonalny
+argument N jest warto�ci� 'verbose'. Domy�lnie 10.
+.TP
+\-v
+Uruchom
+.B Vima
+w trybie Vi, tak jakby program by� nazwany "vi". Ma znaczenie
+tylko wtedy je�li program nazwany jest "ex".
+.TP
+\-w {plik}
+Wszystkie wci�ni�cia klawiszy, a� do zako�czenia dzia�ania programu,
+s� zapisywane w {plik} .
+U�yteczne je�li chce si� stworzy� skrypt do u�ycia z "vim \-s" lub
+":source!".
+Je�li {plik} istnieje, znaki s� dopisywane.
+.TP
+\-W {plik}
+Podobnie do \-w, ale istniej�cy plik jest nadpisywany.
+.TP
+\-x
+U�yj szyfrowania podczas zapisywania plik�w. Zostaniesz poproszony
+o podanie klucza.
+.TP
+\-X
+Nie ��cz z serwerem X. Skraca czas uruchamiania w terminalu, ale tytu�
+okna i schowek nie b�d� wykorzystywane.
+.TP
+\-y
+Uruchom
+.B Vima
+w �atwym trybie, tak jakby program zosta� wywo�any "evim" lub "eview".
+.B uVim
+b�dzie zachowywa� si� bardziej jak edytor kliknij-i-wpisz.
+.TP
+\-Z
+Tryb ograniczony. Zachowuje si� jakby nazwa programu zaczyna�a si� od
+"r".
+.TP
+\-\-
+Oznacza koniec opcji.
+Argumenty po tej opcji b�d� traktowane jak nazwy plik�w. U�ywa si� do
+otwierania plik�w, kt�rych nazwy zaczynaj� si� od '\-'.
+.TP
+\-\-echo\-wid
+Wy��cznie GTK GUI: wypisz ID okna na standardowe wyj�cie.
+.TP
+\-\-help
+Wy�wietl informacj� o pomocy i zako�czy, to samo co"\-h".
+.TP
+\-\-literal
+Potraktuj nazwy plik�w dos�ownie i nie rozwi�zuj kwantyfikator�w. Nie
+ma znaczenia na Uniksach gdzie pow�oka rozwi�zuje kwantyfikatory.
+.TP
+\-\-noplugin
+Pomi� �adowanie wtyczek. Implikowane przy \-u NONE.
+.TP
+\-\-remote
+Po��cz si� z serwerem Vima i edytuj w nim reszt� plik�w podanych jako
+argumenty. Je�li nie znaleziono serwera zostanie zg�oszony b��d a pliki zostan�
+otwarte w bie��cym Vimie.
+.TP
+\-\-remote\-expr {wyra�enie}
+Po��cz z serwerem Vima, rozwi�� w nim {wyra�enie} i wypisz rozwi�zanie
+na standardowe wyj�cie.
+.TP
+\-\-remote\-send {klawisze}
+Po��cz z serwerem Vima i wy�lij do niego {klawisze}.
+.TP
+\-\-remote\-silent
+Tak samo jak \-remote, ale bez ostrze�enia kiedy nie znaleziono
+serwera.
+.TP
+\-\-remote\-wait
+Tak samo jak \-remote, ale uVim nie zako�czy dop�ki pliki pozostan�
+otwarte.
+.TP
+\-\-remote\-wait\-silent
+Tak samo jak \-\-remote\-wait, ale bez ostrze�enie kiedy nie
+znaleziono serwera.
+.TP
+\-\-serverlist
+Wypisz nazwy wszystkich serwer�w Vima jakie mo�na znale��.
+.TP
+\-\-servername {nazwa}
+U�yj {nazwa} jako nazwy serwera. Wykorzystane dla bie��cego Vima o ile
+nie po��czone z argumentem \-\-remote, wtedy jest to nazwa serwera do
+po��czenia.
+.TP
+\-\-socketid {id}
+Wy��cznie GTK GUI: U�yj mechanizmu GtkPlug by uruchomi� gvima w innym
+oknie.
+.TP
+\-\-version
+Wypisz informacj� o wersji i zako�cz.
+.SH POMOC ON-LINE
+By rozpocz�� wpisz ":help" w
+.B Vimie
+Wpisz ":help temat" by uzyska� pomoc na okre�lony temat.
+Przyk�ad: ":help ZZ" by uzyska� pomoc na temat polecenia "ZZ".
+U�yj <Tab> i CTRL\-D aby uzupe�ni� tematy (":help
+cmdline\-completion"). W plikach pomocy istniej� znaczniki by u�atwi�
+skakanie z jednego miejsca do innego (rodzaj link�w hipertekstowych,
+zobacz ":help").
+Mo�na w ten spos�b zobaczy� ca�� dokumentacj�, np. ":help syntax.txt".
+.SH PLIKI
+.TP 15
+/usr/local/lib/vim/doc/*.txt
+Dokumentacja
+.B Vima
+U�yj ":help doc\-file\-list" aby uzyska� pe�n� list�.
+.TP
+/usr/local/lib/vim/doc/tags
+Plik znacznik�w s�u�y do znajdowania informacji w plikach dokumentacji.
+.TP
+/usr/local/lib/vim/syntax/syntax.vim
+Globalne uruchamianie pod�wietlania sk�adni.
+.TP
+/usr/local/lib/vim/syntax/*.vim
+Pliki sk�adni dla r�nych j�zyk�w.
+.TP
+/usr/local/lib/vim/vimrc
+Globalny plik uruchamiania
+.B Vima
+.TP
+~/.vimrc
+Osobiste parametry uruchamiania
+.B Vima
+.TP
+/usr/local/lib/vim/gvimrc
+Globalne uruchamianie gvima.
+.TP
+~/.gvimrc
+Osobiste parametry uruchamiania gvima.
+.TP
+/usr/local/lib/vim/optwin.vim
+Skrypt u�ywany w poleceniu ":options", dobry spos�b do przegl�dania
+i ustawiania opcji.
+.TP
+/usr/local/lib/vim/menu.vim
+Globalne uruchamianie menu gvima.
+.TP
+/usr/local/lib/vim/bugreport.vim
+Skrypt s�u��cy do tworzenia raport�w o b��dach. Zobacz ":help bugs".
+.TP
+/usr/local/lib/vim/filetype.vim
+Skrypt do wykrywania typu pliku wed�ug jego nazwy. Zobacz ":help 'filetype'".
+.TP
+/usr/local/lib/vim/scripts.vim
+Skrypt do wykrywania typu pliku wed�ug jego zawarto�ci. Zobacz ":help 'filetype'".
+.TP
+/usr/local/lib/vim/print/*.ps
+Pliku u�ywane do drukowania PostScriptu.
+.PP
+Naj�wie�sze wiadomo�ci na stronie
+.B Vima:
+.br
+<URL:http://www.vim.org/>
+.SH ZOBACZ TAK�E
+vimtutor(1)
+.SH AUTOR
+.B uVim
+zosta� napisany przez Brama Moolenaara z du�� pomoc� innych os�b.
+Zobacz ":help credits" w
+.B Vimie.
+.br
+.B uVim
+bazuje na Steviem, nad kt�rym pracowali: Tim Thompson, Tony Andrews
+i G.R. (Fred) Walter.
+Ma�o ju� zosta�o z oryginalnego kodu.
+.SH B��DY
+Prawdopodobne.
+Zobacz ":help todo" by pozna� list� znanych problem�w.
+.PP
+Pami�taj �e pewna ilo�� problem�w, kt�re mog� by� uznawane przez
+niekt�rych ludzi za b��dy s� w rzeczywisto�ci spowodowane wierno�ci�
+w odtwarzaniu zachowania Vi.
+Je�li s�dzisz, �e inne rzeczy s� b��dami "poniewa� Vi robi to
+inaczej", powiniene� przyjrze� si� bli�ej plikowi vi_diff.txt (lub
+wpisa� ":help vi_diff.txt" w Vimie).
+Sprawd� tak�e opis opcji 'compatible' i 'cpoptions'.
