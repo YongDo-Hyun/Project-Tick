@@ -1,0 +1,15 @@
+[submodule "flatpak/shared-modules"]
+	path = flatpak/shared-modules
+	url = https://github.com/flathub/shared-modules.git
+[submodule "qt/qtwebengine/src/3rdparty"]
+    path = qt/qtwebengine/src/3rdparty
+    url = https://github.com/qt/qtwebengine-chromium.git
+    ignore = dirty
+    initrepo = true
+[submodule "qt/qtdeclarative/tests/auto/qml/ecmascripttests/test262"]
+	path = qt/qtdeclarative/tests/auto/qml/ecmascripttests/test262
+	url = https://github.com/qt/qtdeclarative-testsuites.git
+	branch = snapshot-20180312-3c69133-based
+[submodule "bzip2/tests/input/bzip2-testfiles"]
+	path = bzip2/tests/input/bzip2-testfiles
+	url = https://gitlab.com/bzip2/bzip2-testfiles.git

@@ -1,0 +1,111 @@
+.self-hosted-runner-variables: &self-hosted-runner-variables
+  LINUX_RUNNER_TAG: "pt-rhel-runner-01"
+  RUNNER_TAG: "pt-rhel-runner-01"
+
+.fork-runner-variables: &fork-runner-variables
+  LINUX_RUNNER_TAG: "saas-linux-medium-amd64"
+  RUNNER_TAG: "saas-linux-medium-amd64"
+
+.if-fork-push: &if-fork-push
+  if: '$CI_PIPELINE_SOURCE == "push" && $CI_PROJECT_PATH != $UPSTREAM_PROJECT_PATH'
+
+.if-fork-merge-request: &if-fork-merge-request
+  if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_SOURCE_PROJECT_ID != $CI_MERGE_REQUEST_TARGET_PROJECT_ID'
+
+.if-self-hosted-push: &if-self-hosted-push
+  if: '$CI_PIPELINE_SOURCE == "push" && $CI_PROJECT_PATH == $UPSTREAM_PROJECT_PATH'
+
+.if-self-hosted-merge-request: &if-self-hosted-merge-request
+  if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_SOURCE_PROJECT_ID == $CI_MERGE_REQUEST_TARGET_PROJECT_ID'
+
+# GitLab does not resolve nested variables reliably in runner tags.
+# Keep concrete tag values in the variables assigned by workflow rules.
+
+stages:
+  - sync
+  - preflight
+  - prepare
+  - build-images
+  - scheduled
+  - lint
+  - test-frontend
+  - build
+  - test
+  - review
+  - qa
+  - release
+  - pages
+  - notify
+
+default:
+  image: $DEFAULT_CI_IMAGE
+  tags:
+    - $DEFAULT_JOB_TAG
+  interruptible: true
+  timeout: 90m
+  cache:
+    key: "$CI_JOB_NAME_SLUG-$CI_COMMIT_REF_SLUG"
+    policy: pull-push
+    paths:
+      - .cache/npm/
+      - .cache/pip/
+      - .cache/ccache/
+
+workflow:
+  name: '$PIPELINE_NAME'
+  rules:
+    - <<: *if-fork-push
+      variables:
+        <<: *fork-runner-variables
+        PIPELINE_NAME: 'Fork branch pipeline'
+    - <<: *if-fork-merge-request
+      variables:
+        <<: *fork-runner-variables
+        PIPELINE_NAME: 'Fork merge request pipeline'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: '$CI_COMMIT_TAG'
+      variables:
+        <<: *self-hosted-runner-variables
+        PIPELINE_NAME: 'Release $CI_COMMIT_TAG'
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      variables:
+        <<: *self-hosted-runner-variables
+        PIPELINE_NAME: 'Default branch pipeline'
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+      variables:
+        <<: *self-hosted-runner-variables
+        PIPELINE_NAME: 'Branch pipeline'
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      variables:
+        <<: *self-hosted-runner-variables
+        PIPELINE_NAME: 'Scheduled pipeline'
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+      variables:
+        <<: *self-hosted-runner-variables
+        PIPELINE_NAME: 'Manual pipeline'
+    - when: never
+
+variables:
+  DEFAULT_CI_IMAGE: "ubuntu:24.04"
+  MACOS_CI_IMAGE: "macos-15-xcode-16"
+  DEFAULT_JOB_TAG: "pt-rhel-runner-01"
+  PIPELINE_NAME: "ProjT Launcher pipeline"
+  GIT_DEPTH: "1"
+  GIT_SUBMODULE_DEPTH: "1"
+  QUAZIP_CI_DISABLED: "1"
+  LAUNCHER_LINUX_IMAGE: "ubuntu:24.04"
+  NPM_CONFIG_CACHE: "$CI_PROJECT_DIR/.cache/npm"
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  CCACHE_DIR: "$CI_PROJECT_DIR/.cache/ccache"
+  UPSTREAM_PROJECT_PATH: "project-tick/core/ProjT-Launcher"
+  LINUX_RUNNER_TAG: "pt-rhel-runner-01"
+  RUNNER_TAG: "pt-rhel-runner-01"
+  WINDOWS_RUNNER_TAG: "saas-windows-medium-amd64"
+
+include:
+  - local: .gitlab/ci/scheduled.gitlab-ci.yml
+  - local: .gitlab/ci/flatpak.gitlab-ci.yml
+  - local: .gitlab/ci/lint.gitlab-ci.yml
+  - local: .gitlab/ci/launcher.gitlab-ci.yml
+  - local: .gitlab/ci/github-workflow-parity.yml
