@@ -6,14 +6,8 @@ plugins {
     id "maven-publish"
 }
 
-sourceCompatibility = targetCompatibility = 1.8
-compileJava {
-    sourceCompatibility = targetCompatibility = 1.8
-}
-
 version = "${fw_version}${-> getVersionSuffix()}"
 group = "io.github.zekerzhayard"
-archivesBaseName = rootProject.name
 
 configurations {
     multirelase {
@@ -39,6 +33,9 @@ dependencies {
 }
 
 java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
     withSourcesJar()
 }
 
@@ -51,7 +48,7 @@ jar {
         "Implementation-Version": "${project.version}",
         "Implementation-Vendor" :"ZekerZhayard",
         "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-        "Automatic-Module-Name": "${project.group}.${project.archivesBaseName}".toString().toLowerCase(),
+        "Automatic-Module-Name": "${project.group}.${project.name}".toString().toLowerCase(),
         "Multi-Release": "true",
         "GitCommit": String.valueOf(System.getenv("GITHUB_SHA"))
     ])
@@ -68,7 +65,7 @@ publishing {
     publications {
         maven(MavenPublication) {
             groupId "${project.group}"
-            artifactId "${project.archivesBaseName}"
+            artifactId "${project.name}"
             version "${project.version}"
 
             from components.java
