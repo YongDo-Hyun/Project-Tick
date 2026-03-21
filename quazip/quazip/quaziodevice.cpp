@@ -37,8 +37,8 @@ class QuaZIODevicePrivate
 	~QuaZIODevicePrivate();
 	QIODevice* io;
 	QuaZIODevice* q;
-	z_stream zins;
-	z_stream zouts;
+	z_stream zins{};
+	z_stream zouts{};
 	char* inBuf{ nullptr };
 	int inBufPos{ 0 };
 	int inBufSize{ 0 };
@@ -97,11 +97,12 @@ bool QuaZIODevicePrivate::flush(int sync)
 	Bytef c		   = 0;
 	zouts.next_in  = &c; // fake input buffer
 	zouts.avail_in = 0;	 // of zero size
+	int result = Z_OK;
 	do
 	{
 		zouts.next_out	= reinterpret_cast<Bytef*>(outBuf);
 		zouts.avail_out = QUAZIO_OUTBUFSIZE;
-		int result		= deflate(&zouts, sync);
+		result = deflate(&zouts, sync);
 		switch (result)
 		{
 			case Z_OK:
@@ -120,7 +121,7 @@ bool QuaZIODevicePrivate::flush(int sync)
 			default: q->setErrorString(QString::fromLocal8Bit(zouts.msg)); return false;
 		}
 	}
-	while (zouts.avail_out == 0);
+	while (result != Z_STREAM_END && (zouts.avail_out == 0 || sync == Z_FINISH));
 	return true;
 }
 
@@ -179,6 +180,10 @@ QIODevice* QuaZIODevice::getIoDevice() const
 
 bool QuaZIODevice::open(QIODevice::OpenMode mode)
 {
+	d->inBufPos = d->inBufSize = 0;
+	d->outBufPos = d->outBufSize = 0;
+	d->atEnd = false;
+	d->zBufError = false;
 	if ((mode & QIODevice::Append) != 0)
 	{
 		setErrorString(tr("QIODevice::Append is not supported for"

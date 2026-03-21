@@ -23,8 +23,8 @@ see quazip/(un)zip.h files for details. Basically it's the zlib license.
 */
 
 #include "testquaziodevice.h"
+#include <ptlibzippy.h>
 #include <quaziodevice.h>
-#include <zlib.h>
 #include <QtCore/QBuffer>
 #include <QtCore/QByteArray>
 #include <QtTest/QTest>
@@ -36,7 +36,7 @@ void TestQuaZIODevice::read()
 	zouts.zalloc = (alloc_func)NULL;
 	zouts.zfree	 = (free_func)NULL;
 	zouts.opaque = NULL;
-	deflateInit(&zouts, Z_DEFAULT_COMPRESSION);
+	QCOMPARE(deflateInit(&zouts, Z_DEFAULT_COMPRESSION), Z_OK);
 	zouts.next_in	= reinterpret_cast<Bytef*>(const_cast<char*>("test"));
 	zouts.avail_in	= 4;
 	zouts.next_out	= reinterpret_cast<Bytef*>(buf.data());
@@ -60,7 +60,7 @@ void TestQuaZIODevice::readMany()
 	zouts.zalloc = (alloc_func)NULL;
 	zouts.zfree	 = (free_func)NULL;
 	zouts.opaque = NULL;
-	deflateInit(&zouts, Z_DEFAULT_COMPRESSION);
+	QCOMPARE(deflateInit(&zouts, Z_DEFAULT_COMPRESSION), Z_OK);
 	zouts.next_in	= reinterpret_cast<Bytef*>(const_cast<char*>("testtest"));
 	zouts.avail_in	= 8;
 	zouts.next_out	= reinterpret_cast<Bytef*>(buf.data());
@@ -97,7 +97,7 @@ void TestQuaZIODevice::write()
 	zins.zalloc = (alloc_func)NULL;
 	zins.zfree	= (free_func)NULL;
 	zins.opaque = NULL;
-	inflateInit(&zins);
+	QCOMPARE(inflateInit(&zins), Z_OK);
 	zins.next_in  = reinterpret_cast<Bytef*>(buf.data());
 	zins.avail_in = testBuffer.pos();
 	char outBuf[5];

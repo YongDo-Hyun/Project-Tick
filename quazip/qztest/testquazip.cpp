@@ -463,10 +463,18 @@ void TestQuaZip::saveFileBug()
 void TestQuaZip::testSequential()
 {
 	QTcpServer server;
-	QVERIFY(server.listen(QHostAddress(QHostAddress::LocalHost)));
+	QHostAddress listenAddress(QHostAddress::LocalHost);
+	if (!server.listen(listenAddress))
+	{
+		listenAddress = QHostAddress(QHostAddress::AnyIPv4);
+		if (!server.listen(listenAddress))
+		{
+			QSKIP(qPrintable(QString("Unable to open a loopback listener: %1").arg(server.errorString())));
+		}
+	}
 	quint16 port = server.serverPort();
 	QTcpSocket socket;
-	socket.connectToHost(QHostAddress(QHostAddress::LocalHost), port);
+	socket.connectToHost(listenAddress == QHostAddress(QHostAddress::AnyIPv4) ? QHostAddress(QHostAddress::LocalHost) : listenAddress, port);
 	QVERIFY(socket.waitForConnected());
 	QVERIFY(server.waitForNewConnection(30000));
 	QTcpSocket* client = server.nextPendingConnection();
