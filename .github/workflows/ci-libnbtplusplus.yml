@@ -19,8 +19,6 @@ permissions:
 jobs:
   libnbtplusplus:
     runs-on: ubuntu-latest
-    env:
-      PTLIBZIPPY_PREFIX: ${{ runner.temp }}/ptlibzippy-root
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -38,6 +36,7 @@ jobs:
         shell: bash
         run: |
           set -euxo pipefail
+          PTLIBZIPPY_PREFIX="${RUNNER_TEMP}/ptlibzippy-root"
           cmake -S ptlibzippy -B build/ptlibzippy -G Ninja \
             -DCMAKE_BUILD_TYPE=Debug \
             -DPTLIBZIPPY_BUILD_TESTING=OFF
@@ -48,6 +47,7 @@ jobs:
         shell: bash
         run: |
           set -euxo pipefail
+          PTLIBZIPPY_PREFIX="${RUNNER_TEMP}/ptlibzippy-root"
           cmake -S libnbtplusplus -B build/libnbtplusplus -G Ninja \
             -DCMAKE_BUILD_TYPE=Debug \
             -DCMAKE_PREFIX_PATH="${PTLIBZIPPY_PREFIX}" \
