@@ -1,6 +1,14 @@
 name: CI Javaloader
 
 on:
+  push:
+    paths:
+      - 'javaloader/**'
+      - '.github/workflows/ci-javaloader.yml'
+  pull_request:
+    paths:
+      - 'javaloader/**'
+      - '.github/workflows/ci-javaloader.yml'
   workflow_call:
     inputs:
       ref:

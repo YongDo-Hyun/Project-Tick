@@ -1,6 +1,14 @@
 name: CI LocalPeer
 
 on:
+  push:
+    paths:
+      - 'LocalPeer/**'
+      - '.github/workflows/ci-localpeer.yml'
+  pull_request:
+    paths:
+      - 'LocalPeer/**'
+      - '.github/workflows/ci-localpeer.yml'
   workflow_call:
     inputs:
       ref:

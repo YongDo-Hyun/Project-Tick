@@ -51,7 +51,7 @@ runs:
             lcov \
             libdbus-1-dev \
             libinih-dev \
-            libsystemd-dev
+            libsystemd-dev libvulkan-dev
           if apt-cache show libtiff6 >/dev/null 2>&1; then
             $SUDO apt-get -y install libtiff6
             archdir="$(dpkg-architecture -q DEB_HOST_MULTIARCH)"
@@ -137,5 +137,9 @@ runs:
         done
 
         if command -v apt-get >/dev/null 2>&1; then
-          sudo apt -y install libopengl0
+          SUDO=""
+          if command -v sudo >/dev/null 2>&1; then
+            SUDO="sudo"
+          fi
+          $SUDO apt -y install libopengl0
         fi

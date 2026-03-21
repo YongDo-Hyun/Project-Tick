@@ -22,6 +22,10 @@ inputs:
     description: Version of Qt to use
     required: true
     default: 6.10.0
+  source-dir:
+    description: Absolute path to the cloned source tree
+    required: false
+    default: ""
   qt-modules:
     description: Qt modules to install
     required: false
@@ -56,6 +60,7 @@ runs:
         build-type: ${{ inputs.build-type }}
         msystem: ${{ inputs.msystem }}
         vcvars-arch: ${{ inputs.vcvars-arch }}
+        source-dir: ${{ inputs.source-dir }}
 
     - name: Install Qt
       if: ${{ inputs.qt-architecture != '' || inputs.msystem == '' }}

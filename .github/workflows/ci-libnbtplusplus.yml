@@ -1,6 +1,15 @@
 name: CI libnbtplusplus
 
 on:
+  push:
+    paths:
+      - 'libnbtplusplus/**'
+      - 'ptlibzippy/**'
+      - '.github/workflows/ci-libnbtplusplus.yml'
+  pull_request:
+      - 'libnbtplusplus/**'
+      - 'ptlibzippy/**'
+      - '.github/workflows/ci-libnbtplusplus.yml'
   workflow_call:
     inputs:
       ref:
@@ -32,22 +41,10 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends binutils cmake cxxtest ninja-build
 
-      - name: Build ptlibzippy dependency
-        shell: bash
-        run: |
-          set -euxo pipefail
-          PTLIBZIPPY_PREFIX="${RUNNER_TEMP}/ptlibzippy-root"
-          cmake -S ptlibzippy -B build/ptlibzippy -G Ninja \
-            -DCMAKE_BUILD_TYPE=Debug \
-            -DPTLIBZIPPY_BUILD_TESTING=OFF
-          cmake --build build/ptlibzippy --parallel
-          cmake --install build/ptlibzippy --prefix "${PTLIBZIPPY_PREFIX}"
-
       - name: Configure libnbtplusplus
         shell: bash
         run: |
           set -euxo pipefail
-          PTLIBZIPPY_PREFIX="${RUNNER_TEMP}/ptlibzippy-root"
           cmake -S libnbtplusplus -B build/libnbtplusplus -G Ninja \
             -DCMAKE_BUILD_TYPE=Debug \
             -DCMAKE_PREFIX_PATH="${PTLIBZIPPY_PREFIX}" \

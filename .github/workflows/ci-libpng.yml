@@ -1,6 +1,16 @@
 name: CI libpng
 
 on:
+  push:
+    paths:
+      - 'libpng/**'
+      - 'ptlibzippy/**'
+      - '.github/workflows/ci-libpng.yml'
+  pull_request:
+    paths:
+      - 'libpng/**'
+      - 'ptlibzippy/**'
+      - '.github/workflows/ci-libpng.yml'
   workflow_call:
     inputs:
       ref:
@@ -59,13 +69,25 @@ jobs:
         run: |
           set -euxo pipefail
           sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends autoconf automake build-essential libtool m4 zlib1g-dev
+          sudo apt-get install -y --no-install-recommends autoconf automake build-essential libtool m4
+
+      - name: Build and install PTlibzippy
+        shell: bash
+        run: |
+          set -euxo pipefail
+          mkdir -p "$GITHUB_WORKSPACE/.ptlibzippy-prefix"
+          cd ptlibzippy
+          ./configure prefix="$GITHUB_WORKSPACE/.ptlibzippy-prefix"
+          make -j2
+          make install
 
       - name: Run the configure verification script
         working-directory: libpng
         env:
           CI_MAKE_FLAGS: -j2
           CI_SANITIZERS: address,undefined
+          CI_CONFIGURE_FLAGS: --with-ptlibzippy-prefix=${{ github.workspace }}/.ptlibzippy-prefix
+          LD_LIBRARY_PATH: ${{ github.workspace }}/.ptlibzippy-prefix/lib
         run: bash ./ci/ci_verify_configure.sh
 
   verify-macos:

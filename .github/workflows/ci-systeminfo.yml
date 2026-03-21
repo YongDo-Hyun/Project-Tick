@@ -1,6 +1,14 @@
 name: CI systeminfo
 
 on:
+  push:
+    paths:
+      - 'systeminfo/**'
+      - '.github/workflows/ci-systeminfo.yml'
+  pull_request:
+    paths:
+      - 'systeminfo/**'
+      - '.github/workflows/ci-systeminfo.yml'
   workflow_call:
     inputs:
       ref:

@@ -1,8 +1,16 @@
 name: CI Quazip
 
-# This workflow is called by ci-new.yml only.
-# Do not add push/pull_request triggers here.
 on:
+  push:
+    paths:
+      - 'quazip/**'
+      - 'ptlibzippy/**'
+      - '.github/workflows/ci-quazip.yml'
+  pull_request:
+    paths:
+      - 'quazip/**'
+      - 'ptlibzippy/**'
+      - '.github/workflows/ci-quazip.yml'
   workflow_call:
     inputs:
       ref:
@@ -31,7 +39,7 @@ jobs:
         qt_version: ${{ matrix.qt_version }}
         shared: ${{ matrix.shared }}
         ref: ${{ inputs.ref }}
-        working_directory: quazip
+        working-directory: quazip
 
   build-quazip-ubuntu-zlibconst:
     if: inputs.run-quazip == 'true'
@@ -49,7 +57,7 @@ jobs:
       shared: "ON"
       zlib_const: "ON"
       ref: ${{ inputs.ref }}
-      working_directory: quazip
+      working-directory: quazip
 
   build-quazip-ubuntu-no-qtextcodec:
     if: inputs.run-quazip == 'true'
@@ -67,7 +75,7 @@ jobs:
       shared: "ON"
       qtextcodec: 'OFF'
       ref: ${{ inputs.ref }}
-      working_directory: quazip
+      working-directory: quazip
 
   build-quazip-macos:
     if: inputs.run-quazip == 'true'
@@ -90,7 +98,7 @@ jobs:
       qt_version: ${{ matrix.qt_version }}
       shared: ${{ matrix.shared }}
       ref: ${{ inputs.ref }}
-      working_directory: quazip
+      working-directory: quazip
 
   build-quazip-alpine:
     if: inputs.run-quazip == 'true'
@@ -151,7 +159,7 @@ jobs:
       preset: ${{ matrix.preset }}
       pe_str: "x86-64"
       ref: ${{ inputs.ref }}
-      working_directory: quazip
+      working-directory: quazip
 
   build-quazip-windows-x86:
     if: inputs.run-quazip == 'true'
@@ -169,7 +177,7 @@ jobs:
       preset: ${{ matrix.preset }}
       pe_str: "i386"
       ref: ${{ inputs.ref }}
-      working_directory: quazip
+      working-directory: quazip
 
   build-quazip-ubuntu-ci-extract:
     if: inputs.run-quazip == 'true'
@@ -189,7 +197,7 @@ jobs:
       shared: ${{ matrix.shared }}
       cross_extract: true
       ref: ${{ inputs.ref }}
-      working_directory: quazip
+      working-directory: quazip
 
   build-quazip-macos-ci-extract:
     if: inputs.run-quazip == 'true'
@@ -209,7 +217,7 @@ jobs:
       shared: ${{ matrix.shared }}
       cross_extract: true
       ref: ${{ inputs.ref }}
-      working_directory: quazip
+      working-directory: quazip
 
   build-quazip-windows-x64-ci-extract:
     if: inputs.run-quazip == 'true'
@@ -229,7 +237,7 @@ jobs:
       pe_str: "x86-64"
       cross_extract: true
       ref: ${{ inputs.ref }}
-      working_directory: quazip
+      working-directory: quazip
 
   build-quazip-fedora:
     if: inputs.run-quazip == 'true'

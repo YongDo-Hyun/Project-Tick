@@ -1,0 +1,116 @@
+name: Deploy Flatpak repository
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  schedule:
+    # Run daily at 00:00 Europe/Istanbul (21:00 UTC)
+    - cron: "0 21 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - "projt-launcher/flatpak/**"
+      - ".github/workflows/ci-launcher-flatpak-build.yml"
+      - ".github/workflows/ci-flatpak-deploy.yml"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  build:
+    name: Build Flatpaks
+    permissions:
+      contents: read
+    uses: ./.github/workflows/ci-launcher-flatpak-build.yml
+    with:
+      cache-repository: true
+    secrets: inherit
+
+  deploy:
+    name: Deploy to server
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+
+    environment:
+      name: flatpak-server
+
+    env:
+      DEPLOY_HOST: ${{ vars.FLATPAK_DEPLOY_HOST }}
+      DEPLOY_PATH: ${{ vars.FLATPAK_DEPLOY_PATH }}
+      DEPLOY_PORT: ${{ vars.FLATPAK_DEPLOY_PORT }}
+      DEPLOY_USER: ${{ vars.FLATPAK_DEPLOY_USER }}
+      REPOSITORY_DIR: ${{ needs.build.outputs.repository-directory }}
+
+    steps:
+      - name: Validate deploy configuration
+        env:
+          DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.FLATPAK_DEPLOY_SSH_PRIVATE_KEY }}
+        shell: bash
+        run: |
+          missing=()
+
+          [[ -n "$DEPLOY_HOST" ]] || missing+=("FLATPAK_DEPLOY_HOST")
+          [[ -n "$DEPLOY_USER" ]] || missing+=("FLATPAK_DEPLOY_USER")
+          [[ -n "$DEPLOY_PATH" ]] || missing+=("FLATPAK_DEPLOY_PATH")
+          [[ -n "$DEPLOY_SSH_PRIVATE_KEY" ]] || missing+=("FLATPAK_DEPLOY_SSH_PRIVATE_KEY")
+
+          if (( ${#missing[@]} > 0 )); then
+            printf 'Missing required configuration: %s\n' "${missing[*]}" >&2
+            exit 1
+          fi
+
+          if [[ "$DEPLOY_PATH" == "/" ]]; then
+            echo "::error::FLATPAK_DEPLOY_PATH must point to a dedicated deployment directory, not /"
+            exit 1
+          fi
+
+          echo "DEPLOY_PORT=${DEPLOY_PORT:-22}" >> "$GITHUB_ENV"
+
+      - name: Restore local repository
+        uses: actions/cache/restore@v5
+        with:
+          path: ${{ env.REPOSITORY_DIR }}
+          key: ${{ needs.build.outputs.repository-cache-key }}
+          fail-on-cache-miss: true
+
+      - name: Configure SSH
+        env:
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.FLATPAK_DEPLOY_KNOWN_HOSTS }}
+          DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.FLATPAK_DEPLOY_SSH_PRIVATE_KEY }}
+        shell: bash
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+          if [[ -n "$DEPLOY_KNOWN_HOSTS" ]]; then
+            printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          else
+            ssh-keyscan -p "$DEPLOY_PORT" -H "$DEPLOY_HOST" > ~/.ssh/known_hosts
+          fi
+
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Ensure remote directory exists
+        shell: bash
+        run: |
+          ssh \
+            -i ~/.ssh/id_ed25519 \
+            -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=yes \
+            -p "$DEPLOY_PORT" \
+            "$DEPLOY_USER@$DEPLOY_HOST" \
+            "mkdir -p $(printf '%q' "$DEPLOY_PATH")"
+
+      - name: Sync repository to server
+        shell: bash
+        run: |
+          rsync -az --delete \
+            -e "ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -p $DEPLOY_PORT" \
+            "$REPOSITORY_DIR"/ \
+            "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH"/

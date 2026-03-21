@@ -1,7 +1,5 @@
 name: CI Release
 
-# This workflow is called by ci-new.yml only.
-# Do not add push/pull_request triggers here.
 on:
   workflow_call:
     inputs:
@@ -22,7 +20,6 @@ on:
 jobs:
   create-release:
     name: Create Release
-    if: inputs.run-release-build == 'true'
     runs-on: ubuntu-latest
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
@@ -31,7 +28,7 @@ jobs:
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
         with:
           submodules: "true"
-          path: "ProjTLauncher-source"
+          path: "ProjectTick-source"
 
       - name: Free disk space (Linux)
         shell: bash
@@ -66,8 +63,8 @@ jobs:
           GPG_KEY_ID: ${{ secrets.LINUX_GPG_ID }}
         run: |
           cd "${{ github.workspace }}"
-          SRC_DIR="ProjTLauncher-source"
-          libs=(libnbtplusplus zlib quazip bzip2 launcherjava tomlplusplus libqrencode extra-cmake-modules cmark javacheck)
+          SRC_DIR="ProjectTick-source"
+          libs=(bzip2 cgit cmark corebinutils dockerimages docs extra-cmake-modules forgewrapper gamemode javacheck javaloader json4cpp libnbtplusplus libpng libqrencode LocalPeer meta murmur2 ptlibzippy qdcss quazip rainbow systeminfo tomlplusplus)
 
           sign_file() {
             local path="$1"
@@ -91,23 +88,24 @@ jobs:
             sign_file "${base}.tar.xz"
             sign_file "${base}.zip"
           done
+
       - name: Package artifacts properly
         run: |
-          mv ${{ github.workspace }}/ProjTLauncher-source ProjTLauncher-${{ env.VERSION }}
-          mv ProjTLauncher-Linux-Qt6-Portable*/ProjTLauncher-portable.tar.gz ProjTLauncher-Linux-Qt6-Portable-${{ env.VERSION }}.tar.gz
-          mv ProjTLauncher-*.AppImage/ProjTLauncher-*-x86_64.AppImage ProjTLauncher-Linux-x86_64.AppImage
-          mv ProjTLauncher-*.AppImage.zsync/ProjTLauncher-*-x86_64.AppImage.zsync ProjTLauncher-Linux-x86_64.AppImage.zsync
-          mv ProjTLauncher-*.AppImage/ProjTLauncher-*-aarch64.AppImage ProjTLauncher-Linux-aarch64.AppImage
-          mv ProjTLauncher-*.AppImage.zsync/ProjTLauncher-*-aarch64.AppImage.zsync ProjTLauncher-Linux-aarch64.AppImage.zsync
-          mv ProjTLauncher-macOS*/ProjTLauncher.zip ProjTLauncher-macOS-${{ env.VERSION }}.zip
+          mv ${{ github.workspace }}/ProjTLauncher-source ProjectTick-ProjTLauncher-${{ env.VERSION }}
+          mv ProjTLauncher-Linux-Qt6-Portable*/ProjTLauncher-portable.tar.gz ProjectTick-ProjTLauncher-Linux-Qt6-Portable-${{ env.VERSION }}.tar.gz
+          mv ProjTLauncher-*.AppImage/ProjTLauncher-*-x86_64.AppImage ProjectTick-ProjTLauncher-Linux-x86_64.AppImage
+          mv ProjTLauncher-*.AppImage.zsync/ProjTLauncher-*-x86_64.AppImage.zsync ProjectTick-ProjTLauncher-Linux-x86_64.AppImage.zsync
+          mv ProjTLauncher-*.AppImage/ProjTLauncher-*-aarch64.AppImage ProjectTick-ProjTLauncher-Linux-aarch64.AppImage
+          mv ProjTLauncher-*.AppImage.zsync/ProjTLauncher-*-aarch64.AppImage.zsync ProjectTick-ProjTLauncher-Linux-aarch64.AppImage.zsync
+          mv ProjTLauncher-macOS*/ProjTLauncher.zip ProjectTick-ProjTLauncher-macOS-${{ env.VERSION }}.zip
           if ls ProjTLauncher-macOS*/ProjTLauncher-Installer.zip >/dev/null 2>&1; then
-            mv ProjTLauncher-macOS*/ProjTLauncher-Installer.zip ProjTLauncher-macOS-Installer-${{ env.VERSION }}.zip
+            mv ProjTLauncher-macOS*/ProjTLauncher-Installer.zip ProjectTick-ProjTLauncher-macOS-Installer-${{ env.VERSION }}.zip
           fi
-          mv ProjTLauncher-macOS*/ProjTLauncher.dmg ProjTLauncher-macOS-${{ env.VERSION }}.dmg
-          mv ProjTLauncher-macOS*/ProjTLauncher-macOS-*.pkg ProjTLauncher-macOS-${{ env.VERSION }}.pkg
-          mv JavaCheck.jar JavaCheck-${{ env.VERSION }}.jar
+          mv ProjTLauncher-macOS*/ProjTLauncher.dmg ProjectTick-ProjTLauncher-macOS-${{ env.VERSION }}.dmg
+          mv ProjTLauncher-macOS*/ProjTLauncher-macOS-*.pkg ProjectTick-ProjTLauncher-macOS-${{ env.VERSION }}.pkg
+          mv JavaCheck.jar ProjectTick-JavaCheck-${{ env.VERSION }}.jar
 
-          tar --exclude='.git' -czf ProjTLauncher-${{ env.VERSION }}.tar.gz ProjTLauncher-${{ env.VERSION }}
+          tar --exclude='.git' --exclude='.github' --exclude='cgit' --exclude='corebinutils' --exclude='dockerimages' --exclude='forgewrapper' --exclude='json4cpp' --exclude='meta' --exclude='projt-minicraft-modpack' --exclude='projt-modpack' --exclude='tools' --exclude='uvim' -czf ProjTLauncher-${{ env.VERSION }}.tar.gz ProjTLauncher-${{ env.VERSION }}
 
           for d in ProjTLauncher-Windows-MSVC*; do
             cd "${d}" || continue
@@ -156,87 +154,171 @@ jobs:
           draft: true
           prerelease: false
           files: |
-            JavaCheck-${{ env.VERSION }}.jar
-            ProjTLauncher-Linux-x86_64.AppImage
-            ProjTLauncher-Linux-x86_64.AppImage.zsync
-            ProjTLauncher-Linux-aarch64.AppImage
-            ProjTLauncher-Linux-aarch64.AppImage.zsync
-            ProjTLauncher-Linux-Qt6-Portable-${{ env.VERSION }}.tar.gz
-            ProjTLauncher-Linux-aarch64-Qt6-Portable-${{ env.VERSION }}.tar.gz
-            ProjTLauncher-Windows-MinGW-w64-${{ env.VERSION }}.zip
-            ProjTLauncher-Windows-MinGW-w64-Portable-${{ env.VERSION }}.zip
-            ProjTLauncher-Windows-MinGW-w64-Setup-${{ env.VERSION }}.exe
-            ProjTLauncher-Windows-MinGW-arm64-${{ env.VERSION }}.zip
-            ProjTLauncher-Windows-MinGW-arm64-Portable-${{ env.VERSION }}.zip
-            ProjTLauncher-Windows-MinGW-arm64-Setup-${{ env.VERSION }}.exe
-            ProjTLauncher-Windows-MSVC-arm64-${{ env.VERSION }}.zip
-            ProjTLauncher-Windows-MSVC-arm64-Portable-${{ env.VERSION }}.zip
-            ProjTLauncher-Windows-MSVC-arm64-Setup-${{ env.VERSION }}.exe
-            ProjTLauncher-Windows-MSVC-${{ env.VERSION }}.zip
-            ProjTLauncher-Windows-MSVC-Portable-${{ env.VERSION }}.zip
-            ProjTLauncher-Windows-MSVC-Setup-${{ env.VERSION }}.exe
-            ProjTLauncher-macOS-${{ env.VERSION }}.zip
-            ProjTLauncher-macOS-Installer-${{ env.VERSION }}.zip
-            ProjTLauncher-macOS-${{ env.VERSION }}.dmg
-            ProjTLauncher-macOS-${{ env.VERSION }}.pkg
-            ProjTLauncher-${{ env.VERSION }}.tar.gz
-            libnbtplusplus-${{ env.VERSION }}.zip
-            libnbtplusplus-${{ env.VERSION }}.tar.gz
-            libnbtplusplus-${{ env.VERSION }}.tar.xz
-            libnbtplusplus-${{ env.VERSION }}.zip.asc
-            libnbtplusplus-${{ env.VERSION }}.tar.gz.asc
-            libnbtplusplus-${{ env.VERSION }}.tar.xz.asc
-            zlib-${{ env.VERSION }}.zip
-            zlib-${{ env.VERSION }}.tar.gz
-            zlib-${{ env.VERSION }}.tar.xz
-            zlib-${{ env.VERSION }}.zip.asc
-            zlib-${{ env.VERSION }}.tar.gz.asc
-            zlib-${{ env.VERSION }}.tar.xz.asc
-            quazip-${{ env.VERSION }}.zip
-            quazip-${{ env.VERSION }}.tar.gz
-            quazip-${{ env.VERSION }}.tar.xz
-            quazip-${{ env.VERSION }}.zip.asc
-            quazip-${{ env.VERSION }}.tar.gz.asc
-            quazip-${{ env.VERSION }}.tar.xz.asc
-            bzip2-${{ env.VERSION }}.zip
-            bzip2-${{ env.VERSION }}.tar.gz
-            bzip2-${{ env.VERSION }}.tar.xz
-            bzip2-${{ env.VERSION }}.zip.asc
-            bzip2-${{ env.VERSION }}.tar.gz.asc
-            bzip2-${{ env.VERSION }}.tar.xz.asc
-            launcherjava-${{ env.VERSION }}.zip
-            launcherjava-${{ env.VERSION }}.tar.gz
-            launcherjava-${{ env.VERSION }}.tar.xz
-            launcherjava-${{ env.VERSION }}.zip.asc
-            launcherjava-${{ env.VERSION }}.tar.gz.asc
-            launcherjava-${{ env.VERSION }}.tar.xz.asc
-            tomlplusplus-${{ env.VERSION }}.zip
-            tomlplusplus-${{ env.VERSION }}.tar.gz
-            tomlplusplus-${{ env.VERSION }}.tar.xz
-            tomlplusplus-${{ env.VERSION }}.zip.asc
-            tomlplusplus-${{ env.VERSION }}.tar.gz.asc
-            tomlplusplus-${{ env.VERSION }}.tar.xz.asc
-            libqrencode-${{ env.VERSION }}.zip
-            libqrencode-${{ env.VERSION }}.tar.gz
-            libqrencode-${{ env.VERSION }}.tar.xz
-            libqrencode-${{ env.VERSION }}.zip.asc
-            libqrencode-${{ env.VERSION }}.tar.gz.asc
-            libqrencode-${{ env.VERSION }}.tar.xz.asc
-            extra-cmake-modules-${{ env.VERSION }}.zip
-            extra-cmake-modules-${{ env.VERSION }}.tar.gz
-            extra-cmake-modules-${{ env.VERSION }}.tar.xz
-            extra-cmake-modules-${{ env.VERSION }}.zip.asc
-            extra-cmake-modules-${{ env.VERSION }}.tar.gz.asc
-            extra-cmake-modules-${{ env.VERSION }}.tar.xz.asc
-            cmark-${{ env.VERSION }}.zip
-            cmark-${{ env.VERSION }}.tar.gz
-            cmark-${{ env.VERSION }}.tar.xz
-            cmark-${{ env.VERSION }}.zip.asc
-            cmark-${{ env.VERSION }}.tar.gz.asc
-            cmark-${{ env.VERSION }}.tar.xz.asc
-            javacheck-${{ env.VERSION }}.zip
-            javacheck-${{ env.VERSION }}.tar.gz
-            javacheck-${{ env.VERSION }}.tar.xz
-            javacheck-${{ env.VERSION }}.zip.asc
-            javacheck-${{ env.VERSION }}.tar.gz.asc
-            javacheck-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-JavaCheck-${{ env.VERSION }}.jar
+            ProjectTick-ProjTLauncher-Linux-x86_64.AppImage
+            ProjectTick-ProjTLauncher-Linux-x86_64.AppImage.zsync
+            ProjectTick-ProjTLauncher-Linux-aarch64.AppImage
+            ProjectTick-ProjTLauncher-Linux-aarch64.AppImage.zsync
+            ProjectTick-ProjTLauncher-Linux-Qt6-Portable-${{ env.VERSION }}.tar.gz
+            ProjectTick-ProjTLauncher-Linux-aarch64-Qt6-Portable-${{ env.VERSION }}.tar.gz
+            ProjectTick-ProjTLauncher-Windows-MinGW-w64-${{ env.VERSION }}.zip
+            ProjectTick-ProjTLauncher-Windows-MinGW-w64-Portable-${{ env.VERSION }}.zip
+            ProjectTick-ProjTLauncher-Windows-MinGW-w64-Setup-${{ env.VERSION }}.exe
+            ProjectTick-ProjTLauncher-Windows-MinGW-arm64-${{ env.VERSION }}.zip
+            ProjectTick-ProjTLauncher-Windows-MinGW-arm64-Portable-${{ env.VERSION }}.zip
+            ProjectTick-ProjTLauncher-Windows-MinGW-arm64-Setup-${{ env.VERSION }}.exe
+            ProjectTick-ProjTLauncher-Windows-MSVC-arm64-${{ env.VERSION }}.zip
+            ProjectTick-ProjTLauncher-Windows-MSVC-arm64-Portable-${{ env.VERSION }}.zip
+            ProjectTick-ProjTLauncher-Windows-MSVC-arm64-Setup-${{ env.VERSION }}.exe
+            ProjectTick-ProjTLauncher-Windows-MSVC-${{ env.VERSION }}.zip
+            ProjectTick-ProjTLauncher-Windows-MSVC-Portable-${{ env.VERSION }}.zip
+            ProjectTick-ProjTLauncher-Windows-MSVC-Setup-${{ env.VERSION }}.exe
+            ProjectTick-ProjTLauncher-macOS-${{ env.VERSION }}.zip
+            ProjectTick-ProjTLauncher-macOS-Installer-${{ env.VERSION }}.zip
+            ProjectTick-ProjTLauncher-macOS-${{ env.VERSION }}.dmg
+            ProjectTick-ProjTLauncher-macOS-${{ env.VERSION }}.pkg
+            ProjectTick-ProjTLauncher-${{ env.VERSION }}.tar.gz
+            ProjectTick-bzip2-${{ env.VERSION }}.zip
+            ProjectTick-bzip2-${{ env.VERSION }}.tar.gz
+            ProjectTick-bzip2-${{ env.VERSION }}.tar.xz
+            ProjectTick-bzip2-${{ env.VERSION }}.zip.asc
+            ProjectTick-bzip2-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-bzip2-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-cgit-${{ env.VERSION }}.zip
+            ProjectTick-cgit-${{ env.VERSION }}.tar.gz
+            ProjectTick-cgit-${{ env.VERSION }}.tar.xz
+            ProjectTick-cgit-${{ env.VERSION }}.zip.asc
+            ProjectTick-cgit-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-cgit-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-cmark-${{ env.VERSION }}.zip
+            ProjectTick-cmark-${{ env.VERSION }}.tar.gz
+            ProjectTick-cmark-${{ env.VERSION }}.tar.xz
+            ProjectTick-cmark-${{ env.VERSION }}.zip.asc
+            ProjectTick-cmark-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-cmark-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-corebinutils-${{ env.VERSION }}.zip
+            ProjectTick-corebinutils-${{ env.VERSION }}.tar.gz
+            ProjectTick-corebinutils-${{ env.VERSION }}.tar.xz
+            ProjectTick-corebinutils-${{ env.VERSION }}.zip.asc
+            ProjectTick-corebinutils-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-corebinutils-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-dockerimages-${{ env.VERSION }}.zip
+            ProjectTick-dockerimages-${{ env.VERSION }}.tar.gz
+            ProjectTick-dockerimages-${{ env.VERSION }}.tar.xz
+            ProjectTick-dockerimages-${{ env.VERSION }}.zip.asc
+            ProjectTick-dockerimages-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-dockerimages-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-docs-${{ env.VERSION }}.zip
+            ProjectTick-docs-${{ env.VERSION }}.tar.gz
+            ProjectTick-docs-${{ env.VERSION }}.tar.xz
+            ProjectTick-docs-${{ env.VERSION }}.zip.asc
+            ProjectTick-docs-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-docs-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-extra-cmake-modules-${{ env.VERSION }}.zip
+            ProjectTick-extra-cmake-modules-${{ env.VERSION }}.tar.gz
+            ProjectTick-extra-cmake-modules-${{ env.VERSION }}.tar.xz
+            ProjectTick-extra-cmake-modules-${{ env.VERSION }}.zip.asc
+            ProjectTick-extra-cmake-modules-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-extra-cmake-modules-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-forgewrapper-${{ env.VERSION }}.zip
+            ProjectTick-forgewrapper-${{ env.VERSION }}.tar.gz
+            ProjectTick-forgewrapper-${{ env.VERSION }}.tar.xz
+            ProjectTick-forgewrapper-${{ env.VERSION }}.zip.asc
+            ProjectTick-forgewrapper-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-forgewrapper-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-gamemode-${{ env.VERSION }}.zip
+            ProjectTick-gamemode-${{ env.VERSION }}.tar.gz
+            ProjectTick-gamemode-${{ env.VERSION }}.tar.xz
+            ProjectTick-gamemode-${{ env.VERSION }}.zip.asc
+            ProjectTick-gamemode-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-gamemode-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-javacheck-${{ env.VERSION }}.zip
+            ProjectTick-javacheck-${{ env.VERSION }}.tar.gz
+            ProjectTick-javacheck-${{ env.VERSION }}.tar.xz
+            ProjectTick-javacheck-${{ env.VERSION }}.zip.asc
+            ProjectTick-javacheck-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-javacheck-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-javaloader-${{ env.VERSION }}.zip
+            ProjectTick-javaloader-${{ env.VERSION }}.tar.gz
+            ProjectTick-javaloader-${{ env.VERSION }}.tar.xz
+            ProjectTick-javaloader-${{ env.VERSION }}.zip.asc
+            ProjectTick-javaloader-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-javaloader-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-json4cpp-${{ env.VERSION }}.zip
+            ProjectTick-json4cpp-${{ env.VERSION }}.tar.gz
+            ProjectTick-json4cpp-${{ env.VERSION }}.tar.xz
+            ProjectTick-json4cpp-${{ env.VERSION }}.zip.asc
+            ProjectTick-json4cpp-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-json4cpp-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-libnbtplusplus-${{ env.VERSION }}.zip
+            ProjectTick-libnbtplusplus-${{ env.VERSION }}.tar.gz
+            ProjectTick-libnbtplusplus-${{ env.VERSION }}.tar.xz
+            ProjectTick-libnbtplusplus-${{ env.VERSION }}.zip.asc
+            ProjectTick-libnbtplusplus-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-libnbtplusplus-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-libpng-${{ env.VERSION }}.zip
+            ProjectTick-libpng-${{ env.VERSION }}.tar.gz
+            ProjectTick-libpng-${{ env.VERSION }}.tar.xz
+            ProjectTick-libpng-${{ env.VERSION }}.zip.asc
+            ProjectTick-libpng-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-libpng-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-libqrencode-${{ env.VERSION }}.zip
+            ProjectTick-libqrencode-${{ env.VERSION }}.tar.gz
+            ProjectTick-libqrencode-${{ env.VERSION }}.tar.xz
+            ProjectTick-libqrencode-${{ env.VERSION }}.zip.asc
+            ProjectTick-libqrencode-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-libqrencode-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-LocalPeer-${{ env.VERSION }}.zip
+            ProjectTick-LocalPeer-${{ env.VERSION }}.tar.gz
+            ProjectTick-LocalPeer-${{ env.VERSION }}.tar.xz
+            ProjectTick-LocalPeer-${{ env.VERSION }}.zip.asc
+            ProjectTick-LocalPeer-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-LocalPeer-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-meta-${{ env.VERSION }}.zip
+            ProjectTick-meta-${{ env.VERSION }}.tar.gz
+            ProjectTick-meta-${{ env.VERSION }}.tar.xz
+            ProjectTick-meta-${{ env.VERSION }}.zip.asc
+            ProjectTick-meta-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-meta-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-murmur2-${{ env.VERSION }}.zip
+            ProjectTick-murmur2-${{ env.VERSION }}.tar.gz
+            ProjectTick-murmur2-${{ env.VERSION }}.tar.xz
+            ProjectTick-murmur2-${{ env.VERSION }}.zip.asc
+            ProjectTick-murmur2-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-murmur2-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-ptlibzippy-${{ env.VERSION }}.zip
+            ProjectTick-ptlibzippy-${{ env.VERSION }}.tar.gz
+            ProjectTick-ptlibzippy-${{ env.VERSION }}.tar.xz
+            ProjectTick-ptlibzippy-${{ env.VERSION }}.zip.asc
+            ProjectTick-ptlibzippy-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-ptlibzippy-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-qdcss-${{ env.VERSION }}.zip
+            ProjectTick-qdcss-${{ env.VERSION }}.tar.gz
+            ProjectTick-qdcss-${{ env.VERSION }}.tar.xz
+            ProjectTick-qdcss-${{ env.VERSION }}.zip.asc
+            ProjectTick-qdcss-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-qdcss-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-quazip-${{ env.VERSION }}.zip
+            ProjectTick-quazip-${{ env.VERSION }}.tar.gz
+            ProjectTick-quazip-${{ env.VERSION }}.tar.xz
+            ProjectTick-quazip-${{ env.VERSION }}.zip.asc
+            ProjectTick-quazip-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-quazip-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-rainbow-${{ env.VERSION }}.zip
+            ProjectTick-rainbow-${{ env.VERSION }}.tar.gz
+            ProjectTick-rainbow-${{ env.VERSION }}.tar.xz
+            ProjectTick-rainbow-${{ env.VERSION }}.zip.asc
+            ProjectTick-rainbow-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-rainbow-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-systeminfo-${{ env.VERSION }}.zip
+            ProjectTick-systeminfo-${{ env.VERSION }}.tar.gz
+            ProjectTick-systeminfo-${{ env.VERSION }}.tar.xz
+            ProjectTick-systeminfo-${{ env.VERSION }}.zip.asc
+            ProjectTick-systeminfo-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-systeminfo-${{ env.VERSION }}.tar.xz.asc
+            ProjectTick-tomlplusplus-${{ env.VERSION }}.zip
+            ProjectTick-tomlplusplus-${{ env.VERSION }}.tar.gz
+            ProjectTick-tomlplusplus-${{ env.VERSION }}.tar.xz
+            ProjectTick-tomlplusplus-${{ env.VERSION }}.zip.asc
+            ProjectTick-tomlplusplus-${{ env.VERSION }}.tar.gz.asc
+            ProjectTick-tomlplusplus-${{ env.VERSION }}.tar.xz.asc

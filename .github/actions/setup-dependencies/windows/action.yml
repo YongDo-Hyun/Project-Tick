@@ -12,6 +12,10 @@ inputs:
     description: Visual Studio architecture to use
     required: true
     default: amd64
+  source-dir:
+    description: Absolute path to the cloned source tree
+    required: false
+    default: ""
 
 runs:
   using: composite
@@ -43,7 +47,11 @@ runs:
       if: ${{ inputs.msystem == '' }}
       shell: powershell
       run: |
-        $nugetConfig = "$env:GITHUB_WORKSPACE/nuget.config"
+        $sourceDir = "${{ inputs.source-dir }}"
+        if ([string]::IsNullOrWhiteSpace($sourceDir)) {
+          $sourceDir = $env:GITHUB_WORKSPACE
+        }
+        $nugetConfig = Join-Path $sourceDir "nuget.config"
         if (-not (Test-Path $nugetConfig)) {
           throw "nuget.config not found at $nugetConfig"
         }
@@ -63,8 +71,13 @@ runs:
       if: ${{ inputs.msystem == '' }}
       shell: powershell
       run: |
+        $sourceDir = "${{ inputs.source-dir }}"
+        if ([string]::IsNullOrWhiteSpace($sourceDir)) {
+          $sourceDir = $env:GITHUB_WORKSPACE
+        }
+        $packagesConfig = Join-Path $sourceDir "packages.config"
         # Using NuGet manifest - Dependabot will track ./packages.config
-        nuget install ./packages.config -OutputDirectory dependencies -ConfigFile "$env:GITHUB_WORKSPACE/nuget.config"
+        nuget install $packagesConfig -OutputDirectory (Join-Path $sourceDir "dependencies") -ConfigFile (Join-Path $sourceDir "nuget.config")
 
         
     - name: Setup MSYS2 (MinGW)

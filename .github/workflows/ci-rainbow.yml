@@ -1,6 +1,14 @@
 name: CI rainbow
 
 on:
+  push:
+    paths:
+      - 'rainbow/**'
+      - '.github/workflows/ci-rainbow.yml'
+  pull_request:
+    paths:
+      - 'rainbow/**'
+      - '.github/workflows/ci-rainbow.yml'
   workflow_call:
     inputs:
       ref:

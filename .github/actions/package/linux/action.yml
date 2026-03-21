@@ -16,6 +16,10 @@ inputs:
   qt-version:
     description: Version of Qt to use
     required: true
+  source-dir:
+    description: Absolute path to the cloned source tree
+    required: false
+    default: ""
   gpg-private-key:
     description: Private key for AppImage signing
     required: false
@@ -53,8 +57,9 @@ runs:
       shell: bash
       env:
         VERSION: ${{ inputs.version }}
-        BUILD_DIR: build
-        INSTALL_APPIMAGE_DIR: install-appdir
+        SOURCE_DIR: ${{ inputs.source-dir || github.workspace }}
+        BUILD_DIR: ${{ format('{0}/build', inputs.source-dir || github.workspace) }}
+        INSTALL_APPIMAGE_DIR: ${{ format('{0}/install-appdir', inputs.source-dir || github.workspace) }}
         LINUX_GPG_KEY: ${{ inputs.gpg-private-key }}
       run: |
         DESTDIR="${{ env.INSTALL_APPIMAGE_DIR }}" cmake --install ${{ env.BUILD_DIR }} --config ${{ inputs.build-type }} --prefix /usr
@@ -116,16 +121,13 @@ runs:
     - name: Package portable tarball
       shell: bash
       env:
-        BUILD_DIR: build
-
-        CMAKE_PRESET: ${{ inputs.cmake-preset }}
-
-        INSTALL_PORTABLE_DIR: install-portable
+        BUILD_DIR: ${{ format('{0}/build', inputs.source-dir || github.workspace) }}
+        INSTALL_PORTABLE_DIR: ${{ format('{0}/install-portable', inputs.source-dir || github.workspace) }}
       run: |
         DESTDIR="${{ env.INSTALL_PORTABLE_DIR }}" cmake --install ${{ env.BUILD_DIR }} --config ${{ inputs.build-type }} --prefix /
         DESTDIR="${{ env.INSTALL_PORTABLE_DIR }}" cmake --install ${{ env.BUILD_DIR }} --config ${{ inputs.build-type }} --prefix / --component portable
 
-        for l in $(find ${{ env.INSTALL_PORTABLE_DIR }} -type f); do l=${l#$(pwd)/}; l=${l#${{ env.INSTALL_PORTABLE_DIR }}/}; l=${l#./}; echo $l; done > ${{ env.INSTALL_PORTABLE_DIR }}/manifest.txt
+        for l in $(find ${{ env.INSTALL_PORTABLE_DIR }} -type f); do l=${l#${{ env.INSTALL_PORTABLE_DIR }}/}; echo $l; done > ${{ env.INSTALL_PORTABLE_DIR }}/manifest.txt
         cd ${{ env.INSTALL_PORTABLE_DIR }}
         tar -czf ../ProjTLauncher-portable.tar.gz *
 
@@ -133,16 +135,16 @@ runs:
       uses: actions/upload-artifact@v5
       with:
         name: ProjTLauncher-${{ inputs.artifact-name }}-Qt6-Portable-${{ inputs.version }}-${{ inputs.build-type }}
-        path: ProjTLauncher-portable.tar.gz
+        path: ${{ format('{0}/ProjTLauncher-portable.tar.gz', inputs.source-dir || github.workspace) }}
 
     - name: Upload AppImage
       uses: actions/upload-artifact@v5
       with:
         name: ProjTLauncher-${{ runner.os }}-${{ inputs.version }}-${{ inputs.build-type }}-${{ env.APPIMAGE_ARCH }}.AppImage
-        path: ProjTLauncher-${{ runner.os }}-${{ inputs.version }}-${{ inputs.build-type }}-${{ env.APPIMAGE_ARCH }}.AppImage
+        path: ${{ format('{0}/ProjTLauncher-{1}-{2}-{3}-{4}.AppImage', inputs.source-dir || github.workspace, runner.os, inputs.version, inputs.build-type, env.APPIMAGE_ARCH) }}
 
     - name: Upload AppImage Zsync
       uses: actions/upload-artifact@v5
       with:
         name: ProjTLauncher-${{ runner.os }}-${{ inputs.version }}-${{ inputs.build-type }}-${{ env.APPIMAGE_ARCH }}.AppImage.zsync
-        path: ProjTLauncher-${{ runner.os }}-${{ env.APPIMAGE_ARCH }}.AppImage.zsync
+        path: ${{ format('{0}/ProjTLauncher-{1}-{2}-{3}-{4}.AppImage.zsync', inputs.source-dir || github.workspace, runner.os, inputs.version, inputs.build-type, env.APPIMAGE_ARCH) }}

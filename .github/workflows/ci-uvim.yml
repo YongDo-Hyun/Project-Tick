@@ -1,6 +1,14 @@
 name: CI uVim
 
 on:
+  push:
+    paths:
+      - 'uvim/**'
+      - '.github/workflows/ci-uvim.yml'
+  pull_request:
+    paths:
+      - 'uvim/**'
+      - '.github/workflows/ci-uvim.yml'
   workflow_call:
     inputs:
       ref:

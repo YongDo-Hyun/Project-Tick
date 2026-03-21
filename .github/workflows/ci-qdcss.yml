@@ -1,6 +1,14 @@
 name: CI qdcss
 
 on:
+  push:
+    paths:
+      - 'qdcss/**'
+      - '.github/workflows/ci-qdcss.yml'
+  pull_request:
+    paths:
+      - 'qdcss/**'
+      - '.github/workflows/ci-qdcss.yml'
   workflow_call:
     inputs:
       ref:

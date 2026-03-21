@@ -1,6 +1,14 @@
 name: CI murmur2
 
 on:
+  push:
+    paths:
+      - 'murmur2/**'
+      - '.github/workflows/ci-murmur2.yml'
+  pull_request:
+    paths:
+      - 'murmur2/**'
+      - '.github/workflows/ci-murmur2.yml'
   workflow_call:
     inputs:
       ref:

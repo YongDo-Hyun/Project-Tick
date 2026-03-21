@@ -1,6 +1,14 @@
 name: CI bzip2
 
 on:
+  push:
+    paths:
+      - 'bzip2/**'
+      - '.github/workflows/ci-bzip2.yml'
+  pull_request:
+    paths:
+      - 'bzip2/**'
+      - '.github/workflows/ci-bzip2.yml'
   workflow_call:
     inputs:
       ref:
