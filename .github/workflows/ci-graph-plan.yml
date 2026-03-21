@@ -1,0 +1,184 @@
+name: CI Dependency Graph Plan
+
+on:
+  workflow_call:
+    inputs:
+      changed-files-json:
+        description: JSON array of changed files. If empty, the workflow falls back to event diffing.
+        required: false
+        type: string
+        default: "[]"
+      base-sha:
+        description: Base commit SHA for reusable workflow diffing
+        required: false
+        type: string
+        default: ""
+      head-sha:
+        description: Head commit SHA for reusable workflow diffing
+        required: false
+        type: string
+        default: ""
+      default-all-if-empty:
+        description: Fan out to every node when no changed files are available.
+        required: false
+        type: boolean
+        default: false
+  workflow_dispatch:
+    inputs:
+      changed-files:
+        description: Newline-separated changed files. Leave empty to use base/head refs or full fanout.
+        required: false
+        type: string
+      base-ref:
+        description: Optional base ref for manual diffs.
+        required: false
+        type: string
+      head-ref:
+        description: Optional head ref for manual diffs.
+        required: false
+        type: string
+      default-all-if-empty:
+        description: Fan out to every node when no changed files are available.
+        required: false
+        type: boolean
+        default: true
+  pull_request:
+    paths:
+      - ".github/workflows/ci-graph-plan.yml"
+      - "tools/ci/**"
+  push:
+    paths:
+      - ".github/workflows/ci-graph-plan.yml"
+      - "tools/ci/**"
+
+permissions:
+  contents: read
+
+jobs:
+  plan:
+    name: Resolve CI graph
+    runs-on: ubuntu-latest
+    outputs:
+      changed_nodes: ${{ steps.plan.outputs.changed_nodes }}
+      impacted_nodes: ${{ steps.plan.outputs.impacted_nodes }}
+      runners: ${{ steps.plan.outputs.runners }}
+      unwired_nodes: ${{ steps.plan.outputs.unwired_nodes }}
+      global_match: ${{ steps.plan.outputs.global_match }}
+      has_work: ${{ steps.plan.outputs.has_work }}
+      run_dockerimages: ${{ steps.plan.outputs.run_dockerimages }}
+      run_forgewrapper: ${{ steps.plan.outputs.run_forgewrapper }}
+      run_gamemode: ${{ steps.plan.outputs.run_gamemode }}
+      run_launcher: ${{ steps.plan.outputs.run_launcher }}
+      run_meta: ${{ steps.plan.outputs.run_meta }}
+      run_modpacks: ${{ steps.plan.outputs.run_modpacks }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Resolve changed files
+        id: changed-files
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_BEFORE: ${{ github.event.before || '' }}
+          INPUT_CHANGED_FILES_JSON: ${{ inputs.changed-files-json || '[]' }}
+          INPUT_BASE_SHA: ${{ inputs.base-sha || '' }}
+          INPUT_HEAD_SHA: ${{ inputs.head-sha || '' }}
+          INPUT_CHANGED_FILES: ${{ github.event.inputs.changed-files || '' }}
+          INPUT_BASE_REF: ${{ github.event.inputs.base-ref || '' }}
+          INPUT_HEAD_REF: ${{ github.event.inputs.head-ref || '' }}
+          PR_BASE_REF: ${{ github.base_ref || '' }}
+          GITHUB_SHA_VALUE: ${{ github.sha }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import subprocess
+          from pathlib import Path
+
+          event_name = os.environ["EVENT_NAME"]
+          manual_changed_files = os.environ["INPUT_CHANGED_FILES"].strip()
+          workflow_call_files = json.loads(os.environ["INPUT_CHANGED_FILES_JSON"])
+          repo = Path.cwd()
+          zero_sha = "0" * 40
+
+          def git_diff_names(*revs: str) -> list[str]:
+              revs = [rev for rev in revs if rev]
+              if not revs:
+                  return []
+              result = subprocess.run(
+                  ["git", "diff", "--name-only", *revs],
+                  cwd=repo,
+                  check=True,
+                  capture_output=True,
+                  text=True,
+              )
+              return [line for line in result.stdout.splitlines() if line.strip()]
+
+          def changed_from_single_commit(rev: str) -> list[str]:
+              result = subprocess.run(
+                  ["git", "show", "--pretty=", "--name-only", rev],
+                  cwd=repo,
+                  check=True,
+                  capture_output=True,
+                  text=True,
+              )
+              return [line for line in result.stdout.splitlines() if line.strip()]
+
+          changed: list[str] = []
+          if workflow_call_files and workflow_call_files != [""]:
+              changed = workflow_call_files
+          elif os.environ["INPUT_BASE_SHA"] and os.environ["INPUT_HEAD_SHA"]:
+              if os.environ["INPUT_BASE_SHA"] == zero_sha:
+                  changed = changed_from_single_commit(os.environ["INPUT_HEAD_SHA"])
+              else:
+                  changed = git_diff_names(os.environ["INPUT_BASE_SHA"], os.environ["INPUT_HEAD_SHA"])
+          elif manual_changed_files:
+              changed = [line.strip() for line in manual_changed_files.splitlines() if line.strip()]
+          elif event_name == "pull_request":
+              base = os.environ["PR_BASE_REF"]
+              if base:
+                  subprocess.run(
+                      ["git", "fetch", "--no-tags", "--depth=1", "origin", f"{base}:{base}"],
+                      cwd=repo,
+                      check=True,
+                  )
+                  changed = git_diff_names(f"{base}...{os.environ['GITHUB_SHA_VALUE']}")
+          elif event_name == "push" and os.environ["EVENT_BEFORE"]:
+              if os.environ["EVENT_BEFORE"] == zero_sha:
+                  changed = changed_from_single_commit(os.environ["GITHUB_SHA_VALUE"])
+              else:
+                  changed = git_diff_names(os.environ["EVENT_BEFORE"], os.environ["GITHUB_SHA_VALUE"])
+          elif os.environ["INPUT_BASE_REF"] and os.environ["INPUT_HEAD_REF"]:
+              changed = git_diff_names(os.environ["INPUT_BASE_REF"], os.environ["INPUT_HEAD_REF"])
+
+          output_path = Path(os.environ["GITHUB_OUTPUT"])
+          output_path.write_text(
+              "files_json=" + json.dumps(changed) + "\n",
+              encoding="utf-8",
+          )
+          (repo / "changed-files.json").write_text(json.dumps(changed), encoding="utf-8")
+          PY
+
+      - name: Run planner
+        id: plan
+        shell: bash
+        env:
+          DEFAULT_ALL_IF_EMPTY: ${{ inputs.default-all-if-empty || github.event.inputs.default-all-if-empty || 'false' }}
+        run: |
+          args=()
+          if [[ "$DEFAULT_ALL_IF_EMPTY" == "true" ]]; then
+            args+=(--default-all-if-empty)
+          fi
+
+          python3 tools/ci/plan_dependency_graph.py \
+            --changed-files-json-file changed-files.json \
+            --summary-file ci-graph-summary.md \
+            "${args[@]}" \
+            --write-github-output
+
+      - name: Publish summary
+        shell: bash
+        run: cat ci-graph-summary.md >> "$GITHUB_STEP_SUMMARY"

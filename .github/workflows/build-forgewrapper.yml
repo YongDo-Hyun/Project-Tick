@@ -1,0 +1,41 @@
+name: Gradle Build
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: Ref to build
+        required: false
+        type: string
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Ref to build
+        required: false
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: forgewrapper
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.event.inputs.ref || github.sha }}
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "8.0.312"
+          architecture: x64
+      - name: Build with Gradle
+        run: |
+          chmod +x ./gradlew
+          ./gradlew build -iS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: forgewrapper-package
+          path: forgewrapper/build/libs

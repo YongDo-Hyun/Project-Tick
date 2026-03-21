@@ -1,0 +1,93 @@
+name: Suggestion
+description: Suggest an improvement or feature
+labels: ["type: enhancement", "status: needs triage"]
+
+body:
+- type: markdown
+  attributes:
+    value: |
+      ### Use this form to suggest an improvement to Project Tick.
+
+      Suggestions are for smaller or incremental ideas.
+      For large architectural or cross-project changes, use an RFC instead.
+
+---
+
+- type: dropdown
+  attributes:
+    label: Affected Component
+    description: Which part of the project does this suggestion target?
+    options:
+      - projt-launcher
+      - uvim
+      - cgit
+      - core libraries (ptlibzippy, tomlplusplus, etc.)
+      - distro / corebinutils
+      - CI / infrastructure
+      - packaging
+      - multiple components
+      - other
+  validations:
+    required: true
+
+---
+
+- type: input
+  attributes:
+    label: Use Case
+    description: How are you currently using this component?
+    placeholder: e.g. Building projects, running modpacks, packaging binaries
+  validations:
+    required: true
+
+---
+
+- type: textarea
+  attributes:
+    label: Suggestion
+    description: What do you want to change or improve?
+  validations:
+    required: true
+
+---
+
+- type: textarea
+  attributes:
+    label: Expected Benefit
+    description: Why is this useful? What problem does it solve?
+  validations:
+    required: true
+
+---
+
+- type: textarea
+  attributes:
+    label: Possible Implementation (optional)
+    description: |
+      If you have technical ideas on how this could be implemented, describe them here.
+      This is optional but highly appreciated.
+
+---
+
+- type: textarea
+  attributes:
+    label: Alternatives Considered (optional)
+    description: Other approaches or workarounds you have tried
+
+---
+
+- type: checkboxes
+  attributes:
+    label: Validation
+    options:
+      - label: I have searched existing issues and suggestions
+        required: true
+      - label: This is not a large architectural change (RFC may be more appropriate)
+      - label: I am willing to help implement this
+
+---
+
+- type: textarea
+  attributes:
+    label: Additional Context
+    description: Optional extra details

@@ -54,13 +54,13 @@ configure_file(gplv3-127x51.png gplv3-127x51.png COPYONLY)
 
 set(Launcher_Project_Source_Dir "${PROJECT_SOURCE_DIR}")
 
-file(READ "${PROJECT_SOURCE_DIR}/zlib/COPYING" ZLIB_LICENSE)
+file(READ "${PROJECT_SOURCE_DIR}/../ptlibzippy/COPYING" ZLIB_LICENSE)
 file(READ "${PROJECT_SOURCE_DIR}/quazip/COPYING" QUAZIP_LICENSE)
 file(READ "${PROJECT_SOURCE_DIR}/qdcss/LICENSE" QDCSS_LICENSE)
 file(READ "${PROJECT_SOURCE_DIR}/libnbtplusplus/COPYING" LIBNBT_LICENSE)
 file(READ "${PROJECT_SOURCE_DIR}/libnbtplusplus/COPYING.LESSER" LIBNBT_LESSER_LICENSE)
 file(READ "${PROJECT_SOURCE_DIR}/launcherjava/LICENSE" LAUNCHERJAVA_LICENSE)
-file(READ "${PROJECT_SOURCE_DIR}/javacheck/LICENSE" JAVACHECK_LICENSE)
+file(READ "${PROJECT_SOURCE_DIR}/../javacheck/LICENSE" JAVACHECK_LICENSE)
 
 set(COMBINED_LICENSES "--- zlib ---\n\n${ZLIB_LICENSE}\n\n--- QuaZip ---\n\n${QUAZIP_LICENSE}\n\n--- qdcss ---\n\n${QDCSS_LICENSE}\n\n--- libnbtplusplus ---\n\n${LIBNBT_LICENSE}\n\n${LIBNBT_LESSER_LICENSE}\n\n--- launcherjava ---\n\n${LAUNCHERJAVA_LICENSE}\n\n--- javacheck ---\n\n${JAVACHECK_LICENSE}")
 

@@ -1,0 +1,124 @@
+name: Bug Report
+description: Report a bug in Project Tick
+labels: ["bug: unconfirmed", "status: needs triage"]
+
+body:
+- type: markdown
+  attributes:
+    value: |
+      Before submitting a bug report, please make sure that:
+
+      * You have read the documentation and handbook.
+      * Your issue is not caused by third-party software, mods, or environment misconfiguration.
+      * Your issue has not already been reported.
+
+      **Provide a clear and descriptive title.**
+
+---
+
+- type: dropdown
+  attributes:
+    label: Affected Project
+    description: Which component of Project Tick is affected?
+    options:
+      - projt-launcher
+      - uvim
+      - cgit
+      - corebinutils
+      - ptlibzippy
+      - tomlplusplus
+      - json4cpp
+      - libqrencode
+      - gamemode
+      - forgewrapper
+      - projt-modpack
+      - projt-minicraft-modpack
+      - dockerimages
+      - meta
+      - other
+  validations:
+    required: true
+
+---
+
+- type: dropdown
+  attributes:
+    label: Operating System
+    multiple: true
+    options:
+      - Linux
+      - Windows
+      - macOS
+      - Other
+
+---
+
+- type: input
+  attributes:
+    label: Component Version
+    description: Version, commit hash, or build identifier
+    placeholder: e.g. 0.0.4-5 / git commit hash
+
+---
+
+- type: dropdown
+  attributes:
+    label: Bug Type
+    description: What kind of issue is this?
+    options:
+      - Build failure
+      - Runtime crash
+      - Incorrect behavior
+      - Performance issue
+      - UI issue
+      - Packaging issue
+      - CI / infrastructure issue
+      - Other
+
+---
+
+- type: textarea
+  attributes:
+    label: Description
+    description: What did you expect, what happened, and why is it wrong?
+  validations:
+    required: true
+
+---
+
+- type: textarea
+  attributes:
+    label: Steps to Reproduce
+    description: Provide clear reproduction steps
+    placeholder: |
+      1. Do X
+      2. Run Y
+      3. Observe Z
+  validations:
+    required: true
+
+---
+
+- type: textarea
+  attributes:
+    label: Logs / Output
+    description: Paste relevant logs, error messages, or screenshots
+    render: shell
+
+---
+
+- type: textarea
+  attributes:
+    label: Suspected Cause
+    description: Optional technical analysis
+
+---
+
+- type: checkboxes
+  attributes:
+    label: Validation
+    options:
+      - label: I have searched existing issues
+        required: true
+      - label: This bug is reproducible
+      - label: I am willing to help debug this issue

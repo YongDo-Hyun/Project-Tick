@@ -1,0 +1,65 @@
+name: CI Modpacks
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: Ref to validate
+        required: false
+        type: string
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Ref to validate
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate modpack archives
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.event.inputs.ref || github.sha }}
+
+      - name: Validate zip archives and docs
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import zipfile
+
+          roots = [
+              Path("projt-modpack"),
+              Path("projt-minicraft-modpack"),
+          ]
+
+          missing = []
+          checked = 0
+
+          for root in roots:
+              if not root.exists():
+                  missing.append(str(root))
+                  continue
+              readme = root / "README.md"
+              if not readme.exists():
+                  missing.append(str(readme))
+
+              for archive in sorted(root.rglob("*.zip")):
+                  checked += 1
+                  if not zipfile.is_zipfile(archive):
+                      raise SystemExit(f"{archive} is not a valid zip archive")
+                  with zipfile.ZipFile(archive) as handle:
+                      names = handle.namelist()
+                      if not names:
+                          raise SystemExit(f"{archive} is empty")
+
+          if missing:
+              raise SystemExit("Missing required files: " + ", ".join(missing))
+
+          print(f"validated {checked} zip archives")
+          PY

@@ -1,0 +1,168 @@
+name: Project Tick Infra
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# MAIN CI ENTRY POINT
+# ═══════════════════════════════════════════════════════════════════════════════
+# This is the ONLY workflow that should have push/pull_request triggers.
+# All other ci-* workflows are called from here via workflow_call.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+on:
+  pull_request:
+  push:
+    tags:
+      - "*"
+    branches:
+      - "*"
+  workflow_dispatch:
+    inputs:
+      cache-repository:
+        description: Whether to cache the repository created by Flatpak builds
+        type: boolean
+        default: false
+  schedule:
+    - cron: "0 * * * *" # Every hour
+  release:
+    types: [released]
+
+concurrency:
+  group: ${{ (github.event_name == 'schedule' || github.event_name == 'merge_group')
+    && format('projt-infra-{0}-{1}', github.event_name, github.run_id)
+    || format('projt-infra-{0}-{1}-{2}', github.workflow, github.event_name, github.event.pull_request.number || github.ref) }}
+  cancel-in-progress: ${{ (github.event_name == 'pull_request' && github.event.action != 'closed') || (github.event_name == 'push' && github.ref_type == 'branch') }}
+
+env:
+  NODE_NO_WARNINGS: 1
+
+jobs:
+  plan:
+    name: Resolve CI Graph
+    uses: ./.github/workflows/ci-graph-plan.yml
+    permissions:
+      contents: read
+    with:
+      base-sha: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event_name == 'push' && github.event.before || '' }}
+      head-sha: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.event_name == 'push' && github.sha || '' }}
+      default-all-if-empty: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event_name == 'release' || (github.event_name == 'push' && github.ref_type == 'tag') }}
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # BUILD LAUNCHER
+  # ═══════════════════════════════════════════════════════════════════════════
+  build-projt-launcher-debug:
+    name: Build ProjT Launcher ( DEBUG )
+    needs: [plan]
+    if: github.event_name != 'schedule' && github.event_name != 'release' && !(github.event_name == 'push' && github.ref_type == 'tag') && needs.plan.outputs.run_launcher == 'true'
+    uses: ./.github/workflows/ci-launcher.yml
+    permissions:
+      contents: read
+      packages: write
+      pages: write
+      id-token: write
+    with:
+      ref: ${{ github.sha }}
+      build-type: Debug
+      output-root: ${{ github.workspace }}/build/out
+    secrets: inherit
+
+  build-projt-launcher-release:
+    name: Build ProjT Launcher ( RELEASE )
+    needs: [plan]
+    if: github.event_name == 'release' || (github.event_name == 'push' && github.ref_type == 'tag')
+    uses: ./.github/workflows/ci-launcher.yml
+    permissions:
+      contents: read
+      packages: write
+      pages: write
+      id-token: write
+    with:
+      ref: ${{ github.sha }}
+      build-type: Release
+      output-root: ${{ github.workspace }}/build/out
+    secrets: inherit
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # RELEASE
+  # ═══════════════════════════════════════════════════════════════════════════
+  release:
+    name: Release
+    needs: [build-projt-launcher-release]
+    if: github.event_name == 'release' || (github.event_name == 'push' && github.ref_type == 'tag')
+    uses: ./.github/workflows/ci-release.yml
+    with:
+      run-release-build: "true"
+      is-release: ${{ github.event_name == 'release' }}
+    secrets: inherit
+
+  winget:
+    name: Winget
+    needs: [build-projt-launcher-release]
+    if: github.event_name == 'release'
+    uses: ./.github/workflows/ci-winget.yml
+    with:
+      ref: ${{ github.sha }}
+      tag_name: ${{ github.event.release.tag_name }}
+    secrets: inherit
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # QUAZIP TESTS
+  # ═══════════════════════════════════════════════════════════════════════════
+  quazip:
+    name: Quazip
+    needs: [plan]
+    if: github.event_name != 'schedule' && github.event_name != 'release' && !(github.event_name == 'push' && github.ref_type == 'tag') && needs.plan.outputs.run_launcher == 'true'
+    uses: ./.github/workflows/ci-quazip.yml
+    with:
+      ref: ${{ github.sha }}
+      run-quazip: "true"
+
+  nix:
+    name: Nix
+    needs: [plan]
+    if: github.event_name != 'schedule' && github.event_name != 'release' && !(github.event_name == 'push' && github.ref_type == 'tag') && needs.plan.outputs.run_launcher == 'true'
+    uses: ./.github/workflows/ci-nix.yml
+    with:
+      ref: ${{ github.sha }}
+
+  forgewrapper:
+    name: ForgeWrapper
+    needs: [plan]
+    if: github.event_name != 'schedule' && github.event_name != 'release' && !(github.event_name == 'push' && github.ref_type == 'tag') && needs.plan.outputs.run_forgewrapper == 'true'
+    uses: ./.github/workflows/build-forgewrapper.yml
+    with:
+      ref: ${{ github.sha }}
+
+  gamemode:
+    name: GameMode
+    needs: [plan]
+    if: github.event_name != 'schedule' && github.event_name != 'release' && !(github.event_name == 'push' && github.ref_type == 'tag') && needs.plan.outputs.run_gamemode == 'true'
+    uses: ./.github/workflows/build-and-test-gamemode.yml
+    with:
+      ref: ${{ github.sha }}
+
+  meta:
+    name: Meta
+    needs: [plan]
+    if: github.event_name != 'schedule' && github.event_name != 'release' && !(github.event_name == 'push' && github.ref_type == 'tag') && needs.plan.outputs.run_meta == 'true'
+    uses: ./.github/workflows/ci-meta.yml
+    with:
+      ref: ${{ github.sha }}
+
+  modpacks:
+    name: Modpacks
+    needs: [plan]
+    if: github.event_name != 'schedule' && github.event_name != 'release' && !(github.event_name == 'push' && github.ref_type == 'tag') && needs.plan.outputs.run_modpacks == 'true'
+    uses: ./.github/workflows/ci-modpacks.yml
+    with:
+      ref: ${{ github.sha }}
+
+  dockerimages:
+    name: Docker Images
+    needs: [plan]
+    if: github.event_name != 'schedule' && github.event_name != 'release' && !(github.event_name == 'push' && github.ref_type == 'tag') && needs.plan.outputs.run_dockerimages == 'true'
+    uses: ./.github/workflows/build-images.yml
+    permissions:
+      contents: read
+      packages: write
+    with:
+      ref: ${{ github.sha }}
+      push-images: ${{ github.event_name == 'schedule' || (github.event_name == 'push' && github.ref_name == 'trunk') }}

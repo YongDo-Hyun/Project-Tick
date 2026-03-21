@@ -1,0 +1,147 @@
+name: Request for Comment (RFC)
+description: Propose a significant change across Project Tick
+labels: ["type: enhancement", "status: needs discussion", "status: needs triage"]
+
+body:
+- type: markdown
+  attributes:
+    value: |
+      ### Use this form to propose a significant architectural or cross-project change.
+
+      RFCs are intended for:
+      - Cross-project changes
+      - Breaking changes
+      - Build / CI / packaging changes
+      - New subsystems or major refactors
+
+---
+
+- type: dropdown
+  attributes:
+    label: Affected Area
+    description: Which part of the ecosystem is impacted?
+    options:
+      - projt-launcher
+      - core libraries (ptlibzippy, tomlplusplus, etc.)
+      - distro / corebinutils
+      - CI / infrastructure
+      - packaging (Flatpak, Winget, etc.)
+      - multiple components
+      - other
+  validations:
+    required: true
+
+---
+
+- type: textarea
+  attributes:
+    label: Goal
+    description: Short summary (1-2 sentences)
+  validations:
+    required: true
+
+---
+
+- type: textarea
+  attributes:
+    label: Motivation
+    description: |
+      Explain the problem being solved.
+
+      Include:
+      - Current limitations or issues
+      - Prior discussions (link if possible)
+      - Relevant external references
+  validations:
+    required: true
+
+---
+
+- type: textarea
+  attributes:
+    label: Specification
+    description: |
+      Detailed technical description of the proposed change.
+
+      Include:
+      - Design overview
+      - Key components
+      - Interfaces or APIs affected
+  validations:
+    required: true
+
+---
+
+- type: textarea
+  attributes:
+    label: Dependency / Impact Analysis
+    description: |
+      Describe how this change affects other components.
+
+      Include:
+      - Dependent projects
+      - Build system impact
+      - CI implications
+      - Packaging impact
+  validations:
+    required: true
+
+---
+
+- type: textarea
+  attributes:
+    label: Migration Plan
+    description: |
+      How will existing users or systems transition?
+
+      Include:
+      - Backward compatibility
+      - Required changes for downstream users
+      - Rollout strategy
+  validations:
+    required: true
+
+---
+
+- type: textarea
+  attributes:
+    label: Drawbacks
+    description: Potential downsides and risks
+  validations:
+    required: true
+
+---
+
+- type: textarea
+  attributes:
+    label: Alternatives Considered
+    description: Other approaches that were evaluated
+  validations:
+    required: true
+
+---
+
+- type: textarea
+  attributes:
+    label: Unresolved Questions
+    description: Open questions that need discussion
+  validations:
+    required: true
+
+---
+
+- type: checkboxes
+  attributes:
+    label: Validation
+    options:
+      - label: I have searched for existing RFCs or issues
+        required: true
+      - label: This proposal is technically feasible
+      - label: I am willing to help implement this
+
+---
+
+- type: textarea
+  attributes:
+    label: Additional Context
+    description: Optional extra details

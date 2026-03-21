@@ -1,0 +1,181 @@
+{
+  "global_paths": [
+    ".github/",
+    "tools/ci/"
+  ],
+  "runners": {
+    "dockerimages": {
+      "description": "Container image build lane"
+    },
+    "forgewrapper": {
+      "description": "Forge wrapper Gradle build lane"
+    },
+    "gamemode": {
+      "description": "GameMode build-and-test lane"
+    },
+    "launcher": {
+      "description": "ProjT Launcher integration lane"
+    },
+    "meta": {
+      "description": "Metadata generator lane"
+    },
+    "modpacks": {
+      "description": "Modpack validation lane"
+    }
+  },
+  "nodes": {
+    "bzip2": {
+      "description": "Bundled compression library consumed by the launcher stack.",
+      "paths": [
+        "bzip2/"
+      ],
+      "depends_on": []
+    },
+    "cgit": {
+      "description": "Standalone cgit fork.",
+      "paths": [
+        "cgit/"
+      ],
+      "depends_on": []
+    },
+    "cmark": {
+      "description": "Bundled Markdown parser consumed by the launcher.",
+      "paths": [
+        "cmark/"
+      ],
+      "depends_on": []
+    },
+    "corebinutils": {
+      "description": "Standalone corebinutils fork.",
+      "paths": [
+        "corebinutils/"
+      ],
+      "depends_on": []
+    },
+    "dockerimages": {
+      "description": "Docker image definitions used by CI and packaging.",
+      "paths": [
+        "dockerimages/"
+      ],
+      "depends_on": [],
+      "runner": "dockerimages"
+    },
+    "extra-cmake-modules": {
+      "description": "Bundled ECM modules used by the launcher build.",
+      "paths": [
+        "extra-cmake-modules/"
+      ],
+      "depends_on": []
+    },
+    "forgewrapper": {
+      "description": "Forge installer wrapper project.",
+      "paths": [
+        "forgewrapper/"
+      ],
+      "depends_on": [],
+      "runner": "forgewrapper"
+    },
+    "gamemode": {
+      "description": "Standalone GameMode fork.",
+      "paths": [
+        "gamemode/"
+      ],
+      "depends_on": [],
+      "runner": "gamemode"
+    },
+    "javacheck": {
+      "description": "Java compatibility checker bundled into launcher builds.",
+      "paths": [
+        "javacheck/"
+      ],
+      "depends_on": []
+    },
+    "json4cpp": {
+      "description": "Standalone JSON library fork.",
+      "paths": [
+        "json4cpp/"
+      ],
+      "depends_on": []
+    },
+    "libqrencode": {
+      "description": "Bundled QR encoder consumed by the launcher.",
+      "paths": [
+        "libqrencode/"
+      ],
+      "depends_on": []
+    },
+    "meta": {
+      "description": "Metadata generator and Nix packaging helpers.",
+      "paths": [
+        "meta/"
+      ],
+      "depends_on": [
+        "forgewrapper"
+      ],
+      "runner": "meta"
+    },
+    "projt-launcher-quazip": {
+      "description": "Nested QuaZip fork inside the launcher tree.",
+      "paths": [
+        "projt-launcher/quazip/"
+      ],
+      "depends_on": [
+        "ptlibzippy"
+      ]
+    },
+    "projt-launcher": {
+      "description": "Primary launcher application.",
+      "paths": [
+        "projt-launcher/"
+      ],
+      "depends_on": [
+        "bzip2",
+        "cmark",
+        "extra-cmake-modules",
+        "javacheck",
+        "libqrencode",
+        "projt-launcher-quazip",
+        "ptlibzippy",
+        "tomlplusplus"
+      ],
+      "runner": "launcher"
+    },
+    "projt-minicraft-modpack": {
+      "description": "MiniCraft modpack assets.",
+      "paths": [
+        "projt-minicraft-modpack/"
+      ],
+      "depends_on": [],
+      "runner": "modpacks"
+    },
+    "projt-modpack": {
+      "description": "Main modpack assets.",
+      "paths": [
+        "projt-modpack/"
+      ],
+      "depends_on": [],
+      "runner": "modpacks"
+    },
+    "ptlibzippy": {
+      "description": "Bundled zlib-compatible library used by launcher and QuaZip.",
+      "paths": [
+        "ptlibzippy/"
+      ],
+      "depends_on": []
+    },
+    "tomlplusplus": {
+      "description": "Bundled TOML parser consumed by the launcher.",
+      "paths": [
+        "tomlplusplus/"
+      ],
+      "depends_on": []
+    },
+    "uvim": {
+      "description": "Standalone uvim fork.",
+      "paths": [
+        "uvim/"
+      ],
+      "depends_on": []
+    }
+  }
+}

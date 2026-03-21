@@ -1,3 +1,1 @@
-# MiniCraft
-MiniCraft is more fun, technology and adventure.
-
+# MiniCraft Modpack
