@@ -295,7 +295,7 @@ if(PTLIBZIPPY_INSTALL)
         COMPONENT Docs
         DESTINATION "${CMAKE_INSTALL_MANDIR}/man3")
     install(
-        FILES COPYING
+        FILES COPYING.md
               doc/algorithm.txt
               doc/crc-doc.1.0.pdf
               doc/rfc1950.txt

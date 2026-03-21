@@ -1,11 +1,11 @@
 # if we are built from with PTlibzippy, use this path's)
 if(DEFINED PTLIBZIPPY_BUILD_MINIZIP)
-    set(WORK_DIR ${ptlibzippy_BINARY_DIR})
+    set(WORK_DIR ${PTlibzippy_BINARY_DIR})
     set(inst_setup ptlibzippy_install)
 else(DEFINED PTLIBZIPPY_BUILD_MINIZIP)
     set(WORK_DIR ${minizip_BINARY_DIR})
     set(inst_setup minizip_install)
-    set(PTLIBZIPPY_ARG "-DPTLIBZIPPY_DIR=${PTLIBZIPPY_DIR}")
+    set(PTLIBZIPPY_ARG "-DPTlibzippy_DIR=${PTlibzippy_DIR}")
 
     add_test(
         NAME minizip_install
@@ -17,6 +17,15 @@ else(DEFINED PTLIBZIPPY_BUILD_MINIZIP)
         PROPERTIES
             FIXTURES_SETUP minizip_install)
 endif(DEFINED PTLIBZIPPY_BUILD_MINIZIP)
+
+set(MINIZIP_TEST_INSTALL_DIR "${WORK_DIR}/test/test_install")
+set(MINIZIP_TEST_PACKAGE_DIR
+    "${MINIZIP_TEST_INSTALL_DIR}/${CMAKE_INSTALL_LIBDIR}/cmake/minizip")
+set(PTLIBZIPPY_TEST_PACKAGE_DIR
+    "${MINIZIP_TEST_INSTALL_DIR}/${CMAKE_INSTALL_LIBDIR}/cmake/ptlibzippy")
+set(MINIZIP_FIND_PACKAGE_ARGS
+    "-Dminizip_DIR=${MINIZIP_TEST_PACKAGE_DIR}"
+    "-DPTlibzippy_DIR=${PTLIBZIPPY_TEST_PACKAGE_DIR}")
 
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/findpackage_test)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/findpackage_no_componentstest)
@@ -64,7 +73,8 @@ add_test(
         -B${CMAKE_CURRENT_BINARY_DIR}/findpackage_test_build
         -DCMAKE_BUILD_TYPE=$<CONFIG> -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
         -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
-        -DCMAKE_INSTALL_PREFIX=${WORK_DIR}/test/test_install ${PTLIBZIPPY_ARG}
+        -DCMAKE_INSTALL_PREFIX=${MINIZIP_TEST_INSTALL_DIR}
+        ${MINIZIP_FIND_PACKAGE_ARGS}
         --fresh -G "${CMAKE_GENERATOR}"
         -S${CMAKE_CURRENT_BINARY_DIR}/findpackage_test)
 
@@ -90,7 +100,8 @@ add_test(
         -B${CMAKE_CURRENT_BINARY_DIR}/findpackage_no_components_test_build
         -DCMAKE_BUILD_TYPE=$<CONFIG> -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
         -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
-        -DCMAKE_INSTALL_PREFIX=${WORK_DIR}/test/test_install ${ZLIB_ARG}
+        -DCMAKE_INSTALL_PREFIX=${MINIZIP_TEST_INSTALL_DIR}
+        ${MINIZIP_FIND_PACKAGE_ARGS}
         --fresh -G "${CMAKE_GENERATOR}"
         -S${CMAKE_CURRENT_BINARY_DIR}/findpackage_no_components_test)
 
@@ -112,7 +123,8 @@ add_test(
         -B${CMAKE_CURRENT_BINARY_DIR}/findpackage_wrong_components_test_build
         -DCMAKE_BUILD_TYPE=$<CONFIG> -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
         -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
-        -DCMAKE_INSTALL_PREFIX=${WORK_DIR}/test/test_install ${ZLIB_ARG}
+        -DCMAKE_INSTALL_PREFIX=${MINIZIP_TEST_INSTALL_DIR}
+        ${MINIZIP_FIND_PACKAGE_ARGS}
         --fresh -G "${CMAKE_GENERATOR}"
         -S${CMAKE_CURRENT_BINARY_DIR}/findpackage_wrong_components_test)
 
@@ -132,7 +144,8 @@ add_test(
         -B${CMAKE_CURRENT_BINARY_DIR}/add_subdirectory_test_build
         -DCMAKE_BUILD_TYPE=$<CONFIG> -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
         -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
-        -DCMAKE_INSTALL_PREFIX=${WORK_DIR}/test/test_install ${PTLIBZIPPY_ARG}
+        -DCMAKE_INSTALL_PREFIX=${MINIZIP_TEST_INSTALL_DIR}
+        ${MINIZIP_FIND_PACKAGE_ARGS}
         --fresh -G "${CMAKE_GENERATOR}"
         -S${CMAKE_CURRENT_BINARY_DIR}/add_subdirectory_test)
 
@@ -158,7 +171,8 @@ add_test(
         -B${CMAKE_CURRENT_BINARY_DIR}/add_subdirectory_exclude_test_build
         -DCMAKE_BUILD_TYPE=$<CONFIG> -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
         -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
-        -DCMAKE_INSTALL_PREFIX=${WORK_DIR}/test/test_install ${PTLIBZIPPY_ARG}
+        -DCMAKE_INSTALL_PREFIX=${MINIZIP_TEST_INSTALL_DIR}
+        ${MINIZIP_FIND_PACKAGE_ARGS}
         --fresh -G "${CMAKE_GENERATOR}"
         -S${CMAKE_CURRENT_BINARY_DIR}/add_subdirectory_exclude_test)
 
