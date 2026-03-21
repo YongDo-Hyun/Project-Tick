@@ -104,6 +104,7 @@ xcuserdata/
 [Bb]ackup*/
 CMakeLists.txt.user*
 CMakeUserPresets.json
+Makefile
 
 # Local files created or used by coding agents
 *.local

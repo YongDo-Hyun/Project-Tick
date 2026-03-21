@@ -167,14 +167,54 @@ AC_CHECK_FUNCS([pow], ,
 AC_CHECK_FUNC([clock_gettime], , [AC_MSG_WARN([not building timepng])])
 AM_CONDITIONAL([HAVE_CLOCK_GETTIME], [test "$ac_cv_func_clock_gettime" = "yes"])
 
-AC_ARG_WITH(zlib-prefix,
+AC_ARG_VAR([PTLIBZIPPY_CFLAGS],
+   [preprocessor flags for PTlibzippy, e.g. -I<dir>/include])
+AC_ARG_VAR([PTLIBZIPPY_LIBS],
+   [linker flags for PTlibzippy, e.g. -L<dir>/lib -lptlibzippy])
+
+AC_ARG_WITH([ptlibzippy-prefix],
+   AS_HELP_STRING([[[--with-ptlibzippy-prefix]]],
+      [prefix where PTlibzippy is installed]),
+   [PTLIBZIPPY_PREFIX=${withval}],
+   [PTLIBZIPPY_PREFIX=])
+
+AC_ARG_WITH([zlib-prefix],
    AS_HELP_STRING([[[--with-zlib-prefix]]],
-      [prefix that may have been used in installed zlib]),
-      [ZPREFIX=${withval}],
-      [ZPREFIX='z_'])
-AC_CHECK_LIB([z], [zlibVersion], ,
-  [AC_CHECK_LIB([z], [${ZPREFIX}zlibVersion], ,
-     [AC_MSG_ERROR([zlib not installed])])])
+      [deprecated alias for --with-ptlibzippy-prefix]),
+   [if test "x$PTLIBZIPPY_PREFIX" = x; then
+      PTLIBZIPPY_PREFIX=${withval}
+   fi])
+
+if test "x$PTLIBZIPPY_LIBS" = x; then
+   PTLIBZIPPY_LIBS='-lptlibzippy'
+fi
+
+if test "x$PTLIBZIPPY_PREFIX" != x && test "x$PTLIBZIPPY_PREFIX" != xno; then
+   if test "x$PTLIBZIPPY_CFLAGS" = x; then
+      PTLIBZIPPY_CFLAGS="-I${PTLIBZIPPY_PREFIX}/include"
+   else
+      PTLIBZIPPY_CFLAGS="${PTLIBZIPPY_CFLAGS} -I${PTLIBZIPPY_PREFIX}/include"
+   fi
+   case " $PTLIBZIPPY_LIBS " in
+      *" -L${PTLIBZIPPY_PREFIX}/lib "*) ;;
+      *) PTLIBZIPPY_LIBS="-L${PTLIBZIPPY_PREFIX}/lib ${PTLIBZIPPY_LIBS}" ;;
+   esac
+fi
+
+if test "x$PTLIBZIPPY_CFLAGS" != x; then
+   CPPFLAGS="${CPPFLAGS}${CPPFLAGS:+ }${PTLIBZIPPY_CFLAGS}"
+fi
+LIBS="${PTLIBZIPPY_LIBS}${LIBS:+ }${LIBS}"
+
+AC_CHECK_HEADER([ptlibzippy.h], ,
+   [AC_MSG_ERROR([PTlibzippy headers not found; use --with-ptlibzippy-prefix, PTLIBZIPPY_CFLAGS, or CPPFLAGS])])
+
+AC_MSG_CHECKING([for PTlibzippy link support])
+AC_LINK_IFELSE(
+   [AC_LANG_PROGRAM([[#include <ptlibzippy.h>]],
+      [[return ptlibzippyVersion() == 0;]])],
+   [AC_MSG_RESULT([yes])],
+   [AC_MSG_ERROR([PTlibzippy library not found; use --with-ptlibzippy-prefix, PTLIBZIPPY_LIBS, or LDFLAGS])])
 
 # The following is for pngvalid, to ensure it catches FP errors even on
 # platforms that don't enable FP exceptions, the function appears in the math
