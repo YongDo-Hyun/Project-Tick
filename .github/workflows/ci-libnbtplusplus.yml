@@ -7,6 +7,7 @@ on:
       - 'ptlibzippy/**'
       - '.github/workflows/ci-libnbtplusplus.yml'
   pull_request:
+    paths:
       - 'libnbtplusplus/**'
       - 'ptlibzippy/**'
       - '.github/workflows/ci-libnbtplusplus.yml'

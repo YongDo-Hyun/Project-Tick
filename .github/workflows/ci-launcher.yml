@@ -256,18 +256,16 @@ jobs:
           ctest --preset "$CMAKE_PRESET" --build-config "$BUILD_TYPE" --output-on-failure --no-tests=error
 
       - name: Upload build
-        working-directory: projt-launcher
         uses: actions/upload-artifact@v6
         with:
           name: build-${{ matrix.artifact-name }}
-          path: build/
+          path: projt-launcher/build/
 
       - name: Upload test results
-        working-directory: projt-launcher
         uses: actions/upload-artifact@v6
         with:
           name: test-results-${{ matrix.artifact-name }}
-          path: build/Testing/
+          path: projt-launcher/build/Testing/
 
       - name: Get short version
         working-directory: projt-launcher
