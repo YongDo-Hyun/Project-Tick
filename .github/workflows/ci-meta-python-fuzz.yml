@@ -6,14 +6,14 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "projt-launcher/fuzz/**"
-      - "projt-launcher/requirements.txt"
-      - ".github/workflows/ci-launcher-python-fuzz.yml"
+      - "meta/fuzz/**"
+      - "meta/requirements.txt"
+      - ".github/workflows/ci-meta-python-fuzz.yml"
   pull_request:
     paths:
-      - "projt-launcher/fuzz/**"
-      - "projt-launcher/requirements.txt"
-      - ".github/workflows/ci-launcher-python-fuzz.yml"
+      - "meta/fuzz/**"
+      - "meta/requirements.txt"
+      - ".github/workflows/ci-meta-python-fuzz.yml"
 
 permissions:
   contents: read

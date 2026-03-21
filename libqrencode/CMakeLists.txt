@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5.0)
+cmake_minimum_required(VERSION 3.10)
 
 if(POLICY CMP0069)
   cmake_policy(SET CMP0069 NEW)
@@ -25,6 +25,11 @@ set(CMAKE_THREAD_PREFER_PTHREAD ON)
 find_package(Threads)
 find_package(PNG)
 find_package(Iconv)
+
+if(NOT PNG_FOUND AND NOT WITHOUT_PNG)
+    message(WARNING "libpng was not found; disabling PNG support for qrencode tools.")
+    set(WITHOUT_PNG YES)
+endif()
 
 if(CMAKE_USE_PTHREADS_INIT)
     add_definitions(-DHAVE_LIBPTHREAD=1)

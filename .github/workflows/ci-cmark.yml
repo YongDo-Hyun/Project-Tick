@@ -157,6 +157,6 @@ jobs:
       with:
         name: cmark windows ${{ matrix.build_type }}
         path: |
-          build/src/cmark.exe
-          build/src/Debug/cmark.exe
+          cmark/build/src/cmark.exe
+          cmark/build/src/Debug/cmark.exe
         if-no-files-found: error

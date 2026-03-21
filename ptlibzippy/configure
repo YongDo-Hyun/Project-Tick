@@ -21,7 +21,7 @@ date >> configure.log
 # get source directory
 SRCDIR=`dirname $0`
 if test $SRCDIR = "."; then
-    ZINC=""
+    ZINC="-I."
     ZINCOUT="-I."
     SRCDIR=""
 else

@@ -52,8 +52,10 @@ env:
 jobs:
   flake-check:
     name: Flake Check
-    working-directory: projt-launcher
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: projt-launcher
     steps:
       - uses: actions/checkout@v6
         with:
@@ -153,11 +155,10 @@ jobs:
           fi
 
       - name: Upload Nix package
-        working-directory: projt-launcher
         if: steps.build-result.outputs.has-result == 'true'
         uses: actions/upload-artifact@v6
         with:
           name: ProjTLauncher-Nix-${{ matrix.system }}-${{ github.sha }}
-          path: result/**/*
+          path: projt-launcher/result/**/*
           retention-days: 7
           if-no-files-found: warn

@@ -54,7 +54,7 @@ mandir = ${prefix}/share/man
 man3dir = ${mandir}/man3
 pkgconfigdir = ${libdir}/pkgconfig
 SRCDIR=
-ZINC=
+ZINC=-I.
 ZINCOUT=-I.
 
 OBJZ = adler32.o crc32.o deflate.o infback.o inffast.o inflate.o inftrees.o trees.o ptzippyutil.o

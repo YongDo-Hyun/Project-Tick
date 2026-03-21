@@ -49,3 +49,9 @@ user.bazelrc
 # MODULE.bazel.lock is ignored for now as per this recommendation:
 # https://github.com/bazelbuild/bazel/issues/20369
 MODULE.bazel.lock
+
+Makefile
+libptlibzippy.so
+libptlibzippy.so.*
+ptlibzippy.pc
+/ptzippyconf.h

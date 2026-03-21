@@ -20,7 +20,7 @@ on:
         description: Directory name of the cached repository
         value: ${{ jobs.build.outputs.repository-directory }}
     secrets:
-      LINUX_GPG_KEY:
+      FLATPAK_LINUX_GPG_KEY:
         description: GPG key used for signing the ostree repository
         required: false
   workflow_dispatch:
@@ -65,7 +65,7 @@ jobs:
         - /opt/hostedtoolcache:/hostedtoolcache
 
     env:
-      GPG_KEY_ID: ${{ secrets.GPG_PRIVATE_KEY != '' && vars.GPG_KEY_ID || '' }}
+      GPG_KEY_ID: ${{ secrets.FLATPAK_LINUX_GPG_KEY != '' && vars.GPG_KEY_ID || '' }}
       REPOSITORY_DIR: repo
 
     steps:
@@ -99,12 +99,12 @@ jobs:
       - name: Setup signing
         shell: bash
         env:
-          LINUX_GPG_KEY: ${{ secrets.LINUX_GPG_KEY || '' }}
+          FLATPAK_LINUX_GPG_KEY: ${{ secrets.FLATPAK_LINUX_GPG_KEY || '' }}
         run: |
-          if [[ -z "$LINUX_GPG_KEY" ]]; then
+          if [[ -z "$FLATPAK_LINUX_GPG_KEY" ]]; then
             echo ":warning: Not signing Flatpaks or ostree repositories, as the signing key was not present" >> "$GITHUB_STEP_SUMMARY"
           else
-            echo -n "$LINUX_GPG_KEY" | base64 -d | gpg --import
+            echo -n "$FLATPAK_LINUX_GPG_KEY" | base64 -d | gpg --import
             gpg --list-keys --keyid-format=long "$GPG_KEY_ID"
           fi
 

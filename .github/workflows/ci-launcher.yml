@@ -232,6 +232,7 @@ jobs:
           qt-architecture: ${{ matrix.qt-architecture }}
           qt-version: ${{ matrix.qt-version || inputs.qt-version || '6.10.0' }}
           qt-modules: ${{ matrix.qt-modules || '' }}
+          source-dir: projt-launcher
 
       - name: Set build type
         run: echo "BUILD_TYPE=${{ inputs.build-type || 'Debug' }}" >> $GITHUB_ENV

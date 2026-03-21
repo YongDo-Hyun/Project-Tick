@@ -40,10 +40,10 @@ jobs:
       name: flatpak-server
 
     env:
-      DEPLOY_HOST: ${{ vars.FLATPAK_DEPLOY_HOST }}
-      DEPLOY_PATH: ${{ vars.FLATPAK_DEPLOY_PATH }}
-      DEPLOY_PORT: ${{ vars.FLATPAK_DEPLOY_PORT }}
-      DEPLOY_USER: ${{ vars.FLATPAK_DEPLOY_USER }}
+      DEPLOY_HOST: ${{ secrets.FLATPAK_DEPLOY_HOST }}
+      DEPLOY_PATH: ${{ secrets.FLATPAK_DEPLOY_PATH }}
+      DEPLOY_PORT: ${{ secrets.FLATPAK_DEPLOY_PORT }}
+      DEPLOY_USER: ${{ secrets.FLATPAK_DEPLOY_USER }}
       REPOSITORY_DIR: ${{ needs.build.outputs.repository-directory }}
 
     steps:

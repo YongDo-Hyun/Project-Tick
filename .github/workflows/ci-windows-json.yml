@@ -1,4 +1,4 @@
-name: Windows
+name: CI json4cpp Windows
 
 on:
   push:
@@ -37,7 +37,7 @@ jobs:
       - name: Build
         run: cmake --build build --parallel 10
       - name: Test
-        run: cd build ; ctest -j 10 -C Debug --output-on-failure
+        run: cd build ; ctest -j 10 -C Debug -LE git_required --output-on-failure
 
   msvc:
     strategy:
@@ -70,7 +70,7 @@ jobs:
       - name: Build
         run: cmake --build build --config ${{ matrix.build_type }} --parallel 10
       - name: Test
-        run: cd build ; ctest -j 10 -C ${{ matrix.build_type }} --output-on-failure
+        run: cd build ; ctest -j 10 -C ${{ matrix.build_type }} -LE git_required --output-on-failure
 
   clang:
     runs-on: windows-2022
@@ -98,7 +98,7 @@ jobs:
       - name: Build
         run: cmake --build build --parallel 10
       - name: Test
-        run: cd build ; ctest -j 10 -C Debug --exclude-regex "test-unicode" --output-on-failure
+        run: cd build ; ctest -j 10 -C Debug -LE git_required --exclude-regex "test-unicode" --output-on-failure
 
   clang-cl-12:
     runs-on: windows-2022
@@ -113,7 +113,7 @@ jobs:
       - name: Build
         run: cmake --build build --config Debug --parallel 10
       - name: Test
-        run: cd build ; ctest -j 10 -C Debug --exclude-regex "test-unicode" --output-on-failure
+        run: cd build ; ctest -j 10 -C Debug -LE git_required --exclude-regex "test-unicode" --output-on-failure
 
   ci_module_cpp20:
     runs-on: windows-latest

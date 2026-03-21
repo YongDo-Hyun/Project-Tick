@@ -38,7 +38,7 @@ jobs:
       - name: Build
         run: cmake --build build --parallel 10
       - name: Test
-        run: cd build ; ctest -j 10 --output-on-failure
+        run: cd build ; ctest -j 10 -LE git_required --output-on-failure
 
   macos-15:
     runs-on: macos-15 # https://github.com/actions/runner-images/blob/main/images/macos/macos-15-Readme.md
@@ -59,7 +59,7 @@ jobs:
       - name: Build
         run: cmake --build build --parallel 10
       - name: Test
-        run: cd build ; ctest -j 10 --output-on-failure
+        run: cd build ; ctest -j 10 -LE git_required --output-on-failure
 
   xcode_standards:
     runs-on: macos-latest
@@ -78,4 +78,4 @@ jobs:
       - name: Build
         run: cmake --build build --parallel 10
       - name: Test
-        run: cd build ; ctest -j 10 --output-on-failure
+        run: cd build ; ctest -j 10 -LE git_required --output-on-failure
