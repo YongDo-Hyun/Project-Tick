@@ -4,3 +4,6 @@
 [submodule "bzip2/tests/input/bzip2-testfiles"]
 	path = bzip2/tests/input/bzip2-testfiles
 	url = https://gitlab.com/bzip2/bzip2-testfiles.git
+[submodule "cgit/git"]
+	url = https://git.kernel.org/pub/scm/git/git.git
+	path = cgit/git
