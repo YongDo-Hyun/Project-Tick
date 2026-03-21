@@ -24,7 +24,7 @@ on:
 
 jobs:
   build-quazip-ubuntu:
-    if: inputs.run-quazip == 'true'
+     
     name: Ubuntu-${{ matrix.os_version }}-Qt-${{ matrix.qt_version }}-shared-${{ matrix.shared }}
     strategy:
       fail-fast: false
@@ -42,7 +42,7 @@ jobs:
         working_directory: quazip
 
   build-quazip-ubuntu-zlibconst:
-    if: inputs.run-quazip == 'true'
+     
     name: Ubuntu-${{ matrix.os_version }}-Qt-${{ matrix.qt_version }}-shared-zlibconst
     strategy:
       fail-fast: false
@@ -60,7 +60,7 @@ jobs:
       working_directory: quazip
 
   build-quazip-ubuntu-no-qtextcodec:
-    if: inputs.run-quazip == 'true'
+     
     name: Ubuntu-${{ matrix.os_version }}-Qt-${{ matrix.qt_version }}-shared-no-qtextcodec
     strategy:
       fail-fast: true
@@ -78,7 +78,7 @@ jobs:
       working_directory: quazip
 
   build-quazip-macos:
-    if: inputs.run-quazip == 'true'
+     
     name: macos-${{ matrix.os_version }}-Qt-${{ matrix.qt_version }}-shared-${{ matrix.shared }}
     strategy:
       fail-fast: false
@@ -101,7 +101,7 @@ jobs:
       working_directory: quazip
 
   build-quazip-alpine:
-    if: inputs.run-quazip == 'true'
+     
     name: "${{ matrix.qt_version }} on ${{ matrix.runner }}"
     runs-on: "ubuntu-22.04"
     container:
@@ -144,7 +144,7 @@ jobs:
         run: ctest --test-dir build --output-on-failure
 
   build-quazip-windows-x64:
-    if: inputs.run-quazip == 'true'
+     
     name: Win-Qt-${{ matrix.qt_version }}-preset-${{ matrix.preset }}
     strategy:
       fail-fast: false
@@ -162,7 +162,7 @@ jobs:
       working_directory: quazip
 
   build-quazip-windows-x86:
-    if: inputs.run-quazip == 'true'
+     
     name: Win-Qt-${{ matrix.qt_version }}-preset-${{ matrix.preset }}
     strategy:
       fail-fast: false
@@ -180,7 +180,7 @@ jobs:
       working_directory: quazip
 
   build-quazip-ubuntu-ci-extract:
-    if: inputs.run-quazip == 'true'
+     
     name: extract-Ubuntu-${{ matrix.os_version }}-Qt-${{ matrix.qt_version }}-shared-${{ matrix.shared }}
     strategy:
       fail-fast: false
@@ -200,7 +200,7 @@ jobs:
       working_directory: quazip
 
   build-quazip-macos-ci-extract:
-    if: inputs.run-quazip == 'true'
+     
     name: extract-macos-${{ matrix.os_version }}-Qt-${{ matrix.qt_version }}-shared-${{ matrix.shared }}
     strategy:
       fail-fast: false
@@ -220,7 +220,7 @@ jobs:
       working_directory: quazip
 
   build-quazip-windows-x64-ci-extract:
-    if: inputs.run-quazip == 'true'
+     
     name: extract-Win-Qt-${{ matrix.qt_version }}-preset-${{ matrix.preset }}
     strategy:
       fail-fast: false
@@ -240,7 +240,7 @@ jobs:
       working_directory: quazip
 
   build-quazip-fedora:
-    if: inputs.run-quazip == 'true'
+     
     name: "${{ matrix.qt_version }} on ${{ matrix.runner }}"
     runs-on: "ubuntu-22.04"
     defaults:
@@ -266,7 +266,7 @@ jobs:
         run: ctest --test-dir build --output-on-failure
 
   build-quazip-use-qt-zlib-ubuntu:
-    if: inputs.run-quazip == 'true'
+     
     env:
       BUILD_TYPE: Release
     runs-on: ubuntu-22.04
@@ -297,7 +297,7 @@ jobs:
         run: ctest --verbose -C Release
 
   build-quazip-use-qt6-zlib-windows:
-    if: inputs.run-quazip == 'true'
+     
     env:
       BUILD_TYPE: Release
     runs-on: windows-latest
@@ -454,7 +454,7 @@ jobs:
         run: ctest --verbose --output-on-failure -C Release
 
   build-quazip-use-qt5-zlib-windows:
-    if: inputs.run-quazip == 'true'
+     
     env:
       BUILD_TYPE: Release
     runs-on: windows-latest
