@@ -8,10 +8,6 @@
 # Source repository: https://github.com/actions/dependency-review-action
 name: 'CI json4cpp Dependency Review'
 on:
-  push:
-    paths:
-      - "json4cpp/**"
-      - ".github/workflows/ci-dependency-review-json.yml"
   pull_request:
     paths:
       - "json4cpp/**"

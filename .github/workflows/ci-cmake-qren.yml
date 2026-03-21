@@ -22,16 +22,21 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
-    - name: run vcpkg
+    - name: Set up vcpkg cache
       if: matrix.os == 'windows-latest'
-      uses: lukka/run-vcpkg@v6
+      uses: actions/cache@v4
       with:
-          vcpkgArguments: getopt:x64-windows libiconv:x64-windows libpng:x64-windows
-          vcpkgDirectory: '${{ github.workspace }}/vcpkg'
-          vcpkgGitCommitId: '2a42024b53ebb512fb5dd63c523338bf26c8489c'
-          appendedCacheKey: ${{ hashFiles( '${{ github.workspace }}/.github/workflows/cmake.yml' ) }}
+        path: C:/vcpkg/installed
+        key: ${{ runner.os }}-qren-vcpkg-${{ hashFiles('.github/workflows/ci-cmake-qren.yml') }}
+        restore-keys: ${{ runner.os }}-qren-vcpkg-
+
+    - name: Install vcpkg dependencies
+      if: matrix.os == 'windows-latest'
+      shell: pwsh
+      run: |
+        vcpkg install getopt:x64-windows libiconv:x64-windows libpng:x64-windows
 
     - name: brew setup
       if: matrix.os == 'macos-latest'
@@ -47,7 +52,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       shell: bash
       working-directory: libqrencode
-      run: cmake -S . -B build -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake -DWITH_TESTS=yes
+      run: cmake -S . -B build -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake -DWITH_TESTS=yes
 
     - name: Build
       working-directory: libqrencode

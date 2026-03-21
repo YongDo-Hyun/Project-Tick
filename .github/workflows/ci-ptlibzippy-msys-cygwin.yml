@@ -91,7 +91,7 @@ jobs:
           ninja
     - name: Configure
       run: |
-        cmake /cygdrive/d/a/ptlibzippy/ptlibzippy \
+        cmake -S . \
           -B build \
           -DCMAKE_BUILD_TYPE=Release \
           -DPTLIBZIPPY_BUILD_MINIZIP=ON \

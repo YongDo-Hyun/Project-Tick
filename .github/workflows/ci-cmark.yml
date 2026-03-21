@@ -156,5 +156,7 @@ jobs:
       uses: actions/upload-artifact@v7
       with:
         name: cmark windows ${{ matrix.build_type }}
-        path: build/src/Debug/cmark.exe
+        path: |
+          build/src/cmark.exe
+          build/src/Debug/cmark.exe
         if-no-files-found: error

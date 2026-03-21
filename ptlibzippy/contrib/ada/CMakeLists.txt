@@ -47,8 +47,8 @@ endfunction(PTLIBZIPPY_ADA_findTestEnv testName)
 
 if(PTLIBZIPPY_ADA_BUILD_SHARED)
     ada_add_library(ptlibzippy_ada_Ada SHARED
-        ptlibzippy-thin.adb
-        ptlibzippy.adb)
+        zlib-thin.adb
+        zlib.adb)
 
     set_target_properties(ptlibzippy_ada_Ada
         PROPERTIES OUTPUT_NAME ptlibzippy-ada)
@@ -57,7 +57,7 @@ if(PTLIBZIPPY_ADA_BUILD_SHARED)
         INTERFACE PTlibzippy::PTlibzippy)
 
     ada_add_library(ptlibzippy_ada_streams SHARED
-        ptlibzippy-streams.adb)
+        zlib-streams.adb)
 
     target_link_libraries(ptlibzippy_ada_streams
         PUBLIC
@@ -146,8 +146,8 @@ endif(PTLIBZIPPY_ADA_BUILD_SHARED)
 
 if(PTLIBZIPPY_ADA_BUILD_STATIC)
     ada_add_library(ptlibzippy_ada_AdaStatic STATIC
-        ptlibzippy-thin.adb
-        ptlibzippy.adb)
+        zlib-thin.adb
+        zlib.adb)
 
     target_link_libraries(ptlibzippy_ada_AdaStatic
         INTERFACE PTlibzippy::PTlibzippyStatic)
@@ -156,7 +156,7 @@ if(PTLIBZIPPY_ADA_BUILD_STATIC)
         PROPERTIES OUTPUT_NAME ptlibzippy-ada${ptlibzippy_Ada_static_suffix})
 
     ada_add_library(ptlibzippy_ada_streamsStatic STATIC
-        ptlibzippy-streams.adb)
+        zlib-streams.adb)
 
     target_link_libraries(ptlibzippy_ada_streamsStatic
         PUBLIC

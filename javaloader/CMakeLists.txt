@@ -14,6 +14,10 @@ unset(_PROJT_JAVA_RELEASE_FLAGS)
 set(CMAKE_JAVA_TARGET_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/jars")
 file(MAKE_DIRECTORY "${CMAKE_JAVA_TARGET_OUTPUT_DIR}")
 
+if(NOT DEFINED JARS_DEST_DIR)
+    set(JARS_DEST_DIR "${CMAKE_BINARY_DIR}/jars")
+endif()
+
 set(SRC
     org/projecttick/projtlauncher/normal/EntryPoint.java
     org/projecttick/projtlauncher/normal/launcher/Launcher.java

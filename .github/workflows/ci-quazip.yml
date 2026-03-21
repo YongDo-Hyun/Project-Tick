@@ -440,8 +440,23 @@ jobs:
         working-directory: qt-everywhere-src-${{ matrix.qt_version }}
         run: cmake --install .
 
+      - name: Configure PTlibzippy
+        shell: cmd
+        working-directory: ${{ github.workspace }}
+        run: cmake -S ptlibzippy -B build-ptlibzippy -DCMAKE_BUILD_TYPE="${{env.BUILD_TYPE}}" -DCMAKE_INSTALL_PREFIX="${{ github.workspace }}\ptlibzippy-install" -DPTLIBZIPPY_BUILD_TESTING=OFF
+
+      - name: Build PTlibzippy
+        shell: cmd
+        working-directory: ${{ github.workspace }}
+        run: cmake --build build-ptlibzippy --config ${{env.BUILD_TYPE}}
+
+      - name: Install PTlibzippy
+        shell: cmd
+        working-directory: ${{ github.workspace }}
+        run: cmake --install build-ptlibzippy --config ${{env.BUILD_TYPE}}
+
       - name: Configure CMake
-        run: cmake -DCMAKE_BUILD_TYPE="${{env.BUILD_TYPE}}" -DQUAZIP_QT_MAJOR_VERSION=6 -DBUILD_SHARED_LIBS=OFF -DQUAZIP_ENABLE_TESTS=ON -DQUAZIP_USE_QT_ZLIB=ON -B "${{github.workspace}}/build" -DCMAKE_PREFIX_PATH="${{github.workspace}}\Qt"
+        run: cmake -DCMAKE_BUILD_TYPE="${{env.BUILD_TYPE}}" -DQUAZIP_QT_MAJOR_VERSION=6 -DBUILD_SHARED_LIBS=OFF -DQUAZIP_ENABLE_TESTS=ON -DQUAZIP_USE_QT_ZLIB=ON -B "${{github.workspace}}/build" -DCMAKE_PREFIX_PATH="${{github.workspace}}\Qt;${{github.workspace}}\ptlibzippy-install" -DCMAKE_C_STANDARD_INCLUDE_DIRECTORIES="${{github.workspace}}\ptlibzippy-install\include" -DCMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES="${{github.workspace}}\ptlibzippy-install\include"
 
       - name: Build
         shell: cmd
@@ -595,8 +610,23 @@ jobs:
         working-directory: qt-everywhere-src-${{ matrix.qt_version }}
         run: nmake install
 
+      - name: Configure PTlibzippy
+        shell: cmd
+        working-directory: ${{ github.workspace }}
+        run: cmake -S ptlibzippy -B build-ptlibzippy -DCMAKE_BUILD_TYPE="${{env.BUILD_TYPE}}" -DCMAKE_INSTALL_PREFIX="${{ github.workspace }}\ptlibzippy-install" -DPTLIBZIPPY_BUILD_TESTING=OFF
+
+      - name: Build PTlibzippy
+        shell: cmd
+        working-directory: ${{ github.workspace }}
+        run: cmake --build build-ptlibzippy --config ${{env.BUILD_TYPE}}
+
+      - name: Install PTlibzippy
+        shell: cmd
+        working-directory: ${{ github.workspace }}
+        run: cmake --install build-ptlibzippy --config ${{env.BUILD_TYPE}}
+
       - name: Configure CMake
-        run: cmake -DCMAKE_BUILD_TYPE="${{env.BUILD_TYPE}}" -DQUAZIP_QT_MAJOR_VERSION=5 -DBUILD_SHARED_LIBS=OFF -DQUAZIP_ENABLE_TESTS=ON -DQUAZIP_USE_QT_ZLIB=ON -B build -DCMAKE_PREFIX_PATH="${{github.workspace}}\Qt"
+        run: cmake -DCMAKE_BUILD_TYPE="${{env.BUILD_TYPE}}" -DQUAZIP_QT_MAJOR_VERSION=5 -DBUILD_SHARED_LIBS=OFF -DQUAZIP_ENABLE_TESTS=ON -DQUAZIP_USE_QT_ZLIB=ON -B build -DCMAKE_PREFIX_PATH="${{github.workspace}}\Qt;${{github.workspace}}\ptlibzippy-install" -DCMAKE_C_STANDARD_INCLUDE_DIRECTORIES="${{github.workspace}}\ptlibzippy-install\include" -DCMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES="${{github.workspace}}\ptlibzippy-install\include"
 
       - name: Build
         shell: cmd

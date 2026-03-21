@@ -128,17 +128,20 @@ jobs:
 
     - name: Install packages (Linux)
       if: runner.os == 'Linux' && matrix.arch.tag == 'i386'
+      working-directory: ptlibzippy
       run: |
         sudo apt-get update
         sudo apt install gcc-multilib libc6-dev-i386-cross
 
     - name: Install packages (Windows)
       if: runner.os == 'Windows'
+      working-directory: ptlibzippy
       run: |
           choco install --no-progress ninja
 
     - name: Generate project files (configure)
       if: matrix.builder == 'configure'
+      working-directory: ptlibzippy
       run: |
         ./configure
       env:
@@ -147,16 +150,19 @@ jobs:
 
     - name: Compile source code (configure)
       if: matrix.builder == 'configure'
+      working-directory: ptlibzippy
       run: make -j2
 
     - name: Run test cases (configure)
       if: matrix.builder == 'configure'
+      working-directory: ptlibzippy
       run: |
         make test
         # make cover
 
     - name: Generate project files (cmake)
       if: matrix.builder == 'cmake'
+      working-directory: ptlibzippy
       run: |
         cmake -S . -B ./build1 -D CMAKE_BUILD_TYPE=Release ${{ matrix.os.cmake-opt }} -DPTLIBZIPPY_BUILD_TESTING=OFF
       env:
@@ -165,6 +171,7 @@ jobs:
 
     - name: Generate project files with tests (cmake)
       if: matrix.builder == 'cmake'
+      working-directory: ptlibzippy
       run: |
         cmake -S . -B ./build2 -D CMAKE_BUILD_TYPE=Release ${{ matrix.os.cmake-opt }} -DPTLIBZIPPY_BUILD_MINIZIP=ON -DMINIZIP_ENABLE_BZIP2=OFF
       env:
@@ -173,14 +180,17 @@ jobs:
 
     - name: Compile source code (cmake)
       if: matrix.builder == 'cmake'
+      working-directory: ptlibzippy
       run: cmake --build ./build1 --config Release
 
     - name: Compile source code with tests (cmake)
       if: matrix.builder == 'cmake'
+      working-directory: ptlibzippy
       run: cmake --build ./build2 --config Release
 
     - name: Run test cases (cmake)
       if: matrix.builder == 'cmake'
+      working-directory: ptlibzippy
       run: ctest ./build2 -C Release --output-on-failure --max-width 120
 
 
@@ -251,6 +261,7 @@ jobs:
         show-progress: 'false'
 
     - name: Generate project files (cmake)
+      working-directory: ptlibzippy
       run: |
         cmake -S . -B ./build1 ${{ matrix.arch.value }} -D CMAKE_BUILD_TYPE=Release -DPTLIBZIPPY_BUILD_TESTING=OFF
       env:
@@ -258,6 +269,7 @@ jobs:
         CFLAGS: /WX ${{ matrix.std.value }}
 
     - name: Generate project files with tests (cmake)
+      working-directory: ptlibzippy
       run: |
         cmake -S . -B ./build2 ${{ matrix.arch.value }} -D CMAKE_BUILD_TYPE=Release -DPTLIBZIPPY_BUILD_MINIZIP=ON -DMINIZIP_ENABLE_BZIP2=OFF
       env:
@@ -265,10 +277,13 @@ jobs:
         CFLAGS: ${{ matrix.std.value }}
 
     - name: Compile source code (cmake)
+      working-directory: ptlibzippy
       run: cmake --build ./build1 --config Release -v
 
     - name: Compile source code with tests(cmake)
+      working-directory: ptlibzippy
       run: cmake --build ./build2 --config Release -v
 
     - name: Run test cases (cmake)
+      working-directory: ptlibzippy
       run: ctest ./build2 -C Release --output-on-failure --max-width 120

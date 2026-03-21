@@ -32,11 +32,7 @@
 #ifndef PTLIBZIPPY_H
 #define PTLIBZIPPY_H
 
-#ifdef PTLIBZIPPY_BUILD
-#  include <ptzippyconf.h>
-#else
-# include "ptzippyconf.h"
-#endif
+#include <ptzippyconf.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -52,6 +52,7 @@ env:
 jobs:
   flake-check:
     name: Flake Check
+    working-directory: projt-launcher
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -103,30 +104,35 @@ jobs:
             experimental-features = nix-command flakes
 
       - name: Build package via Nix (Debug)
+        working-directory: projt-launcher
         if: github.ref_type != 'tag'
         run: |
           nix build --no-link --print-build-logs .#packages.${{ matrix.system }}.projtlauncher-debug || \
           nix build --no-link --print-build-logs .#projtlauncher
 
       - name: Build package via Nix (Release)
+        working-directory: projt-launcher
         if: github.ref_type == 'tag'
         run: |
           nix build --no-link --print-build-logs .#packages.${{ matrix.system }}.projtlauncher || \
           nix build --no-link --print-build-logs .#projtlauncher
 
       - name: Install package for testing
+        working-directory: projt-launcher
         run: |
           nix profile install .#packages.${{ matrix.system }}.projtlauncher || \
           nix profile install .#projtlauncher || \
           echo "Package installation skipped or not available"
 
       - name: Run tests via Nix
+        working-directory: projt-launcher
         continue-on-error: true
         run: |
           nix build --no-link --print-build-logs .#checks.${{ matrix.system }}.default || \
           echo "No tests defined in flake"
 
       - name: Build package with result link
+        working-directory: projt-launcher
         id: build-result
         run: |
           # Build with result link for artifact upload
@@ -147,6 +153,7 @@ jobs:
           fi
 
       - name: Upload Nix package
+        working-directory: projt-launcher
         if: steps.build-result.outputs.has-result == 'true'
         uses: actions/upload-artifact@v6
         with:

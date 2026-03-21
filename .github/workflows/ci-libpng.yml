@@ -77,7 +77,7 @@ jobs:
           set -euxo pipefail
           mkdir -p "$GITHUB_WORKSPACE/.ptlibzippy-prefix"
           cd ptlibzippy
-          ./configure prefix="$GITHUB_WORKSPACE/.ptlibzippy-prefix"
+          ./configure --prefix="$GITHUB_WORKSPACE/.ptlibzippy-prefix"
           make -j2
           make install
 

@@ -73,18 +73,19 @@ jobs:
         env:
           BOOTSTRAP_COMMAND: ${{ matrix.bootstrap }}
 
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.ref || github.event.inputs.ref || github.sha }}
-
       - name: Install dependencies
         shell: bash
+        working_directory: ${{ github.workspace }}
         run: |
           set -euxo pipefail
           eval "${INSTALL_COMMAND}"
         env:
           INSTALL_COMMAND: ${{ matrix.install }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.event.inputs.ref || github.sha }}
 
       - name: Configure and build with Meson
         shell: bash
@@ -172,18 +173,19 @@ jobs:
         env:
           BOOTSTRAP_COMMAND: ${{ matrix.bootstrap }}
 
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.ref || github.event.inputs.ref || github.sha }}
-
       - name: Install dependencies
         shell: bash
+        working_directory: ${{ github.workspace }}
         run: |
           set -euxo pipefail
           eval "${INSTALL_COMMAND}"
         env:
           INSTALL_COMMAND: ${{ matrix.install }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.event.inputs.ref || github.sha }}
 
       - name: Configure and build with CMake
         shell: bash

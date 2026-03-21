@@ -3,9 +3,17 @@
 set -e
 
 if [ `uname -s` = Darwin ]; then
-    LIBTOOLIZE=glibtoolize
+    if command -v glibtoolize >/dev/null 2>&1; then
+        LIBTOOLIZE=glibtoolize
+    else
+        LIBTOOLIZE=libtoolize
+    fi
 else
-    LIBTOOLIZE=libtoolize
+    if command -v libtoolize >/dev/null 2>&1; then
+        LIBTOOLIZE=libtoolize
+    else
+        LIBTOOLIZE=glibtoolize
+    fi
 fi
 
 ACLOCAL_OPT=""

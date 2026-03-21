@@ -786,6 +786,14 @@ endif()
 if(PNG_TESTS AND PNG_SHARED)
   enable_testing()
 
+  set(PNG_TEST_LIBRARY_DIRS "$<TARGET_FILE_DIR:png_shared>")
+  if(TARGET ptlibzippy)
+    list(APPEND PNG_TEST_LIBRARY_DIRS "$<TARGET_FILE_DIR:ptlibzippy>")
+  elseif(TARGET PTlibzippy::PTlibzippy)
+    list(APPEND PNG_TEST_LIBRARY_DIRS "$<TARGET_FILE_DIR:PTlibzippy::PTlibzippy>")
+  endif()
+  list(REMOVE_DUPLICATES PNG_TEST_LIBRARY_DIRS)
+
   # Include the internal module PNGTest.cmake
   include("${CMAKE_CURRENT_SOURCE_DIR}/scripts/cmake/PNGTest.cmake")
 

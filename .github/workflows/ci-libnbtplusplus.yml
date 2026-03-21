@@ -48,7 +48,7 @@ jobs:
           set -euxo pipefail
           cmake -S libnbtplusplus -B build/libnbtplusplus -G Ninja \
             -DCMAKE_BUILD_TYPE=Debug \
-            -DCMAKE_PREFIX_PATH="${PTLIBZIPPY_PREFIX}" \
+            -DCMAKE_PREFIX_PATH="${PTLIBZIPPY_PREFIX:-}" \
             -DNBT_BUILD_TESTS=ON \
             -DNBT_BUILD_LOCAL_TEST=OFF \
             -DNBT_USE_ZLIB=ON
