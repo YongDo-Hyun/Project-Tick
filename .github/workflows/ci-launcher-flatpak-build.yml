@@ -1,7 +1,9 @@
 name: CI Flatpak Build
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  # Reusable workflows inherit github.workflow from the caller, so use the
+  # workflow file reference to avoid deadlocking with the parent workflow.
+  group: ${{ github.workflow_ref }}-${{ github.ref || github.run_id }}
   cancel-in-progress: true
 
 on:
