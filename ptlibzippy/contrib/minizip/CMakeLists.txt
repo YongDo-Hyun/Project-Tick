@@ -17,7 +17,7 @@ endif(CMAKE_SIZEOF_VOID_P LESS 8 AND NOT MINGW)
 # ============================================================================
 set(CPACK_PACKAGE_VENDOR "PTlibzippy-Project")
 set(CPACK_PACKAGE_DESCRIPTION_FILE ${minizip_SOURCE_DIR}/MiniZip64_info.txt)
-set(CPACK_RESOURCE_FILE_LICENSE ${minizip_SOURCE_DIR}/../../COPYING)
+set(CPACK_RESOURCE_FILE_LICENSE ${minizip_SOURCE_DIR}/../../COPYING.md)
 set(CPACK_RESOURCE_FILE_README ${minizip_SOURCE_DIR}/MiniZip64_info.txt)
 
 # ============================================================================

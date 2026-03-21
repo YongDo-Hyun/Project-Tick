@@ -1,7 +1,7 @@
 # Contributing to ProjT Launcher
 
 ```text
-Upstream Maintainer: YongDo-Hyun <yongdohyun@projtlauncher.yongdohyun.org.tr>
+Upstream Maintainer: Mehmet Samet Duman <yongdohyun@projecttick.org>
 License: GPL-3.0-only (Launcher), see COPYING.md
 ```
 

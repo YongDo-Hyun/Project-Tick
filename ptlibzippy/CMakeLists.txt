@@ -12,7 +12,7 @@ project(
 # ============================================================================
 set(CPACK_PACKAGE_VENDOR "PTlibzippy-Project")
 set(CPACK_PACKAGE_DESCRIPTION_FILE ${PTlibzippy_SOURCE_DIR}/README)
-set(CPACK_RESOURCE_FILE_LICENSE ${PTlibzippy_SOURCE_DIR}/COPYING)
+set(CPACK_RESOURCE_FILE_LICENSE ${PTlibzippy_SOURCE_DIR}/COPYING.md)
 set(CPACK_RESOURCE_FILE_README ${PTlibzippy_SOURCE_DIR}/README)
 
 # ============================================================================

@@ -1,0 +1,6 @@
+[submodule "projt-launcher/flatpak/shared-modules"]
+	path = projt-launcher/flatpak/shared-modules
+	url = https://github.com/flathub/shared-modules.git
+[submodule "bzip2/tests/input/bzip2-testfiles"]
+	path = bzip2/tests/input/bzip2-testfiles
+	url = https://gitlab.com/bzip2/bzip2-testfiles.git

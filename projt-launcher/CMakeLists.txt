@@ -818,7 +818,7 @@ elseif(PTLIBZIPPY_INCLUDE_DIRS)
 endif()
 
 if(NOT LAUNCHER_FUZZ_ONLY AND UNIX AND NOT APPLE)
-    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/libpng/CMakeLists.txt")
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../libpng/CMakeLists.txt")
         message(STATUS "Using bundled libpng")
         # Ensure libpng install rules are enabled even if other deps toggled them.
         set(SKIP_INSTALL_ALL OFF CACHE BOOL "" FORCE)
@@ -840,7 +840,7 @@ if(NOT LAUNCHER_FUZZ_ONLY AND UNIX AND NOT APPLE)
         endif()
         projt_push_output_dirs("libpng")
         projt_push_autogen_disabled()
-        add_subdirectory(libpng)
+        add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../libpng libpng)
         projt_pop_autogen_disabled()
         projt_pop_output_dirs()
         foreach(_projt_png_target png_shared png_static png_framework)
@@ -979,7 +979,7 @@ if(NOT LAUNCHER_FUZZ_ONLY)
         endif()
     endif()
 
-    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/quazip/CMakeLists.txt")
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../quazip/CMakeLists.txt")
         message(STATUS "Using bundled QuaZip")
         set(QUAZIP_ENABLE_TESTS OFF CACHE BOOL "" FORCE)
         set(QUAZIP_ENABLE_QTEXTCODEC OFF CACHE BOOL "" FORCE)
@@ -1000,7 +1000,7 @@ if(NOT LAUNCHER_FUZZ_ONLY)
             endif()
         endif()
         projt_push_output_dirs("quazip")
-        add_subdirectory(quazip)
+        add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../quazip quazip)
         projt_pop_output_dirs()
         if(UNIX AND NOT APPLE)
             if(DEFINED Launcher_BUNDLED_INCLUDEDIR AND NOT Launcher_BUNDLED_INCLUDEDIR STREQUAL "")
@@ -1395,13 +1395,13 @@ include(ExternalProject)
 set_directory_properties(PROPERTIES EP_BASE External)
 
 # libnbtplusplus - Using submodule/bundled as it's not in package managers
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/libnbtplusplus/CMakeLists.txt")
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../libnbtplusplus/CMakeLists.txt")
     message(STATUS "Using bundled libnbtplusplus")
     option(NBT_BUILD_SHARED "Build NBT shared library" OFF)
     option(NBT_USE_ZLIB "Build NBT library with zlib support" ON)
     option(NBT_BUILD_TESTS "Build NBT library tests" OFF)
     projt_push_output_dirs("libnbtplusplus")
-    add_subdirectory(./libnbtplusplus)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../libnbtplusplus libnbtplusplus)
     projt_pop_output_dirs()
 else()
     message(FATAL_ERROR "libnbtplusplus not found. libnbtplusplus/ directory is missing.")
@@ -1409,23 +1409,23 @@ endif()
 
 if(NOT LAUNCHER_FUZZ_ONLY)
     projt_push_output_dirs("systeminfo")
-    add_subdirectory(./systeminfo) # system information library
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../systeminfo systeminfo) # system information library
     projt_pop_output_dirs()
 endif()
 if(NOT LAUNCHER_FUZZ_ONLY)
     projt_push_output_dirs("launcherjava")
-    add_subdirectory(./launcherjava) # java based launcher part for Minecraft
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../javaloader javaloader) # java based launcher part for Minecraft
     projt_pop_output_dirs()
     projt_push_output_dirs("javacheck")
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../javacheck javacheck) # java compatibility checker
     projt_pop_output_dirs()
     projt_push_output_dirs("rainbow")
-    add_subdirectory(./rainbow) # Qt extension for colors
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../rainbow rainbow) # Qt extension for colors
     projt_pop_output_dirs()
     projt_push_output_dirs("LocalPeer")
-    add_subdirectory(./LocalPeer) # fork of a library from Qt solutions
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../LocalPeer LocalPeer) # fork of a library from Qt solutions
     projt_pop_output_dirs()
-    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/gamemode/CMakeLists.txt")
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../gamemode/CMakeLists.txt")
         if(UNIX AND NOT APPLE)
             if(DEFINED Launcher_BUNDLED_LIBDIR AND NOT Launcher_BUNDLED_LIBDIR STREQUAL "")
                 projt_push_install_libdir("${Launcher_BUNDLED_LIBDIR}")
@@ -1439,7 +1439,7 @@ if(NOT LAUNCHER_FUZZ_ONLY)
         endif()
         set(GAMEMODE_WITH_PRIVILEGED_GROUP "ptgamemode" CACHE STRING "" FORCE)
         projt_push_output_dirs("gamemode")
-        add_subdirectory(./gamemode)
+        add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../gamemode gamemode)
         projt_pop_output_dirs()
         if(UNIX AND NOT APPLE)
             if(DEFINED Launcher_BUNDLED_LIBEXECDIR AND NOT Launcher_BUNDLED_LIBEXECDIR STREQUAL "")
@@ -1456,10 +1456,10 @@ if(NOT LAUNCHER_FUZZ_ONLY)
         message(STATUS "gamemode/ not found; skipping bundled gamemode")
     endif()
     projt_push_output_dirs("murmur2")
-    add_subdirectory(./murmur2) # Hash for usage with the CurseForge API
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../murmur2 murmur2) # Hash for usage with the CurseForge API
     projt_pop_output_dirs()
     projt_push_output_dirs("qdcss")
-    add_subdirectory(./qdcss) # css parser
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../qdcss qdcss) # css parser
     projt_pop_output_dirs()
 endif()
 

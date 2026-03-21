@@ -1,0 +1,68 @@
+name: CI libnbtplusplus
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: Ref to build
+        required: false
+        type: string
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Ref to build
+        required: false
+        type: string
+permissions:
+  contents: read
+
+jobs:
+  libnbtplusplus:
+    runs-on: ubuntu-latest
+    env:
+      PTLIBZIPPY_PREFIX: ${{ runner.temp }}/ptlibzippy-root
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.event.inputs.ref || github.sha }}
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          set -euxo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends binutils cmake cxxtest ninja-build
+
+      - name: Build ptlibzippy dependency
+        shell: bash
+        run: |
+          set -euxo pipefail
+          cmake -S ptlibzippy -B build/ptlibzippy -G Ninja \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DPTLIBZIPPY_BUILD_TESTING=OFF
+          cmake --build build/ptlibzippy --parallel
+          cmake --install build/ptlibzippy --prefix "${PTLIBZIPPY_PREFIX}"
+
+      - name: Configure libnbtplusplus
+        shell: bash
+        run: |
+          set -euxo pipefail
+          cmake -S libnbtplusplus -B build/libnbtplusplus -G Ninja \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_PREFIX_PATH="${PTLIBZIPPY_PREFIX}" \
+            -DNBT_BUILD_TESTS=ON \
+            -DNBT_BUILD_LOCAL_TEST=OFF \
+            -DNBT_USE_ZLIB=ON
+
+      - name: Build libnbtplusplus
+        shell: bash
+        run: |
+          set -euxo pipefail
+          cmake --build build/libnbtplusplus --parallel
+
+      - name: Run tests
+        shell: bash
+        run: |
+          set -euxo pipefail
+          ctest --test-dir build/libnbtplusplus --output-on-failure

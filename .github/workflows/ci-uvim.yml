@@ -1,0 +1,76 @@
+name: CI uVim
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: Ref to build
+        required: false
+        type: string
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Ref to build
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  uvim:
+    runs-on: ubuntu-latest
+    env:
+      UVIM_CONFIGURE_FLAGS: >-
+        CONF_OPT_GUI=--disable-gui
+        CONF_OPT_X=--without-x
+        CONF_OPT_NLS=--disable-nls
+        CONF_OPT_ACL=--disable-acl
+        CONF_OPT_GPM=--disable-gpm
+        CONF_OPT_NETBEANS=--disable-netbeans
+        CONF_OPT_CHANNEL=--disable-channel
+        CONF_OPT_FEAT=--with-features=normal
+      TERM: xterm
+      LINES: "40"
+      COLUMNS: "120"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.event.inputs.ref || github.sha }}
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          set -euxo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends \
+            build-essential \
+            gettext \
+            libncurses-dev
+
+      - name: Configure and build
+        shell: bash
+        working-directory: uvim/src
+        run: |
+          set -euxo pipefail
+          make ${UVIM_CONFIGURE_FLAGS} reconfig
+
+      - name: Run nongui tests
+        shell: bash
+        working-directory: uvim/src/testdir
+        run: |
+          set -euxo pipefail
+          make -f Makefile clean
+          make -f Makefile VIMPROG=../vim SCRIPTSOURCE=../../runtime nongui
+
+      - name: Upload test logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: uvim-test-logs
+          path: |
+            uvim/src/testdir/test.log
+            uvim/src/testdir/messages
+            uvim/src/testdir/*.failed
+          if-no-files-found: ignore

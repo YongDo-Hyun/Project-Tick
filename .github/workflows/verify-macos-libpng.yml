@@ -1,0 +1,35 @@
+name: Verifying libpng on macOS
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: Ref to verify
+        required: false
+        type: string
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Ref to verify
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  verify-macos:
+    runs-on: macos-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.event.inputs.ref || github.sha }}
+      - name: Run the CMake verification script
+        working-directory: libpng
+        run: bash ./ci/ci_verify_cmake.sh
+        env:
+          CI_CMAKE_GENERATOR: Xcode
+          CI_CMAKE_BUILD_FLAGS: -j2
+          CI_CTEST_FLAGS: -j2

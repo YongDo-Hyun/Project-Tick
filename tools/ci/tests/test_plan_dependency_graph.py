@@ -11,7 +11,7 @@ class DependencyGraphPlannerTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.graph = load_graph(Path(DEFAULT_GRAPH))
 
-    def test_ptlibzippy_change_fans_out_to_launcher(self) -> None:
+    def test_ptlibzippy_change_fans_out_to_launcher_and_shims(self) -> None:
         plan = plan_changes(
             self.graph,
             ["ptlibzippy/contrib/minizip/CMakeLists.txt"],
@@ -21,9 +21,15 @@ class DependencyGraphPlannerTests(unittest.TestCase):
         self.assertEqual(plan.changed_nodes, ("ptlibzippy",))
         self.assertEqual(
             plan.impacted_nodes,
-            ("projt-launcher", "projt-launcher-quazip", "ptlibzippy"),
+            (
+                "libnbtplusplus",
+                "libpng",
+                "projt-launcher",
+                "projt-launcher-quazip",
+                "ptlibzippy",
+            ),
         )
-        self.assertEqual(plan.runners, ("launcher",))
+        self.assertEqual(plan.runners, ("launcher", "libnbtplusplus", "libpng"))
 
     def test_forgewrapper_change_fans_out_to_meta(self) -> None:
         plan = plan_changes(
@@ -36,6 +42,17 @@ class DependencyGraphPlannerTests(unittest.TestCase):
         self.assertEqual(plan.impacted_nodes, ("forgewrapper", "meta"))
         self.assertEqual(plan.runners, ("forgewrapper", "meta"))
 
+    def test_localpeer_change_fans_out_to_launcher(self) -> None:
+        plan = plan_changes(
+            self.graph,
+            ["LocalPeer/src/LocalPeer.cpp"],
+            default_all_if_empty=False,
+        )
+
+        self.assertEqual(plan.changed_nodes, ("localpeer",))
+        self.assertEqual(plan.impacted_nodes, ("localpeer", "projt-launcher"))
+        self.assertEqual(plan.runners, ("launcher", "localpeer"))
+
     def test_global_ci_change_fans_out_to_all_runners(self) -> None:
         plan = plan_changes(
             self.graph,
@@ -47,7 +64,24 @@ class DependencyGraphPlannerTests(unittest.TestCase):
         self.assertEqual(plan.changed_files, (".github/workflows/ci-graph-plan.yml",))
         self.assertEqual(
             plan.runners,
-            ("dockerimages", "forgewrapper", "gamemode", "launcher", "meta", "modpacks"),
+            (
+                "bzip2",
+                "dockerimages",
+                "forgewrapper",
+                "gamemode",
+                "javaloader",
+                "launcher",
+                "libnbtplusplus",
+                "libpng",
+                "localpeer",
+                "meta",
+                "modpacks",
+                "murmur2",
+                "qdcss",
+                "rainbow",
+                "systeminfo",
+                "uvim",
+            ),
         )
 
 

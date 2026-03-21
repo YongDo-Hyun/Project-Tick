@@ -4,6 +4,9 @@
     "tools/ci/"
   ],
   "runners": {
+    "bzip2": {
+      "description": "bzip2 matrix validation lane"
+    },
     "dockerimages": {
       "description": "Container image build lane"
     },
@@ -13,14 +16,41 @@
     "gamemode": {
       "description": "GameMode build-and-test lane"
     },
+    "javaloader": {
+      "description": "Javaloader jar build lane"
+    },
     "launcher": {
       "description": "ProjT Launcher integration lane"
+    },
+    "libnbtplusplus": {
+      "description": "libnbtplusplus build-and-test lane"
+    },
+    "libpng": {
+      "description": "libpng validation lane"
+    },
+    "localpeer": {
+      "description": "LocalPeer build lane"
     },
     "meta": {
       "description": "Metadata generator lane"
     },
     "modpacks": {
       "description": "Modpack validation lane"
+    },
+    "murmur2": {
+      "description": "murmur2 build lane"
+    },
+    "qdcss": {
+      "description": "qdcss build lane"
+    },
+    "rainbow": {
+      "description": "rainbow build lane"
+    },
+    "systeminfo": {
+      "description": "systeminfo build-and-test lane"
+    },
+    "uvim": {
+      "description": "uVim build-and-test lane"
     }
   },
   "nodes": {
@@ -29,7 +59,8 @@
       "paths": [
         "bzip2/"
       ],
-      "depends_on": []
+      "depends_on": [],
+      "runner": "bzip2"
     },
     "cgit": {
       "description": "Standalone cgit fork.",
@@ -90,6 +121,14 @@
       ],
       "depends_on": []
     },
+    "javaloader": {
+      "description": "Bundled Java launcher shim consumed by the launcher build.",
+      "paths": [
+        "javaloader/"
+      ],
+      "depends_on": [],
+      "runner": "javaloader"
+    },
     "json4cpp": {
       "description": "Standalone JSON library fork.",
       "paths": [
@@ -97,12 +136,40 @@
       ],
       "depends_on": []
     },
+    "libnbtplusplus": {
+      "description": "Bundled NBT library consumed by the launcher.",
+      "paths": [
+        "libnbtplusplus/"
+      ],
+      "depends_on": [
+        "ptlibzippy"
+      ],
+      "runner": "libnbtplusplus"
+    },
+    "libpng": {
+      "description": "Bundled PNG library consumed by the launcher.",
+      "paths": [
+        "libpng/"
+      ],
+      "depends_on": [
+        "ptlibzippy"
+      ],
+      "runner": "libpng"
+    },
     "libqrencode": {
       "description": "Bundled QR encoder consumed by the launcher.",
       "paths": [
         "libqrencode/"
       ],
       "depends_on": []
+    },
+    "localpeer": {
+      "description": "Bundled LocalPeer IPC helper consumed by the launcher.",
+      "paths": [
+        "LocalPeer/"
+      ],
+      "depends_on": [],
+      "runner": "localpeer"
     },
     "meta": {
       "description": "Metadata generator and Nix packaging helpers.",
@@ -115,9 +182,9 @@
       "runner": "meta"
     },
     "projt-launcher-quazip": {
-      "description": "Nested QuaZip fork inside the launcher tree.",
+      "description": "Bundled QuaZip consumed by the launcher.",
       "paths": [
-        "projt-launcher/quazip/"
+        "quazip/"
       ],
       "depends_on": [
         "ptlibzippy"
@@ -133,9 +200,17 @@
         "cmark",
         "extra-cmake-modules",
         "javacheck",
+        "javaloader",
+        "libnbtplusplus",
+        "libpng",
         "libqrencode",
+        "localpeer",
         "projt-launcher-quazip",
         "ptlibzippy",
+        "murmur2",
+        "qdcss",
+        "rainbow",
+        "systeminfo",
         "tomlplusplus"
       ],
       "runner": "launcher"
@@ -163,6 +238,38 @@
       ],
       "depends_on": []
     },
+    "murmur2": {
+      "description": "Bundled MurmurHash2 helper consumed by the launcher.",
+      "paths": [
+        "murmur2/"
+      ],
+      "depends_on": [],
+      "runner": "murmur2"
+    },
+    "qdcss": {
+      "description": "Bundled Qt stylesheet parser consumed by the launcher.",
+      "paths": [
+        "qdcss/"
+      ],
+      "depends_on": [],
+      "runner": "qdcss"
+    },
+    "rainbow": {
+      "description": "Bundled Qt color helper consumed by the launcher.",
+      "paths": [
+        "rainbow/"
+      ],
+      "depends_on": [],
+      "runner": "rainbow"
+    },
+    "systeminfo": {
+      "description": "Bundled system information helper consumed by the launcher.",
+      "paths": [
+        "systeminfo/"
+      ],
+      "depends_on": [],
+      "runner": "systeminfo"
+    },
     "tomlplusplus": {
       "description": "Bundled TOML parser consumed by the launcher.",
       "paths": [
@@ -175,7 +282,8 @@
       "paths": [
         "uvim/"
       ],
-      "depends_on": []
+      "depends_on": [],
+      "runner": "uvim"
     }
   }
 }

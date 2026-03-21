@@ -1,0 +1,195 @@
+name: CI bzip2
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: Ref to build
+        required: false
+        type: string
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Ref to build
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  meson:
+    name: Meson ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    container:
+      image: ${{ matrix.image }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: debian-testing
+            image: debian:testing
+            bootstrap: apt-get update -y && apt-get install -y git ca-certificates
+            install: apt-get update -y && apt-get install -y gcc meson ninja-build python3-distutils python3-pytest valgrind
+          - name: ubuntu-bionic
+            image: ubuntu:bionic
+            bootstrap: apt-get update -y && apt-get install -y git ca-certificates
+            install: apt-get update -y && apt-get install -y gcc python3-pip ninja-build valgrind && pip3 install meson pytest
+          - name: ubuntu-bionic-i386
+            image: i386/ubuntu:bionic
+            bootstrap: apt-get update -y && apt-get install -y git ca-certificates
+            install: apt-get update -y && apt-get install -y gcc python3-pip ninja-build valgrind && pip3 install meson pytest
+          - name: fedora-35
+            image: registry.fedoraproject.org/fedora:35
+            bootstrap: dnf install -y git ca-certificates
+            install: dnf install -y gcc meson python3-pytest valgrind
+          - name: fedora-rawhide
+            image: registry.fedoraproject.org/fedora:rawhide
+            bootstrap: dnf install -y git ca-certificates
+            install: dnf install -y gcc meson python3-pytest valgrind
+          - name: opensuse-leap
+            image: opensuse/leap
+            bootstrap: zypper --non-interactive install -y git ca-certificates
+            install: zypper --non-interactive install -y gcc ninja python3-pip valgrind && pip3 install meson pytest
+          - name: opensuse-tumbleweed
+            image: opensuse/tumbleweed
+            bootstrap: zypper --non-interactive install -y git ca-certificates
+            install: zypper --non-interactive install -y gcc meson python3-pytest valgrind
+    steps:
+      - name: Bootstrap container
+        shell: bash
+        run: |
+          set -euxo pipefail
+          eval "${BOOTSTRAP_COMMAND}"
+        env:
+          BOOTSTRAP_COMMAND: ${{ matrix.bootstrap }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.event.inputs.ref || github.sha }}
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          set -euxo pipefail
+          eval "${INSTALL_COMMAND}"
+        env:
+          INSTALL_COMMAND: ${{ matrix.install }}
+
+      - name: Configure and build with Meson
+        shell: bash
+        working-directory: bzip2
+        run: |
+          set -euxo pipefail
+          meson setup builddir
+          meson compile -C builddir
+          meson test -C builddir --print-errorlogs
+
+      - name: Upload Meson logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bzip2-meson-${{ matrix.name }}-logs
+          path: bzip2/builddir/meson-logs/meson-log.txt
+          if-no-files-found: ignore
+
+  cmake:
+    name: CMake ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    container:
+      image: ${{ matrix.image }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: debian-testing-debug
+            image: debian:testing
+            bootstrap: apt-get update -y && apt-get install -y git ca-certificates
+            install: apt-get update -y && apt-get install -y cmake gcc make python3-pytest valgrind
+            cmake_args: -DCMAKE_BUILD_TYPE=Debug -DENABLE_SHARED_LIB=ON -DENABLE_STATIC_LIB=OFF
+          - name: debian-testing-release
+            image: debian:testing
+            bootstrap: apt-get update -y && apt-get install -y git ca-certificates
+            install: apt-get update -y && apt-get install -y cmake gcc make python3-pytest valgrind
+            cmake_args: -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED_LIB=ON -DENABLE_STATIC_LIB=OFF
+          - name: debian-testing-shared-static
+            image: debian:testing
+            bootstrap: apt-get update -y && apt-get install -y git ca-certificates
+            install: apt-get update -y && apt-get install -y cmake gcc make python3-pytest valgrind
+            cmake_args: -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED_LIB=ON -DENABLE_STATIC_LIB=ON
+          - name: debian-testing-static-only
+            image: debian:testing
+            bootstrap: apt-get update -y && apt-get install -y git ca-certificates
+            install: apt-get update -y && apt-get install -y cmake gcc make python3-pytest valgrind
+            cmake_args: -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED_LIB=OFF -DENABLE_STATIC_LIB=ON
+          - name: ubuntu-bionic
+            image: ubuntu:bionic
+            bootstrap: apt-get update -y && apt-get install -y git ca-certificates
+            install: apt-get update -y && apt-get install -y gcc make python3-pip valgrind && pip3 install --upgrade pip && pip3 install pytest cmake
+            cmake_args: -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED_LIB=ON -DENABLE_STATIC_LIB=OFF
+          - name: ubuntu-bionic-i386
+            image: i386/ubuntu:bionic
+            bootstrap: apt-get update -y && apt-get install -y git ca-certificates
+            install: apt-get update -y && apt-get install -y gcc make python3-pip valgrind && pip3 install --upgrade pip && pip3 install pytest cmake
+            cmake_args: -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED_LIB=ON -DENABLE_STATIC_LIB=OFF
+          - name: fedora-35
+            image: registry.fedoraproject.org/fedora:35
+            bootstrap: dnf install -y git ca-certificates
+            install: dnf install -y gcc cmake python3-pytest valgrind
+            cmake_args: -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED_LIB=ON -DENABLE_STATIC_LIB=OFF
+          - name: fedora-rawhide
+            image: registry.fedoraproject.org/fedora:rawhide
+            bootstrap: dnf install -y git ca-certificates
+            install: dnf install -y gcc cmake python3-pytest valgrind
+            cmake_args: -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED_LIB=ON -DENABLE_STATIC_LIB=OFF
+          - name: opensuse-leap
+            image: opensuse/leap
+            bootstrap: zypper --non-interactive install -y git ca-certificates
+            install: zypper --non-interactive install -y gcc cmake python3-pip valgrind && pip3 install pytest
+            cmake_args: -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED_LIB=ON -DENABLE_STATIC_LIB=OFF
+          - name: opensuse-tumbleweed
+            image: opensuse/tumbleweed
+            bootstrap: zypper --non-interactive install -y git ca-certificates
+            install: zypper --non-interactive install -y gcc cmake python3-pytest valgrind
+            cmake_args: -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED_LIB=ON -DENABLE_STATIC_LIB=OFF
+    steps:
+      - name: Bootstrap container
+        shell: bash
+        run: |
+          set -euxo pipefail
+          eval "${BOOTSTRAP_COMMAND}"
+        env:
+          BOOTSTRAP_COMMAND: ${{ matrix.bootstrap }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.event.inputs.ref || github.sha }}
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          set -euxo pipefail
+          eval "${INSTALL_COMMAND}"
+        env:
+          INSTALL_COMMAND: ${{ matrix.install }}
+
+      - name: Configure and build with CMake
+        shell: bash
+        working-directory: bzip2
+        run: |
+          set -euxo pipefail
+          cmake -S . -B builddir -D ENABLE_TESTS=ON ${{ matrix.cmake_args }}
+          cmake --build builddir --parallel
+          ctest --test-dir builddir --output-on-failure
+
+      - name: Upload CMake logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bzip2-cmake-${{ matrix.name }}-logs
+          path: bzip2/builddir/CMakeFiles/CMakeOutput.log
+          if-no-files-found: ignore
