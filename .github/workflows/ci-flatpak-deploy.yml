@@ -1,7 +1,7 @@
 name: Deploy Flatpak repository
 
 concurrency:
-  group: ${{ github.workflow_ref }}-${{ github.ref || github.run_id }}
+  group: flatpak-deploy-${{ github.ref || github.run_id }}
   cancel-in-progress: true
 
 on:
