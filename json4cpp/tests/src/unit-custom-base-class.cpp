@@ -189,10 +189,10 @@ class visitor_adaptor
 {
   public:
     template <class Fnc>
-    void visit(const Fnc& fnc) const;
+    void visit(const Fnc & fnc) const;
   private:
     template <class Ptr, class Fnc>
-    void do_visit(const Ptr& ptr, const Fnc& fnc) const;
+    void do_visit(const Ptr & ptr, const Fnc & fnc) const;
 };
 
 using json_with_visitor_t = nlohmann::basic_json <
@@ -283,8 +283,8 @@ TEST_CASE("JSON Visit Node")
     };
 
     json.visit(
-            [&](const json_with_visitor_t::json_pointer & p,
-                const json_with_visitor_t& j)
+        [&](const json_with_visitor_t::json_pointer & p,
+            const json_with_visitor_t& j)
     {
         std::stringstream str;
         str << p.to_string() << " - " ;
@@ -331,6 +331,6 @@ TEST_CASE("JSON Visit Node")
         CHECK(expected.count(str.str()) == 1);
         expected.erase(str.str());
     }
-        );
+    );
     CHECK(expected.empty());
 }

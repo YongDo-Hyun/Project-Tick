@@ -410,7 +410,7 @@ struct is_iterator_of_multibyte
 };
 
 template<typename IteratorType>
-struct iterator_input_adapter_factory<IteratorType, enable_if_t<is_iterator_of_multibyte<IteratorType>::value>>
+struct iterator_input_adapter_factory<IteratorType, enable_if_t<is_iterator_of_multibyte<IteratorType>::value >>
 {
     using iterator_type = IteratorType;
     using char_type = typename std::iterator_traits<iterator_type>::value_type;
@@ -444,28 +444,28 @@ using std::end;
 template<typename ContainerType, typename Enable = void>
 struct container_input_adapter_factory {};
 
-template<typename ContainerType>
-struct container_input_adapter_factory< ContainerType,
-       void_t<decltype(begin(std::declval<ContainerType>()), end(std::declval<ContainerType>()))>>
-       {
-           using adapter_type = decltype(input_adapter(begin(std::declval<ContainerType>()), end(std::declval<ContainerType>())));
-
-           static adapter_type create(const ContainerType& container)
+template < typename ContainerType >
+struct container_input_adapter_factory < ContainerType,
+       void_t < decltype(begin(std::declval < ContainerType>()), end(std::declval<ContainerType>())) >>
 {
-    return input_adapter(begin(container), end(container));
-}
-       };
+    using adapter_type = decltype(input_adapter(begin(std::declval < ContainerType > ()), end(std::declval < ContainerType > ())));
+
+    static adapter_type create(const ContainerType & container)
+    {
+        return input_adapter(begin(container), end(container));
+    }
+};
 
 }  // namespace container_input_adapter_factory_impl
 
-template<typename ContainerType>
-typename container_input_adapter_factory_impl::container_input_adapter_factory<ContainerType>::adapter_type input_adapter(const ContainerType& container)
+template < typename ContainerType >
+typename container_input_adapter_factory_impl::container_input_adapter_factory < ContainerType >::adapter_type input_adapter(const ContainerType& container)
 {
-    return container_input_adapter_factory_impl::container_input_adapter_factory<ContainerType>::create(container);
+    return container_input_adapter_factory_impl::container_input_adapter_factory < ContainerType >::create(container);
 }
 
 // specialization for std::string
-using string_input_adapter_type = decltype(input_adapter(std::declval<std::string>()));
+using string_input_adapter_type = decltype(input_adapter(std::declval < std::string > ()));
 
 #ifndef JSON_NO_IO
 // Special cases with fast paths
@@ -489,15 +489,15 @@ inline input_stream_adapter input_adapter(std::istream&& stream)
 }
 #endif  // JSON_NO_IO
 
-using contiguous_bytes_input_adapter = decltype(input_adapter(std::declval<const char*>(), std::declval<const char*>()));
+using contiguous_bytes_input_adapter = decltype(input_adapter(std::declval < const char* > (), std::declval < const char* > ()));
 
 // Null-delimited strings, and the like.
 template < typename CharT,
            typename std::enable_if <
-               std::is_pointer<CharT>::value&&
-               !std::is_array<CharT>::value&&
-               std::is_integral<typename std::remove_pointer<CharT>::type>::value&&
-               sizeof(typename std::remove_pointer<CharT>::type) == 1,
+               std::is_pointer < CharT >::value&&
+               !std::is_array < CharT >::value&&
+               std::is_integral < typename std::remove_pointer < CharT>::type >::value&&
+               sizeof(typename std::remove_pointer < CharT >::type) == 1,
                int >::type = 0 >
 contiguous_bytes_input_adapter input_adapter(CharT b)
 {
@@ -505,12 +505,12 @@ contiguous_bytes_input_adapter input_adapter(CharT b)
     {
         JSON_THROW(parse_error::create(101, 0, "attempting to parse an empty input; check that your input string or stream contains the expected JSON", nullptr));
     }
-    auto length = std::strlen(reinterpret_cast<const char*>(b));
-    const auto* ptr = reinterpret_cast<const char*>(b);
+    auto length = std::strlen(reinterpret_cast < const char* > (b));
+    const auto* ptr = reinterpret_cast < const char* > (b);
     return input_adapter(ptr, ptr + length); // cppcheck-suppress[nullPointerArithmeticRedundantCheck]
 }
 
-template<typename T, std::size_t N>
+template < typename T, std::size_t N >
 auto input_adapter(T (&array)[N]) -> decltype(input_adapter(array, array + N)) // NOLINT(cppcoreguidelines-avoid-c-arrays,hicpp-avoid-c-arrays,modernize-avoid-c-arrays)
 {
     return input_adapter(array, array + N);
@@ -524,17 +524,17 @@ class span_input_adapter
   public:
     template < typename CharT,
                typename std::enable_if <
-                   std::is_pointer<CharT>::value&&
-                   std::is_integral<typename std::remove_pointer<CharT>::type>::value&&
-                   sizeof(typename std::remove_pointer<CharT>::type) == 1,
+                   std::is_pointer < CharT >::value&&
+                   std::is_integral < typename std::remove_pointer < CharT>::type >::value&&
+                   sizeof(typename std::remove_pointer < CharT >::type) == 1,
                    int >::type = 0 >
     span_input_adapter(CharT b, std::size_t l)
-        : ia(reinterpret_cast<const char*>(b), reinterpret_cast<const char*>(b) + l) {}
+        : ia(reinterpret_cast < const char* > (b), reinterpret_cast < const char* > (b) + l) {}
 
-    template<class IteratorType,
-             typename std::enable_if<
-                 std::is_same<typename iterator_traits<IteratorType>::iterator_category, std::random_access_iterator_tag>::value,
-                 int>::type = 0>
+    template < class IteratorType,
+               typename std::enable_if <
+                   std::is_same < typename iterator_traits < IteratorType>::iterator_category, std::random_access_iterator_tag >::value,
+                   int >::type = 0 >
     span_input_adapter(IteratorType first, IteratorType last)
         : ia(input_adapter(first, last)) {}
 

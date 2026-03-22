@@ -235,13 +235,13 @@ TEST_CASE("value conversion")
 
         SECTION("std::list<json>")
         {
-            const std::list<json> a = j.get<std::list<json>>();
+            const std::list<json> a = j.get<std::list<json >> ();
             CHECK(json(a) == j);
         }
 
         SECTION("std::forward_list<json>")
         {
-            const std::forward_list<json> a = j.get<std::forward_list<json>>();
+            const std::forward_list<json> a = j.get<std::forward_list<json >> ();
             CHECK(json(a) == j);
 
             CHECK_THROWS_WITH_AS(
@@ -251,7 +251,7 @@ TEST_CASE("value conversion")
 
         SECTION("std::vector<json>")
         {
-            const std::vector<json> a = j.get<std::vector<json>>();
+            const std::vector<json> a = j.get<std::vector<json >> ();
             CHECK(json(a) == j);
 
             CHECK_THROWS_WITH_AS(
@@ -285,7 +285,7 @@ TEST_CASE("value conversion")
 
         SECTION("std::deque<json>")
         {
-            const std::deque<json> a = j.get<std::deque<json>>();
+            const std::deque<json> a = j.get<std::deque<json >> ();
             CHECK(json(a) == j);
         }
 
@@ -1456,7 +1456,7 @@ TEST_CASE("value conversion")
                 {
                     std::array<int, 6> arr6 = {{1, 2, 3, 4, 5, 6}};
                     CHECK_THROWS_WITH_AS(j1.get_to(arr6), "[json.exception.out_of_range.401] "
-                                         "array index 4 is out of range", json::out_of_range&);
+                                                          "array index 4 is out of range", json::out_of_range&);
                 }
 
                 SECTION("std::array is smaller than JSON")

@@ -890,7 +890,7 @@ TEST_CASE("iterators 2")
             using nlohmann::detail::iteration_proxy;
             using items_type = decltype(std::declval<json&>().items());
             CHECK(std::is_same<items_type, iteration_proxy<json::iterator>>::value);
-            CHECK(std::is_same<iteration_proxy_value<json::iterator>, std::ranges::iterator_t<items_type>>::value);
+            CHECK(std::is_same<iteration_proxy_value<json::iterator>, std::ranges::iterator_t<items_type >>::value);
             CHECK(std::ranges::input_range<items_type>);
         }
 

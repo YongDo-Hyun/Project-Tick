@@ -49,7 +49,7 @@ struct iterator_traits < T, enable_if_t < !std::is_pointer<T>::value >>
 };
 
 template<typename T>
-struct iterator_traits<T*, enable_if_t<std::is_object<T>::value>>
+struct iterator_traits<T*, enable_if_t<std::is_object<T>::value >>
 {
     using iterator_category = std::random_access_iterator_tag;
     using value_type = T;

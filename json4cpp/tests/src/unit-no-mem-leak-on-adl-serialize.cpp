@@ -28,14 +28,14 @@ struct adl_serializer<Foo>
     {
         switch (f.b)
         {
-            case 0:
-                j["a"] = f.a;
+          case 0:
+                    j["a"] = f.a;
                 break;
-            case 1:
-                j[0] = f.a;
+          case 1:
+                    j[0] = f.a;
                 break;
-            default:
-                j = "test";
+          default:
+                    j = "test";
         }
         if (f.a == 1)
         {

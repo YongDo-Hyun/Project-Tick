@@ -91,7 +91,7 @@ struct foo_serializer < T, typename std::enable_if < !std::is_same<foo, T>::valu
 } // namespace ns
 
 using foo_json = nlohmann::basic_json<std::map, std::vector, std::string, bool, std::int64_t,
-      std::uint64_t, double, std::allocator, ns::foo_serializer, std::vector<std::uint8_t>>;
+      std::uint64_t, double, std::allocator, ns::foo_serializer, std::vector<std::uint8_t >>;
 
 /////////////////////////////////////////////////////////////////////
 // for #805
@@ -104,8 +104,8 @@ struct nocopy // NOLINT(cppcoreguidelines-special-member-functions,hicpp-special
     nocopy() = default;
     nocopy(const nocopy&) = delete;
     nocopy(nocopy&&) = delete;
-    nocopy& operator=(const nocopy&) = delete;
-    nocopy& operator=(nocopy&&) = delete;
+    nocopy& operator = (const nocopy&) = delete;
+    nocopy& operator = (nocopy&&) = delete;
 
     int val = 0;
 
@@ -1336,10 +1336,10 @@ TEST_CASE("regression tests 1")
         {
             std::ifstream is;
             is.exceptions(
-                  is.exceptions()
-                  | std::ios_base::failbit
-                  | std::ios_base::badbit
-              ); // handle different exceptions as 'file not found', 'permission denied'
+                is.exceptions()
+                | std::ios_base::failbit
+                | std::ios_base::badbit
+            ); // handle different exceptions as 'file not found', 'permission denied'
 
             is.open(TEST_DATA_DIRECTORY "/regression/working_file.json");
             json _;
@@ -1349,10 +1349,10 @@ TEST_CASE("regression tests 1")
         {
             std::ifstream is;
             is.exceptions(
-                  is.exceptions()
-                  | std::ios_base::failbit
-                  | std::ios_base::badbit
-              ); // handle different exceptions as 'file not found', 'permission denied'
+                is.exceptions()
+                | std::ios_base::failbit
+                | std::ios_base::badbit
+            ); // handle different exceptions as 'file not found', 'permission denied'
 
             is.open(TEST_DATA_DIRECTORY "/json_nlohmann_tests/all_unicode.json.cbor",
                     std::ios_base::in | std::ios_base::binary);

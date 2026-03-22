@@ -318,7 +318,7 @@ TEST_CASE("constructors")
             auto t_out = j.get<std::tuple<const json::number_float_t&,
                  const json::string_t&,
                  const json::number_integer_t&,
-                 const json::number_unsigned_t&>>();
+                 const json::number_unsigned_t& >> ();
             CHECK(&std::get<0>(t_out) == j[0].get_ptr<const json::number_float_t*>());
             CHECK(&std::get<1>(t_out) == j[1].get_ptr<const json::string_t*>());
             CHECK(&std::get<2>(t_out) == j[2].get_ptr<const json::number_integer_t*>());

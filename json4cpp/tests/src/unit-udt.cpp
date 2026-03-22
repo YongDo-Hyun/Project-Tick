@@ -408,16 +408,16 @@ struct adl_serializer<std::shared_ptr<T>>
 };
 
 template <>
-struct adl_serializer<udt::legacy_type>
+struct adl_serializer < udt::legacy_type >
 {
-    static void to_json(json& j, const udt::legacy_type& l)
+    static void to_json(json & j, const udt::legacy_type & l)
     {
         j = std::stoi(l.number);
     }
 
-    static void from_json(const json& j, udt::legacy_type& l)
+    static void from_json(const json & j, udt::legacy_type & l)
     {
-        l.number = std::to_string(j.get<int>());
+        l.number = std::to_string(j.get < int > ());
     }
 };
 } // namespace nlohmann
@@ -428,7 +428,7 @@ TEST_CASE("adl_serializer specialization" * doctest::test_suite("udt"))
     {
         SECTION("to_json")
         {
-            std::shared_ptr<udt::person> optPerson;
+            std::shared_ptr < udt::person > optPerson;
 
             json j = optPerson;
             CHECK(j.is_null());
@@ -437,7 +437,7 @@ TEST_CASE("adl_serializer specialization" * doctest::test_suite("udt"))
             j = optPerson;
             CHECK_FALSE(j.is_null());
 
-            CHECK(j.get<udt::person>() == *optPerson);
+            CHECK(j.get < udt::person > () == *optPerson);
         }
 
         SECTION("from_json")
@@ -445,12 +445,12 @@ TEST_CASE("adl_serializer specialization" * doctest::test_suite("udt"))
             auto person = udt::person{{42}, {"John Doe"}, udt::country::russia};
             json j = person;
 
-            auto optPerson = j.get<std::shared_ptr<udt::person>>();
+            auto optPerson = j.get < std::shared_ptr < udt::person>>();
             REQUIRE(optPerson);
             CHECK(*optPerson == person);
 
             j = nullptr;
-            optPerson = j.get<std::shared_ptr<udt::person>>();
+            optPerson = j.get < std::shared_ptr < udt::person>>();
             CHECK(!optPerson);
         }
     }
@@ -462,13 +462,13 @@ TEST_CASE("adl_serializer specialization" * doctest::test_suite("udt"))
             udt::legacy_type const lt{"4242"};
 
             json const j = lt;
-            CHECK(j.get<int>() == 4242);
+            CHECK(j.get < int > () == 4242);
         }
 
         SECTION("from_json")
         {
             json const j = 4242;
-            auto lt = j.get<udt::legacy_type>();
+            auto lt = j.get < udt::legacy_type > ();
             CHECK(lt.number == "4242");
         }
     }
@@ -476,10 +476,10 @@ TEST_CASE("adl_serializer specialization" * doctest::test_suite("udt"))
 
 namespace nlohmann
 {
-template <>
-struct adl_serializer<std::vector<float>>
+template < >
+struct adl_serializer < std::vector < float>>
 {
-    using type = std::vector<float>;
+    using type = std::vector < float >;
     static void to_json(json& j, const type& /*type*/)
     {
         j = "hijacked!";
@@ -500,19 +500,19 @@ struct adl_serializer<std::vector<float>>
 
 TEST_CASE("even supported types can be specialized" * doctest::test_suite("udt"))
 {
-    json const j = std::vector<float> {1.0, 2.0, 3.0};
+    json const j = std::vector < float > {1.0, 2.0, 3.0};
     CHECK(j.dump() == R"("hijacked!")");
-    auto f = j.get<std::vector<float>>();
+    auto f = j.get < std::vector < float>>();
     // the single argument from_json method is preferred
-    CHECK((f == std::vector<float> {4.0, 5.0, 6.0}));
+    CHECK((f == std::vector < float > {4.0, 5.0, 6.0}));
 }
 
 namespace nlohmann
 {
-template <typename T>
-struct adl_serializer<std::unique_ptr<T>>
+template < typename T >
+struct adl_serializer < std::unique_ptr < T>>
 {
-    static void to_json(json& j, const std::unique_ptr<T>& opt)
+    static void to_json(json& j, const std::unique_ptr < T > & opt)
     {
         if (opt)
         {
@@ -525,14 +525,14 @@ struct adl_serializer<std::unique_ptr<T>>
     }
 
     // this is the overload needed for non-copyable types,
-    static std::unique_ptr<T> from_json(const json& j)
+    static std::unique_ptr < T > from_json(const json& j)
     {
         if (j.is_null())
         {
             return nullptr;
         }
 
-        return std::unique_ptr<T>(new T(j.get<T>()));
+        return std::unique_ptr < T > (new T(j.get < T > ()));
     }
 };
 } // namespace nlohmann
@@ -541,7 +541,7 @@ TEST_CASE("Non-copyable types" * doctest::test_suite("udt"))
 {
     SECTION("to_json")
     {
-        std::unique_ptr<udt::person> optPerson;
+        std::unique_ptr < udt::person > optPerson;
 
         json j = optPerson;
         CHECK(j.is_null());
@@ -550,7 +550,7 @@ TEST_CASE("Non-copyable types" * doctest::test_suite("udt"))
         j = optPerson;
         CHECK_FALSE(j.is_null());
 
-        CHECK(j.get<udt::person>() == *optPerson);
+        CHECK(j.get < udt::person > () == *optPerson);
     }
 
     SECTION("from_json")
@@ -558,12 +558,12 @@ TEST_CASE("Non-copyable types" * doctest::test_suite("udt"))
         auto person = udt::person{{42}, {"John Doe"}, udt::country::russia};
         json j = person;
 
-        auto optPerson = j.get<std::unique_ptr<udt::person>>();
+        auto optPerson = j.get < std::unique_ptr < udt::person>>();
         REQUIRE(optPerson);
         CHECK(*optPerson == person);
 
         j = nullptr;
-        optPerson = j.get<std::unique_ptr<udt::person>>();
+        optPerson = j.get < std::unique_ptr < udt::person>>();
         CHECK(!optPerson);
     }
 }
@@ -571,14 +571,14 @@ TEST_CASE("Non-copyable types" * doctest::test_suite("udt"))
 // custom serializer - advanced usage
 // pack structs that are pod-types (but not scalar types)
 // relies on adl for any other type
-template <typename T, typename = void>
+template < typename T, typename = void >
 struct pod_serializer
 {
     // use adl for non-pods, or scalar types
     template <
         typename BasicJsonType, typename U = T,
         typename std::enable_if <
-            !(std::is_pod<U>::value && std::is_class<U>::value), int >::type = 0 >
+            !(std::is_pod < U >::value && std::is_class < U>::value), int >::type = 0 >
     static void from_json(const BasicJsonType& j, U& t)
     {
         using nlohmann::from_json;
@@ -588,7 +588,7 @@ struct pod_serializer
     // special behaviour for pods
     template < typename BasicJsonType, typename U = T,
                typename std::enable_if <
-                   std::is_pod<U>::value && std::is_class<U>::value, int >::type = 0 >
+                   std::is_pod < U >::value && std::is_class < U>::value, int >::type = 0 >
     static void from_json(const  BasicJsonType& j, U& t)
     {
         std::uint64_t value = 0;
@@ -607,14 +607,14 @@ struct pod_serializer
         // calling get calls from_json, for now, we cannot do this in custom
         // serializers
         nlohmann::from_json(j, value);
-        auto* bytes = static_cast<char*>(static_cast<void*>(&value)); // NOLINT(bugprone-casting-through-void)
+        auto* bytes = static_cast < char* > (static_cast < void* > (&value)); // NOLINT(bugprone-casting-through-void)
         std::memcpy(&t, bytes, sizeof(value));
     }
 
     template <
         typename BasicJsonType, typename U = T,
         typename std::enable_if <
-            !(std::is_pod<U>::value && std::is_class<U>::value), int >::type = 0 >
+            !(std::is_pod < U >::value && std::is_class < U>::value), int >::type = 0 >
     static void to_json(BasicJsonType& j, const  T& t)
     {
         using nlohmann::to_json;
@@ -623,10 +623,10 @@ struct pod_serializer
 
     template < typename BasicJsonType, typename U = T,
                typename std::enable_if <
-                   std::is_pod<U>::value && std::is_class<U>::value, int >::type = 0 >
+                   std::is_pod < U >::value && std::is_class < U>::value, int >::type = 0 >
     static void to_json(BasicJsonType& j, const  T& t) noexcept
     {
-        const auto* bytes = static_cast< const unsigned char*>(static_cast<const void*>(&t));  // NOLINT(bugprone-casting-through-void)
+        const auto* bytes = static_cast < const unsigned char* > (static_cast < const void* > (&t)); // NOLINT(bugprone-casting-through-void)
         std::uint64_t value = 0;
         std::memcpy(&value, bytes, sizeof(value));
         nlohmann::to_json(j, value);
@@ -649,16 +649,16 @@ struct non_pod
     non_pod(std::string S) : s(std::move(S)) {}
 };
 
-template <typename BasicJsonType>
+template < typename BasicJsonType >
 static void to_json(BasicJsonType& j, const non_pod& np)
 {
     j = np.s;
 }
 
-template <typename BasicJsonType>
+template < typename BasicJsonType >
 static void from_json(const BasicJsonType& j, non_pod& np)
 {
-    np.s = j.template get<std::string>();
+    np.s = j.template get < std::string > ();
 }
 
 static bool operator==(small_pod lhs, small_pod rhs) noexcept
@@ -681,28 +681,28 @@ static std::ostream& operator<<(std::ostream& os, small_pod l)
 TEST_CASE("custom serializer for pods" * doctest::test_suite("udt"))
 {
     using custom_json =
-        nlohmann::basic_json<std::map, std::vector, std::string, bool,
-        std::int64_t, std::uint64_t, double, std::allocator, pod_serializer>;
+        nlohmann::basic_json < std::map, std::vector, std::string, bool,
+        std::int64_t, std::uint64_t, double, std::allocator, pod_serializer >;
 
     auto p = udt::small_pod{42, '/', 42};
     custom_json const j = p;
 
-    auto p2 = j.get<udt::small_pod>();
+    auto p2 = j.get < udt::small_pod > ();
 
     CHECK(p == p2);
 
     auto np = udt::non_pod{{"non-pod"}};
     custom_json const j2 = np;
-    auto np2 = j2.get<udt::non_pod>();
+    auto np2 = j2.get < udt::non_pod > ();
     CHECK(np == np2);
 }
 
-template <typename T, typename>
+template < typename T, typename >
 struct another_adl_serializer;
 
-using custom_json = nlohmann::basic_json<std::map, std::vector, std::string, bool, std::int64_t, std::uint64_t, double, std::allocator, another_adl_serializer>;
+using custom_json = nlohmann::basic_json < std::map, std::vector, std::string, bool, std::int64_t, std::uint64_t, double, std::allocator, another_adl_serializer >;
 
-template <typename T, typename>
+template < typename T, typename >
 struct another_adl_serializer
 {
     static void from_json(const custom_json& j, T& t)
@@ -727,8 +727,8 @@ TEST_CASE("custom serializer that does adl by default" * doctest::test_suite("ud
 
     CHECK(j.dump() == cj.dump());
 
-    CHECK(me == j.get<udt::person>());
-    CHECK(me == cj.get<udt::person>());
+    CHECK(me == j.get < udt::person > ());
+    CHECK(me == cj.get < udt::person > ());
 }
 
 TEST_CASE("different basic_json types conversions")
@@ -759,7 +759,7 @@ TEST_CASE("different basic_json types conversions")
     {
         json const j = {1, 2, 3};
         custom_json const cj = j;
-        CHECK((cj == std::vector<int> {1, 2, 3}));
+        CHECK((cj == std::vector < int > {1, 2, 3}));
     }
 
     SECTION("integer")
@@ -795,8 +795,8 @@ TEST_CASE("different basic_json types conversions")
         json j = json::binary({1, 2, 3}, 42);
         custom_json cj = j;
         CHECK(cj.get_binary().subtype() == 42);
-        const std::vector<std::uint8_t>& cv = cj.get_binary();
-        std::vector<std::uint8_t> v = j.get_binary();
+        const std::vector < std::uint8_t > & cv = cj.get_binary();
+        std::vector < std::uint8_t > v = j.get_binary();
         CHECK(cv == v);
     }
 
@@ -804,14 +804,14 @@ TEST_CASE("different basic_json types conversions")
     {
         json const j = {{"forty", "two"}};
         const custom_json cj = j;
-        auto m = j.get<std::map<std::string, std::string>>();
+        auto m = j.get < std::map < std::string, std::string>>();
         CHECK(cj == m);
     }
 
     SECTION("get<custom_json>")
     {
         json const j = 42;
-        const custom_json cj = j.get<custom_json>();
+        const custom_json cj = j.get < custom_json > ();
         CHECK(cj == 42);
     }
 }
@@ -823,16 +823,16 @@ struct incomplete;
 // std::is_constructible is broken on macOS' libc++
 // use the cppreference implementation
 
-template <typename T, typename = void>
+template < typename T, typename = void >
 struct is_constructible_patched : std::false_type {};
 
-template <typename T>
-struct is_constructible_patched<T, decltype(void(json(std::declval<T>())))> : std::true_type {};
+template < typename T >
+struct is_constructible_patched < T, decltype(void(json(std::declval < T>()))) > : std::true_type {};
 } // namespace
 
 TEST_CASE("an incomplete type does not trigger a compiler error in non-evaluated context" * doctest::test_suite("udt"))
 {
-    static_assert(!is_constructible_patched<json, incomplete>::value, "");
+    static_assert(!is_constructible_patched < json, incomplete >::value, "");
 }
 
 namespace
@@ -841,10 +841,10 @@ class Evil
 {
   public:
     Evil() = default;
-    template <typename T>
+    template < typename T >
     Evil(const T& t) : m_i(sizeof(t))
     {
-        static_cast<void>(t); // fix MSVC's C4100 warning
+        static_cast < void > (t); // fix MSVC's C4100 warning
     }
 
     int m_i = 0;
@@ -858,8 +858,8 @@ TEST_CASE("Issue #924")
     // Prevent get<std::vector<Evil>>() to throw
     auto j = json::array();
 
-    CHECK_NOTHROW(j.get<Evil>());
-    CHECK_NOTHROW(j.get<std::vector<Evil>>());
+    CHECK_NOTHROW(j.get < Evil > ());
+    CHECK_NOTHROW(j.get < std::vector < Evil>>());
 
     // silence Wunused-template warnings
     const Evil e(1);
@@ -873,7 +873,7 @@ TEST_CASE("Issue #924")
 TEST_CASE("Issue #1237")
 {
     struct non_convertible_type {};
-    static_assert(!std::is_convertible<json, non_convertible_type>::value, "");
+    static_assert(!std::is_convertible < json, non_convertible_type >::value, "");
 }
 
 namespace
@@ -881,22 +881,22 @@ namespace
 class no_iterator_type
 {
   public:
-    no_iterator_type(std::initializer_list<int> l)
+    no_iterator_type(std::initializer_list < int > l)
         : _v(l)
     {}
 
-    std::vector<int>::const_iterator begin() const
+    std::vector < int >::const_iterator begin() const
     {
         return _v.begin();
     }
 
-    std::vector<int>::const_iterator end() const
+    std::vector < int >::const_iterator end() const
     {
         return _v.end();
     }
 
   private:
-    std::vector<int> _v;
+    std::vector < int > _v;
 };
 }  // namespace
 

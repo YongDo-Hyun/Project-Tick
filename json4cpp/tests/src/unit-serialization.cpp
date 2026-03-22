@@ -221,78 +221,78 @@ TEST_CASE("dump with binary values")
     SECTION("pretty-printed")
     {
         CHECK(binary.dump(4) == "{\n"
-              "    \"bytes\": [1, 2, 3, 4],\n"
-              "    \"subtype\": null\n"
-              "}");
+                                "    \"bytes\": [1, 2, 3, 4],\n"
+                                "    \"subtype\": null\n"
+                                "}");
         CHECK(binary_empty.dump(4) == "{\n"
-              "    \"bytes\": [],\n"
-              "    \"subtype\": null\n"
-              "}");
+                                      "    \"bytes\": [],\n"
+                                      "    \"subtype\": null\n"
+                                      "}");
         CHECK(binary_with_subtype.dump(4) == "{\n"
-              "    \"bytes\": [1, 2, 3, 4],\n"
-              "    \"subtype\": 128\n"
-              "}");
+                                             "    \"bytes\": [1, 2, 3, 4],\n"
+                                             "    \"subtype\": 128\n"
+                                             "}");
         CHECK(binary_empty_with_subtype.dump(4) == "{\n"
-              "    \"bytes\": [],\n"
-              "    \"subtype\": 128\n"
-              "}");
+                                                   "    \"bytes\": [],\n"
+                                                   "    \"subtype\": 128\n"
+                                                   "}");
 
         CHECK(object.dump(4) == "{\n"
-              "    \"key\": {\n"
-              "        \"bytes\": [1, 2, 3, 4],\n"
-              "        \"subtype\": null\n"
-              "    }\n"
-              "}");
+                                "    \"key\": {\n"
+                                "        \"bytes\": [1, 2, 3, 4],\n"
+                                "        \"subtype\": null\n"
+                                "    }\n"
+                                "}");
         CHECK(object_empty.dump(4) == "{\n"
-              "    \"key\": {\n"
-              "        \"bytes\": [],\n"
-              "        \"subtype\": null\n"
-              "    }\n"
-              "}");
+                                      "    \"key\": {\n"
+                                      "        \"bytes\": [],\n"
+                                      "        \"subtype\": null\n"
+                                      "    }\n"
+                                      "}");
         CHECK(object_with_subtype.dump(4) == "{\n"
-              "    \"key\": {\n"
-              "        \"bytes\": [1, 2, 3, 4],\n"
-              "        \"subtype\": 128\n"
-              "    }\n"
-              "}");
+                                             "    \"key\": {\n"
+                                             "        \"bytes\": [1, 2, 3, 4],\n"
+                                             "        \"subtype\": 128\n"
+                                             "    }\n"
+                                             "}");
         CHECK(object_empty_with_subtype.dump(4) == "{\n"
-              "    \"key\": {\n"
-              "        \"bytes\": [],\n"
-              "        \"subtype\": 128\n"
-              "    }\n"
-              "}");
+                                                   "    \"key\": {\n"
+                                                   "        \"bytes\": [],\n"
+                                                   "        \"subtype\": 128\n"
+                                                   "    }\n"
+                                                   "}");
 
         CHECK(array.dump(4) == "[\n"
-              "    \"value\",\n"
-              "    1,\n"
-              "    {\n"
-              "        \"bytes\": [1, 2, 3, 4],\n"
-              "        \"subtype\": null\n"
-              "    }\n"
-              "]");
+                               "    \"value\",\n"
+                               "    1,\n"
+                               "    {\n"
+                               "        \"bytes\": [1, 2, 3, 4],\n"
+                               "        \"subtype\": null\n"
+                               "    }\n"
+                               "]");
         CHECK(array_empty.dump(4) == "[\n"
-              "    \"value\",\n"
-              "    1,\n"
-              "    {\n"
-              "        \"bytes\": [],\n"
-              "        \"subtype\": null\n"
-              "    }\n"
-              "]");
+                                     "    \"value\",\n"
+                                     "    1,\n"
+                                     "    {\n"
+                                     "        \"bytes\": [],\n"
+                                     "        \"subtype\": null\n"
+                                     "    }\n"
+                                     "]");
         CHECK(array_with_subtype.dump(4) == "[\n"
-              "    \"value\",\n"
-              "    1,\n"
-              "    {\n"
-              "        \"bytes\": [1, 2, 3, 4],\n"
-              "        \"subtype\": 128\n"
-              "    }\n"
-              "]");
+                                            "    \"value\",\n"
+                                            "    1,\n"
+                                            "    {\n"
+                                            "        \"bytes\": [1, 2, 3, 4],\n"
+                                            "        \"subtype\": 128\n"
+                                            "    }\n"
+                                            "]");
         CHECK(array_empty_with_subtype.dump(4) == "[\n"
-              "    \"value\",\n"
-              "    1,\n"
-              "    {\n"
-              "        \"bytes\": [],\n"
-              "        \"subtype\": 128\n"
-              "    }\n"
-              "]");
+                                                  "    \"value\",\n"
+                                                  "    1,\n"
+                                                  "    {\n"
+                                                  "        \"bytes\": [],\n"
+                                                  "        \"subtype\": 128\n"
+                                                  "    }\n"
+                                                  "]");
     }
 }

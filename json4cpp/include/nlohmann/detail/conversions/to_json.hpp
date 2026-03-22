@@ -462,11 +462,11 @@ inline void to_json(BasicJsonType& j, const std_fs::path& p)
 
 struct to_json_fn
 {
-    template<typename BasicJsonType, typename T>
-    auto operator()(BasicJsonType& j, T&& val) const noexcept(noexcept(to_json(j, std::forward<T>(val))))
-    -> decltype(to_json(j, std::forward<T>(val)), void())
+    template < typename BasicJsonType, typename T >
+    auto operator()(BasicJsonType & j, T&& val) const noexcept(noexcept(to_json(j, std::forward < T > (val))))
+    -> decltype(to_json(j, std::forward < T > (val)), void())
     {
-        return to_json(j, std::forward<T>(val));
+        return to_json(j, std::forward < T > (val));
     }
 };
 }  // namespace detail
@@ -479,7 +479,7 @@ namespace // NOLINT(cert-dcl59-cpp,fuchsia-header-anon-namespaces,google-build-n
 {
 #endif
 JSON_INLINE_VARIABLE constexpr const auto& to_json = // NOLINT(misc-definitions-in-headers)
-    detail::static_const<detail::to_json_fn>::value;
+    detail::static_const < detail::to_json_fn >::value;
 #ifndef JSON_HAS_CPP_17
 }  // namespace
 #endif

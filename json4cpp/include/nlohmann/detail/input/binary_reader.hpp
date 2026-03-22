@@ -2021,7 +2021,7 @@ class binary_reader
 
     @return whether size determination completed
     */
-    bool get_ubjson_size_value(std::size_t& result, bool& is_ndarray, char_int_type prefix = 0)
+    bool get_ubjson_size_value(std::size_t& result, bool & is_ndarray, char_int_type prefix = 0)
     {
         if (prefix == 0)
         {
@@ -2804,7 +2804,7 @@ class binary_reader
     @return bool, whether the read was successful
     */
     template<class T>
-    bool get_to(T& dest, const input_format_t format, const char* context)
+    bool get_to(T & dest, const input_format_t format, const char* context)
     {
         auto new_chars_read = ia.get_elements(&dest);
         chars_read += new_chars_read;
@@ -2833,7 +2833,7 @@ class binary_reader
     }
 
     template<class NumberType>
-    static void byte_swap(NumberType& number)
+    static void byte_swap(NumberType & number)
     {
         constexpr std::size_t sz = sizeof(number);
 #ifdef __cpp_lib_byteswap
@@ -2875,7 +2875,7 @@ class binary_reader
           on big endian systems.
     */
     template<typename NumberType, bool InputIsLittleEndian = false>
-    bool get_number(const input_format_t format, NumberType& result)
+    bool get_number(const input_format_t format, NumberType & result)
     {
         // read in the original format
 
@@ -2989,8 +2989,8 @@ class binary_reader
     @return a message string to use in the parse_error exceptions
     */
     std::string exception_message(const input_format_t format,
-                                  const std::string& detail,
-                                  const std::string& context) const
+                                  const std::string & detail,
+                                  const std::string & context) const
     {
         std::string error_msg = "syntax error while parsing ";
 
@@ -3068,12 +3068,12 @@ class binary_reader
     // lookup tables
     // NOLINTNEXTLINE(cppcoreguidelines-non-private-member-variables-in-classes)
     const decltype(JSON_BINARY_READER_MAKE_BJD_OPTIMIZED_TYPE_MARKERS_) bjd_optimized_type_markers =
-        JSON_BINARY_READER_MAKE_BJD_OPTIMIZED_TYPE_MARKERS_;
+    JSON_BINARY_READER_MAKE_BJD_OPTIMIZED_TYPE_MARKERS_;
 
     using bjd_type = std::pair<char_int_type, string_t>;
     // NOLINTNEXTLINE(cppcoreguidelines-non-private-member-variables-in-classes)
     const decltype(JSON_BINARY_READER_MAKE_BJD_TYPES_MAP_) bjd_types_map =
-        JSON_BINARY_READER_MAKE_BJD_TYPES_MAP_;
+    JSON_BINARY_READER_MAKE_BJD_TYPES_MAP_;
 
 #undef JSON_BINARY_READER_MAKE_BJD_OPTIMIZED_TYPE_MARKERS_
 #undef JSON_BINARY_READER_MAKE_BJD_TYPES_MAP_

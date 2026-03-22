@@ -221,8 +221,8 @@ class tuple_element<N, ::nlohmann::detail::iteration_proxy_value<IteratorType >>
 {
   public:
     using type = decltype(
-                     get<N>(std::declval <
-                            ::nlohmann::detail::iteration_proxy_value<IteratorType >> ()));
+        get<N>(std::declval <
+               ::nlohmann::detail::iteration_proxy_value<IteratorType >> ()));
 };
 #if defined(__clang__)
     #pragma clang diagnostic pop

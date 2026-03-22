@@ -60,7 +60,7 @@ class output_vector_adapter : public output_adapter_protocol<CharType>
     }
 
     JSON_HEDLEY_NON_NULL(2)
-    void write_characters(const CharType* s, std::size_t length) override
+    void write_characters(const CharType * s, std::size_t length) override
     {
         v.insert(v.end(), s, s + length);
     }
@@ -85,7 +85,7 @@ class output_stream_adapter : public output_adapter_protocol<CharType>
     }
 
     JSON_HEDLEY_NON_NULL(2)
-    void write_characters(const CharType* s, std::size_t length) override
+    void write_characters(const CharType * s, std::size_t length) override
     {
         stream.write(s, static_cast<std::streamsize>(length));
     }
@@ -100,7 +100,7 @@ template<typename CharType, typename StringType = std::basic_string<CharType>>
 class output_string_adapter : public output_adapter_protocol<CharType>
 {
   public:
-    explicit output_string_adapter(StringType& s) noexcept
+    explicit output_string_adapter(StringType & s) noexcept
         : str(s)
     {}
 
@@ -110,7 +110,7 @@ class output_string_adapter : public output_adapter_protocol<CharType>
     }
 
     JSON_HEDLEY_NON_NULL(2)
-    void write_characters(const CharType* s, std::size_t length) override
+    void write_characters(const CharType * s, std::size_t length) override
     {
         str.append(s, length);
     }
