@@ -117,6 +117,10 @@ jobs:
       DEBIAN_FRONTEND: noninteractive
       TEST_ZIP_UNZIP_LARGE: true
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
       - name: Show OS info
         run: cat /etc/os-release
       - uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
@@ -253,6 +257,10 @@ jobs:
         runner:
           - "fedora:42"
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
       - uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
         with:
           ref: ${{ inputs.ref }}
@@ -281,6 +289,10 @@ jobs:
         qt_version: [ 5.15.12, 6.4.3, 6.8.2 ]
 
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
       - name: Checkout
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
         with:
@@ -296,7 +308,7 @@ jobs:
         working-directory: ${{ github.workspace }}/quazip/build
         run: ctest --verbose -C Release
 
-  build-quazip-use-qt6-zlib-windows:
+  build-quazip-ptlibzippy-qt6-windows:
      
     env:
       BUILD_TYPE: Release
@@ -304,13 +316,17 @@ jobs:
     defaults:
       run:
         working-directory: quazip
-    name: use-qt6-zlib-windows-${{ matrix.qt_version }}
+    name: ptlibzippy-qt6-windows-${{ matrix.qt_version }}
     strategy:
       fail-fast: false
       matrix:
         qt_version: [ 6.8.2 ]
 
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
       - name: Checkout
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
         with:
@@ -456,7 +472,7 @@ jobs:
         run: cmake --install build-ptlibzippy --config ${{env.BUILD_TYPE}}
 
       - name: Configure CMake
-        run: cmake -DCMAKE_BUILD_TYPE="${{env.BUILD_TYPE}}" -DQUAZIP_QT_MAJOR_VERSION=6 -DBUILD_SHARED_LIBS=OFF -DQUAZIP_ENABLE_TESTS=ON -DQUAZIP_USE_QT_ZLIB=ON -B "${{github.workspace}}/build" -DCMAKE_PREFIX_PATH="${{github.workspace}}\Qt;${{github.workspace}}\ptlibzippy-install" -DCMAKE_C_STANDARD_INCLUDE_DIRECTORIES="${{github.workspace}}\ptlibzippy-install\include" -DCMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES="${{github.workspace}}\ptlibzippy-install\include"
+        run: cmake -DCMAKE_BUILD_TYPE="${{env.BUILD_TYPE}}" -DQUAZIP_QT_MAJOR_VERSION=6 -DBUILD_SHARED_LIBS=OFF -DQUAZIP_ENABLE_TESTS=ON -DQUAZIP_USE_QT_ZLIB=OFF -B "${{github.workspace}}/build" -DCMAKE_PREFIX_PATH="${{github.workspace}}\Qt;${{github.workspace}}\ptlibzippy-install" -DCMAKE_C_STANDARD_INCLUDE_DIRECTORIES="${{github.workspace}}\ptlibzippy-install\include" -DCMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES="${{github.workspace}}\ptlibzippy-install\include"
 
       - name: Build
         shell: cmd
@@ -468,7 +484,7 @@ jobs:
         working-directory: ${{github.workspace}}\build
         run: ctest --verbose --output-on-failure -C Release
 
-  build-quazip-use-qt5-zlib-windows:
+  build-quazip-ptlibzippy-qt5-windows:
      
     env:
       BUILD_TYPE: Release
@@ -476,13 +492,17 @@ jobs:
     defaults:
       run:
         working-directory: quazip
-    name: use-qt5-zlib-windows-${{ matrix.qt_version }}
+    name: ptlibzippy-qt5-windows-${{ matrix.qt_version }}
     strategy:
       fail-fast: false
       matrix:
         qt_version: [ 5.15.12 ]
 
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
       - name: Checkout
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
 
@@ -626,7 +646,7 @@ jobs:
         run: cmake --install build-ptlibzippy --config ${{env.BUILD_TYPE}}
 
       - name: Configure CMake
-        run: cmake -DCMAKE_BUILD_TYPE="${{env.BUILD_TYPE}}" -DQUAZIP_QT_MAJOR_VERSION=5 -DBUILD_SHARED_LIBS=OFF -DQUAZIP_ENABLE_TESTS=ON -DQUAZIP_USE_QT_ZLIB=ON -B build -DCMAKE_PREFIX_PATH="${{github.workspace}}\Qt;${{github.workspace}}\ptlibzippy-install" -DCMAKE_C_STANDARD_INCLUDE_DIRECTORIES="${{github.workspace}}\ptlibzippy-install\include" -DCMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES="${{github.workspace}}\ptlibzippy-install\include"
+        run: cmake -DCMAKE_BUILD_TYPE="${{env.BUILD_TYPE}}" -DQUAZIP_QT_MAJOR_VERSION=5 -DBUILD_SHARED_LIBS=OFF -DQUAZIP_ENABLE_TESTS=ON -DQUAZIP_USE_QT_ZLIB=OFF -B build -DCMAKE_PREFIX_PATH="${{github.workspace}}\Qt;${{github.workspace}}\ptlibzippy-install" -DCMAKE_C_STANDARD_INCLUDE_DIRECTORIES="${{github.workspace}}\ptlibzippy-install\include" -DCMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES="${{github.workspace}}\ptlibzippy-install\include"
 
       - name: Build
         shell: cmd

@@ -23,6 +23,10 @@ jobs:
     if: "${{ github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'status: blocking') }}"
 
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
       - name: Generate token
         id: generate-token
         uses: actions/create-github-app-token@v2

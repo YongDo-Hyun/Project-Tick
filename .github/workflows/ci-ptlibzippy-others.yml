@@ -17,6 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     name: DragonflyBSD
     steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+      with:
+        egress-policy: audit
     - uses: actions/checkout@v6
       with:
         sparse-checkout: |
@@ -43,6 +47,10 @@ jobs:
           - name: aarch64
           - name: x86_64
     steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+      with:
+        egress-policy: audit
     - uses: actions/checkout@v6
       with:
         sparse-checkout: |
@@ -71,6 +79,10 @@ jobs:
           - name: aarch64
           - name: x86_64
     steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+      with:
+        egress-policy: audit
     - uses: actions/checkout@v6
       with:
         sparse-checkout: |
@@ -95,6 +107,10 @@ jobs:
     runs-on: ubuntu-latest
     name: OmniOS
     steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+      with:
+        egress-policy: audit
     - uses: actions/checkout@v6
       with:
         sparse-checkout: |
@@ -122,6 +138,10 @@ jobs:
           - name: x86_64
           - name: riscv64
     steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+      with:
+        egress-policy: audit
     - uses: actions/checkout@v6
       with:
         sparse-checkout: |
@@ -130,6 +150,7 @@ jobs:
       uses: vmactions/openbsd-vm@v1
       with:
         arch: ${{ matrix.name }}
+        sync: nfs
         copyback: false
         prepare: |
           pkg_add cmake
@@ -144,6 +165,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Solaris
     steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+      with:
+        egress-policy: audit
     - uses: actions/checkout@v6
       with:
         sparse-checkout: |

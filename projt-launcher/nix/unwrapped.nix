@@ -92,7 +92,7 @@ stdenv.mkDerivation {
     fileset = lib.fileset.unions [
       ../CMakeLists.txt
       ../CMakePresets.json
-      ../COPYING
+      ../COPYING.md
       ../bootstrap
       ../bot
       ../buildconfig

@@ -35,6 +35,12 @@ jobs:
       matrix: ${{ steps.make.outputs.matrix }}
       count: ${{ steps.make.outputs.count }}
     steps:
+      
+      - name: Harden Runner
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
       - id: make
         run: |
           set -euo pipefail
@@ -190,6 +196,12 @@ jobs:
       max-parallel: 6
       matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
     steps:
+      
+      - name: Harden Runner
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
       - uses: actions/checkout@v4
         with:
           ref: ${{ inputs.ref || github.event.inputs.ref || github.sha }}

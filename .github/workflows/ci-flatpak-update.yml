@@ -15,6 +15,10 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
       - name: Generate GitHub App token
         id: app-token
         uses: actions/create-github-app-token@v2
@@ -30,7 +34,7 @@ jobs:
       - name: Run update
         uses: docker://ghcr.io/flathub/flatpak-external-data-checker:latest
         with:
-          args: --update --edit-only flatpak/org.projecttick.ProjTLauncher.yml
+          args: --update --edit-only projt-launcher/flatpak/org.projecttick.ProjTLauncher.yml
 
       - name: Create Pull request
         id: pull-request

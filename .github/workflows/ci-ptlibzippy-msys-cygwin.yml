@@ -26,6 +26,10 @@ jobs:
       run:
         shell: msys2 {0}
     steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+      with:
+        egress-policy: audit
     - name: Checkout
       uses: actions/checkout@v6
       with:
@@ -42,9 +46,10 @@ jobs:
           cmake:p
     - name: Configure
       if: matrix.sys != 'clang64'
+      working-directory: ptlibzippy
       run: |
-        src_dir="$GITHUB_WORKSPACE/ptlibzippy"
-        build_dir="$src_dir/build"
+        src_dir="."
+        build_dir="build"
         cmake -G"Unix Makefiles" \
           -S "$src_dir" \
           -B "$build_dir" \
@@ -54,9 +59,10 @@ jobs:
           -DMINIZIP_ENABLE_BZIP2=ON
     - name: Configure clang64
       if: matrix.sys == 'clang64'
+      working-directory: ptlibzippy
       run: |
-        src_dir="$GITHUB_WORKSPACE/ptlibzippy"
-        build_dir="$src_dir/build"
+        src_dir="."
+        build_dir="build"
         CC=clang cmake -G"Unix Makefiles" \
           -S "$src_dir" \
           -B "$build_dir" \
@@ -65,9 +71,11 @@ jobs:
           -DPTLIBZIPPY_BUILD_MINIZIP=ON \
           -DMINIZIP_ENABLE_BZIP2=ON
     - name: Build
-      run: cmake --build "$GITHUB_WORKSPACE/ptlibzippy/build" --config Release
+      working-directory: ptlibzippy
+      run: cmake --build build --config Release
     - name: Run tests
-      run: ctest --output-on-failure --test-dir "$GITHUB_WORKSPACE/ptlibzippy/build" -C Release
+      working-directory: ptlibzippy
+      run: ctest --output-on-failure --test-dir build -C Release
 
   cygwin:
     strategy:
@@ -78,6 +86,10 @@ jobs:
         shell: C:\cygwin\bin\bash.exe --login -o igncr '{0}'
     name: Cygwin
     steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+      with:
+        egress-policy: audit
     - name: Checkout
       uses: actions/checkout@v6
       with:
@@ -92,9 +104,10 @@ jobs:
           gcc-g++
           ninja
     - name: Configure
+      working-directory: ptlibzippy
       run: |
-        src_dir="$GITHUB_WORKSPACE/ptlibzippy"
-        build_dir="$src_dir/build"
+        src_dir="."
+        build_dir="build"
         cmake -S "$src_dir" \
           -B "$build_dir" \
           -DCMAKE_BUILD_TYPE=Release \
@@ -102,6 +115,8 @@ jobs:
           -DMINIZIP_ENABLE_BZIP2=OFF \
           -G Ninja
     - name: Build
-      run: cmake --build "$GITHUB_WORKSPACE/ptlibzippy/build" --config Release -v -j1
+      working-directory: ptlibzippy
+      run: cmake --build build --config Release -v -j1
     - name: Run tests
-      run: ctest --output-on-failure --test-dir "$GITHUB_WORKSPACE/ptlibzippy/build" -C Release
+      working-directory: ptlibzippy
+      run: ctest --output-on-failure --test-dir build -C Release

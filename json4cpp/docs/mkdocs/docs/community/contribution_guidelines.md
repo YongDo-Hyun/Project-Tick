@@ -1,1 +1,1 @@
---8<-- "../../../.github/CONTRIBUTING.md"
+--8<-- "../../../../CONTRIBUTING.md"

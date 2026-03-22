@@ -39,17 +39,13 @@ jobs:
           - name: debian-testing
             image: debian:testing
             bootstrap: apt-get update -y && apt-get install -y git ca-certificates
-            install: apt-get update -y && apt-get install -y gcc meson ninja-build python3-distutils python3-pytest valgrind
-          - name: ubuntu-bionic
-            image: ubuntu:bionic
+            install: apt-get update -y && apt-get install -y gcc meson ninja-build python3-setuptools python3-pytest valgrind
+          - name: ubuntu-noble
+            image: ubuntu:noble
             bootstrap: apt-get update -y && apt-get install -y git ca-certificates
             install: apt-get update -y && apt-get install -y gcc python3-pip ninja-build valgrind && pip3 install meson pytest
-          - name: ubuntu-bionic-i386
-            image: i386/ubuntu:bionic
-            bootstrap: apt-get update -y && apt-get install -y git ca-certificates
-            install: apt-get update -y && apt-get install -y gcc python3-pip ninja-build valgrind && pip3 install meson pytest
-          - name: fedora-35
-            image: registry.fedoraproject.org/fedora:35
+          - name: fedora-43
+            image: registry.fedoraproject.org/fedora:43
             bootstrap: dnf install -y git ca-certificates
             install: dnf install -y gcc meson python3-pytest valgrind
           - name: fedora-rawhide
@@ -65,6 +61,12 @@ jobs:
             bootstrap: zypper --non-interactive install -y git ca-certificates
             install: zypper --non-interactive install -y gcc meson python3-pytest valgrind
     steps:
+      
+      - name: Harden Runner
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
       - name: Bootstrap container
         shell: bash
         run: |
@@ -165,6 +167,12 @@ jobs:
             install: zypper --non-interactive install -y gcc cmake python3-pytest valgrind
             cmake_args: -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED_LIB=ON -DENABLE_STATIC_LIB=OFF
     steps:
+      
+      - name: Harden Runner
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
       - name: Bootstrap container
         shell: bash
         run: |

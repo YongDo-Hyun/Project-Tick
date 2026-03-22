@@ -1,1 +1,1 @@
---8<-- "../../../.github/CODE_OF_CONDUCT.md"
+--8<-- "../../../../projt-launcher/CODE_OF_CONDUCT"

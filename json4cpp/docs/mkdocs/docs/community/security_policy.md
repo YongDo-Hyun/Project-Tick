@@ -1,1 +1,1 @@
---8<-- "../../../.github/SECURITY.md"
+--8<-- "../../../../SECURITY.md"
