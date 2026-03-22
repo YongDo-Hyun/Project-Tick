@@ -4,7 +4,7 @@
 
 If you discover a security vulnerability, please report it via email:
 
-- [`yongdohyun@projecttick.org`](mailto:yongdohyun@projecttick.org)
+- [`projecttick@projecttick.org`](mailto:projecttick@projecttick.org)
 
 ## What to include
 

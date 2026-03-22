@@ -1,9 +1,4 @@
-# Contributing to ProjT Launcher
-
-```text
-Upstream Maintainer: Mehmet Samet Duman <yongdohyun@projecttick.org>
-License: GPL-3.0-only (Launcher), see COPYING.md
-```
+# Contributing to Project Tick
 
 ## Restrictions on Generative AI Usage (AI Policy)
 > [!NOTE]
@@ -11,7 +6,7 @@ License: GPL-3.0-only (Launcher), see COPYING.md
 
 We expect authentic engagement in our community.
 
-- Do not post output from Large Language Models or similar generative AI as comments on GitLab or our discord server, as such comments tend to be formulaic and low-quality content.
+- Do not post output from Large Language Models or similar generative AI as comments on Github or our discord server, as such comments tend to be formulaic and low-quality content.
 - If you use generative AI tools as an aid in developing code or documentation changes, ensure that you fully understand the proposed changes and can explain why they are the correct approach.
 
 Make sure you have added value based on your personal competency to your contributions. 
@@ -81,91 +76,14 @@ If you do not agree to the CLA, please do not submit contributions.
 
 ## Quick Start
 
-```sh
-git clone https://gitlab.com/Project-Tick/core/ProjT-Launcher.git
-cd ProjT-Launcher
-cmake --preset your_os
-cmake --build --preset your_os
-ctest --preset your_os
-```
+Please read the [handbook](docs/handbook/) for the section you are interested in. Example: ProjT Launcher
 
 ---
 
-## Requirements
-
-| Component | Requirement |
-| --------- | ----------- |
-| CMake | 3.22+ |
-| Qt | 6.10.0 |
-| Compiler | C++20 support |
-| Python | 3.9+ (for metadata tools) |
-| Node.js | 18+ (for website) |
-
-**Why exact Qt version?** ABI stability and CI determinism require all builds to use the same Qt version. Mixing versions causes subtle runtime failures.
-
----
-
-## Project Areas
-
-```yaml
-launcher/           Launcher application (C++/Qt)
-website/            Website (Eleventy)
-bot/                Automation bot (Cloudflare Workers)
-meta/               Metadata generator (Python)
-docs/               Documentation
-ci/, .github/       CI/CD and automation
-scripts/, tools/    Build and development tools
-```
-
-### Detached Fork Libraries
-
-These are independently maintained forks, not synced with upstream:
-
-```yaml
-zlib/               Compression library
-bzip2/              Compression library
-quazip/             ZIP archive handling
-cmark/              Markdown parsing
-tomlplusplus/       TOML parsing
-libqrencode/        QR code generation
-libnbtplusplus/     NBT format support
-extra-cmake-modules/    CMake utilities
-gamemode/           GameMode
-```
-
-### Vendored Libraries
-
-```yaml
-LocalPeer/          Single instance support
-murmur2/            Hash functions
-qdcss/              Dark CSS support
-rainbow/            Terminal colors
-systeminfo/         System information
-```
-
----
-
-## Code Style
-
-This is a summary. See [CODE_STYLE.md](docs/contributing/CODE_STYLE.md) for full rules.
-
-### C++ (clang-format)
-
-```sh
-clang-format -i path/to/file.cpp # Please use LLVM 19
-```
-
-Key rules:
-
-- Tabs for indentation (width: 4)
-- Column limit: 120
-- Allman brace style
-- C++20 standard
-
-### Commit Messages
+## Commit Messages
 
 ```text
-component: short description
+subproject(component): short description
 
 Optional explanation of what and why.
 ```
@@ -173,10 +91,7 @@ Optional explanation of what and why.
 Examples:
 
 ```text
-launcher: fix crash on startup with invalid config
-zlib: update to version 1.3.1
-ci: add macOS arm64 build support
-docs: update build instructions
+projtlauncher(fix): fix crash on startup with invalid config
 ```
 
 ---
@@ -195,7 +110,7 @@ This adds:
 Signed-off-by: Your Name <your.email@example.com>
 ```
 
-The bot enforces DCO compliance and labels MRs missing sign-off.
+The bot enforces DCO compliance and labels PRs missing sign-off.
 
 ---
 
@@ -209,14 +124,14 @@ The bot enforces DCO compliance and labels MRs missing sign-off.
 - Sign off all commits
 - Update documentation if needed
 
-### MR Requirements
+### PR Requirements
 
 - Clear description of what and why
 - Reference related issues
 - Pass all CI checks
-- One logical change per MR
-- **Do not mix**: refactors, features, and third-party updates must be in separate MRs
-- Third-party library updates require standalone MRs with documented rationale
+- One logical change per PR
+- **Do not mix**: refactors, features, and third-party updates must be in separate PRs
+- Third-party library updates require standalone PRs with documented rationale
 
 ### Review Process
 
@@ -224,37 +139,6 @@ The bot enforces DCO compliance and labels MRs missing sign-off.
 2. Maintainer reviews code
 3. Address feedback
 4. Merge when approved
-
----
-
-## Testing
-
-### Running Tests
-
-```sh
-ctest --preset [ linux or macos or windows_msvc or windows_mingw ]
-```
-
-### Writing Tests
-
-- Use QtTest framework
-- Test public interfaces
-- Mock external dependencies
-- Cover edge cases
-
----
-
-## Architecture
-
-The launcher follows MVVM (Model-View-ViewModel) pattern:
-
-```yaml
-Model       Data and business logic
-ViewModel   Presentation logic, state management
-View        Qt Widgets UI components
-```
-
-MVVM is enforced conceptually. UI classes (`launcher/ui/`) must not contain business logic—only presentation and user interaction. See [ARCHITECTURE.md](docs/contributing/ARCHITECTURE.md) for full design guidance.
 
 ---
 
@@ -268,49 +152,17 @@ See `docs/` for detailed documentation:
 
 ---
 
-## Reporting Issues
-
-Include in bug reports:
-
-- Operating system and version
-- ProjT Launcher version
-- Steps to reproduce
-- Expected vs actual behavior
-- Logs from `~/.local/share/ProjT/logs/`
-
----
-
-## FAQ
-
-Q: Why is my MR failing CI?
-
-- Run clang-format
-- Sign off commits (`git commit -s`)
-- Add tests for new code
-
-Q: Can I use a different Qt version?
-
-- No. Exact version matching is required.
-
-Q: How do I update a fork library?
-
-- Document changes thoroughly
-- Test all dependent code
-- Submit separate MR for library update
-
----
-
 ## Contact
 
-- Issues: [GitLab Issues](https://gitlab.com/Project-Tick/core/ProjT-Launcher/-/issues)
-- Email: [yongdohyun@projtlauncher.yongdohyun.org.tr](mailto:yongdohyun@projtlauncher.yongdohyun.org.tr)
+- Issues: [GitHub Issues](https://github.com/Project-Tick/Project-Tick/issues)
+- Email: [projecttick@projecttick.org](mailto:projecttick@projecttick.org)
 
 ---
 
 ## License
 
 By contributing, you agree to license your work under the project's licenses.
-See [COPYING](COPYING) and LICENSES/ folder.
+See [LICENSES/](LICENSES/) folder.
 
 ## Code of Conduct
 

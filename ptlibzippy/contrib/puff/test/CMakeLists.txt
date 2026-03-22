@@ -1,11 +1,10 @@
 # if we are built from with PTlibzippy, use this path's)
 if(DEFINED PTLIBZIPPY_BUILD_PUFF)
-    set(WORK_DIR ${ptlibzippy_BINARY_DIR})
+    set(WORK_DIR ${PTlibzippy_BINARY_DIR})
     set(inst_setup ptlibzippy_install)
 else(DEFINED PTLIBZIPPY_BUILD_PUFF)
     set(WORK_DIR ${puff_BINARY_DIR})
     set(inst_setup ptlibzippy_puff_install)
-    set(PTLIBZIPPY_ARG "-DPTLIBZIPPY_DIR=${PTLIBZIPPY_DIR}")
 
     add_test(
         NAME ptlibzippy_puff_install
@@ -17,6 +16,19 @@ else(DEFINED PTLIBZIPPY_BUILD_PUFF)
         PROPERTIES
             FIXTURES_SETUP ptlibzippy_puff_install)
 endif(DEFINED PTLIBZIPPY_BUILD_PUFF)
+
+set(PUFF_TEST_INSTALL_DIR "${WORK_DIR}/test/test_install")
+set(PUFF_TEST_PACKAGE_DIR
+    "${PUFF_TEST_INSTALL_DIR}/${CMAKE_INSTALL_LIBDIR}/cmake/puff")
+if(DEFINED PTLIBZIPPY_BUILD_PUFF)
+    set(PTLIBZIPPY_TEST_PACKAGE_DIR
+        "${PUFF_TEST_INSTALL_DIR}/${CMAKE_INSTALL_LIBDIR}/cmake/ptlibzippy")
+else()
+    set(PTLIBZIPPY_TEST_PACKAGE_DIR "${PTlibzippy_DIR}")
+endif()
+set(PUFF_FIND_PACKAGE_ARGS
+    "-Dpuff_DIR=${PUFF_TEST_PACKAGE_DIR}"
+    "-DPTlibzippy_DIR=${PTLIBZIPPY_TEST_PACKAGE_DIR}")
 
 if(PTLIBZIPPY_PUFF_BUILD_SHARED AND NOT WIN32)
     add_executable(ptlibzippy_puff_test
@@ -135,8 +147,8 @@ add_test(
         -DCMAKE_BUILD_TYPE=$<CONFIG>
         -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
         -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
-        -DCMAKE_INSTALL_PREFIX=${WORK_DIR}/test/test_install
-        ${PTLIBZIPPY_ARG}
+        -DCMAKE_INSTALL_PREFIX=${PUFF_TEST_INSTALL_DIR}
+        ${PUFF_FIND_PACKAGE_ARGS}
         --fresh
         -G "${CMAKE_GENERATOR}"
         -S${CMAKE_CURRENT_BINARY_DIR}/findpackage_test)
@@ -166,7 +178,8 @@ add_test(
         -DCMAKE_BUILD_TYPE=$<CONFIG>
         -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
         -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
-        -DCMAKE_INSTALL_PREFIX=${WORK_DIR}/test/test_install ${PTLIBZIPPY_ARG}
+        -DCMAKE_INSTALL_PREFIX=${PUFF_TEST_INSTALL_DIR}
+        ${PUFF_FIND_PACKAGE_ARGS}
         --fresh
         -G "${CMAKE_GENERATOR}"
         -S${CMAKE_CURRENT_BINARY_DIR}/add_subdirectory_test)
@@ -179,7 +192,7 @@ add_test(
 set_tests_properties(ptlibzippy_puff_add_subdirectory_configure
     PROPERTIES
         FIXTURES_REQUIRED ${inst_setup}
-        FIXTURES_SETUP puiff_as_config)
+        FIXTURES_SETUP puff_as_config)
 
 set_tests_properties(ptlibzippy_puff_add_subdirectory_build
     PROPERTIES
@@ -195,7 +208,8 @@ add_test(
         -B${CMAKE_CURRENT_BINARY_DIR}/add_subdirectory_exclude_test_build
         -DCMAKE_BUILD_TYPE=$<CONFIG> -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
         -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
-        -DCMAKE_INSTALL_PREFIX=${WORK_DIR}/test/test_install ${PTLIBZIPPY_ARG}
+        -DCMAKE_INSTALL_PREFIX=${PUFF_TEST_INSTALL_DIR}
+        ${PUFF_FIND_PACKAGE_ARGS}
         --fresh
         -G "${CMAKE_GENERATOR}"
         -S${CMAKE_CURRENT_BINARY_DIR}/add_subdirectory_exclude_test)
@@ -225,7 +239,8 @@ add_test(
         -B${CMAKE_CURRENT_BINARY_DIR}/findpackage_no_components_test_build
         -DCMAKE_BUILD_TYPE=$<CONFIG> -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
         -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
-        -DCMAKE_INSTALL_PREFIX=${WORK_DIR}/test/test_install ${PTLIBZIPPY_ARG}
+        -DCMAKE_INSTALL_PREFIX=${PUFF_TEST_INSTALL_DIR}
+        ${PUFF_FIND_PACKAGE_ARGS}
         --fresh
         -G "${CMAKE_GENERATOR}"
         -S${CMAKE_CURRENT_BINARY_DIR}/findpackage_no_components_test)
@@ -251,7 +266,8 @@ add_test(
         -B${CMAKE_CURRENT_BINARY_DIR}/findpackage_wrong_components_test_build
         -DCMAKE_BUILD_TYPE=$<CONFIG> -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
         -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
-        -DCMAKE_INSTALL_PREFIX=${WORK_DIR}/test/test_install ${PTLIBZIPPY_ARG}
+        -DCMAKE_INSTALL_PREFIX=${PUFF_TEST_INSTALL_DIR}
+        ${PUFF_FIND_PACKAGE_ARGS}
         --fresh
         -G "${CMAKE_GENERATOR}"
         -S${CMAKE_CURRENT_BINARY_DIR}/findpackage_wrong_components_test)

@@ -19,10 +19,10 @@ The complete default namespace name is derived as follows:
   underscores. To omit the version component, see [Disabling the version component](#disabling-the-version-component)
   below.
 
-For example, the namespace name for version 3.11.2 with `JSON_DIAGNOSTICS` defined to `1` is:
+For example, the namespace name for version 0.0.5-1 with `JSON_DIAGNOSTICS` defined to `1` is:
 
 ```cpp
-nlohmann::json_abi_diag_v3_11_2
+nlohmann::json_abi_diag_v0_0_5_1
 ```
 
 ## Purpose

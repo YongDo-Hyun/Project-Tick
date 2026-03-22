@@ -25,7 +25,6 @@ jobs:
     defaults:
       run:
         shell: msys2 {0}
-        working-directory: ptlibzippy
     steps:
     - name: Checkout
       uses: actions/checkout@v6
@@ -44,9 +43,11 @@ jobs:
     - name: Configure
       if: matrix.sys != 'clang64'
       run: |
+        src_dir="$GITHUB_WORKSPACE/ptlibzippy"
+        build_dir="$src_dir/build"
         cmake -G"Unix Makefiles" \
-          -S . \
-          -B build \
+          -S "$src_dir" \
+          -B "$build_dir" \
           -DCMAKE_VERBOSE_MAKEFILE=ON \
           -DCMAKE_BUILD_TYPE=Release \
           -DPTLIBZIPPY_BUILD_MINIZIP=ON \
@@ -54,17 +55,19 @@ jobs:
     - name: Configure clang64
       if: matrix.sys == 'clang64'
       run: |
+        src_dir="$GITHUB_WORKSPACE/ptlibzippy"
+        build_dir="$src_dir/build"
         CC=clang cmake -G"Unix Makefiles" \
-          -S . \
-          -B build \
+          -S "$src_dir" \
+          -B "$build_dir" \
           -DCMAKE_VERBOSE_MAKEFILE=ON \
           -DCMAKE_BUILD_TYPE=Release \
           -DPTLIBZIPPY_BUILD_MINIZIP=ON \
           -DMINIZIP_ENABLE_BZIP2=ON
     - name: Build
-      run: cmake --build build --config Release
+      run: cmake --build "$GITHUB_WORKSPACE/ptlibzippy/build" --config Release
     - name: Run tests
-      run: ctest --output-on-failure --test-dir build -C Release
+      run: ctest --output-on-failure --test-dir "$GITHUB_WORKSPACE/ptlibzippy/build" -C Release
 
   cygwin:
     strategy:
@@ -73,7 +76,6 @@ jobs:
     defaults:
       run:
         shell: C:\cygwin\bin\bash.exe --login -o igncr '{0}'
-        working-directory: ptlibzippy
     name: Cygwin
     steps:
     - name: Checkout
@@ -91,13 +93,15 @@ jobs:
           ninja
     - name: Configure
       run: |
-        cmake -S . \
-          -B build \
+        src_dir="$GITHUB_WORKSPACE/ptlibzippy"
+        build_dir="$src_dir/build"
+        cmake -S "$src_dir" \
+          -B "$build_dir" \
           -DCMAKE_BUILD_TYPE=Release \
           -DPTLIBZIPPY_BUILD_MINIZIP=ON \
           -DMINIZIP_ENABLE_BZIP2=OFF \
           -G Ninja
     - name: Build
-      run: cmake --build build --config Release -v -j1
+      run: cmake --build "$GITHUB_WORKSPACE/ptlibzippy/build" --config Release -v -j1
     - name: Run tests
-      run: ctest --output-on-failure --test-dir build -C Release
+      run: ctest --output-on-failure --test-dir "$GITHUB_WORKSPACE/ptlibzippy/build" -C Release

@@ -234,7 +234,7 @@ exact version and configuration is relevant, use macro
 === "Dangerous"
 
       ```cpp
-      void to_json(nlohmann::json_abi_v3_11_2::json& j, const person& p)
+      void to_json(nlohmann::json_abi_v0_0_5_1::json& j, const person& p)
       {
           j["age"] = p.age;
       }

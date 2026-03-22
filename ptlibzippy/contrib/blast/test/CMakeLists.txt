@@ -1,11 +1,10 @@
 # if we are built from with PTlibzippy, use this path's)
 if(DEFINED PTLIBZIPPY_BUILD_BLAST)
-    set(WORK_DIR ${ptlibzippy_BINARY_DIR})
+    set(WORK_DIR ${PTlibzippy_BINARY_DIR})
     set(inst_setup ptlibzippy_install)
 else(DEFINED PTLIBZIPPY_BUILD_BLAST)
     set(WORK_DIR ${blast_BINARY_DIR})
     set(inst_setup ptlibzippy_blast_install)
-    set(PTLIBZIPPY_ARG "-DPTLIBZIPPY_DIR=${PTLIBZIPPY_DIR}")
 
     add_test(
         NAME ptlibzippy_blast_install
@@ -17,6 +16,12 @@ else(DEFINED PTLIBZIPPY_BUILD_BLAST)
         PROPERTIES
             FIXTURES_SETUP ptlibzippy_blast_install)
 endif(DEFINED PTLIBZIPPY_BUILD_BLAST)
+
+set(BLAST_TEST_INSTALL_DIR "${WORK_DIR}/test/test_install")
+set(BLAST_TEST_PACKAGE_DIR
+    "${BLAST_TEST_INSTALL_DIR}/${CMAKE_INSTALL_LIBDIR}/cmake/blast")
+set(BLAST_FIND_PACKAGE_ARGS
+    "-Dblast_DIR=${BLAST_TEST_PACKAGE_DIR}")
 
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/findpackage_test)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/add_subdirectory_test)
@@ -63,7 +68,8 @@ add_test(
         -DCMAKE_BUILD_TYPE=$<CONFIG>
         -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
         -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
-        -DCMAKE_INSTALL_PREFIX=${WORK_DIR}/test/test_install ${PTLIBZIPPY_ARG}
+        -DCMAKE_INSTALL_PREFIX=${BLAST_TEST_INSTALL_DIR}
+        ${BLAST_FIND_PACKAGE_ARGS}
         --fresh
         -G "${CMAKE_GENERATOR}"
         -S${CMAKE_CURRENT_BINARY_DIR}/findpackage_test)
@@ -94,7 +100,8 @@ add_test(
         -DCMAKE_BUILD_TYPE=$<CONFIG>
         -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
         -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
-        -DCMAKE_INSTALL_PREFIX=${WORK_DIR}/test/test_install ${PTLIBZIPPY_ARG}
+        -DCMAKE_INSTALL_PREFIX=${BLAST_TEST_INSTALL_DIR}
+        ${BLAST_FIND_PACKAGE_ARGS}
         --fresh
         -G "${CMAKE_GENERATOR}"
         -S${CMAKE_CURRENT_BINARY_DIR}/add_subdirectory_test)
@@ -125,7 +132,8 @@ add_test(
         -DCMAKE_BUILD_TYPE=$<CONFIG>
         -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
         -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
-        -DCMAKE_INSTALL_PREFIX=${WORK_DIR}/test/test_install ${PTLIBZIPPY_ARG}
+        -DCMAKE_INSTALL_PREFIX=${BLAST_TEST_INSTALL_DIR}
+        ${BLAST_FIND_PACKAGE_ARGS}
         --fresh
         -G "${CMAKE_GENERATOR}"
         -S${CMAKE_CURRENT_BINARY_DIR}/add_subdirectory_exclude_test)
@@ -155,7 +163,8 @@ add_test(
         -B${CMAKE_CURRENT_BINARY_DIR}/findpackage_no_components_test_build
         -DCMAKE_BUILD_TYPE=$<CONFIG> -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
         -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
-        -DCMAKE_INSTALL_PREFIX=${WORK_DIR}/test/test_install ${PTLIBZIPPY_ARG}
+        -DCMAKE_INSTALL_PREFIX=${BLAST_TEST_INSTALL_DIR}
+        ${BLAST_FIND_PACKAGE_ARGS}
         --fresh
         -G "${CMAKE_GENERATOR}"
         -S${CMAKE_CURRENT_BINARY_DIR}/findpackage_no_components_test)
@@ -181,7 +190,8 @@ add_test(
         -B${CMAKE_CURRENT_BINARY_DIR}/findpackage_wrong_components_test_build
         -DCMAKE_BUILD_TYPE=$<CONFIG> -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
         -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
-        -DCMAKE_INSTALL_PREFIX=${WORK_DIR}/test/test_install ${PTLIBZIPPY_ARG}
+        -DCMAKE_INSTALL_PREFIX=${BLAST_TEST_INSTALL_DIR}
+        ${BLAST_FIND_PACKAGE_ARGS}
         --fresh
         -G "${CMAKE_GENERATOR}"
         -S${CMAKE_CURRENT_BINARY_DIR}/findpackage_wrong_components_test)
@@ -190,4 +200,3 @@ set_tests_properties(ptlibzippy_blast_find_package_wrong_components_configure
     PROPERTIES
         FIXTURES_REQUIRED ${inst_setup}
         WILL_FAIL TRUE)
-
