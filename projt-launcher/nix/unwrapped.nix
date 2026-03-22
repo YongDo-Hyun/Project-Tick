@@ -36,7 +36,7 @@
     if stdenv.hostPlatform.system == "x86_64-linux" then
       "sha256-gdwTnWfOJ7O/9c5uPa2OWvzeD4O0COyzg2qMOy7JknU="
     else if stdenv.hostPlatform.system == "aarch64-linux" then
-      "sha256-piyN+TFYKGQ+mLDJd0vwRCRq5E5ECFsnoDiatQMqb0g="
+      "sha256-LTDF9k3184n1b6is+enqfx2Wlz6EC+32/F4s43qpXnA="
     else
       null,
 }:

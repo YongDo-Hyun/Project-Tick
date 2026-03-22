@@ -1,0 +1,68 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "gitsubmodule"
+    directory: "/"
+    ignore:
+      - dependency-name: "cgit/git"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "/projt-launcher/ci/github-script"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "gradle"
+    directory: "/forgewrapper"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "vcpkg"
+    directory: "/quazip"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "pip"
+    directory: "/meta"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "pip"
+    directory: "/json4cpp/docs/mkdocs"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "pip"
+    directory: "/json4cpp/tools/astyle"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "pip"
+    directory: "/json4cpp/tools/generate_natvis"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "pip"
+    directory: "/json4cpp/tools/serve_header"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "pip"
+    directory: "/json4cpp/cmake/requirements"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "pip"
+    directory: "/tomlplusplus/tools"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "docker"
+    directory: "/libpng/contrib/oss-fuzz"
+    schedule:
+      interval: "daily"
