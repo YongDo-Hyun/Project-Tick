@@ -46,7 +46,7 @@ jobs:
               with:
                   egress-policy: audit
 
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v6
 
             - name: Install base dependencies
               run: |
@@ -120,7 +120,7 @@ jobs:
                 working-directory: tomlplusplus
 
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v6
 
             - name: Install dependencies
               run: |

@@ -87,7 +87,7 @@ jobs:
           INSTALL_COMMAND: ${{ matrix.install }}
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ inputs.ref || github.event.inputs.ref || github.sha }}
 
@@ -190,7 +190,7 @@ jobs:
           INSTALL_COMMAND: ${{ matrix.install }}
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ inputs.ref || github.event.inputs.ref || github.sha }}
 

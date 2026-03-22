@@ -37,7 +37,7 @@ jobs:
         with:
           egress-policy: audit
       - name: Check out the code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ inputs.ref || github.event.inputs.ref || github.sha }}
 
@@ -76,7 +76,7 @@ jobs:
         with:
           egress-policy: audit
       - name: Check out the code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ inputs.ref || github.event.inputs.ref || github.sha }}
 
@@ -97,7 +97,7 @@ jobs:
         with:
           egress-policy: audit
       - name: Check out the code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ inputs.ref || github.event.inputs.ref || github.sha }}
 
