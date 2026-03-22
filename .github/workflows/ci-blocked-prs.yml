@@ -31,7 +31,7 @@ jobs:
         id: generate-token
         uses: actions/create-github-app-token@v2
         with:
-          app-id: ${{ vars.PULL_REQUEST_APP_ID }}
+          app-id: ${{ secrets.PULL_REQUEST_APP_ID }}
           private-key: ${{ secrets.PULL_REQUEST_APP_PRIVATE_KEY }}
 
       - name: Setup From Dispatch Event
