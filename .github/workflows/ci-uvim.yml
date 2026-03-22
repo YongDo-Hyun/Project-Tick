@@ -68,13 +68,35 @@ jobs:
           set -euxo pipefail
           make ${UVIM_CONFIGURE_FLAGS} reconfig
 
-      - name: Run nongui tests
+      - name: Run uVim tests
         shell: bash
-        working-directory: uvim/src/testdir
+        working-directory: uvim/src
         run: |
           set -euxo pipefail
-          make -f Makefile clean
-          make -f Makefile VIMPROG=../uvim SCRIPTSOURCE=../../runtime nongui
+          make unittest
+
+          # The inherited Vim testdir suite depends on Vimscript features that
+          # this fork intentionally removes, so validate the supported script
+          # input path directly instead.
+          tmpdir="$(mktemp -d)"
+          trap 'rm -rf "$tmpdir"' EXIT
+
+          printf 'iabc\010\033:wq!\r' > "$tmpdir/backspace.script"
+          VIMRUNTIME=../runtime ./uvim \
+            -f \
+            -n \
+            -i NONE \
+            -u NONE \
+            -U NONE \
+            --noplugin \
+            --not-a-term \
+            -s "$tmpdir/backspace.script" \
+            "$tmpdir/backspace.txt" \
+            > "$tmpdir/smoke.log" 2>&1
+
+          printf 'ab\n' > "$tmpdir/expected.txt"
+          diff -u "$tmpdir/expected.txt" "$tmpdir/backspace.txt"
+          cp "$tmpdir/smoke.log" testdir/smoke.log
 
       - name: Upload test logs
         if: always()
@@ -85,4 +107,5 @@ jobs:
             uvim/src/testdir/test.log
             uvim/src/testdir/messages
             uvim/src/testdir/*.failed
+            uvim/src/testdir/smoke.log
           if-no-files-found: ignore

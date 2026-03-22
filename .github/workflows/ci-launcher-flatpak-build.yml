@@ -67,7 +67,7 @@ jobs:
         - /opt/hostedtoolcache:/hostedtoolcache
 
     env:
-      GPG_KEY_ID: ${{ secrets.FLATPAK_LINUX_GPG_KEY != '' && vars.GPG_KEY_ID || '' }}
+      GPG_KEY_ID: ${{ secrets.FLATPAK_LINUX_GPG_KEY != '' && secrets.GPG_KEY_ID || '' }}
       REPOSITORY_DIR: repo
 
     steps:

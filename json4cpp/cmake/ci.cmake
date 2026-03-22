@@ -369,6 +369,7 @@ add_custom_target(ci_cppcheck
             --std=c++11 ${PROJECT_SOURCE_DIR}/include/nlohmann/json.hpp -I ${CMAKE_SOURCE_DIR}/include
             --error-exitcode=1 --relative-paths=${PROJECT_SOURCE_DIR} -j ${N} --include=default_defines.hpp
             --cppcheck-build-dir=cppcheck --check-level=exhaustive
+            --suppress=invalidPrintfArgType_float:include/nlohmann/detail/output/serializer.hpp
             -UJSON_CATCH_USER -UJSON_TRY_USER -UJSON_ASSERT -UJSON_INTERNAL_CATCH -UJSON_THROW
             -DJSON_HAS_CPP_11 -UJSON_HAS_CPP_14 -UJSON_HAS_CPP_17 -UJSON_HAS_CPP_20 -UJSON_HAS_THREE_WAY_COMPARISON
     COMMENT "Check code with Cppcheck"

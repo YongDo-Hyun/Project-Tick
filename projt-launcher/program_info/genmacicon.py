@@ -39,7 +39,7 @@ for idx, g in enumerate(groups):
     ET.ElementTree(new_svg).write(out_path)
 
     layers.append({
-        "image-name": f"{name}.svg",
+        "image-name": f"assets/{name}.svg",
         "name": name,
         "position": {
             "scale": 1.0,
@@ -71,4 +71,4 @@ icon_json = {
 with open(".icon/icon.json", "w") as f:
     json.dump(icon_json, f, indent=2)
 
-print(f"{len(layers)} layer extracted → .icon/assets/")
+print(f"{len(layers)} layer extracted -> .icon/assets/")

@@ -43,7 +43,7 @@ jobs:
           - name: ubuntu-noble
             image: ubuntu:noble
             bootstrap: apt-get update -y && apt-get install -y git ca-certificates
-            install: apt-get update -y && apt-get install -y gcc python3-pip ninja-build valgrind && pip3 install meson pytest
+            install: apt-get update -y && apt-get install -y gcc meson ninja-build python3-pytest valgrind
           - name: fedora-43
             image: registry.fedoraproject.org/fedora:43
             bootstrap: dnf install -y git ca-certificates
@@ -73,6 +73,7 @@ jobs:
           set -euxo pipefail
           eval "${BOOTSTRAP_COMMAND}"
         env:
+          DEBIAN_FRONTEND: noninteractive
           BOOTSTRAP_COMMAND: ${{ matrix.bootstrap }}
 
       - name: Install dependencies
@@ -82,6 +83,7 @@ jobs:
           set -euxo pipefail
           eval "${INSTALL_COMMAND}"
         env:
+          DEBIAN_FRONTEND: noninteractive
           INSTALL_COMMAND: ${{ matrix.install }}
 
       - name: Checkout
@@ -136,18 +138,13 @@ jobs:
             bootstrap: apt-get update -y && apt-get install -y git ca-certificates
             install: apt-get update -y && apt-get install -y cmake gcc make python3-pytest valgrind
             cmake_args: -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED_LIB=OFF -DENABLE_STATIC_LIB=ON
-          - name: ubuntu-bionic
-            image: ubuntu:bionic
+          - name: ubuntu-noble
+            image: ubuntu:noble
             bootstrap: apt-get update -y && apt-get install -y git ca-certificates
-            install: apt-get update -y && apt-get install -y gcc make python3-pip valgrind && pip3 install --upgrade pip && pip3 install pytest cmake
+            install: apt-get update -y && apt-get install -y cmake gcc make python3-pytest valgrind
             cmake_args: -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED_LIB=ON -DENABLE_STATIC_LIB=OFF
-          - name: ubuntu-bionic-i386
-            image: i386/ubuntu:bionic
-            bootstrap: apt-get update -y && apt-get install -y git ca-certificates
-            install: apt-get update -y && apt-get install -y gcc make python3-pip valgrind && pip3 install --upgrade pip && pip3 install pytest cmake
-            cmake_args: -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED_LIB=ON -DENABLE_STATIC_LIB=OFF
-          - name: fedora-35
-            image: registry.fedoraproject.org/fedora:35
+          - name: fedora-43
+            image: registry.fedoraproject.org/fedora:43
             bootstrap: dnf install -y git ca-certificates
             install: dnf install -y gcc cmake python3-pytest valgrind
             cmake_args: -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED_LIB=ON -DENABLE_STATIC_LIB=OFF
@@ -179,6 +176,7 @@ jobs:
           set -euxo pipefail
           eval "${BOOTSTRAP_COMMAND}"
         env:
+          DEBIAN_FRONTEND: noninteractive
           BOOTSTRAP_COMMAND: ${{ matrix.bootstrap }}
 
       - name: Install dependencies
@@ -188,6 +186,7 @@ jobs:
           set -euxo pipefail
           eval "${INSTALL_COMMAND}"
         env:
+          DEBIAN_FRONTEND: noninteractive
           INSTALL_COMMAND: ${{ matrix.install }}
 
       - name: Checkout

@@ -53,6 +53,7 @@ configure_file(${Launcher_APP_BINARY_NAME}.ico ${Launcher_APP_BINARY_NAME}.ico C
 configure_file(${Launcher_SVGFileName} ${Launcher_SVGFileName} COPYONLY)
 configure_file(gplv3-127x51.png gplv3-127x51.png COPYONLY)
 configure_file(${Launcher_AppID}.mime.xml ${Launcher_AppID}.xml COPYONLY)
+file(TO_CMAKE_PATH "${PROJECT_SOURCE_DIR}/COPYING.md" Launcher_License_File)
 
 if(MSVC)
     set(Launcher_MSVC_Redist_NSIS_Section [=[

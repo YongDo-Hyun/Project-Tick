@@ -94,40 +94,18 @@ stdenv.mkDerivation {
       ../CMakePresets.json
       ../COPYING.md
       ../bootstrap
-      ../bot
       ../buildconfig
-      ../bzip2
       ../caches
       ../ci
       ../cmake
-      ../cmark
-      ../docs
-      ../extra-cmake-modules
       ../flatpak
       ../fuzz
-      ../gamemode
-      ../javacheck
       ../launcher
-      ../launcherjava
-      ../libpng
-      ../libnbtplusplus
-      ../libqrencode
-      ../LICENSES
-      ../LocalPeer
-      ../meta
-      ../murmur2
       ../nix
       ../program_info
-      ../public
-      ../qdcss
-      ../quazip
-      ../rainbow
       ../scripts
-      ../systeminfo
       ../tests
-      ../tomlplusplus
       ../tools
-      ../zlib
     ];
   };
 

@@ -4,7 +4,7 @@
     {
       "layers": [
         {
-          "image-name": "layer1.svg",
+          "image-name": "assets/layer1.svg",
           "name": "layer1",
           "position": {
             "scale": 1.0,

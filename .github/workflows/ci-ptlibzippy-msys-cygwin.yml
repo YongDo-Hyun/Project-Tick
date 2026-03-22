@@ -1,4 +1,4 @@
-name: mingw/cygwin
+name: CI ptlibzippy mingw/cygwin
 
 on:
   push:
@@ -106,9 +106,6 @@ jobs:
             gcc-core
             gcc-g++
             ninja
-
-      - name: Add Cygwin to PATH
-        run: echo "C:\cygwin\bin" >> $GITHUB_PATH
 
       - name: Configure
         run: |
