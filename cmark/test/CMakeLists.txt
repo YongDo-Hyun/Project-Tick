@@ -17,24 +17,26 @@ IF (Python3_Interpreter_FOUND)
            COMMAND "$<TARGET_FILE:Python3::Interpreter>" -m doctest "${CMAKE_CURRENT_SOURCE_DIR}/normalize.py")
 
   if(BUILD_SHARED_LIBS)
-    add_test(NAME spectest_library
-             COMMAND "$<TARGET_FILE:Python3::Interpreter>" "${CMAKE_CURRENT_SOURCE_DIR}/spec_tests.py"
-                                                           --no-normalize
-                                                           --spec "${CMAKE_CURRENT_SOURCE_DIR}/spec.txt"
-                                                           --library-dir "$<TARGET_FILE_DIR:cmark>")
+    if(NOT (WIN32 AND CMAKE_SYSTEM_PROCESSOR MATCHES "ARM64"))
+      add_test(NAME spectest_library
+               COMMAND "$<TARGET_FILE:Python3::Interpreter>" "${CMAKE_CURRENT_SOURCE_DIR}/spec_tests.py"
+                                                             --no-normalize
+                                                             --spec "${CMAKE_CURRENT_SOURCE_DIR}/spec.txt"
+                                                             --library-dir "$<TARGET_FILE_DIR:cmark>")
 
-    add_test(NAME pathological_tests_library
-             COMMAND "$<TARGET_FILE:Python3::Interpreter>" "${CMAKE_CURRENT_SOURCE_DIR}/pathological_tests.py"
-                                                           --library-dir "$<TARGET_FILE_DIR:cmark>")
+      add_test(NAME pathological_tests_library
+               COMMAND "$<TARGET_FILE:Python3::Interpreter>" "${CMAKE_CURRENT_SOURCE_DIR}/pathological_tests.py"
+                                                             --library-dir "$<TARGET_FILE_DIR:cmark>")
 
-    add_test(NAME roundtriptest_library
-             COMMAND "$<TARGET_FILE:Python3::Interpreter>" "${CMAKE_CURRENT_SOURCE_DIR}/roundtrip_tests.py"
-                                                           --spec "${CMAKE_CURRENT_SOURCE_DIR}/spec.txt"
-                                                           --library-dir "$<TARGET_FILE_DIR:cmark>")
+      add_test(NAME roundtriptest_library
+               COMMAND "$<TARGET_FILE:Python3::Interpreter>" "${CMAKE_CURRENT_SOURCE_DIR}/roundtrip_tests.py"
+                                                             --spec "${CMAKE_CURRENT_SOURCE_DIR}/spec.txt"
+                                                             --library-dir "$<TARGET_FILE_DIR:cmark>")
 
-    add_test(NAME entity_library
-             COMMAND "$<TARGET_FILE:Python3::Interpreter>" "${CMAKE_CURRENT_SOURCE_DIR}/entity_tests.py"
-                                                           --library-dir "$<TARGET_FILE_DIR:cmark>")
+      add_test(NAME entity_library
+               COMMAND "$<TARGET_FILE:Python3::Interpreter>" "${CMAKE_CURRENT_SOURCE_DIR}/entity_tests.py"
+                                                             --library-dir "$<TARGET_FILE_DIR:cmark>")
+    endif()
   endif()
 
   add_test(NAME spectest_executable

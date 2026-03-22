@@ -88,31 +88,42 @@ stdenv.mkDerivation {
   version = "0.0.5-1-unstable-${date}";
 
   src = lib.fileset.toSource {
-    root = ../.;
+    root = ../..;
     fileset = lib.fileset.unions [
-      ../CMakeLists.txt
-      ../CMakePresets.json
-      ../COPYING.md
-      ../bootstrap
-      ../buildconfig
-      ../ci
-      ../cmake
-      ../flatpak
-      ../fuzz
-      ../launcher
-      ../nix
-      ../program_info
-      ../scripts
-      ../tests
-      ../tools
+      ../../projt-launcher/CMakeLists.txt
+      ../../projt-launcher/CMakePresets.json
+      ../../projt-launcher/COPYING.md
+      ../../projt-launcher/bootstrap
+      ../../projt-launcher/buildconfig
+      ../../projt-launcher/ci
+      ../../projt-launcher/cmake
+      ../../projt-launcher/flatpak
+      ../../projt-launcher/fuzz
+      ../../projt-launcher/launcher
+      ../../projt-launcher/nix
+      ../../projt-launcher/program_info
+      ../../projt-launcher/scripts
+      ../../projt-launcher/tests
+      ../../projt-launcher/tools
+      ../../bzip2
+      ../../cmark
+      ../../extra-cmake-modules
+      ../../gamemode
+      ../../javacheck
+      ../../javaloader
+      ../../libnbtplusplus
+      ../../libpng
+      ../../libqrencode
+      ../../LocalPeer
+      ../../murmur2
+      ../../ptlibzippy
+      ../../qdcss
+      ../../quazip
+      ../../rainbow
+      ../../systeminfo
+      ../../tomlplusplus
     ];
   };
-
-  postPatch = ''
-    # Fix cmark executable name collision with cmark directory in Nix build
-    substituteInPlace cmark/src/CMakeLists.txt \
-      --replace-fail 'OUTPUT_NAME "cmark"' 'OUTPUT_NAME "cmark-bin"'
-  '';
 
   nativeBuildInputs = [
     cmake
@@ -186,6 +197,8 @@ stdenv.mkDerivation {
   '';
 
   dontWrapQtApps = true;
+
+  sourceRoot = "source/projt-launcher";
 
   meta = {
     description = "Free, open source launcher for Minecraft";

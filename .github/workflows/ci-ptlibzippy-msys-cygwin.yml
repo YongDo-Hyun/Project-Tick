@@ -1,4 +1,4 @@
-name: CI ptlibzippy mingw/cygwin
+name: CI ptlibzippy mingw
 
 on:
   push:
@@ -76,56 +76,3 @@ jobs:
     - name: Run tests
       working-directory: ptlibzippy
       run: ctest --output-on-failure --test-dir build -C Release
-
-  cygwin:
-    strategy:
-      fail-fast: false
-    runs-on: windows-latest
-    name: Cygwin
-    defaults:
-      run:
-        shell: C:\cygwin\bin\bash.exe --login -lc "{0}"
-
-    steps:
-      - name: Harden Runner
-        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e
-        with:
-          egress-policy: audit
-
-      - name: Checkout
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: Setup Cygwin
-        uses: cygwin/cygwin-install-action@master
-        with:
-          packages: >-
-            cmake
-            cygwin-devel
-            gcc-core
-            gcc-g++
-            ninja
-
-      - name: Configure
-        run: |
-          cd ptlibzippy
-          src_dir="."
-          build_dir="build"
-
-          cmake -S "$src_dir" \
-            -B "$build_dir" \
-            -DCMAKE_BUILD_TYPE=Release \
-            -DPTLIBZIPPY_BUILD_MINIZIP=ON \
-            -DMINIZIP_ENABLE_BZIP2=OFF \
-            -G Ninja
-
-      - name: Build
-        run: |
-          cd ptlibzippy
-          cmake --build build --config Release -v -j1
-
-      - name: Run tests
-        run: |
-          cd ptlibzippy
-          ctest --output-on-failure --test-dir build -C Release

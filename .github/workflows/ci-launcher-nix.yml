@@ -110,11 +110,10 @@ jobs:
             experimental-features = nix-command flakes
 
       - name: Build package via Nix (Debug)
-        working-directory: projt-launcher
         if: github.ref_type != 'tag'
         run: |
-          nix build --no-link --print-build-logs .#packages.${{ matrix.system }}.projtlauncher-debug || \
-          nix build --no-link --print-build-logs .#projtlauncher
+          nix build --no-link --print-build-logs projt-launcher/#packages.${{ matrix.system }}.projtlauncher-debug || \
+          nix build --no-link --print-build-logs projt-launcher/#projtlauncher
 
       - name: Build package via Nix (Release)
         working-directory: projt-launcher
