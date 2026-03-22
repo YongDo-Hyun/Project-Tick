@@ -196,8 +196,20 @@ runs:
     - name: Upload binary tarball
       uses: actions/upload-artifact@v5
       with:
-        name: ProjTLauncher-${{ inputs.artifact-name }}-${{ inputs.version }}-${{ inputs.build-type }}
+        name: ProjTLauncher-${{ inputs.artifact-name }}-${{ inputs.version }}-${{ inputs.build-type }}.zip
         path: |
           ${{ format('{0}/ProjTLauncher.zip', inputs.source-dir || github.workspace) }}
+
+    - name: Upload binary tarball
+      uses: actions/upload-artifact@v5
+      with:
+        name: ProjTLauncher-${{ inputs.artifact-name }}-${{ inputs.version }}-${{ inputs.build-type }}.dmg
+        path: |
           ${{ format('{0}/ProjTLauncher.dmg', inputs.source-dir || github.workspace) }}
+
+    - name: Upload binary tarball
+      uses: actions/upload-artifact@v5
+      with:
+        name: ProjTLauncher-${{ inputs.artifact-name }}-${{ inputs.version }}-${{ inputs.build-type }}.pkg
+        path: |
           ${{ format('{0}/ProjTLauncher-macOS-{1}.pkg', inputs.source-dir || github.workspace, inputs.version) }}

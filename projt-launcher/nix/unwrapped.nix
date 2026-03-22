@@ -32,7 +32,13 @@
   gamemodeSupport ? stdenv.hostPlatform.isLinux,
   cefVersion ? "144.0.11+ge135be2+chromium-144.0.7559.97",
   cefDistribution ? "minimal",
-  cefHash ? if stdenv.hostPlatform.system == "x86_64-linux" then "sha256-gdwTnWfOJ7O/9c5uPa2OWvzeD4O0COyzg2qMOy7JknU=" else null,
+  cefHash ?
+    if stdenv.hostPlatform.system == "x86_64-linux" then
+      "sha256-gdwTnWfOJ7O/9c5uPa2OWvzeD4O0COyzg2qMOy7JknU="
+    else if stdenv.hostPlatform.system == "aarch64-linux" then
+      "sha256-piyN+TFYKGQ+mLDJd0vwRCRq5E5ECFsnoDiatQMqb0g="
+    else
+      null,
 }:
 assert lib.assertMsg (
   gamemodeSupport -> stdenv.hostPlatform.isLinux
