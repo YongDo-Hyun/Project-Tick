@@ -1,14 +1,14 @@
-@Launcher_APP_BINARY_NAME@(6)
+@Launcher_AppBinaryName@(6)
 
 
 # NAME
 
-@Launcher_APP_BINARY_NAME@ - a launcher and instance manager for Minecraft.
+@Launcher_AppBinaryName@ - a launcher and instance manager for Minecraft.
 
 
 # SYNOPSIS
 
-*@Launcher_APP_BINARY_NAME@* [OPTIONS...]
+*@Launcher_AppBinaryName@* [OPTIONS...]
 
 
 # DESCRIPTION

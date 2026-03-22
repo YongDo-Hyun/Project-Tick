@@ -343,8 +343,6 @@ option(Launcher_ALLOW_FETCHCONTENT "Allow FetchContent fallback for tomlplusplus
 option(Launcher_ALLOW_ECM_FETCHCONTENT "Allow FetchContent fallback for ECM" OFF)
 option(Launcher_SHOW_CMAKE_WARNINGS "Show CMake developer/deprecated warnings from dependencies" ON)
 
-include(cmake/versions.cmake)
-
 if(Launcher_SHOW_CMAKE_WARNINGS)
     set(CMAKE_WARN_DEPRECATED ON)
     set(CMAKE_SUPPRESS_DEVELOPER_WARNINGS OFF)
@@ -386,19 +384,16 @@ macro(launcher_fetchcontent_makeavailable content_name)
     endif()
 endmacro()
 
-# extra-cmake-modules (ECM) - Using bundled fork
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../extra-cmake-modules/modules")
-    message(STATUS "Using bundled extra-cmake-modules")
-    set(ECM_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../extra-cmake-modules/modules")
-    set(ECM_MODULE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../extra-cmake-modules/modules")
-    # Add kde-modules for KDEInstallDirs and other KDE modules
-    list(APPEND ECM_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../extra-cmake-modules/kde-modules")
-else()
-    message(FATAL_ERROR "ECM not found. extra-cmake-modules/ directory is missing.")
-endif()
+message(STATUS "Using bundled extra-cmake-modules")
+set(ECM_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../extra-cmake-modules/modules")
+set(ECM_MODULE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../extra-cmake-modules/modules")
+# Add kde-modules for KDEInstallDirs and other KDE modules
+list(APPEND ECM_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../extra-cmake-modules/kde-modules")
 set(CMAKE_MODULE_PATH "${ECM_MODULE_PATH};${CMAKE_MODULE_PATH}")
+
 include(CTest)
 include(ECMAddTests)
+
 if(BUILD_TESTING)
     enable_testing()
 endif()
@@ -408,7 +403,7 @@ endif()
 ######## Set URLs ########
 set(Launcher_NEWS_RSS_URL "https://projecttick.org/product/projt-launcher/feed.xml" CACHE STRING "URL to fetch ProjT Launcher's news RSS feed from.")
 set(Launcher_NEWS_OPEN_URL "https://projecttick.org/product/projt-launcher/news" CACHE STRING "URL that gets opened when the user clicks 'More News'")
-set(Launcher_WIKI_URL "https://projecttick.org/projtlauncher/wiki/" CACHE STRING "URL that gets opened when the user clicks 'Launcher Help'")
+set(Launcher_WIKI_URL "https://projecttick.org/handbook/" CACHE STRING "URL that gets opened when the user clicks 'Launcher Help'")
 set(Launcher_HELP_URL "https://projecttick.org/handbook/help-pages/%1" CACHE STRING "URL (with arg %1 to be substituted with page-id) that gets opened when the user requests help in a dialog window")
 set(Launcher_HUB_HOME_URL "https://projecttick.org/p/projt-launcher/" CACHE STRING "Launcher Hub home URL")
 set(Launcher_HUB_COMMUNITY_URL "https://projecttick.org/projtlauncher/discord" CACHE STRING "Launcher Hub community URL")
@@ -431,142 +426,6 @@ set(Launcher_BUILD_PLATFORM "unknown" CACHE STRING "A short string identifying t
 
 # CI fuzz builds use a reduced target set; skip heavy components and installers when enabled.
 option(LAUNCHER_FUZZ_ONLY "Build only fuzzing targets (skips installers, Java launcher, and desktop integration)" OFF)
-
-# Optional bundled toolchain / Qt builds (off by default).
-option(Launcher_ENABLE_BUNDLED_QT_TARGETS "Expose Qt build targets using sources under qt/" OFF)
-option(Launcher_ENABLE_BUNDLED_LLVM_TARGETS "Expose LLVM/Clang build targets using sources under toolchain/llvm" OFF)
-option(Launcher_ENABLE_BUNDLED_GCC_TARGETS "Expose GCC build targets using sources under toolchain/gcc" OFF)
-set(Launcher_BUNDLED_BUILD_ROOT "${PROJECT_BINARY_DIR}/bundled-build" CACHE PATH "Build root for bundled Qt/toolchain targets")
-set(Launcher_BUNDLED_INSTALL_ROOT "${PROJECT_BINARY_DIR}/bundled-install" CACHE PATH "Install root for bundled Qt/toolchain targets")
-set(Launcher_BUNDLED_BUILD_CONFIG "Release" CACHE STRING "Build configuration for bundled Qt/toolchain targets")
-set_property(CACHE Launcher_BUNDLED_BUILD_CONFIG PROPERTY STRINGS Debug Release RelWithDebInfo MinSizeRel)
-set(Launcher_BUNDLED_GCC_MAKE_PROGRAM "make" CACHE STRING "Make program used for bundled GCC build")
-
-set(_projt_bundled_targets_enabled FALSE)
-if(Launcher_ENABLE_BUNDLED_QT_TARGETS OR Launcher_ENABLE_BUNDLED_LLVM_TARGETS OR Launcher_ENABLE_BUNDLED_GCC_TARGETS)
-    set(_projt_bundled_targets_enabled TRUE)
-endif()
-
-if(_projt_bundled_targets_enabled)
-    include(ProcessorCount)
-    ProcessorCount(_projt_host_cpu_count)
-    if(NOT _projt_host_cpu_count OR _projt_host_cpu_count LESS 1)
-        set(_projt_host_cpu_count 1)
-    endif()
-endif()
-
-if(Launcher_ENABLE_BUNDLED_QT_TARGETS)
-    set(_projt_qtbase_src "${CMAKE_CURRENT_SOURCE_DIR}/qt/qtbase")
-    set(_projt_qtbase_build "${Launcher_BUNDLED_BUILD_ROOT}/qtbase")
-    set(_projt_qtbase_install "${Launcher_BUNDLED_INSTALL_ROOT}/qt")
-    if(EXISTS "${_projt_qtbase_src}/CMakeLists.txt")
-        add_custom_target(qt-bundled-configure
-            COMMAND "${CMAKE_COMMAND}" -S "${_projt_qtbase_src}" -B "${_projt_qtbase_build}"
-                -G "${CMAKE_GENERATOR}"
-                -DCMAKE_INSTALL_PREFIX="${_projt_qtbase_install}"
-                -DCMAKE_PREFIX_PATH="${_projt_qtbase_install}"
-                -DQT_BUILD_TESTS=OFF
-                -DQT_BUILD_EXAMPLES=OFF
-            COMMENT "Configuring bundled Qt (qtbase) from ${_projt_qtbase_src}"
-            USES_TERMINAL
-        )
-        add_custom_target(qt-bundled-build
-            COMMAND "${CMAKE_COMMAND}" --build "${_projt_qtbase_build}" --config "${Launcher_BUNDLED_BUILD_CONFIG}" --parallel "${_projt_host_cpu_count}"
-            DEPENDS qt-bundled-configure
-            COMMENT "Building bundled Qt (qtbase)"
-            USES_TERMINAL
-        )
-        add_custom_target(qt-bundled-install
-            COMMAND "${CMAKE_COMMAND}" --build "${_projt_qtbase_build}" --target install --config "${Launcher_BUNDLED_BUILD_CONFIG}" --parallel "${_projt_host_cpu_count}"
-            DEPENDS qt-bundled-build
-            COMMENT "Installing bundled Qt into ${_projt_qtbase_install}"
-            USES_TERMINAL
-        )
-    else()
-        message(WARNING "Bundled Qt sources not found at ${_projt_qtbase_src}; qt-bundled-* targets will not be created.")
-    endif()
-endif()
-
-if(Launcher_ENABLE_BUNDLED_LLVM_TARGETS)
-    set(_projt_llvm_src "${CMAKE_CURRENT_SOURCE_DIR}/toolchain/llvm/llvm")
-    set(_projt_llvm_build "${Launcher_BUNDLED_BUILD_ROOT}/llvm")
-    set(_projt_llvm_install "${Launcher_BUNDLED_INSTALL_ROOT}/llvm")
-    if(EXISTS "${_projt_llvm_src}/CMakeLists.txt")
-        add_custom_target(toolchain-llvm-configure
-            COMMAND "${CMAKE_COMMAND}" -S "${_projt_llvm_src}" -B "${_projt_llvm_build}"
-                -G "${CMAKE_GENERATOR}"
-                -DCMAKE_INSTALL_PREFIX="${_projt_llvm_install}"
-                "-DLLVM_ENABLE_PROJECTS='clang;clang-tools-extra;lld'"
-                -DLLVM_INCLUDE_TESTS=OFF
-                -DLLVM_INCLUDE_BENCHMARKS=OFF
-                -DLLVM_INCLUDE_EXAMPLES=OFF
-            COMMENT "Configuring bundled LLVM/Clang from ${_projt_llvm_src}"
-            USES_TERMINAL
-        )
-        add_custom_target(toolchain-llvm-build
-            COMMAND "${CMAKE_COMMAND}" --build "${_projt_llvm_build}" --config "${Launcher_BUNDLED_BUILD_CONFIG}" --parallel "${_projt_host_cpu_count}"
-            DEPENDS toolchain-llvm-configure
-            COMMENT "Building bundled LLVM/Clang"
-            USES_TERMINAL
-        )
-        add_custom_target(toolchain-llvm-install
-            COMMAND "${CMAKE_COMMAND}" --build "${_projt_llvm_build}" --target install --config "${Launcher_BUNDLED_BUILD_CONFIG}" --parallel "${_projt_host_cpu_count}"
-            DEPENDS toolchain-llvm-build
-            COMMENT "Installing bundled LLVM/Clang into ${_projt_llvm_install}"
-            USES_TERMINAL
-        )
-    else()
-        message(WARNING "Bundled LLVM sources not found at ${_projt_llvm_src}; toolchain-llvm-* targets will not be created.")
-    endif()
-endif()
-
-if(Launcher_ENABLE_BUNDLED_GCC_TARGETS)
-    if(WIN32)
-        message(WARNING "Bundled GCC targets are disabled on Windows in this CMake setup.")
-    else()
-        set(_projt_gcc_src "${CMAKE_CURRENT_SOURCE_DIR}/toolchain/gcc")
-        set(_projt_gcc_build "${Launcher_BUNDLED_BUILD_ROOT}/gcc")
-        set(_projt_gcc_install "${Launcher_BUNDLED_INSTALL_ROOT}/gcc")
-        if(EXISTS "${_projt_gcc_src}/configure")
-            add_custom_target(toolchain-gcc-configure
-                COMMAND "${CMAKE_COMMAND}" -E make_directory "${_projt_gcc_build}"
-                COMMAND "${_projt_gcc_src}/configure" --prefix="${_projt_gcc_install}" --disable-multilib --enable-languages=c,c++
-                WORKING_DIRECTORY "${_projt_gcc_build}"
-                COMMENT "Configuring bundled GCC from ${_projt_gcc_src}"
-                USES_TERMINAL
-            )
-            add_custom_target(toolchain-gcc-build
-                COMMAND "${Launcher_BUNDLED_GCC_MAKE_PROGRAM}" -j"${_projt_host_cpu_count}"
-                WORKING_DIRECTORY "${_projt_gcc_build}"
-                DEPENDS toolchain-gcc-configure
-                COMMENT "Building bundled GCC"
-                USES_TERMINAL
-            )
-            add_custom_target(toolchain-gcc-install
-                COMMAND "${Launcher_BUNDLED_GCC_MAKE_PROGRAM}" install
-                WORKING_DIRECTORY "${_projt_gcc_build}"
-                DEPENDS toolchain-gcc-build
-                COMMENT "Installing bundled GCC into ${_projt_gcc_install}"
-                USES_TERMINAL
-            )
-        else()
-            message(WARNING "Bundled GCC sources not found at ${_projt_gcc_src}; toolchain-gcc-* targets will not be created.")
-        endif()
-    endif()
-endif()
-
-if(TARGET qt-bundled-install OR TARGET toolchain-llvm-install OR TARGET toolchain-gcc-install)
-    add_custom_target(bundled-all)
-    if(TARGET qt-bundled-install)
-        add_dependencies(bundled-all qt-bundled-install)
-    endif()
-    if(TARGET toolchain-llvm-install)
-        add_dependencies(bundled-all toolchain-llvm-install)
-    endif()
-    if(TARGET toolchain-gcc-install)
-        add_dependencies(bundled-all toolchain-gcc-install)
-    endif()
-endif()
 
 # Release feed URL for updater
 set(Launcher_UPDATER_RELEASES_URL "https://projecttick.org/product/projt-launcher/feed.xml" CACHE STRING "URL for the updater release feed manifest.")
@@ -596,7 +455,6 @@ set(Launcher_DISCORD_URL "https://projecttick.org/projtlauncher/discord" CACHE S
 # Subreddit URL
 set(Launcher_SUBREDDIT_URL "https:/projecttick.org/projtlauncher/reddit" CACHE STRING "URL for the subreddit.")
 
-# Builds
 # Builds
 set(Launcher_QT_VERSION_MAJOR "6" CACHE STRING "Major Qt version to build against")
 
@@ -672,146 +530,15 @@ if(WIN32 AND NOT MINGW)
         set(OSSL_ARCH "x64")
     endif()
 
-    # Note: ZLIB is handled via bundled version only, no NuGet fallback
-
-    # Find OpenSSL from NuGet
-    file(GLOB NUGET_OSSL_ROOTS "${CMAKE_SOURCE_DIR}/dependencies/openssl-native*")
-    if(NUGET_OSSL_ROOTS)
-        list(GET NUGET_OSSL_ROOTS 0 OSSL_ROOT_DIR)
-        message(STATUS "Found OpenSSL NuGet: ${OSSL_ROOT_DIR}")
-        set(OPENSSL_ROOT_DIR "${OSSL_ROOT_DIR}/build/native" CACHE PATH "" FORCE)
-        set(OPENSSL_USE_STATIC_LIBS ON)
-        
-        file(GLOB_RECURSE OSSL_LIBS "${OSSL_ROOT_DIR}/*.lib")
-        foreach(LIB_PATH ${OSSL_LIBS})
-            # Strictly match architecture folder to avoid win-x86
-            if(LIB_PATH MATCHES "win-${OSSL_ARCH}" OR LIB_PATH MATCHES "/${OSSL_ARCH}/")
-                if(LIB_PATH MATCHES "libcrypto.lib$|crypto.lib$")
-                    if(NOT LIB_PATH MATCHES "[Dd]ebug" OR NOT OPENSSL_CRYPTO_LIBRARY)
-                        set(OPENSSL_CRYPTO_LIBRARY "${LIB_PATH}" CACHE FILEPATH "" FORCE)
-                    endif()
-                elseif(LIB_PATH MATCHES "libssl.lib$|ssl.lib$")
-                    if(NOT LIB_PATH MATCHES "[Dd]ebug" OR NOT OPENSSL_SSL_LIBRARY)
-                        set(OPENSSL_SSL_LIBRARY "${LIB_PATH}" CACHE FILEPATH "" FORCE)
-                    endif()
-                endif()
-            endif()
-        endforeach()
-        
-        if(OPENSSL_CRYPTO_LIBRARY AND OPENSSL_SSL_LIBRARY)
-            set(OPENSSL_INCLUDE_DIR "${OPENSSL_ROOT_DIR}/include" CACHE PATH "" FORCE)
-            set(OPENSSL_LIBRARIES "${OPENSSL_SSL_LIBRARY}" "${OPENSSL_CRYPTO_LIBRARY}" CACHE STRING "" FORCE)
-            message(STATUS "Found OpenSSL via NuGet: ${OPENSSL_CRYPTO_LIBRARY}")
-            set(OpenSSL_FOUND TRUE CACHE BOOL "" FORCE)
-            set(OPENSSL_FOUND TRUE CACHE BOOL "" FORCE)
-        endif()
-    endif()
+    include(findOpenSSLbyNuget)
+    projt_find_openssl_by_nuget()
 
     list(APPEND CMAKE_PREFIX_PATH "${PTLIBZIPPY_ROOT}" "${OPENSSL_ROOT_DIR}")
     list(APPEND CMAKE_INCLUDE_PATH "${CMAKE_SOURCE_DIR}/dependencies")
 endif()
 
-# Always use bundled ptlibzippy
-set(PTLIBZIPPY_FOUND FALSE)
-
-# System Libraries - Using bundled ptlibzippy only
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../ptlibzippy/CMakeLists.txt")
-    message(STATUS "Using bundled ptlibzippy")
-        set(_projt_prev_skip_install_all "${SKIP_INSTALL_ALL}")
-        set(SKIP_INSTALL_ALL ON CACHE BOOL "" FORCE)
-        # For fuzzing builds, disable shared library to avoid sanitizer symbol conflicts
-        if(BUILD_FUZZERS)
-            set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
-            set(PTLIBZIPPY_BUILD_SHARED OFF CACHE BOOL "" FORCE)
-            set(PTLIBZIPPY_BUILD_STATIC ON CACHE BOOL "" FORCE)
-            message(STATUS "Fuzzing build: Building ptlibzippy as static library only")
-        endif()
-        # Disable instrumentation for external dependencies to avoid linker issues
-        # IMPORTANT: Save and restore flags to prevent interference with fuzzer compilation
-        set(_SAVED_CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-        set(_SAVED_CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-        set(_SAVED_CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG}")
-        set(_SAVED_CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE}")
-        
-        string(REGEX REPLACE "-fprofile-instr-generate|--coverage|-fprofile-generate|-fprofile-arcs|-ftest-coverage" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-        string(REGEX REPLACE "-fprofile-instr-generate|--coverage|-fprofile-generate|-fprofile-arcs|-ftest-coverage" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-
-        if(UNIX AND NOT APPLE)
-        # Provide a shared ptlibzippy so libpng and the launcher can use the bundled copy at runtime.
-        set(PTLIBZIPPY_BUILD_SHARED ON CACHE BOOL "" FORCE)
-        set(PTLIBZIPPY_BUILD_STATIC ON CACHE BOOL "" FORCE)
-        endif()
-        # Keep the bundled build ABI-compatible with the upstream zlib-style
-        # API. Prefixing breaks the bundled zlib example targets and is not
-        # needed now that libpng uses dedicated shim symbols.
-        set(PTLIBZIPPY_PREFIX OFF CACHE BOOL "" FORCE)
-
-        # For OSS-Fuzz: Strip sanitizer flags from zlib build to avoid symbol conflicts
-        if(DEFINED ENV{LIB_FUZZING_ENGINE})
-            string(REGEX REPLACE "-fsanitize=[^ ]*" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-            string(REGEX REPLACE "-fsanitize-coverage=[^ ]*" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-            string(REGEX REPLACE "-fno-sanitize-recover=[^ ]*" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-            message(STATUS "OSS-Fuzz build: Stripping sanitizer flags from zlib")
-        endif()
-        
-        if(UNIX AND NOT APPLE)
-            if(DEFINED Launcher_BUNDLED_LIBDIR AND NOT Launcher_BUNDLED_LIBDIR STREQUAL "")
-                projt_push_install_libdir("${Launcher_BUNDLED_LIBDIR}")
-            endif()
-            if(DEFINED Launcher_BUNDLED_INCLUDEDIR AND NOT Launcher_BUNDLED_INCLUDEDIR STREQUAL "")
-                projt_push_install_includedir("${Launcher_BUNDLED_INCLUDEDIR}")
-            endif()
-        endif()
-        projt_push_output_dirs("zlib")
-        projt_push_autogen_disabled()
-        add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../ptlibzippy ptlibzippy)
-        projt_pop_autogen_disabled()
-        projt_pop_output_dirs()
-        if(UNIX AND NOT APPLE)
-            if(DEFINED Launcher_BUNDLED_INCLUDEDIR AND NOT Launcher_BUNDLED_INCLUDEDIR STREQUAL "")
-                projt_pop_install_includedir()
-            endif()
-            if(DEFINED Launcher_BUNDLED_LIBDIR AND NOT Launcher_BUNDLED_LIBDIR STREQUAL "")
-                projt_pop_install_libdir()
-            endif()
-        endif()
-        
-        # Restore flags after zlib subdirectory
-        set(CMAKE_C_FLAGS "${_SAVED_CMAKE_C_FLAGS}")
-        set(CMAKE_CXX_FLAGS "${_SAVED_CMAKE_CXX_FLAGS}")
-        set(CMAKE_C_FLAGS_DEBUG "${_SAVED_CMAKE_C_FLAGS_DEBUG}")
-        set(CMAKE_C_FLAGS_RELEASE "${_SAVED_CMAKE_C_FLAGS_RELEASE}")
-        
-        if(TARGET ptlibzippystatic)
-            set_target_properties(ptlibzippystatic PROPERTIES POSITION_INDEPENDENT_CODE ON)
-        endif()
-        if(TARGET ptlibzippy)
-            set_target_properties(ptlibzippy PROPERTIES POSITION_INDEPENDENT_CODE ON)
-        endif()
-
-        # Set PTlibzippy variables for projects that need them
-        if(TARGET PTlibzippy::PTlibzippy)
-            get_target_property(_projt_ptlibzippy_includes PTlibzippy::PTlibzippy INTERFACE_INCLUDE_DIRECTORIES)
-        endif()
-        if(_projt_ptlibzippy_includes)
-            set(PTLIBZIPPY_INCLUDE_DIR "${_projt_ptlibzippy_includes}")
-        elseif(DEFINED PTlibzippy_SOURCE_DIR AND DEFINED PTlibzippy_BINARY_DIR)
-            set(PTLIBZIPPY_INCLUDE_DIR "${PTlibzippy_SOURCE_DIR};${PTlibzippy_BINARY_DIR}")
-        endif()
-        if(PTLIBZIPPY_INCLUDE_DIR)
-            set(PTLIBZIPPY_INCLUDE_DIRS "${PTLIBZIPPY_INCLUDE_DIR}")
-        endif()
-        set(PTLIBZIPPY_LIBRARY "PTlibzippy::PTlibzippy")
-        set(PTLIBZIPPY_LIBRARIES "PTlibzippy::PTlibzippy")
-        set(PTLIBZIPPY_FOUND TRUE)
-
-        set(PROJT_PTLIBZIPPY_AVAILABLE TRUE)
-        unset(_projt_ptlibzippy_includes)
-        # Restore libpng install behavior (libpng uses SKIP_INSTALL_ALL)
-        set(SKIP_INSTALL_ALL "${_projt_prev_skip_install_all}" CACHE BOOL "" FORCE)
-else()
-    message(FATAL_ERROR "Bundled ptlibzippy not found in ../ptlibzippy/")
-endif()
+include(usePTlibzippy)
+projt_add_ptlibzippy()
 
 if(DEFINED PTlibzippy_SOURCE_DIR AND DEFINED PTlibzippy_BINARY_DIR)
     # Make PTlibzippy headers available to libpng config generation.
@@ -821,64 +548,17 @@ elseif(PTLIBZIPPY_INCLUDE_DIRS)
 endif()
 
 if(NOT LAUNCHER_FUZZ_ONLY AND UNIX AND NOT APPLE)
-    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../libpng/CMakeLists.txt")
-        message(STATUS "Using bundled libpng")
-        # Ensure libpng install rules are enabled even if other deps toggled them.
-        set(SKIP_INSTALL_ALL OFF CACHE BOOL "" FORCE)
-        set(SKIP_INSTALL_LIBRARIES OFF CACHE BOOL "" FORCE)
-        set(PNG_SHARED ON CACHE BOOL "" FORCE)
-        set(PNG_STATIC OFF CACHE BOOL "" FORCE)
-        # Avoid loading both libpng16d and system libpng16 in Debug builds.
-        set(PNG_DEBUG_POSTFIX "" CACHE STRING "" FORCE)
-        set(PNG_TESTS OFF CACHE BOOL "" FORCE)
-        set(PNG_TOOLS OFF CACHE BOOL "" FORCE)
-        set(PNG_EXECUTABLES OFF CACHE BOOL "" FORCE)
-        if(UNIX AND NOT APPLE)
-            if(DEFINED Launcher_BUNDLED_LIBDIR AND NOT Launcher_BUNDLED_LIBDIR STREQUAL "")
-                projt_push_install_libdir("${Launcher_BUNDLED_LIBDIR}")
-            endif()
-            if(DEFINED Launcher_BUNDLED_INCLUDEDIR AND NOT Launcher_BUNDLED_INCLUDEDIR STREQUAL "")
-                projt_push_install_includedir("${Launcher_BUNDLED_INCLUDEDIR}")
-            endif()
-        endif()
-        projt_push_output_dirs("libpng")
-        projt_push_autogen_disabled()
-        add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../libpng libpng)
-        projt_pop_autogen_disabled()
-        projt_pop_output_dirs()
-        foreach(_projt_png_target png_shared png_static png_framework)
-            if(TARGET ${_projt_png_target})
-                target_compile_definitions(
-                    ${_projt_png_target}
-                    PRIVATE adler32=ptpng_adler32
-                            crc32=ptpng_crc32
-                            deflate=ptpng_deflate
-                            deflateInit2_=ptpng_deflateInit2_
-                            deflateReset=ptpng_deflateReset
-                            inflate=ptpng_inflate
-                            inflateInit2_=ptpng_inflateInit2_
-                            inflateReset=ptpng_inflateReset
-                            inflateReset2=ptpng_inflateReset2)
-            endif()
-        endforeach()
-        if(UNIX AND NOT APPLE)
-            if(DEFINED Launcher_BUNDLED_INCLUDEDIR AND NOT Launcher_BUNDLED_INCLUDEDIR STREQUAL "")
-                projt_pop_install_includedir()
-            endif()
-            if(DEFINED Launcher_BUNDLED_LIBDIR AND NOT Launcher_BUNDLED_LIBDIR STREQUAL "")
-                projt_pop_install_libdir()
-            endif()
-        endif()
-    else()
-        message(FATAL_ERROR "Bundled libpng not found in ${CMAKE_CURRENT_SOURCE_DIR}/libpng/")
-    endif()
+    include(useLibpng)
+    projt_add_libpng()
 endif()
 
 if(NOT LAUNCHER_FUZZ_ONLY)
     if(NOT OpenSSL_FOUND)
         find_package(OpenSSL REQUIRED)
     endif()
+
     set(LAUNCHER_WITH_WEBENGINE ON)
+
     if(MINGW)
         set(LAUNCHER_WITH_WEBENGINE OFF)
     endif()
@@ -893,6 +573,7 @@ if(NOT LAUNCHER_FUZZ_ONLY)
     if(LAUNCHER_WITH_WEBENGINE)
         list(APPEND QT_COMPONENTS WebEngineWidgets WebChannel)
     endif()
+
     find_package(Qt6 REQUIRED COMPONENTS ${QT_COMPONENTS})
     if(DEFINED Qt6Core_VERSION)
         set(_projt_qt_version "${Qt6Core_VERSION}")
@@ -910,293 +591,29 @@ endif()
 
 # System / Package Manager Provided Libs - Using bundled versions
 if(NOT LAUNCHER_FUZZ_ONLY)
-    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../bzip2/CMakeLists.txt")
-        message(STATUS "Using bundled bzip2")
-        set(ENABLE_LIB_ONLY ON CACHE BOOL "" FORCE)
-        set(ENABLE_TESTS OFF CACHE BOOL "" FORCE)
-        set(ENABLE_DOCS OFF CACHE BOOL "" FORCE)
-        set(ENABLE_EXAMPLES OFF CACHE BOOL "" FORCE)
-        # Disable shared library and use static library for consistent linking
-        set(ENABLE_SHARED_LIB OFF CACHE BOOL "" FORCE)
-        set(ENABLE_STATIC_LIB ON CACHE BOOL "" FORCE)
-        # Disable instrumentation for external dependencies to avoid linker issues
-        string(REGEX REPLACE "-fprofile-instr-generate|--coverage|-fprofile-generate|-fprofile-arcs|-ftest-coverage" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-        string(REGEX REPLACE "-fprofile-instr-generate|--coverage|-fprofile-generate|-fprofile-arcs|-ftest-coverage" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-        if(UNIX AND NOT APPLE)
-            if(DEFINED Launcher_BUNDLED_LIBDIR AND NOT Launcher_BUNDLED_LIBDIR STREQUAL "")
-                projt_push_install_libdir("${Launcher_BUNDLED_LIBDIR}")
-            endif()
-            if(DEFINED Launcher_BUNDLED_INCLUDEDIR AND NOT Launcher_BUNDLED_INCLUDEDIR STREQUAL "")
-                projt_push_install_includedir("${Launcher_BUNDLED_INCLUDEDIR}")
-            endif()
-        endif()
-        projt_push_output_dirs("bzip2")
-        add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../bzip2 bzip2)
-        projt_pop_output_dirs()
-        if(UNIX AND NOT APPLE)
-            if(DEFINED Launcher_BUNDLED_INCLUDEDIR AND NOT Launcher_BUNDLED_INCLUDEDIR STREQUAL "")
-                projt_pop_install_includedir()
-            endif()
-            if(DEFINED Launcher_BUNDLED_LIBDIR AND NOT Launcher_BUNDLED_LIBDIR STREQUAL "")
-                projt_pop_install_libdir()
-            endif()
-        endif()
-        set(BZIP2_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../bzip2" CACHE PATH "" FORCE)
-        # Provide compatibility for CMake's FindBZip2 and consumers that expect
-        # BZip2 variables when using the bundled bzip2 implementation.
-        if(NOT TARGET BZip2::BZip2)
-            add_library(BZip2::BZip2 ALIAS bz2_static)
-        endif()
-        set(BZIP2_FOUND TRUE CACHE BOOL "" FORCE)
-        set(BZIP2_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../bzip2" CACHE PATH "" FORCE)
-        set(BZIP2_LIBRARIES bz2_static CACHE STRING "" FORCE)
-    else()
-        message(FATAL_ERROR "Bundled bzip2 not found")
+    include(useBZip2)
+    projt_add_bzip2()
+
+    if(UNIX AND NOT APPLE)
+        include(useMinizip)
+        projt_add_minizip()
     endif()
 
-    # Build bundled minizip for deterministic WebEngine linking on Linux
-    if(PROJT_PTLIBZIPPY_AVAILABLE AND UNIX AND NOT APPLE)
-        set(MINIZIP_BUILD_SHARED ON CACHE BOOL "" FORCE)
-        set(MINIZIP_BUILD_STATIC OFF CACHE BOOL "" FORCE)
-        set(MINIZIP_BUILD_TESTING OFF CACHE BOOL "" FORCE)
-        set(MINIZIP_INSTALL ON CACHE BOOL "" FORCE)
-        set(MINIZIP_ENABLE_BZIP2 ON CACHE BOOL "" FORCE)
-        if(UNIX AND NOT APPLE)
-            if(DEFINED Launcher_BUNDLED_LIBDIR AND NOT Launcher_BUNDLED_LIBDIR STREQUAL "")
-                projt_push_install_libdir("${Launcher_BUNDLED_LIBDIR}")
-            endif()
-            if(DEFINED Launcher_BUNDLED_INCLUDEDIR AND NOT Launcher_BUNDLED_INCLUDEDIR STREQUAL "")
-                projt_push_install_includedir("${Launcher_BUNDLED_INCLUDEDIR}")
-            endif()
-        endif()
-        projt_push_output_dirs("minizip")
-        add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../ptlibzippy/contrib/minizip minizip)
-        projt_pop_output_dirs()
-        if(UNIX AND NOT APPLE)
-            if(DEFINED Launcher_BUNDLED_INCLUDEDIR AND NOT Launcher_BUNDLED_INCLUDEDIR STREQUAL "")
-                projt_pop_install_includedir()
-            endif()
-            if(DEFINED Launcher_BUNDLED_LIBDIR AND NOT Launcher_BUNDLED_LIBDIR STREQUAL "")
-                projt_pop_install_libdir()
-            endif()
-        endif()
-    endif()
+    include(useQuazip)
+    projt_add_quazip()
 
-    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../quazip/CMakeLists.txt")
-        message(STATUS "Using bundled QuaZip")
-        set(QUAZIP_ENABLE_TESTS OFF CACHE BOOL "" FORCE)
-        set(QUAZIP_ENABLE_QTEXTCODEC OFF CACHE BOOL "" FORCE)
-        set(QUAZIP_INSTALL ON CACHE BOOL "" FORCE)
-        set(QUAZIP_INSTALL_CMAKE_CONFIG OFF CACHE BOOL "" FORCE)
-        set(QUAZIP_BZIP2 ON CACHE BOOL "" FORCE)
-        set(QUAZIP_FETCH_LIBS OFF CACHE BOOL "" FORCE)
-        set(QUAZIP_FORCE_FETCH_LIBS OFF CACHE BOOL "" FORCE)
-        # Disable instrumentation for external dependencies to avoid linker issues
-        string(REGEX REPLACE "-fprofile-instr-generate|--coverage|-fprofile-generate|-fprofile-arcs|-ftest-coverage" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-        string(REGEX REPLACE "-fprofile-instr-generate|--coverage|-fprofile-generate|-fprofile-arcs|-ftest-coverage" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-        if(UNIX AND NOT APPLE)
-            if(DEFINED Launcher_BUNDLED_LIBDIR AND NOT Launcher_BUNDLED_LIBDIR STREQUAL "")
-                projt_push_install_libdir("${Launcher_BUNDLED_LIBDIR}")
-            endif()
-            if(DEFINED Launcher_BUNDLED_INCLUDEDIR AND NOT Launcher_BUNDLED_INCLUDEDIR STREQUAL "")
-                projt_push_install_includedir("${Launcher_BUNDLED_INCLUDEDIR}")
-            endif()
-        endif()
-        projt_push_output_dirs("quazip")
-        add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../quazip quazip)
-        projt_pop_output_dirs()
-        if(UNIX AND NOT APPLE)
-            if(DEFINED Launcher_BUNDLED_INCLUDEDIR AND NOT Launcher_BUNDLED_INCLUDEDIR STREQUAL "")
-                projt_pop_install_includedir()
-            endif()
-            if(DEFINED Launcher_BUNDLED_LIBDIR AND NOT Launcher_BUNDLED_LIBDIR STREQUAL "")
-                projt_pop_install_libdir()
-            endif()
-        endif()
-    else()
-        message(FATAL_ERROR "Bundled QuaZip not found")
-    endif()
-
-    # tomlplusplus - Using bundled fork only
-    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../tomlplusplus/CMakeLists.txt")
-        message(STATUS "Using bundled tomlplusplus")
-        if(UNIX AND NOT APPLE)
-            if(DEFINED Launcher_BUNDLED_LIBDIR AND NOT Launcher_BUNDLED_LIBDIR STREQUAL "")
-                projt_push_install_libdir("${Launcher_BUNDLED_LIBDIR}")
-            endif()
-            if(DEFINED Launcher_BUNDLED_INCLUDEDIR AND NOT Launcher_BUNDLED_INCLUDEDIR STREQUAL "")
-                projt_push_install_includedir("${Launcher_BUNDLED_INCLUDEDIR}")
-            endif()
-        endif()
-        projt_push_output_dirs("tomlplusplus")
-        add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../tomlplusplus tomlplusplus)
-        projt_pop_output_dirs()
-        if(UNIX AND NOT APPLE)
-            if(DEFINED Launcher_BUNDLED_INCLUDEDIR AND NOT Launcher_BUNDLED_INCLUDEDIR STREQUAL "")
-                projt_pop_install_includedir()
-            endif()
-            if(DEFINED Launcher_BUNDLED_LIBDIR AND NOT Launcher_BUNDLED_LIBDIR STREQUAL "")
-                projt_pop_install_libdir()
-            endif()
-        endif()
-    else()
-        message(FATAL_ERROR "tomlplusplus not found. tomlplusplus/ directory is missing.")
-    endif()
-endif()
-
-# cmark - Using bundled only
-if(NOT LAUNCHER_FUZZ_ONLY)
-    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../cmark/CMakeLists.txt")
-        message(STATUS "Using bundled cmark")
-        set(_launcher_prev_cmark_build_shared_libs "")
-        set(_launcher_cmark_build_shared_libs_set FALSE)
-        if(DEFINED BUILD_SHARED_LIBS)
-            set(_launcher_prev_cmark_build_shared_libs "${BUILD_SHARED_LIBS}")
-            set(_launcher_cmark_build_shared_libs_set TRUE)
-        endif()
-        set(BUILD_SHARED_LIBS ON CACHE BOOL "" FORCE)
-        unset(CMARK_SHARED CACHE)
-        unset(CMARK_STATIC CACHE)
-        set(_launcher_prev_cmark_osx_arch "${CMAKE_OSX_ARCHITECTURES}")
-        if(APPLE
-            AND CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "arm64|aarch64"
-            AND CMAKE_OSX_ARCHITECTURES STREQUAL "x86_64")
-            set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
-        endif()
-        if(UNIX AND NOT APPLE)
-            if(DEFINED Launcher_BUNDLED_LIBDIR AND NOT Launcher_BUNDLED_LIBDIR STREQUAL "")
-                projt_push_install_libdir("${Launcher_BUNDLED_LIBDIR}")
-            endif()
-            if(DEFINED Launcher_BUNDLED_INCLUDEDIR AND NOT Launcher_BUNDLED_INCLUDEDIR STREQUAL "")
-                projt_push_install_includedir("${Launcher_BUNDLED_INCLUDEDIR}")
-            endif()
-        endif()
-        projt_push_output_dirs("cmark")
-        add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../cmark cmark)
-        projt_pop_output_dirs()
-        if(_launcher_cmark_build_shared_libs_set)
-            set(BUILD_SHARED_LIBS "${_launcher_prev_cmark_build_shared_libs}" CACHE BOOL "" FORCE)
-        else()
-            unset(BUILD_SHARED_LIBS CACHE)
-        endif()
-        unset(_launcher_prev_cmark_build_shared_libs)
-        unset(_launcher_cmark_build_shared_libs_set)
-        if(UNIX AND NOT APPLE)
-            if(DEFINED Launcher_BUNDLED_INCLUDEDIR AND NOT Launcher_BUNDLED_INCLUDEDIR STREQUAL "")
-                projt_pop_install_includedir()
-            endif()
-            if(DEFINED Launcher_BUNDLED_LIBDIR AND NOT Launcher_BUNDLED_LIBDIR STREQUAL "")
-                projt_pop_install_libdir()
-            endif()
-        endif()
-        if(DEFINED _launcher_prev_cmark_osx_arch)
-            set(CMAKE_OSX_ARCHITECTURES "${_launcher_prev_cmark_osx_arch}")
-            unset(_launcher_prev_cmark_osx_arch)
-        endif()
-        if(TARGET cmark AND NOT TARGET cmark::cmark)
-            add_library(cmark::cmark ALIAS cmark)
-        endif()
-    else()
-        message(FATAL_ERROR "cmark not found. cmark/ directory is missing.")
-    endif()
+    include(useTomlplusplus)
+    projt_add_tomlplusplus()
 endif()
 
 if(NOT LAUNCHER_FUZZ_ONLY)
-    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../libqrencode/CMakeLists.txt")
-        message(STATUS "Using bundled libqrencode")
-        # Set CMake policy version to avoid version compatibility error
-        set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
-        # Avoid optional tools/tests that require getopt/PNG on Windows.
-        if(WIN32)
-            set(_qrencode_prev_build_shared_libs "${BUILD_SHARED_LIBS}")
-            set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
-            set(ENABLE_SHARED OFF CACHE BOOL "" FORCE)
-            set(ENABLE_STATIC ON CACHE BOOL "" FORCE)
-        endif()
-        set(WITH_TOOLS OFF CACHE BOOL "" FORCE)
-        set(WITH_PNG OFF CACHE BOOL "" FORCE)
-        set(_launcher_prev_build_testing "${BUILD_TESTING}")
-        set(_launcher_prev_with_tests "")
-        set(_launcher_with_tests_set FALSE)
-        if(DEFINED WITH_TESTS)
-            set(_launcher_prev_with_tests "${WITH_TESTS}")
-            set(_launcher_with_tests_set TRUE)
-        endif()
-        set(BUILD_TESTING OFF CACHE BOOL "" FORCE)
-        set(WITH_TESTS OFF CACHE BOOL "" FORCE)
-        set(_qrencode_prev_install_libdir "")
-        set(_qrencode_install_libdir_set FALSE)
-        if(APPLE)
-            set(_qrencode_bundle_dir "ProjTLauncher.app/Contents/Frameworks")
-            if(DEFINED Launcher_Name AND NOT Launcher_Name STREQUAL "")
-                set(_qrencode_bundle_dir "${Launcher_Name}.app/Contents/Frameworks")
-            endif()
-            if(DEFINED CMAKE_INSTALL_LIBDIR)
-                set(_qrencode_prev_install_libdir "${CMAKE_INSTALL_LIBDIR}")
-                set(_qrencode_install_libdir_set TRUE)
-            endif()
-            set(CMAKE_INSTALL_LIBDIR "${_qrencode_bundle_dir}" CACHE PATH "" FORCE)
-        endif()
-        if(UNIX AND NOT APPLE)
-            if(DEFINED Launcher_BUNDLED_LIBDIR AND NOT Launcher_BUNDLED_LIBDIR STREQUAL "")
-                projt_push_install_libdir("${Launcher_BUNDLED_LIBDIR}")
-            endif()
-            if(DEFINED Launcher_BUNDLED_INCLUDEDIR AND NOT Launcher_BUNDLED_INCLUDEDIR STREQUAL "")
-                projt_push_install_includedir("${Launcher_BUNDLED_INCLUDEDIR}")
-            endif()
-        endif()
-        projt_push_output_dirs("libqrencode")
-        projt_push_autogen_disabled()
-        add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../libqrencode libqrencode)
-        projt_pop_autogen_disabled()
-        projt_pop_output_dirs()
-        if(UNIX AND NOT APPLE)
-            if(DEFINED Launcher_BUNDLED_INCLUDEDIR AND NOT Launcher_BUNDLED_INCLUDEDIR STREQUAL "")
-                projt_pop_install_includedir()
-            endif()
-            if(DEFINED Launcher_BUNDLED_LIBDIR AND NOT Launcher_BUNDLED_LIBDIR STREQUAL "")
-                projt_pop_install_libdir()
-            endif()
-        endif()
-        if(APPLE)
-            if(_qrencode_install_libdir_set)
-                set(CMAKE_INSTALL_LIBDIR "${_qrencode_prev_install_libdir}" CACHE PATH "" FORCE)
-            else()
-                unset(CMAKE_INSTALL_LIBDIR CACHE)
-            endif()
-        endif()
-        if(WIN32)
-            set(BUILD_SHARED_LIBS "${_qrencode_prev_build_shared_libs}" CACHE BOOL "" FORCE)
-        endif()
-        set(BUILD_TESTING "${_launcher_prev_build_testing}" CACHE BOOL "" FORCE)
-        if(_launcher_with_tests_set)
-            set(WITH_TESTS "${_launcher_prev_with_tests}" CACHE BOOL "" FORCE)
-        else()
-            unset(WITH_TESTS CACHE)
-        endif()
-        unset(_launcher_prev_build_testing)
-        unset(_launcher_prev_with_tests)
-        unset(_launcher_with_tests_set)
-        unset(_qrencode_prev_install_libdir)
-        unset(_qrencode_install_libdir_set)
-        add_library(qrcodegenerator ALIAS qrencode)
-        # Ensure the qrencode target exposes include directories so consumers can find qrencode.h
-        if(TARGET qrencode)
-            get_target_property(_qr_inc qrencode INTERFACE_INCLUDE_DIRECTORIES)
-            if(NOT _qr_inc)
-                target_include_directories(qrencode PUBLIC
-                    "${CMAKE_CURRENT_SOURCE_DIR}/../libqrencode"
-                    "${CMAKE_CURRENT_SOURCE_DIR}/../libqrencode/src"
-                    "${CMAKE_CURRENT_SOURCE_DIR}/../libqrencode/lib"
-                    "${CMAKE_CURRENT_SOURCE_DIR}/../libqrencode/include")
-            endif()
-        endif()
-        if(NOT DEFINED QRENCODE_INC OR QRENCODE_INC STREQUAL "")
-            set(QRENCODE_INC "${CMAKE_CURRENT_SOURCE_DIR}/../libqrencode;${CMAKE_CURRENT_SOURCE_DIR}/../libqrencode/include;${CMAKE_CURRENT_SOURCE_DIR}/../libqrencode/lib" CACHE PATH "QRENCODE include dir" FORCE)
-        endif()
-    else()
-        message(FATAL_ERROR "libqrencode not found. libqrencode/ directory is missing.")
-    endif()
+    include(useCMark)
+    projt_add_cmark()
+endif()
+
+if(NOT LAUNCHER_FUZZ_ONLY)
+    include(useLibqrencode)
+    projt_add_libqrencode()
 endif()
 
 if(NOT LAUNCHER_FUZZ_ONLY)
@@ -1206,7 +623,6 @@ endif()
 ####################################### Program Info #######################################
 
 if(NOT LAUNCHER_FUZZ_ONLY)
-    set(Launcher_APP_BINARY_NAME "projtlauncher" CACHE STRING "Name of the Launcher binary")
     projt_push_output_dirs("program_info")
     add_subdirectory(program_info)
     projt_pop_output_dirs()
@@ -1397,74 +813,8 @@ endif()
 include(ExternalProject)
 set_directory_properties(PROPERTIES EP_BASE External)
 
-# libnbtplusplus - Using submodule/bundled as it's not in package managers
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../libnbtplusplus/CMakeLists.txt")
-    message(STATUS "Using bundled libnbtplusplus")
-    option(NBT_BUILD_SHARED "Build NBT shared library" OFF)
-    option(NBT_USE_ZLIB "Build NBT library with zlib support" ON)
-    option(NBT_BUILD_TESTS "Build NBT library tests" OFF)
-    projt_push_output_dirs("libnbtplusplus")
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../libnbtplusplus libnbtplusplus)
-    projt_pop_output_dirs()
-else()
-    message(FATAL_ERROR "libnbtplusplus not found. libnbtplusplus/ directory is missing.")
-endif()
-
-if(NOT LAUNCHER_FUZZ_ONLY)
-    projt_push_output_dirs("systeminfo")
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../systeminfo systeminfo) # system information library
-    projt_pop_output_dirs()
-endif()
-if(NOT LAUNCHER_FUZZ_ONLY)
-    projt_push_output_dirs("launcherjava")
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../javaloader javaloader) # java based launcher part for Minecraft
-    projt_pop_output_dirs()
-    projt_push_output_dirs("javacheck")
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../javacheck javacheck) # java compatibility checker
-    projt_pop_output_dirs()
-    projt_push_output_dirs("rainbow")
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../rainbow rainbow) # Qt extension for colors
-    projt_pop_output_dirs()
-    projt_push_output_dirs("LocalPeer")
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../LocalPeer LocalPeer) # fork of a library from Qt solutions
-    projt_pop_output_dirs()
-    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../gamemode/CMakeLists.txt")
-        if(UNIX AND NOT APPLE)
-            if(DEFINED Launcher_BUNDLED_LIBDIR AND NOT Launcher_BUNDLED_LIBDIR STREQUAL "")
-                projt_push_install_libdir("${Launcher_BUNDLED_LIBDIR}")
-            endif()
-            if(DEFINED Launcher_BUNDLED_INCLUDEDIR AND NOT Launcher_BUNDLED_INCLUDEDIR STREQUAL "")
-                projt_push_install_includedir("${Launcher_BUNDLED_INCLUDEDIR}")
-            endif()
-            if(DEFINED Launcher_BUNDLED_LIBEXECDIR AND NOT Launcher_BUNDLED_LIBEXECDIR STREQUAL "")
-                projt_push_install_libexecdir("${Launcher_BUNDLED_LIBEXECDIR}")
-            endif()
-        endif()
-        set(GAMEMODE_WITH_PRIVILEGED_GROUP "ptgamemode" CACHE STRING "" FORCE)
-        projt_push_output_dirs("gamemode")
-        add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../gamemode gamemode)
-        projt_pop_output_dirs()
-        if(UNIX AND NOT APPLE)
-            if(DEFINED Launcher_BUNDLED_LIBEXECDIR AND NOT Launcher_BUNDLED_LIBEXECDIR STREQUAL "")
-                projt_pop_install_libexecdir()
-            endif()
-            if(DEFINED Launcher_BUNDLED_INCLUDEDIR AND NOT Launcher_BUNDLED_INCLUDEDIR STREQUAL "")
-                projt_pop_install_includedir()
-            endif()
-            if(DEFINED Launcher_BUNDLED_LIBDIR AND NOT Launcher_BUNDLED_LIBDIR STREQUAL "")
-                projt_pop_install_libdir()
-            endif()
-        endif()
-    else()
-        message(STATUS "gamemode/ not found; skipping bundled gamemode")
-    endif()
-    projt_push_output_dirs("murmur2")
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../murmur2 murmur2) # Hash for usage with the CurseForge API
-    projt_pop_output_dirs()
-    projt_push_output_dirs("qdcss")
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../qdcss qdcss) # css parser
-    projt_pop_output_dirs()
-endif()
+include(useMinimalLibs)
+projt_add_internallibs()
 
 ############################### Built Artifacts ###############################
 

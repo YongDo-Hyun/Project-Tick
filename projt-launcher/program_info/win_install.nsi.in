@@ -26,7 +26,7 @@ OutFile "../@Launcher_CommonName@-Setup.exe"
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
-!define MUI_FINISHPAGE_RUN "$InstDir\@Launcher_APP_BINARY_NAME@.exe"
+!define MUI_FINISHPAGE_RUN "$InstDir\@Launcher_AppBinaryName@.exe"
 !insertmacro MUI_PAGE_FINISH
 
 !insertmacro MUI_UNPAGE_CONFIRM
@@ -370,13 +370,13 @@ Section "@Launcher_DisplayName@"
 
   SectionIn RO
 
-  nsExec::Exec /TIMEOUT=2000 'TaskKill /IM @Launcher_APP_BINARY_NAME@.exe /F'
+  nsExec::Exec /TIMEOUT=2000 'TaskKill /IM @Launcher_AppBinaryName@.exe /F'
 
   SetOutPath $INSTDIR
 
-  File "@Launcher_APP_BINARY_NAME@.exe"
-  File "@Launcher_APP_BINARY_NAME@_filelink.exe"
-  File "@Launcher_APP_BINARY_NAME@_updater.exe"
+  File "@Launcher_AppBinaryName@.exe"
+  File "@Launcher_AppBinaryName@_filelink.exe"
+  File "@Launcher_AppBinaryName@_updater.exe"
   File "qt.conf"
   File "qtlogging.ini"
   File *.dll
@@ -392,11 +392,11 @@ Section "@Launcher_DisplayName@"
 
   ; Write the URL Handler into registry for curseforge
   WriteRegStr HKCU Software\Classes\curseforge "URL Protocol" ""
-  WriteRegStr HKCU Software\Classes\curseforge\shell\open\command "" '"$INSTDIR\@Launcher_APP_BINARY_NAME@.exe" "%1"'
+  WriteRegStr HKCU Software\Classes\curseforge\shell\open\command "" '"$INSTDIR\@Launcher_AppBinaryName@.exe" "%1"'
 
 ; Write the URL Handler into registry for projtlauncher
   WriteRegStr HKCU Software\Classes\projtlauncher "URL Protocol" ""
-  WriteRegStr HKCU Software\Classes\projtlauncher\shell\open\command "" '"$INSTDIR\@Launcher_APP_BINARY_NAME@.exe" "%1"'
+  WriteRegStr HKCU Software\Classes\projtlauncher\shell\open\command "" '"$INSTDIR\@Launcher_AppBinaryName@.exe" "%1"'
 
   ; Write the uninstall keys for Windows
   ; https://learn.microsoft.com/en-us/windows/win32/msi/uninstall-registry-key
@@ -404,7 +404,7 @@ Section "@Launcher_DisplayName@"
   ${GetOptions} $R0 "/NoUninstaller" $R1
   ${If} ${Errors}
     WriteRegStr HKCU "${UNINST_KEY}" "DisplayName" "@Launcher_DisplayName@"
-    WriteRegStr HKCU "${UNINST_KEY}" "DisplayIcon" "$INSTDIR\@Launcher_APP_BINARY_NAME@.exe"
+    WriteRegStr HKCU "${UNINST_KEY}" "DisplayIcon" "$INSTDIR\@Launcher_AppBinaryName@.exe"
     WriteRegStr HKCU "${UNINST_KEY}" "UninstallString" '"$INSTDIR\uninstall.exe" _?=$INSTDIR'
     WriteRegStr HKCU "${UNINST_KEY}" "QuietUninstallString" '"$INSTDIR\uninstall.exe" /S _?=$INSTDIR'
     WriteRegStr HKCU "${UNINST_KEY}" "InstallLocation" "$INSTDIR"
@@ -427,19 +427,19 @@ SectionEnd
 
 Section "Start Menu Shortcut" SM_SHORTCUTS
 
-  CreateShortcut "$SMPROGRAMS\@Launcher_DisplayName@.lnk" "$INSTDIR\@Launcher_APP_BINARY_NAME@.exe" "" "$INSTDIR\@Launcher_APP_BINARY_NAME@.exe" 0
+  CreateShortcut "$SMPROGRAMS\@Launcher_DisplayName@.lnk" "$INSTDIR\@Launcher_AppBinaryName@.exe" "" "$INSTDIR\@Launcher_AppBinaryName@.exe" 0
 
 SectionEnd
 
 Section /o "Desktop Shortcut" DESKTOP_SHORTCUTS
 
-  CreateShortcut "$DESKTOP\@Launcher_DisplayName@.lnk" "$INSTDIR\@Launcher_APP_BINARY_NAME@.exe" "" "$INSTDIR\@Launcher_APP_BINARY_NAME@.exe" 0
+  CreateShortcut "$DESKTOP\@Launcher_DisplayName@.lnk" "$INSTDIR\@Launcher_AppBinaryName@.exe" "" "$INSTDIR\@Launcher_AppBinaryName@.exe" 0
 
 SectionEnd
 
 
 !define APPID "@Launcher_CommonName@.App"
-!define APPEXE "@Launcher_APP_BINARY_NAME@.exe"
+!define APPEXE "@Launcher_AppBinaryName@.exe"
 !define APPICON "$INSTDIR\${APPEXE},0"
 !define APPDESCRIPTION "@Launcher_DisplayName@"
 !define APPNAME "@Launcher_DisplayName@"
@@ -462,14 +462,14 @@ SectionEnd
 
 Section "Uninstall"
 
-  nsExec::Exec /TIMEOUT=2000 'TaskKill /IM @Launcher_APP_BINARY_NAME@.exe /F'
+  nsExec::Exec /TIMEOUT=2000 'TaskKill /IM @Launcher_AppBinaryName@.exe /F'
 
   DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\@Launcher_CommonName@"
   DeleteRegKey HKCU SOFTWARE\@Launcher_CommonName@
 
-  Delete $INSTDIR\@Launcher_APP_BINARY_NAME@.exe
-  Delete $INSTDIR\@Launcher_APP_BINARY_NAME@_filelink.exe
-  Delete $INSTDIR\@Launcher_APP_BINARY_NAME@_updater.exe
+  Delete $INSTDIR\@Launcher_AppBinaryName@.exe
+  Delete $INSTDIR\@Launcher_AppBinaryName@_filelink.exe
+  Delete $INSTDIR\@Launcher_AppBinaryName@_updater.exe
   Delete $INSTDIR\qt.conf
   Delete $INSTDIR\*.dll
 

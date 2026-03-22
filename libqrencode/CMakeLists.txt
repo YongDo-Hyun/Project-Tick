@@ -23,7 +23,55 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 set(CMAKE_THREAD_PREFER_PTHREAD ON)
 find_package(Threads)
-find_package(PNG)
+
+# Use repo root libpng if available
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../libpng/CMakeLists.txt")
+    message(STATUS "Using repo root libpng")
+    # Configure libpng
+    set(PNG_SHARED ON CACHE BOOL "" FORCE)
+    set(PNG_STATIC OFF CACHE BOOL "" FORCE)
+    set(PNG_TESTS OFF CACHE BOOL "" FORCE)
+    set(PNG_TOOLS OFF CACHE BOOL "" FORCE)
+    
+    if(NOT TARGET png_shared AND NOT TARGET png_static)
+        add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/../libpng" libpng)
+    endif()
+    
+    foreach(_projt_png_target png_shared png_static png_framework)
+        if(TARGET ${_projt_png_target})
+            target_compile_definitions(
+                ${_projt_png_target}
+                PRIVATE adler32=ptpng_adler32
+                        crc32=ptpng_crc32
+                        deflate=ptpng_deflate
+                        deflateInit2_=ptpng_deflateInit2_
+                        deflateReset=ptpng_deflateReset
+                        inflate=ptpng_inflate
+                        inflateInit2_=ptpng_inflateInit2_
+                        inflateReset=ptpng_inflateReset
+                        inflateReset2=ptpng_inflateReset2)
+        endif()
+    endforeach()
+
+    if(NOT TARGET PNG::PNG)
+        if(TARGET png_shared)
+            add_library(PNG::PNG ALIAS png_shared)
+        elseif(TARGET png_static)
+            add_library(PNG::PNG ALIAS png_static)
+        endif()
+    endif()
+    set(PNG_FOUND TRUE)
+    set(PNG_LIBRARIES PNG::PNG)
+    # Note: PNG_INCLUDE_DIR is handled by the target, but we set it for status output
+    set(PNG_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../libpng;${PROJECT_BINARY_DIR}/libpng")
+    
+    if(TARGET ptlibzippy OR TARGET PTlibzippy::PTlibzippy)
+        set(PTLIBZIPPY_FOUND TRUE)
+    endif()
+else()
+    find_package(PNG)
+endif()
+
 find_package(Iconv)
 
 if(NOT PNG_FOUND AND NOT WITHOUT_PNG)
@@ -184,31 +232,35 @@ endif()
 ##
 ## ==============================================================================
 
-message(STATUS "------------------------------------------------------------" )
-message(STATUS "[QRencode] Configuration summary."                            )
-message(STATUS "------------------------------------------------------------ ")
-message(STATUS " System configuration:"                                       )
-message(STATUS " .. Processor type .............. = ${CMAKE_SYSTEM_PROCESSOR}")
-message(STATUS " .. CMake executable ............ = ${CMAKE_COMMAND}"         )
-message(STATUS " .. CMake version ............... = ${CMAKE_VERSION}"         )
-message(STATUS " .. System name ................. = ${CMAKE_SYSTEM}"          )
-message(STATUS " .. C++ compiler ................ = ${CMAKE_CXX_COMPILER}"    )
-message(STATUS " .. C compiler .................. = ${CMAKE_C_COMPILER}"      )
-message(STATUS " .. size(void*) ................. = ${CMAKE_SIZEOF_VOID_P}"   )
-message(STATUS " Dependencies:"                                               )
-#message(STATUS " .. Doxygen ..................... = ${DOXYGEN_EXECUTABLE}"   )
-message(STATUS " .. Thread library of the system  = ${CMAKE_THREAD_LIBS_INIT}")
-message(STATUS " .. Iconv ....................... = ${ICONV_FOUND}"           )
-message(STATUS " .... Iconv includes ............ = ${ICONV_INCLUDE_DIR}"     )
-message(STATUS " .... Iconv library ............. = ${ICONV_LIBRARIES}"       )
-message(STATUS " .. PTlibzippy .................. = ${PTLIBZIPPY_FOUND}"      )
-message(STATUS " .. PNG ......................... = ${PNG_FOUND}"             )
-message(STATUS " .... PNG includes .............. = ${PNG_INCLUDE_DIR}"       )
-message(STATUS " .... PNG library ............... = ${PNG_LIBRARIES}"         )
-#message(STATUS " .. Memory checker .............. = ${MEMORYCHECK_COMMAND}"  )
-message(STATUS " Project configuration:"                                      )
-message(STATUS " .. Build test programs  ........ = ${WITH_TESTS}"            )
-message(STATUS " .. Build utility tools  ........ = ${WITH_TOOLS}"            )
-message(STATUS " .. Disable PNG support  ........ = ${WITHOUT_PNG}"           )
-message(STATUS " .. Installation prefix ......... = ${CMAKE_INSTALL_PREFIX}"  )
-message(STATUS "------------------------------------------------------------ ")
+option(PROJT_DISABLE_SUMMARY "Disable QRencode summary output" OFF)
+
+if(NOT PROJT_DISABLE_SUMMARY)
+    message(STATUS "------------------------------------------------------------" )
+    message(STATUS "[QRencode] Configuration summary."                            )
+    message(STATUS "------------------------------------------------------------ ")
+    message(STATUS " System configuration:"                                       )
+    message(STATUS " .. Processor type .............. = ${CMAKE_SYSTEM_PROCESSOR}")
+    message(STATUS " .. CMake executable ............ = ${CMAKE_COMMAND}"         )
+    message(STATUS " .. CMake version ............... = ${CMAKE_VERSION}"         )
+    message(STATUS " .. System name ................. = ${CMAKE_SYSTEM}"          )
+    message(STATUS " .. C++ compiler ................ = ${CMAKE_CXX_COMPILER}"    )
+    message(STATUS " .. C compiler .................. = ${CMAKE_C_COMPILER}"      )
+    message(STATUS " .. size(void*) ................. = ${CMAKE_SIZEOF_VOID_P}"   )
+    message(STATUS " Dependencies:"                                               )
+    #message(STATUS " .. Doxygen ..................... = ${DOXYGEN_EXECUTABLE}"   )
+    message(STATUS " .. Thread library of the system  = ${CMAKE_THREAD_LIBS_INIT}")
+    message(STATUS " .. Iconv ....................... = ${ICONV_FOUND}"           )
+    message(STATUS " .... Iconv includes ............ = ${ICONV_INCLUDE_DIR}"     )
+    message(STATUS " .... Iconv library ............. = ${ICONV_LIBRARIES}"       )
+    message(STATUS " .. PTlibzippy .................. = ${PTLIBZIPPY_FOUND}"      )
+    message(STATUS " .. PNG ......................... = ${PNG_FOUND}"             )
+    message(STATUS " .... PNG includes .............. = ${PNG_INCLUDE_DIR}"       )
+    message(STATUS " .... PNG library ............... = ${PNG_LIBRARIES}"         )
+    #message(STATUS " .. Memory checker .............. = ${MEMORYCHECK_COMMAND}"  )
+    message(STATUS " Project configuration:"                                      )
+    message(STATUS " .. Build test programs  ........ = ${WITH_TESTS}"            )
+    message(STATUS " .. Build utility tools  ........ = ${WITH_TOOLS}"            )
+    message(STATUS " .. Disable PNG support  ........ = ${WITHOUT_PNG}"           )
+    message(STATUS " .. Installation prefix ......... = ${CMAKE_INSTALL_PREFIX}"  )
+    message(STATUS "------------------------------------------------------------ ")
+endif()

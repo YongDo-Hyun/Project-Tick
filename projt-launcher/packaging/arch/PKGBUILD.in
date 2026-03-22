@@ -36,7 +36,7 @@ build() {
     -DCMAKE_BUILD_TYPE='None' \
     -DCMAKE_INSTALL_PREFIX='/usr' \
     -DLauncher_BUILD_PLATFORM="archlinux" \
-    -DLauncher_APP_BINARY_NAME="${pkgname}" \
+    -DLauncher_AppBinaryName="${pkgname}" \
     -Wno-dev
   cmake --build build
 }
