@@ -2949,7 +2949,7 @@ JSON_HEDLEY_DIAGNOSTIC_POP
     struct would_call_std_##std_name                                              \
     {                                                                             \
         static constexpr auto const value = ::nlohmann::detail::                  \
-        is_detected_exact<std_name##_tag, result_of_##std_name, T...>::value; \
+                                            is_detected_exact<std_name##_tag, result_of_##std_name, T...>::value; \
     };                                                                            \
     } /* namespace detail2 */ \
     \
@@ -3519,71 +3519,71 @@ NLOHMANN_JSON_NAMESPACE_END
 // SPDX-License-Identifier: MIT
 
 #ifndef INCLUDE_NLOHMANN_JSON_FWD_HPP_
-    #define INCLUDE_NLOHMANN_JSON_FWD_HPP_
+#define INCLUDE_NLOHMANN_JSON_FWD_HPP_
 
-    #include <cstdint> // int64_t, uint64_t
-    #include <map> // map
-    #include <memory> // allocator
-    #include <string> // string
-    #include <vector> // vector
+#include <cstdint> // int64_t, uint64_t
+#include <map> // map
+#include <memory> // allocator
+#include <string> // string
+#include <vector> // vector
 
-    // #include <nlohmann/detail/abi_macros.hpp>
+// #include <nlohmann/detail/abi_macros.hpp>
 
 
-    /*!
-    @brief namespace for Niels Lohmann
-    @see https://github.com/nlohmann
-    @since version 1.0.0
-    */
-    NLOHMANN_JSON_NAMESPACE_BEGIN
+/*!
+@brief namespace for Niels Lohmann
+@see https://github.com/nlohmann
+@since version 1.0.0
+*/
+NLOHMANN_JSON_NAMESPACE_BEGIN
 
-    /*!
-    @brief default JSONSerializer template argument
+/*!
+@brief default JSONSerializer template argument
 
-    This serializer ignores the template arguments and uses ADL
-    ([argument-dependent lookup](https://en.cppreference.com/w/cpp/language/adl))
-    for serialization.
-    */
-    template<typename T = void, typename SFINAE = void>
-    struct adl_serializer;
+This serializer ignores the template arguments and uses ADL
+([argument-dependent lookup](https://en.cppreference.com/w/cpp/language/adl))
+for serialization.
+*/
+template<typename T = void, typename SFINAE = void>
+struct adl_serializer;
 
-    /// a class to store JSON values
-    /// @sa https://json.projecttick.org/api/basic_json/
-    template<template<typename U, typename V, typename... Args> class ObjectType =
-    std::map,
-    template<typename U, typename... Args> class ArrayType = std::vector,
-    class StringType = std::string, class BooleanType = bool,
-    class NumberIntegerType = std::int64_t,
-    class NumberUnsignedType = std::uint64_t,
-    class NumberFloatType = double,
-    template<typename U> class AllocatorType = std::allocator,
-    template<typename T, typename SFINAE = void> class JSONSerializer =
-    adl_serializer,
-    class BinaryType = std::vector<std::uint8_t>, // cppcheck-suppress syntaxError
-    class CustomBaseClass = void>
-    class basic_json;
+/// a class to store JSON values
+/// @sa https://json.projecttick.org/api/basic_json/
+template<template<typename U, typename V, typename... Args> class ObjectType =
+         std::map,
+         template<typename U, typename... Args> class ArrayType = std::vector,
+         class StringType = std::string, class BooleanType = bool,
+         class NumberIntegerType = std::int64_t,
+         class NumberUnsignedType = std::uint64_t,
+         class NumberFloatType = double,
+         template<typename U> class AllocatorType = std::allocator,
+         template<typename T, typename SFINAE = void> class JSONSerializer =
+         adl_serializer,
+         class BinaryType = std::vector<std::uint8_t>, // cppcheck-suppress syntaxError
+         class CustomBaseClass = void>
+class basic_json;
 
-    /// @brief JSON Pointer defines a string syntax for identifying a specific value within a JSON document
-    /// @sa https://json.projecttick.org/api/json_pointer/
-    template<typename RefStringType>
-    class json_pointer;
+/// @brief JSON Pointer defines a string syntax for identifying a specific value within a JSON document
+/// @sa https://json.projecttick.org/api/json_pointer/
+template<typename RefStringType>
+class json_pointer;
 
-    /*!
-    @brief default specialization
-    @sa https://json.projecttick.org/api/json/
-    */
-    using json = basic_json<>;
+/*!
+@brief default specialization
+@sa https://json.projecttick.org/api/json/
+*/
+using json = basic_json<>;
 
-    /// @brief a minimal map-like container that preserves insertion order
-    /// @sa https://json.projecttick.org/api/ordered_map/
-    template<class Key, class T, class IgnoredLess, class Allocator>
-    struct ordered_map;
+/// @brief a minimal map-like container that preserves insertion order
+/// @sa https://json.projecttick.org/api/ordered_map/
+template<class Key, class T, class IgnoredLess, class Allocator>
+struct ordered_map;
 
-    /// @brief specialization that maintains the insertion order of object keys
-    /// @sa https://json.projecttick.org/api/ordered_json/
-    using ordered_json = basic_json<nlohmann::ordered_map>;
+/// @brief specialization that maintains the insertion order of object keys
+/// @sa https://json.projecttick.org/api/ordered_json/
+using ordered_json = basic_json<nlohmann::ordered_map>;
 
-    NLOHMANN_JSON_NAMESPACE_END
+NLOHMANN_JSON_NAMESPACE_END
 
 #endif  // INCLUDE_NLOHMANN_JSON_FWD_HPP_
 
@@ -5559,7 +5559,7 @@ NLOHMANN_JSON_NAMESPACE_END
 
 
 // #include <nlohmann/detail/macro_scope.hpp>
-// JSON_HAS_CPP_17
+ // JSON_HAS_CPP_17
 #ifdef JSON_HAS_CPP_17
     #include <optional> // optional
 #endif
@@ -20012,7 +20012,7 @@ NLOHMANN_JSON_NAMESPACE_BEGIN
 /// for use within nlohmann::basic_json<ordered_map>
 template <class Key, class T, class IgnoredLess = std::less<Key>,
           class Allocator = std::allocator<std::pair<const Key, T>>>
-struct ordered_map : std::vector<std::pair<const Key, T>, Allocator>
+              struct ordered_map : std::vector<std::pair<const Key, T>, Allocator>
 {
     using key_type = Key;
     using mapped_type = T;
@@ -20327,7 +20327,7 @@ struct ordered_map : std::vector<std::pair<const Key, T>, Allocator>
 
     template<typename InputIt>
     using require_input_iter = typename std::enable_if<std::is_convertible<typename std::iterator_traits<InputIt>::iterator_category,
-          std::input_iterator_tag>::value>::type;
+        std::input_iterator_tag>::value>::type;
 
     template<typename InputIt, typename = require_input_iter<InputIt>>
     void insert(InputIt first, InputIt last)
@@ -20338,7 +20338,7 @@ struct ordered_map : std::vector<std::pair<const Key, T>, Allocator>
         }
     }
 
-  private:
+private:
     JSON_NO_UNIQUE_ADDRESS key_compare m_compare = key_compare();
 };
 
@@ -22195,18 +22195,18 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
                        detail::negation<std::is_pointer<ValueType>>,
                        detail::negation<std::is_same<ValueType, std::nullptr_t>>,
                        detail::negation<std::is_same<ValueType, detail::json_ref<basic_json>>>,
-                       detail::negation<std::is_same<ValueType, typename string_t::value_type>>,
-                       detail::negation<detail::is_basic_json<ValueType>>,
-                       detail::negation<std::is_same<ValueType, std::initializer_list<typename string_t::value_type>>>,
+                                        detail::negation<std::is_same<ValueType, typename string_t::value_type>>,
+                                        detail::negation<detail::is_basic_json<ValueType>>,
+                                        detail::negation<std::is_same<ValueType, std::initializer_list<typename string_t::value_type>>>,
 #if defined(JSON_HAS_CPP_17) && (defined(__GNUC__) || (defined(_MSC_VER) && _MSC_VER >= 1910 && _MSC_VER <= 1914))
-                       detail::negation<std::is_same<ValueType, std::string_view>>,
+                                                detail::negation<std::is_same<ValueType, std::string_view>>,
 #endif
 #if defined(JSON_HAS_CPP_17) && JSON_HAS_STATIC_RTTI
-                       detail::negation<std::is_same<ValueType, std::any>>,
+                                                detail::negation<std::is_same<ValueType, std::any>>,
 #endif
-                       detail::is_detected_lazy<detail::get_template_function, const basic_json_t&, ValueType>
-                       >::value, int >::type = 0 >
-    JSON_EXPLICIT operator ValueType() const
+                                                detail::is_detected_lazy<detail::get_template_function, const basic_json_t&, ValueType>
+                                                >::value, int >::type = 0 >
+                                        JSON_EXPLICIT operator ValueType() const
     {
         // delegate the call to get<>() const
         return get<ValueType>();
@@ -22522,12 +22522,12 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
   private:
     template<typename KeyType>
     using is_comparable_with_object_key = detail::is_comparable <
-                                          object_comparator_t, const typename object_t::key_type&, KeyType >;
+        object_comparator_t, const typename object_t::key_type&, KeyType >;
 
     template<typename ValueType>
     using value_return_type = std::conditional <
-                              detail::is_c_string_uncvref<ValueType>::value,
-                              string_t, typename std::decay<ValueType>::type >;
+        detail::is_c_string_uncvref<ValueType>::value,
+        string_t, typename std::decay<ValueType>::type >;
 
   public:
     /// @brief access specified object element with default value

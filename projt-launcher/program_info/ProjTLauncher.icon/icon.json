@@ -4,14 +4,11 @@
     {
       "layers": [
         {
-          "image-name": "assets/layer1.svg",
+          "image-name": "layer1.svg",
           "name": "layer1",
           "position": {
             "scale": 1.0,
-            "translation-in-points": [
-              0,
-              0
-            ]
+            "translation-in-points": [0, 0]
           }
         }
       ],
@@ -26,8 +23,6 @@
     }
   ],
   "supported-platforms": {
-    "squares": [
-      "macOS"
-    ]
+    "squares": ["macOS"]
   }
 }

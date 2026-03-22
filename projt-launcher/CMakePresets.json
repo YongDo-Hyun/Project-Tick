@@ -29,6 +29,23 @@
                 "type": "equals",
                 "lhs": "${hostSystemName}",
                 "rhs": "Linux"
+            },
+            "cacheVariables": {
+                "LAUNCHER_USE_WEBENGINE": "OFF",
+                "LAUNCHER_USE_CEF": "OFF",
+                "LAUNCHER_DISABLE_HUB": "ON"
+            }
+        },
+        {
+            "name": "linux-withHub",
+            "displayName": "Linux",
+            "inherits": [
+                "base"
+            ],
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Linux"
             }
         },
         {
@@ -45,6 +62,18 @@
         },
         {
             "name": "macos_universal",
+            "displayName": "macOS (Universal Binary)",
+            "inherits": [
+                "macos"
+            ],
+            "cacheVariables": {
+                "CMAKE_OSX_ARCHITECTURES": "x86_64;arm64",
+                "LAUNCHER_DISABLE_HUB": "ON",
+                "LAUNCHER_USE_WEBENGINE": "OFF"
+            }
+        },
+        {
+            "name": "macos_universal-withHub",
             "displayName": "macOS (Universal Binary)",
             "inherits": [
                 "macos"
@@ -67,6 +96,22 @@
         },
         {
             "name": "windows_msvc",
+            "displayName": "Windows (MSVC)",
+            "inherits": [
+                "base"
+            ],
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            },
+            "cacheVariables": {
+                "LAUNCHER_DISABLE_HUB": "ON",
+                "LAUNCHER_USE_WEBVIEW2": "OFF"
+            }
+        },
+        {
+            "name": "windows_msvc-withHub",
             "displayName": "Windows (MSVC)",
             "inherits": [
                 "base"

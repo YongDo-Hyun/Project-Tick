@@ -172,6 +172,18 @@ jobs:
             qt-architecture: linux_gcc_arm64
             qt-modules: qtimageformats qtnetworkauth qtwebchannel qtwebengine qtpositioning qtserialport qt5compat
             qt-version: 6.10.2
+          - os: ubuntu-24.04
+            artifact-name: Linux-withHub
+            cmake-preset: linux-withHub
+            qt-architecture: linux_gcc_64
+            qt-modules: qtimageformats qtnetworkauth qtwebchannel qtwebengine qtpositioning qtserialport qt5compat
+            qt-version: 6.10.2
+          - os: ubuntu-24.04-arm
+            artifact-name: Linux-aarch64-withHub
+            cmake-preset: linux-withHub
+            qt-architecture: linux_gcc_arm64
+            qt-modules: qtimageformats qtnetworkauth qtwebchannel qtwebengine qtpositioning qtserialport qt5compat
+            qt-version: 6.10.2
           - os: windows-2022
             artifact-name: Windows-MSVC
             cmake-preset: windows_msvc
@@ -182,6 +194,20 @@ jobs:
           - os: windows-11-arm
             artifact-name: Windows-MSVC-arm64
             cmake-preset: windows_msvc
+            vcvars-arch: arm64
+            qt-architecture: win64_msvc2022_arm64
+            qt-modules: qtimageformats qtnetworkauth qtpositioning qtserialport qt5compat
+            qt-version: 6.10.2
+          - os: windows-2022
+            artifact-name: Windows-MSVC-withHub
+            cmake-preset: windows_msvc-withHub
+            vcvars-arch: amd64
+            qt-architecture: win64_msvc2022_64
+            qt-modules: qtimageformats qtnetworkauth qtwebchannel qtwebengine qtpositioning qtserialport qt5compat
+            qt-version: 6.10.2
+          - os: windows-11-arm
+            artifact-name: Windows-MSVC-arm64-withHub
+            cmake-preset: windows_msvc-withHub
             vcvars-arch: arm64
             qt-architecture: win64_msvc2022_arm64
             qt-modules: qtimageformats qtnetworkauth qtpositioning qtserialport qt5compat
@@ -199,7 +225,14 @@ jobs:
           - os: macos-26
             artifact-name: macOS-universal
             cmake-preset: macos_universal
-            macosx-deployment-target: 12.0
+            macosx-deployment-target: 13.0
+            qt-architecture: clang_64
+            qt-modules: qtimageformats qtnetworkauth qtpositioning qtserialport qtwebengine qtwebchannel qt5compat
+            qt-version: 6.10.2
+          - os: macos-26
+            artifact-name: macOS-universal-withHub
+            cmake-preset: macos_universal-withHub
+            macosx-deployment-target: 13.0
             qt-architecture: clang_64
             qt-modules: qtimageformats qtnetworkauth qtpositioning qtserialport qtwebengine qtwebchannel qt5compat
             qt-version: 6.10.2

@@ -95,7 +95,6 @@ stdenv.mkDerivation {
       ../COPYING.md
       ../bootstrap
       ../buildconfig
-      ../caches
       ../ci
       ../cmake
       ../flatpak
