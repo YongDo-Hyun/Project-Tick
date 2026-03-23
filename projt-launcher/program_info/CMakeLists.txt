@@ -8,7 +8,7 @@ if(UNIX)
     endif()
 endif()
 
-set(Launcher_AppBinaryName "projtlauncher")
+set(Launcher_AppBinaryName "projtlauncher" PARENT_SCOPE)
 set(Launcher_CommonName "ProjTLauncher")
 set(Launcher_OrganizationName "Project-Tick")
 set(Launcher_DisplayName "ProjT Launcher")
