@@ -206,9 +206,6 @@ if(CMAKE_CXX_COMPILER_FRONTEND_VARIANT STREQUAL "MSVC")
     # TODO(@YongDo-Hyun): Is sccache affected by this? Would be nice to use `ProgramDatabase`....
     set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<$<CONFIG:Debug,RelWithDebInfo>:Embedded>")
 
-    # Use static runtime for MSVC to make the app portable (avoids missing VCRUNTIME140.dll etc.)
-    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-
     if(CMAKE_MSVC_RUNTIME_LIBRARY STREQUAL "MultiThreadedDLL")
         set(CMAKE_MAP_IMPORTED_CONFIG_DEBUG Release "")
         set(CMAKE_MAP_IMPORTED_CONFIG_RELWITHDEBINFO Release "")
