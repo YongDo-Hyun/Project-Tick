@@ -104,7 +104,6 @@ xcuserdata/
 [Bb]ackup*/
 CMakeLists.txt.user*
 CMakeUserPresets.json
-Makefile
 
 # Local files created or used by coding agents
 *.local
@@ -125,17 +124,32 @@ Makefile
 [._]deps/
 [._]libs/
 .dirstamp
+/Makefile
+/Makefile.in
+/aclocal.m4
 /autom4te.cache/
+/compile
 /config*~
+/config.guess
 /config.h
+/config.h.in
 /config.log
 /config.status
+/config.sub
+/configure
+/depcomp
 /install*~
+/install-sh
 /libpng*-config
 /libpng*.pc
 /libpng.vers
 /libtool
+/ltmain.sh
+/missing
+/scripts/autoconf/libtool.m4
+/scripts/autoconf/lt*.m4
 /stamp-h1
+/test-driver
 pnglibconf.[ch]
 pnglibconf.dfn
 pnglibconf.pre

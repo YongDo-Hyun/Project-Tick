@@ -9,13 +9,6 @@
  * For conditions of distribution and use, see the disclaimer
  * and license in png.h
  */
-
-#include "../pngpriv.h"
-
-#ifdef PNG_READ_SUPPORTED
-
-#if PNG_INTEL_SSE_IMPLEMENTATION > 0
-
 #include <immintrin.h>
 
 /* Functions in this file look at most 3 pixels (a,b,c) to predict the 4th (d).
@@ -56,9 +49,9 @@ store3(void *p, __m128i v)
    memcpy(p, &tmp, 3);
 }
 
-void
-png_read_filter_row_sub3_sse2(png_row_infop row_info, png_bytep row,
-    png_const_bytep prev)
+static void
+png_read_filter_row_sub3_sse2(png_row_info *row_info, png_byte *row,
+    const png_byte *prev)
 {
    /* The Sub filter predicts each pixel as the previous pixel, a.
     * There is no pixel to the left of the first pixel.  It's encoded directly.
@@ -90,9 +83,9 @@ png_read_filter_row_sub3_sse2(png_row_infop row_info, png_bytep row,
    PNG_UNUSED(prev)
 }
 
-void
-png_read_filter_row_sub4_sse2(png_row_infop row_info, png_bytep row,
-    png_const_bytep prev)
+static void
+png_read_filter_row_sub4_sse2(png_row_info *row_info, png_byte *row,
+    const png_byte *prev)
 {
    /* The Sub filter predicts each pixel as the previous pixel, a.
     * There is no pixel to the left of the first pixel.  It's encoded directly.
@@ -116,9 +109,9 @@ png_read_filter_row_sub4_sse2(png_row_infop row_info, png_bytep row,
    PNG_UNUSED(prev)
 }
 
-void
-png_read_filter_row_avg3_sse2(png_row_infop row_info, png_bytep row,
-    png_const_bytep prev)
+static void
+png_read_filter_row_avg3_sse2(png_row_info *row_info, png_byte *row,
+    const png_byte *prev)
 {
    /* The Avg filter predicts each pixel as the (truncated) average of a and b.
     * There's no pixel to the left of the first pixel.  Luckily, it's
@@ -172,9 +165,9 @@ png_read_filter_row_avg3_sse2(png_row_infop row_info, png_bytep row,
    }
 }
 
-void
-png_read_filter_row_avg4_sse2(png_row_infop row_info, png_bytep row,
-    png_const_bytep prev)
+static void
+png_read_filter_row_avg4_sse2(png_row_info *row_info, png_byte *row,
+    const png_byte *prev)
 {
    /* The Avg filter predicts each pixel as the (truncated) average of a and b.
     * There's no pixel to the left of the first pixel.  Luckily, it's
@@ -241,9 +234,9 @@ if_then_else(__m128i c, __m128i t, __m128i e)
 #endif
 }
 
-void
-png_read_filter_row_paeth3_sse2(png_row_infop row_info, png_bytep row,
-    png_const_bytep prev)
+static void
+png_read_filter_row_paeth3_sse2(png_row_info *row_info, png_byte *row,
+    const png_byte *prev)
 {
    /* Paeth tries to predict pixel d using the pixel to the left of it, a,
     * and two pixels from the previous row, b and c:
@@ -341,9 +334,9 @@ png_read_filter_row_paeth3_sse2(png_row_infop row_info, png_bytep row,
    }
 }
 
-void
-png_read_filter_row_paeth4_sse2(png_row_infop row_info, png_bytep row,
-    png_const_bytep prev)
+static void
+png_read_filter_row_paeth4_sse2(png_row_info *row_info, png_byte *row,
+    const png_byte *prev)
 {
    /* Paeth tries to predict pixel d using the pixel to the left of it, a,
     * and two pixels from the previous row, b and c:
@@ -403,6 +396,3 @@ png_read_filter_row_paeth4_sse2(png_row_infop row_info, png_bytep row,
       rb   -= 4;
    }
 }
-
-#endif /* PNG_INTEL_SSE_IMPLEMENTATION > 0 */
-#endif /* READ */

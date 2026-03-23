@@ -35,15 +35,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define STDERR stdout
 
-#ifdef PNG_ZLIB_HEADER
-#  include PNG_ZLIB_HEADER /* defined by pnglibconf.h from 1.7 */
-#else
-#  include "ptlibzippy.h"
+#include <ptlibzippy.h>
+#ifndef Z_LIB_VERSION
+#  define Z_LIB_VERSION PTLIBZIPPY_VERSION
+#endif
+#ifndef ZLIB_VERSION
+#  define ZLIB_VERSION PTLIBZIPPY_VERSION
+#endif
+#ifndef ZLIB_VERNUM
+#  define ZLIB_VERNUM PTLIBZIPPY_VERNUM
 #endif
 
 #include "png.h"
-
 
 /* This hack was introduced for historical reasons, and we are
  * still keeping it in libpng-1.6.x for compatibility reasons.
@@ -51,7 +56,7 @@
 #define STDERR stdout
 
 /* Generate a compiler error if there is an old png.h in the search path. */
-typedef png_libpng_version_1_6_54 Your_png_h_is_not_version_1_6_54;
+typedef png_libpng_version_1_8_0_git Your_png_h_is_not_version_1_8_0_git;
 
 /* Ensure that all version numbers in png.h are consistent with one another. */
 #if (PNG_LIBPNG_VER != PNG_LIBPNG_VER_MAJOR * 10000 + \
@@ -154,8 +159,8 @@ static int status_pass = 1;
 static int status_dots_requested = 0;
 static int status_dots = 1;
 
-static void PNGCBAPI
-read_row_callback(png_structp png_ptr, png_uint_32 row_number, int pass)
+static void
+read_row_callback(png_struct *png_ptr, png_uint_32 row_number, int pass)
 {
    /* The callback should always receive correct parameters. */
    if (png_ptr == NULL)
@@ -184,8 +189,8 @@ read_row_callback(png_structp png_ptr, png_uint_32 row_number, int pass)
 }
 
 #ifdef PNG_WRITE_SUPPORTED
-static void PNGCBAPI
-write_row_callback(png_structp png_ptr, png_uint_32 row_number, int pass)
+static void
+write_row_callback(png_struct *png_ptr, png_uint_32 row_number, int pass)
 {
    /* The callback should always receive correct parameters. */
    if (png_ptr == NULL)
@@ -203,8 +208,8 @@ write_row_callback(png_structp png_ptr, png_uint_32 row_number, int pass)
 #ifdef PNG_READ_USER_TRANSFORM_SUPPORTED
 /* Example of using a user transform callback (doesn't do anything at present).
  */
-static void PNGCBAPI
-read_user_callback(png_structp png_ptr, png_row_infop row_info, png_bytep data)
+static void
+read_user_callback(png_struct *png_ptr, png_row_info *row_info, png_byte *data)
 {
    /* The callback should always receive correct parameters. */
    if (png_ptr == NULL)
@@ -223,10 +228,10 @@ read_user_callback(png_structp png_ptr, png_row_infop row_info, png_bytep data)
 
 static png_uint_32 zero_samples;
 
-static void PNGCBAPI
-count_zero_samples(png_structp png_ptr, png_row_infop row_info, png_bytep data)
+static void
+count_zero_samples(png_struct *png_ptr, png_row_info *row_info, png_byte *data)
 {
-   png_bytep dp = data;
+   png_byte *dp = data;
 
    /* The callback should always receive correct parameters. */
    if (png_ptr == NULL)
@@ -349,7 +354,7 @@ count_zero_samples(png_structp png_ptr, png_row_infop row_info, png_bytep data)
 
 #ifdef PNG_IO_STATE_SUPPORTED
 void
-pngtest_check_io_state(png_structp png_ptr, size_t data_length,
+pngtest_check_io_state(png_struct *png_ptr, size_t data_length,
     png_uint_32 io_op)
 {
    png_uint_32 io_state = png_get_io_state(png_ptr);
@@ -386,11 +391,11 @@ pngtest_check_io_state(png_structp png_ptr, size_t data_length,
 }
 #endif
 
-static void PNGCBAPI
-pngtest_read_data(png_structp png_ptr, png_bytep data, size_t length)
+static void
+pngtest_read_data(png_struct *png_ptr, png_byte *data, size_t length)
 {
    size_t check = 0;
-   png_voidp io_ptr;
+   void *io_ptr;
 
    if (png_ptr == NULL)
       png_error(png_ptr, "pngtest_read_data: bad png_ptr");
@@ -411,8 +416,8 @@ pngtest_read_data(png_structp png_ptr, png_bytep data, size_t length)
 }
 
 #ifdef PNG_WRITE_FLUSH_SUPPORTED
-static void PNGCBAPI
-pngtest_flush(png_structp png_ptr)
+static void
+pngtest_flush(png_struct *png_ptr)
 {
    if (png_ptr == NULL)
       png_error(png_ptr, "pngtest_flush: bad png_ptr");
@@ -426,8 +431,8 @@ pngtest_flush(png_structp png_ptr)
  * write_data function and use it at run time with png_set_write_fn(), rather
  * than changing the library.
  */
-static void PNGCBAPI
-pngtest_write_data(png_structp png_ptr, png_bytep data, size_t length)
+static void
+pngtest_write_data(png_struct *png_ptr, png_byte *data, size_t length)
 {
    size_t check;
 
@@ -455,8 +460,8 @@ typedef struct
    const char *file_name;
 }  pngtest_error_parameters;
 
-static void PNGCBAPI
-pngtest_warning(png_structp png_ptr, png_const_charp message)
+static void
+pngtest_warning(png_struct *png_ptr, const char *message)
 {
    const char *name = "UNKNOWN (ERROR!)";
    pngtest_error_parameters *test =
@@ -475,8 +480,8 @@ pngtest_warning(png_structp png_ptr, png_const_charp message)
  * function is used by default, or if the program supplies NULL for the
  * error function pointer in png_set_error_fn().
  */
-static void PNGCBAPI
-pngtest_error(png_structp png_ptr, png_const_charp message)
+static void
+pngtest_error(png_struct *png_ptr, const char *message)
 {
    ++error_count;
 
@@ -503,7 +508,7 @@ pngtest_error(png_structp png_ptr, png_const_charp message)
 typedef struct memory_information
 {
    png_alloc_size_t size;
-   png_voidp pointer;
+   void *pointer;
    struct memory_information *next;
 } memory_information;
 typedef memory_information *memory_infop;
@@ -514,14 +519,13 @@ static int maximum_allocation = 0;
 static int total_allocation = 0;
 static int num_allocations = 0;
 
-png_voidp PNGCBAPI png_debug_malloc(png_structp png_ptr,
+void *png_debug_malloc(png_struct *png_ptr,
     png_alloc_size_t size);
-void PNGCBAPI png_debug_free(png_structp png_ptr, png_voidp ptr);
+void png_debug_free(png_struct *png_ptr, void *ptr);
 
-png_voidp
-PNGCBAPI png_debug_malloc(png_structp png_ptr, png_alloc_size_t size)
+void *
+png_debug_malloc(png_struct *png_ptr, png_alloc_size_t size)
 {
-
    /* png_malloc has already tested for NULL; png_create_struct calls
     * png_debug_malloc directly, with png_ptr == NULL which is OK
     */
@@ -568,13 +572,13 @@ PNGCBAPI png_debug_malloc(png_structp png_ptr, png_alloc_size_t size)
          printf("png_malloc %lu bytes at %p\n", (unsigned long)size,
              pinfo->pointer);
 
-      return (png_voidp)pinfo->pointer;
+      return (void *)pinfo->pointer;
    }
 }
 
 /* Free a pointer.  It is removed from the list at the same time. */
-void PNGCBAPI
-png_debug_free(png_structp png_ptr, png_voidp ptr)
+void
+png_debug_free(png_struct *png_ptr, void *ptr)
 {
    if (png_ptr == NULL)
       fprintf(STDERR, "NULL pointer to png_debug_free.\n");
@@ -640,7 +644,7 @@ chunk used in ImageMagick to store "virtual page" size).  */
 
 typedef struct user_chunk_info_def
 {
-   png_const_infop info_ptr;
+   const png_info *info_ptr;
    png_uint_32 vpAg_width, vpAg_height;
    png_byte vpAg_units;
    png_byte sTER_mode;
@@ -655,14 +659,14 @@ typedef struct user_chunk_info_def
 #define after_IDAT  0x40
 
 static void
-init_user_chunk_info(png_const_infop info_ptr, user_chunk_info *chunk_data)
+init_user_chunk_info(const png_info *info_ptr, user_chunk_info *chunk_data)
 {
    memset(chunk_data, 0, sizeof(*chunk_data));
    chunk_data->info_ptr = info_ptr;
 }
 
 static int
-set_chunk_location(png_structp png_ptr, user_chunk_info *chunk_data, int what)
+set_chunk_location(png_struct *png_ptr, user_chunk_info *chunk_data, int what)
 {
    int location;
 
@@ -691,8 +695,8 @@ set_chunk_location(png_structp png_ptr, user_chunk_info *chunk_data, int what)
    return 1; /* handled */
 }
 
-static int PNGCBAPI
-read_user_chunk_callback(png_struct *png_ptr, png_unknown_chunkp chunk)
+static int
+read_user_chunk_callback(png_struct *png_ptr, png_unknown_chunk *chunk)
 {
    user_chunk_info *my_user_chunk_data =
       (user_chunk_info*)png_get_user_chunk_ptr(png_ptr);
@@ -754,7 +758,7 @@ read_user_chunk_callback(png_struct *png_ptr, png_unknown_chunkp chunk)
 
 #ifdef PNG_WRITE_SUPPORTED
 static void
-write_sTER_chunk(png_structp write_ptr, user_chunk_info *data)
+write_sTER_chunk(png_struct *write_ptr, user_chunk_info *data)
 {
    png_byte sTER[5] = {115,  84,  69,  82, '\0'};
 
@@ -765,7 +769,7 @@ write_sTER_chunk(png_structp write_ptr, user_chunk_info *data)
 }
 
 static void
-write_vpAg_chunk(png_structp write_ptr, user_chunk_info *data)
+write_vpAg_chunk(png_struct *write_ptr, user_chunk_info *data)
 {
    png_byte vpAg[5] = {118, 112,  65, 103, '\0'};
 
@@ -784,7 +788,7 @@ write_vpAg_chunk(png_structp write_ptr, user_chunk_info *data)
 }
 
 static void
-write_chunks(png_structp write_ptr, user_chunk_info *data, int location)
+write_chunks(png_struct *write_ptr, user_chunk_info *data, int location)
 {
    int i;
 
@@ -815,7 +819,7 @@ write_chunks(png_structp write_ptr, user_chunk_info *data, int location)
  */
 #ifdef PNG_TEXT_SUPPORTED
 static void
-pngtest_check_text_support(png_structp png_ptr, png_textp text_ptr,
+pngtest_check_text_support(png_struct *png_ptr, png_text *text_ptr,
     int num_text)
 {
    while (num_text > 0)
@@ -858,26 +862,31 @@ test_one_file(const char *inname, const char *outname)
    static FILE *fpin;
    static FILE *fpout;  /* "static" prevents setjmp corruption */
    pngtest_error_parameters error_parameters;
-   png_structp read_ptr;
-   png_infop read_info_ptr, end_info_ptr;
+   png_struct *read_ptr;
+   png_info *read_info_ptr;
+   png_info *end_info_ptr;
 #ifdef PNG_WRITE_SUPPORTED
-   png_structp write_ptr;
-   png_infop write_info_ptr;
-   png_infop write_end_info_ptr;
+   png_struct *write_ptr;
+   png_info *write_info_ptr;
+   png_info *write_end_info_ptr;
 #ifdef PNG_WRITE_FILTER_SUPPORTED
    int interlace_preserved = 1;
 #endif /* WRITE_FILTER */
 #else /* !WRITE */
-   png_structp write_ptr = NULL;
-   png_infop write_info_ptr = NULL;
-   png_infop write_end_info_ptr = NULL;
+   png_struct *write_ptr = NULL;
+   png_info *write_info_ptr = NULL;
+   png_info *write_end_info_ptr = NULL;
 #endif /* !WRITE */
-   png_bytep row_buf;
+   png_byte *row_buf;
    png_uint_32 y;
    png_uint_32 width, height;
    int bit_depth, color_type;
    user_chunk_info my_user_chunk_data;
    int pass, num_passes;
+#ifdef PNG_READ_APNG_SUPPORTED
+   png_uint_32 num_frames;
+   png_uint_32 num_plays;
+#endif
 
    row_buf = NULL;
    error_parameters.file_name = inname;
@@ -1020,9 +1029,9 @@ test_one_file(const char *inname, const char *outname)
    png_init_io(write_ptr, fpout);
 #  endif
 #else
-   png_set_read_fn(read_ptr, (png_voidp)fpin, pngtest_read_data);
+   png_set_read_fn(read_ptr, (void *)fpin, pngtest_read_data);
 #  ifdef PNG_WRITE_SUPPORTED
-   png_set_write_fn(write_ptr, (png_voidp)fpout,  pngtest_write_data,
+   png_set_write_fn(write_ptr, (void *)fpout,  pngtest_write_data,
 #    ifdef PNG_WRITE_FLUSH_SUPPORTED
        pngtest_flush);
 #    else
@@ -1228,8 +1237,8 @@ test_one_file(const char *inname, const char *outname)
 #endif
 #ifdef PNG_iCCP_SUPPORTED
    {
-      png_charp name;
-      png_bytep profile;
+      char *name;
+      png_byte *profile;
       png_uint_32 proflen;
       int compression_type;
 
@@ -1250,7 +1259,7 @@ test_one_file(const char *inname, const char *outname)
    }
 #endif
    {
-      png_colorp palette;
+      png_color *palette;
       int num_palette;
 
       if (png_get_PLTE(read_ptr, read_info_ptr, &palette, &num_palette) != 0)
@@ -1258,7 +1267,7 @@ test_one_file(const char *inname, const char *outname)
    }
 #ifdef PNG_bKGD_SUPPORTED
    {
-      png_color_16p background;
+      png_color_16 *background;
 
       if (png_get_bKGD(read_ptr, read_info_ptr, &background) != 0)
          png_set_bKGD(write_ptr, write_info_ptr, background);
@@ -1266,7 +1275,7 @@ test_one_file(const char *inname, const char *outname)
 #endif
 #ifdef PNG_READ_eXIf_SUPPORTED
    {
-      png_bytep exif = NULL;
+      png_byte *exif = NULL;
       png_uint_32 exif_length;
 
       if (png_get_eXIf_1(read_ptr, read_info_ptr, &exif_length, &exif) != 0)
@@ -1282,7 +1291,7 @@ test_one_file(const char *inname, const char *outname)
 #endif
 #ifdef PNG_hIST_SUPPORTED
    {
-      png_uint_16p hist;
+      png_uint_16 *hist;
 
       if (png_get_hIST(read_ptr, read_info_ptr, &hist) != 0)
          png_set_hIST(write_ptr, write_info_ptr, hist);
@@ -1300,8 +1309,9 @@ test_one_file(const char *inname, const char *outname)
 #endif
 #ifdef PNG_pCAL_SUPPORTED
    {
-      png_charp purpose, units;
-      png_charpp params;
+      char *purpose;
+      char *units;
+      char **params;
       png_int_32 X0, X1;
       int type, nparams;
 
@@ -1323,7 +1333,7 @@ test_one_file(const char *inname, const char *outname)
 #endif
 #ifdef PNG_sBIT_SUPPORTED
    {
-      png_color_8p sig_bit;
+      png_color_8 *sig_bit;
 
       if (png_get_sBIT(read_ptr, read_info_ptr, &sig_bit) != 0)
          png_set_sBIT(write_ptr, write_info_ptr, sig_bit);
@@ -1344,7 +1354,7 @@ test_one_file(const char *inname, const char *outname)
 #ifdef PNG_FIXED_POINT_SUPPORTED
    {
       int unit;
-      png_charp scal_width, scal_height;
+      char *scal_width, *scal_height;
 
       if (png_get_sCAL_s(read_ptr, read_info_ptr, &unit, &scal_width,
            &scal_height) != 0)
@@ -1359,7 +1369,7 @@ test_one_file(const char *inname, const char *outname)
 
 #ifdef PNG_sPLT_SUPPORTED
    {
-       png_sPLT_tp entries;
+       png_sPLT_t *entries;
 
        int num_entries = png_get_sPLT(read_ptr, read_info_ptr, &entries);
        if (num_entries != 0)
@@ -1369,7 +1379,7 @@ test_one_file(const char *inname, const char *outname)
 
 #ifdef PNG_TEXT_SUPPORTED
    {
-      png_textp text_ptr;
+      png_text *text_ptr;
       int num_text;
 
       if (png_get_text(read_ptr, read_info_ptr, &text_ptr, &num_text) > 0)
@@ -1396,7 +1406,7 @@ test_one_file(const char *inname, const char *outname)
 #endif
 #ifdef PNG_tIME_SUPPORTED
    {
-      png_timep mod_time;
+      png_time *mod_time;
 
       if (png_get_tIME(read_ptr, read_info_ptr, &mod_time) != 0)
       {
@@ -1418,9 +1428,9 @@ test_one_file(const char *inname, const char *outname)
 #endif
 #ifdef PNG_tRNS_SUPPORTED
    {
-      png_bytep trans_alpha;
+      png_byte *trans_alpha;
       int num_trans;
-      png_color_16p trans_color;
+      png_color_16 *trans_color;
 
       if (png_get_tRNS(read_ptr, read_info_ptr, &trans_alpha, &num_trans,
           &trans_color) != 0)
@@ -1438,9 +1448,25 @@ test_one_file(const char *inname, const char *outname)
       }
    }
 #endif
+
+#ifdef PNG_READ_APNG_SUPPORTED
+   if (png_get_valid(read_ptr, read_info_ptr, PNG_INFO_acTL))
+   {
+      if (png_get_acTL(read_ptr, read_info_ptr, &num_frames, &num_plays))
+      {
+         png_byte is_hidden;
+         pngtest_debug2("Handling acTL chunks (frames %ld, plays %ld)",
+                        num_frames, num_plays);
+         png_set_acTL(write_ptr, write_info_ptr, num_frames, num_plays);
+         is_hidden = png_get_first_frame_is_hidden(read_ptr, read_info_ptr);
+         png_set_first_frame_is_hidden(write_ptr, write_info_ptr, is_hidden);
+      }
+   }
+#endif
+
 #ifdef PNG_WRITE_UNKNOWN_CHUNKS_SUPPORTED
    {
-      png_unknown_chunkp unknowns;
+      png_unknown_chunk *unknowns;
       int num_unknowns = png_get_unknown_chunks(read_ptr, read_info_ptr,
           &unknowns);
 
@@ -1497,6 +1523,114 @@ test_one_file(const char *inname, const char *outname)
    t_misc += (t_stop - t_start);
    t_start = t_stop;
 #endif
+#ifdef PNG_READ_APNG_SUPPORTED
+   if (png_get_valid(read_ptr, read_info_ptr, PNG_INFO_acTL))
+   {
+      png_uint_32 frame;
+      for (frame = 0; frame < num_frames; frame++)
+      {
+         png_uint_32 frame_width;
+         png_uint_32 frame_height;
+         png_uint_32 x_offset;
+         png_uint_32 y_offset;
+         png_uint_16 delay_num;
+         png_uint_16 delay_den;
+         png_byte dispose_op;
+         png_byte blend_op;
+         png_read_frame_head(read_ptr, read_info_ptr);
+         if (png_get_valid(read_ptr, read_info_ptr, PNG_INFO_fcTL))
+         {
+            png_get_next_frame_fcTL(read_ptr, read_info_ptr,
+                                    &frame_width, &frame_height,
+                                    &x_offset, &y_offset,
+                                    &delay_num, &delay_den,
+                                    &dispose_op, &blend_op);
+         }
+         else
+         {
+            frame_width = width;
+            frame_height = height;
+            x_offset = 0;
+            y_offset = 0;
+            delay_num = 1;
+            delay_den = 1;
+            dispose_op = PNG_fcTL_DISPOSE_OP_NONE;
+            blend_op = PNG_fcTL_BLEND_OP_SOURCE;
+         }
+#ifdef PNG_WRITE_APNG_SUPPORTED
+         png_write_frame_head(write_ptr, write_info_ptr, (png_byte **)&row_buf,
+                              frame_width, frame_height,
+                              x_offset, y_offset,
+                              delay_num, delay_den,
+                              dispose_op, blend_op);
+#endif
+         for (pass = 0; pass < num_passes; pass++)
+         {
+#           ifdef calc_pass_height
+               png_uint_32 pass_height;
+
+               if (num_passes == 7) /* interlaced */
+               {
+                  if (PNG_PASS_COLS(frame_width, pass) > 0)
+                     pass_height = PNG_PASS_ROWS(frame_height, pass);
+
+                  else
+                     pass_height = 0;
+               }
+
+               else /* not interlaced */
+                  pass_height = frame_height;
+#           else
+#              define pass_height frame_height
+#           endif
+
+            pngtest_debug1("Writing row data for pass %d", pass);
+            for (y = 0; y < pass_height; y++)
+            {
+#ifndef SINGLE_ROWBUF_ALLOC
+               pngtest_debug2("Allocating row buffer (pass %d, y = %u)...",
+                              pass, y);
+
+               row_buf = (png_byte *)png_malloc(read_ptr,
+                  png_get_rowbytes(read_ptr, read_info_ptr));
+
+               pngtest_debug2("\t0x%08lx (%lu bytes)", (unsigned long)row_buf,
+                  (unsigned long)png_get_rowbytes(read_ptr, read_info_ptr));
+#endif /* !SINGLE_ROWBUF_ALLOC */
+
+               png_read_rows(read_ptr, (png_byte **)&row_buf, NULL, 1);
+
+#ifdef PNG_WRITE_SUPPORTED
+#ifdef PNGTEST_TIMING
+               t_stop = (float)clock();
+               t_decode += (t_stop - t_start);
+               t_start = t_stop;
+#endif
+               png_write_rows(write_ptr, (png_byte **)&row_buf, 1);
+#ifdef PNGTEST_TIMING
+               t_stop = (float)clock();
+               t_encode += (t_stop - t_start);
+               t_start = t_stop;
+#endif
+#endif /* PNG_WRITE_SUPPORTED */
+
+#ifndef SINGLE_ROWBUF_ALLOC
+               pngtest_debug2("Freeing row buffer (pass %d, y = %u)", pass, y);
+               png_free(read_ptr, row_buf);
+               row_buf = NULL;
+#endif /* !SINGLE_ROWBUF_ALLOC */
+            }
+#           ifdef pass_height
+#              undef pass_height
+#           endif
+         }
+#ifdef PNG_WRITE_APNG_SUPPORTED
+         png_write_frame_tail(write_ptr, write_info_ptr);
+#endif
+      }
+   }
+   else
+#endif
    for (pass = 0; pass < num_passes; pass++)
    {
 #     ifdef calc_pass_height
@@ -1522,13 +1656,13 @@ test_one_file(const char *inname, const char *outname)
       {
          pngtest_debug2("Allocating row buffer (pass %d, y = %u)...", pass, y);
 
-         row_buf = (png_bytep)png_malloc(read_ptr,
+         row_buf = (png_byte *)png_malloc(read_ptr,
              png_get_rowbytes(read_ptr, read_info_ptr));
 
          pngtest_debug2("\t%p (%lu bytes)", row_buf,
              (unsigned long)png_get_rowbytes(read_ptr, read_info_ptr));
 
-         png_read_rows(read_ptr, (png_bytepp)&row_buf, NULL, 1);
+         png_read_rows(read_ptr, (png_byte **)&row_buf, NULL, 1);
 
 #ifdef PNG_WRITE_SUPPORTED
 #ifdef PNGTEST_TIMING
@@ -1536,7 +1670,7 @@ test_one_file(const char *inname, const char *outname)
          t_decode += (t_stop - t_start);
          t_start = t_stop;
 #endif
-         png_write_rows(write_ptr, (png_bytepp)&row_buf, 1);
+         png_write_rows(write_ptr, (png_byte **)&row_buf, 1);
 #ifdef PNGTEST_TIMING
          t_stop = (float)clock();
          t_encode += (t_stop - t_start);
@@ -1548,6 +1682,9 @@ test_one_file(const char *inname, const char *outname)
          png_free(read_ptr, row_buf);
          row_buf = NULL;
       }
+#     ifdef pass_height
+#        undef pass_height
+#     endif
    }
 
 #ifdef PNG_STORE_UNKNOWN_CHUNKS_SUPPORTED
@@ -1564,7 +1701,7 @@ test_one_file(const char *inname, const char *outname)
    png_read_end(read_ptr, end_info_ptr);
 #ifdef PNG_TEXT_SUPPORTED
    {
-      png_textp text_ptr;
+      png_text *text_ptr;
       int num_text;
 
       if (png_get_text(read_ptr, end_info_ptr, &text_ptr, &num_text) > 0)
@@ -1591,7 +1728,7 @@ test_one_file(const char *inname, const char *outname)
 #endif
 #ifdef PNG_READ_eXIf_SUPPORTED
    {
-      png_bytep exif = NULL;
+      png_byte *exif = NULL;
       png_uint_32 exif_length;
 
       if (png_get_eXIf_1(read_ptr, end_info_ptr, &exif_length, &exif) != 0)
@@ -1607,7 +1744,7 @@ test_one_file(const char *inname, const char *outname)
 #endif
 #ifdef PNG_tIME_SUPPORTED
    {
-      png_timep mod_time;
+      png_time *mod_time;
 
       if (png_get_tIME(read_ptr, end_info_ptr, &mod_time) != 0)
       {
@@ -1629,7 +1766,7 @@ test_one_file(const char *inname, const char *outname)
 #endif
 #ifdef PNG_WRITE_UNKNOWN_CHUNKS_SUPPORTED
    {
-      png_unknown_chunkp unknowns;
+      png_unknown_chunk *unknowns;
       int num_unknowns = png_get_unknown_chunks(read_ptr, end_info_ptr,
           &unknowns);
 
@@ -1754,13 +1891,13 @@ test_one_file(const char *inname, const char *outname)
             {
                fprintf(STDERR,
                    "   Was %s written with the same maximum IDAT"
-                   " chunk size (%d bytes),",
+                   " chunk size (%d bytes),\n",
                    inname, PNG_ZBUF_SIZE);
                fprintf(STDERR,
-                   "\n   filtering heuristic (libpng default), compression");
+                   "   compression level (zlib default),\n");
                fprintf(STDERR,
-                   " level (zlib default),\n   and zlib version (%s)?\n\n",
-                   PTLIBZIPPY_VERSION);
+                   "   and zlib version (%s)?\n\n",
+                   ZLIB_VERSION);
                wrote_question = 1;
             }
 
@@ -1786,13 +1923,13 @@ test_one_file(const char *inname, const char *outname)
             {
                fprintf(STDERR,
                    "   Was %s written with the same maximum"
-                   " IDAT chunk size (%d bytes),",
+                   " IDAT chunk size (%d bytes),\n",
                     inname, PNG_ZBUF_SIZE);
                fprintf(STDERR,
-                   "\n   filtering heuristic (libpng default), compression");
+                   "   compression level (zlib default),\n");
                fprintf(STDERR,
-                   " level (zlib default),\n   and zlib version (%s)?\n\n",
-                 PTLIBZIPPY_VERSION);
+                   "   and zlib version (%s)?\n\n",
+                 ZLIB_VERSION);
                wrote_question = 1;
             }
 
@@ -1835,10 +1972,10 @@ main(int argc, char *argv[])
    int multiple = 0;
    int ierror = 0;
 
-   png_structp dummy_ptr;
+   png_struct *dummy_ptr;
 
    fprintf(STDERR, "\n Testing libpng version %s\n", PNG_LIBPNG_VER_STRING);
-   fprintf(STDERR, "   with zlib   version %s\n", PTLIBZIPPY_VERSION);
+   fprintf(STDERR, "   with zlib   version %s\n", ZLIB_VERSION);
    fprintf(STDERR, "%s", png_get_copyright(NULL));
    /* Show the version of libpng used in building the library */
    fprintf(STDERR, " library (%lu):%s",

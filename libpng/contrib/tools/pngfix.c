@@ -31,10 +31,6 @@
 #  include "../../png.h"
 #endif
 
-#if PNG_LIBPNG_VER < 10603 /* 1.6.3 */
-#  error pngfix requires libpng version 1.6.3 or newer
-#endif
-
 #ifdef PNG_SETJMP_SUPPORTED
 #include <setjmp.h>
 
@@ -50,21 +46,15 @@
    /* We must ensure that zlib uses 'const' in declarations. */
 #  define ZLIB_CONST
 #endif
-#include "ptlibzippy.h"
+#include <zlib.h>
 #ifdef const
    /* zlib.h sometimes #defines const to nothing, undo this. */
 #  undef const
 #endif
 
-
-#define PNGZ_MSG_CAST(s) (s)
-#define PNGZ_INPUT_CAST(b) (b)
-
 #ifndef PNG_MAXIMUM_INFLATE_WINDOW
 #  error pngfix requires libpng with PNG_MAXIMUM_INFLATE_WINDOW supported
 #endif
-
-#if PTLIBZIPPY_VERNUM >= 0x0051
 
 /* Copied from pngpriv.h */
 #ifdef __cplusplus
@@ -81,7 +71,6 @@
 #  define aligncastconst(type, value) ((const void*)(value))
 #endif /* __cplusplus */
 
-#if PNG_LIBPNG_VER < 10700
 /* Chunk tags (copied from pngpriv.h) */
 #define PNG_32b(b,s) ((png_uint_32)(b) << (s))
 #define PNG_U32(b1,b2,b3,b4) \
@@ -114,7 +103,6 @@
 #define png_tIME PNG_U32(116,  73,  77,  69)
 #define png_tRNS PNG_U32(116,  82,  78,  83)
 #define png_zTXt PNG_U32(122,  84,  88, 116)
-#endif
 
 /* The 8-byte signature as a pair of 32-bit quantities */
 #define sig1 PNG_U32(137,  80,  78,  71)
@@ -146,8 +134,8 @@
  * normally be an error).
  */
 typedef png_uint_16  udigit; /* A 'unum' is an array of these */
-typedef png_uint_16p uarb;
-typedef png_const_uint_16p uarbc;
+typedef png_uint_16 *uarb;
+typedef const png_uint_16 *uarbc;
 
 #define UDIGITS(unum) ((sizeof unum)/(sizeof (udigit))
    /* IMPORTANT: only apply this to an array, applied to a pointer the result
@@ -423,7 +411,7 @@ static void
 make_random_bytes(png_uint_32 *seed, void *pv, size_t size)
 {
    png_uint_32 u0 = seed[0], u1 = seed[1];
-   png_bytep bytes = voidcast(png_bytep, pv);
+   png_byte *bytes = voidcast(png_byte *, pv);
 
    /* There are thirty-three bits; the next bit in the sequence is bit-33 XOR
     * bit-20.  The top 1 bit is in u1, the bottom 32 are in u0.
@@ -1561,7 +1549,7 @@ chunk_end(struct chunk **chunk_var)
 }
 
 static void
-chunk_init(struct chunk * const chunk, struct file * const file)
+chunk_init(struct chunk *chunk, struct file *file)
    /* When a chunk is initialized the file length/type/pos are copied into the
     * corresponding chunk fields and the new chunk is registered in the file
     * structure.  There can only be one chunk at a time.
@@ -1770,7 +1758,7 @@ IDAT_end(struct IDAT **idat_var)
 }
 
 static void
-IDAT_init(struct IDAT * const idat, struct file * const file)
+IDAT_init(struct IDAT *idat, struct file *file)
    /* When the chunk is png_IDAT instantiate an IDAT control structure in place
     * of a chunk control structure.  The IDAT will instantiate a chunk control
     * structure using the file alloc routine.
@@ -2652,7 +2640,7 @@ zlib_check(struct file *file, png_uint_32 offset)
 
          case ZLIB_OK:
             /* Truncated stream; unrecoverable, gets converted to ZLIB_FATAL */
-            zlib.z.msg = PNGZ_MSG_CAST("[truncated]");
+            zlib.z.msg = "[truncated]";
             zlib_message(&zlib, 0/*expected*/);
             /* FALLTHROUGH */
 
@@ -2691,8 +2679,7 @@ zlib_check(struct file *file, png_uint_32 offset)
 
                      /* Output the error that wasn't output before: */
                      if (zlib.z.msg == NULL)
-                        zlib.z.msg = PNGZ_MSG_CAST(
-                           "invalid distance too far back");
+                        zlib.z.msg = "invalid distance too far back";
                      zlib_message(&zlib, 0/*stream error*/);
                      zlib_end(&zlib);
                      return 0;
@@ -2931,7 +2918,7 @@ skip_chunk:
 }
 
 static png_uint_32
-get32(png_bytep buffer, int offset)
+get32(png_byte *buffer, int offset)
    /* Read a 32-bit value from an 8-byte circular buffer (used only below).
     */
 {
@@ -3145,16 +3132,16 @@ read_chunk(struct file *file)
 }
 
 /* This returns a file* from a png_struct in an implementation specific way. */
-static struct file *get_control(png_const_structrp png_ptr);
+static struct file *get_control(const png_struct *png_ptr);
 
-static void PNGCBAPI
-error_handler(png_structp png_ptr, png_const_charp message)
+static void
+error_handler(png_struct *png_ptr, const char *message)
 {
    stop(get_control(png_ptr),  LIBPNG_ERROR_CODE, message);
 }
 
-static void PNGCBAPI
-warning_handler(png_structp png_ptr, png_const_charp message)
+static void
+warning_handler(png_struct *png_ptr, const char *message)
 {
    struct file *file = get_control(png_ptr);
 
@@ -3165,8 +3152,8 @@ warning_handler(png_structp png_ptr, png_const_charp message)
 /* Read callback - this is where the work gets done to check the stream before
  * passing it to libpng
  */
-static void PNGCBAPI
-read_callback(png_structp png_ptr, png_bytep buffer, size_t count)
+static void
+read_callback(png_struct *png_ptr, png_byte *buffer, size_t count)
    /* Return 'count' bytes to libpng in 'buffer' */
 {
    struct file *file = get_control(png_ptr);
@@ -3516,7 +3503,7 @@ control_end(struct control *control)
 }
 
 static struct file *
-get_control(png_const_structrp png_ptr)
+get_control(const png_struct *png_ptr)
 {
    /* This just returns the (file*).  The chunk and idat control structures
     * don't always exist.
@@ -3561,8 +3548,8 @@ read_png(struct control *control)
     * defined for file::status_code as above.
     */
 {
-   png_structp png_ptr;
-   png_infop info_ptr = NULL;
+   png_struct *png_ptr;
+   png_info *info_ptr = NULL;
    volatile int rc;
 
    png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, control,
@@ -4007,17 +3994,6 @@ main(int argc, const char **argv)
 
    return global_end(&global);
 }
-
-#else /* PTLIBZIPPY_VERNUM < 0x0051 */
-int
-main(void)
-{
-   fprintf(stderr,
-      "pngfix needs libpng with a zlib >=0.0.5.1 (not 0x%x)\n",
-      PTLIBZIPPY_VERNUM);
-   return 77;
-}
-#endif /* PTLIBZIPPY_VERNUM */
 
 #else /* No read support */
 

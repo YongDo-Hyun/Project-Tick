@@ -55,7 +55,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "ptlibzippy.h"
+#include <zlib.h>
 
 #include "png.h"        /* libpng header */
 #include "readpng.h"    /* typedefs, common macros, public prototypes */
@@ -66,8 +66,8 @@
 #endif
 
 
-static png_structp png_ptr = NULL;
-static png_infop info_ptr = NULL;
+static png_struct *png_ptr = NULL;
+static png_info *info_ptr = NULL;
 
 png_uint_32  width, height;
 int  bit_depth, color_type;
@@ -79,7 +79,7 @@ void readpng_version_info(void)
     fprintf(stderr, "   Compiled with libpng %s; using libpng %s.\n",
       PNG_LIBPNG_VER_STRING, png_libpng_ver);
     fprintf(stderr, "   Compiled with zlib %s; using zlib %s.\n",
-      PTLIBZIPPY_VERSION, ptlibzippyVersion());
+      ZLIB_VERSION, zlib_version);
 }
 
 
@@ -155,7 +155,7 @@ int readpng_init(FILE *infile, ulg *pWidth, ulg *pHeight)
 
 int readpng_get_bgcolor(uch *red, uch *green, uch *blue)
 {
-    png_color_16p pBackground;
+    png_color_16 *pBackground;
 
 
     /* setjmp() must be called in every function that calls a PNG-reading
@@ -209,7 +209,7 @@ uch *readpng_get_image(double display_exponent, int *pChannels, ulg *pRowbytes)
 {
     double  gamma;
     png_uint_32  i, rowbytes;
-    png_bytepp  row_pointers = NULL;
+    png_byte  **row_pointers = NULL;
 
 
     /* setjmp() must be called in every function that calls a PNG-reading
@@ -274,7 +274,7 @@ uch *readpng_get_image(double display_exponent, int *pChannels, ulg *pRowbytes)
         png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
         return NULL;
     }
-    if ((row_pointers = (png_bytepp)malloc(height*sizeof(png_bytep))) == NULL) {
+    if ((row_pointers = (png_byte **)malloc(height*sizeof(png_byte *))) == NULL) {
         png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
         free(image_data);
         image_data = NULL;

@@ -11,7 +11,7 @@
  */
 
 #include <stdio.h>
-#include "ptlibzippy.h"
+#include <zlib.h>
 
 static int
 read_one_file(FILE *ip, const char *name)

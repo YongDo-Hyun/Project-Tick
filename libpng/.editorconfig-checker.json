@@ -5,9 +5,6 @@
   },
   "Exclude": [
     ".git/",
-    "out/",
-    "contrib/visupng/VisualPng.dsp",
-    "contrib/visupng/VisualPng.dsw",
-    "contrib/visupng/VisualPng.rc"
+    "out/"
   ]
 }

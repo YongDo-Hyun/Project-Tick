@@ -56,7 +56,6 @@
 
 
 
-#if PNG_LIBPNG_VER < 10700
    /* Copied from libpng 1.7.0 png.h */
 #define PNG_u2(b1, b2) (((unsigned int)(b1) << 8) + (b2))
 
@@ -103,8 +102,6 @@
 #define PNG_CHUNK_PRIVATE(c)      (1 & ((c) >> 21))
 #define PNG_CHUNK_RESERVED(c)     (1 & ((c) >> 13))
 #define PNG_CHUNK_SAFE_TO_COPY(c) (1 & ((c) >>  5))
-
-#endif /* PNG_LIBPNG_VER < 10700 */
 
 #ifdef __cplusplus
 #  define this not_the_cpp_this
@@ -378,8 +375,9 @@ ancillaryb(const png_byte *name)
 typedef struct
 {
    jmp_buf     error_return;
-   png_structp png_ptr;
-   png_infop   info_ptr, end_ptr;
+   png_struct *png_ptr;
+   png_info   *info_ptr;
+   png_info   *end_ptr;
    png_uint_32 before_IDAT;
    png_uint_32 after_IDAT;
    int         error_count;
@@ -419,7 +417,8 @@ clean_display(display *d)
    }
 }
 
-PNG_FUNCTION(void, display_exit, (display *d), static PNG_NORETURN)
+static PNG_NORETURN void
+display_exit(display *d)
 {
    ++(d->error_count);
 
@@ -442,8 +441,8 @@ display_rc(const display *d, int strict)
 }
 
 /* libpng error and warning callbacks */
-PNG_FUNCTION(void, (PNGCBAPI error), (png_structp png_ptr, const char *message),
-   static PNG_NORETURN)
+static PNG_NORETURN void
+error(png_struct *png_ptr, const char *message)
 {
    display *d = (display*)png_get_error_ptr(png_ptr);
 
@@ -451,8 +450,8 @@ PNG_FUNCTION(void, (PNGCBAPI error), (png_structp png_ptr, const char *message),
    display_exit(d);
 }
 
-static void PNGCBAPI
-warning(png_structp png_ptr, const char *message)
+static void
+warning(png_struct *png_ptr, const char *message)
 {
    display *d = (display*)png_get_error_ptr(png_ptr);
 
@@ -461,13 +460,13 @@ warning(png_structp png_ptr, const char *message)
 }
 
 static png_uint_32
-get_valid(display *d, png_infop info_ptr)
+get_valid(display *d, png_info *info_ptr)
 {
    png_uint_32 flags = png_get_valid(d->png_ptr, info_ptr, (png_uint_32)~0);
 
    /* Map the text chunks back into the flags */
    {
-      png_textp text;
+      png_text *text;
       png_uint_32 ntext = png_get_text(d->png_ptr, info_ptr, &text, NULL);
 
       while (ntext > 0) switch (text[--ntext].compression)
@@ -493,8 +492,8 @@ get_valid(display *d, png_infop info_ptr)
 }
 
 #ifdef PNG_READ_USER_CHUNKS_SUPPORTED
-static int PNGCBAPI
-read_callback(png_structp pp, png_unknown_chunkp pc)
+static int
+read_callback(png_struct *pp, png_unknown_chunk *pc)
 {
    /* This function mimics the behavior of png_set_keep_unknown_chunks by
     * returning '0' to keep the chunk and '1' to discard it.
@@ -570,7 +569,7 @@ read_callback(png_structp pp, png_unknown_chunkp pc)
 
 #ifdef PNG_SAVE_UNKNOWN_CHUNKS_SUPPORTED
 static png_uint_32
-get_unknown(display *d, png_infop info_ptr, int after_IDAT)
+get_unknown(display *d, png_info *info_ptr, int after_IDAT)
 {
    /* Create corresponding 'unknown' flags */
    png_uint_32 flags = 0;
@@ -578,7 +577,7 @@ get_unknown(display *d, png_infop info_ptr, int after_IDAT)
    UNUSED(after_IDAT)
 
    {
-      png_unknown_chunkp unknown;
+      png_unknown_chunk *unknown;
       int num_unknown = png_get_unknown_chunks(d->png_ptr, info_ptr, &unknown);
 
       while (--num_unknown >= 0)
@@ -623,7 +622,7 @@ get_unknown(display *d, png_infop info_ptr, int after_IDAT)
 }
 #else /* SAVE_UNKNOWN_CHUNKS */
 static png_uint_32
-get_unknown(display *d, png_infop info_ptr, int after_IDAT)
+get_unknown(display *d, png_info *info_ptr, int after_IDAT)
    /* Otherwise this will return the cached values set by any user callback */
 {
    UNUSED(info_ptr);
@@ -644,7 +643,7 @@ get_unknown(display *d, png_infop info_ptr, int after_IDAT)
 #endif /* SAVE_UNKNOWN_CHUNKS */
 
 static int
-check(FILE *fp, int argc, const char **argv, png_uint_32p flags/*out*/,
+check(FILE *fp, int argc, const char **argv, png_uint_32 *flags/*out*/,
    display *d, int set_callback)
 {
    int i, npasses, ipass;

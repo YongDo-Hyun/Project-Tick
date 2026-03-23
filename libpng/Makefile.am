@@ -91,7 +91,7 @@ TESTS =\
 endif
 
 # man pages
-dist_man_MANS= libpng.3 libpngpf.3 png.5
+dist_man_MANS= manuals/libpng.3 manuals/png.5
 
 # generate the -config scripts if required
 binconfigs= libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@-config
@@ -104,51 +104,8 @@ lib_LTLIBRARIES=libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@.la
 libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_SOURCES = png.c pngerror.c\
 	pngget.c pngmem.c pngpread.c pngread.c pngrio.c pngrtran.c pngrutil.c\
 	pngset.c pngtrans.c pngwio.c pngwrite.c pngwtran.c pngwutil.c\
+	pngsimd.c\
 	png.h pngconf.h pngdebug.h pnginfo.h pngpriv.h pngstruct.h pngusr.dfa
-
-if PNG_ARM_NEON
-libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_SOURCES += arm/arm_init.c\
-	arm/filter_neon_intrinsics.c \
-	arm/palette_neon_intrinsics.c
-endif
-
-if PNG_MIPS_MSA
-libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_SOURCES += mips/mips_init.c\
-	mips/filter_msa_intrinsics.c
-endif
-
-if PNG_MIPS_MMI
-if !PNG_MIPS_MSA
-libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_SOURCES += mips/mips_init.c
-endif
-libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_SOURCES += mips/filter_mmi_inline_assembly.c
-endif
-
-if PNG_INTEL_SSE
-libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_SOURCES += intel/intel_init.c\
-	intel/filter_sse2_intrinsics.c
-endif
-
-if PNG_POWERPC_VSX
-libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_SOURCES += powerpc/powerpc_init.c\
-        powerpc/filter_vsx_intrinsics.c
-endif
-
-if PNG_RISCV_RVV
-noinst_LTLIBRARIES= libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@rvv.la
-libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@rvv_la_SOURCES = riscv/riscv_init.c\
-        riscv/filter_rvv_intrinsics.c
-libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@rvv_la_CFLAGS = -march=rv64gv
-libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_LIBADD = libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@rvv.la
-endif
-
-if PNG_LOONGARCH_LSX
-noinst_LTLIBRARIES= libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@lsx.la
-libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@lsx_la_SOURCES = loongarch/loongarch_lsx_init.c\
-	loongarch/filter_lsx_intrinsics.c
-libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@lsx_la_CFLAGS = -mlsx
-libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_LIBADD = libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@lsx.la
-endif
 
 nodist_libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_SOURCES = pnglibconf.h
 
@@ -168,14 +125,6 @@ else
 #   Only restricted exports when possible
   libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_LDFLAGS += -export-symbols libpng.sym
   libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_DEPENDENCIES = libpng.sym
-endif
-
-if PNG_RISCV_RVV
-  libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_DEPENDENCIES += libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@rvv.la
-endif
-
-if PNG_LOONGARCH_LSX
-  libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_DEPENDENCIES += libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@lsx.la
 endif
 
 #distribute headers in /usr/include/libpng/*
@@ -198,7 +147,7 @@ EXTRA_DIST= \
 	$(TESTS) $(XFAIL_TESTS) tests/pngstest \
 	CMakeLists.txt example.c libpng-manual.txt
 
-SCRIPT_CLEANFILES=scripts/*.out scripts/*.chk
+SCRIPT_CLEANFILES=scripts/pnglibconf/*.out scripts/pnglibconf/*.chk
 
 CLEANFILES= *.tf? pngout.png libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@.pc \
 	libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@-config libpng.vers libpng.sym \
@@ -230,33 +179,35 @@ $(PNGLIB_BASENAME).pc: libpng.pc
 $(PNGLIB_BASENAME)-config: libpng-config
 	cp libpng-config $@
 
-scripts/sym.out scripts/vers.out: png.h pngconf.h pnglibconf.h
-scripts/prefix.out: png.h pngconf.h pnglibconf.out
-scripts/symbols.out: png.h pngconf.h $(srcdir)/scripts/pnglibconf.h.prebuilt
-scripts/intprefix.out: pnglibconf.h
+scripts/pnglibconf/sym.out scripts/pnglibconf/vers.out: png.h pngconf.h pnglibconf.h
+scripts/pnglibconf/prefix.out: png.h pngconf.h pnglibconf.out
+scripts/pnglibconf/symbols.out: png.h pngconf.h $(srcdir)/pnglibconf.h.prebuilt
+scripts/pnglibconf/intprefix.out: pnglibconf.h
 
-libpng.sym: scripts/sym.out
+libpng.sym: scripts/pnglibconf/sym.out
 	rm -f $@
 	cp $? $@
-libpng.vers: scripts/vers.out
+libpng.vers: scripts/pnglibconf/vers.out
 	rm -f $@
 	cp $? $@
 
 if DO_PNG_PREFIX
-# Rename functions in scripts/prefix.out with a PNG_PREFIX prefix.
+# Rename functions in scripts/pnglibconf/prefix.out with a PNG_PREFIX prefix.
 # Rename macros in scripts/macro.lst from PNG_PREFIXpng_ to PNG_ (the actual
 # implementation of the macro).
-pnglibconf.h: pnglibconf.out scripts/prefix.out scripts/macro.lst
+pnglibconf.h: pnglibconf.out scripts/pnglibconf/prefix.out scripts/macro.lst
 	rm -f $@
 	$(AWK) 's==0 && NR>1{print prev}\
 	   s==0{prev=$$0}\
 	   s==1{print "#define", $$1, "@PNG_PREFIX@" $$1}\
 	   s==2{print "#define @PNG_PREFIX@png_" $$1, "PNG_" $$1}\
-	   END{print prev}' s=0 pnglibconf.out s=1 scripts/prefix.out\
-	   s=2 ${srcdir}/scripts/macro.lst >pnglibconf.tf8
+	   END{print prev}'\
+           s=0 pnglibconf.out\
+           s=1 scripts/pnglibconf/prefix.out\
+	   s=2 "${srcdir}/scripts/macro.lst" >pnglibconf.tf8
 	mv pnglibconf.tf8 $@
 
-pngprefix.h: scripts/intprefix.out
+pngprefix.h: scripts/pnglibconf/intprefix.out
 	rm -f pngprefix.tf1
 	$(AWK) '{print "#define", $$1, "@PNG_PREFIX@" $$1}' $? >pngprefix.tf1
 	mv pngprefix.tf1 $@
@@ -269,11 +220,11 @@ pngprefix.h: # is empty
 	:>$@
 endif
 
-$(srcdir)/scripts/pnglibconf.h.prebuilt:
+$(srcdir)/pnglibconf.h.prebuilt:
 	@echo "Attempting to build $@" >&2
 	@echo "This is a machine generated file, but if you want to make" >&2
-	@echo "a new one simply make 'scripts/pnglibconf.out', copy that" >&2
-	@echo "AND set PNG_ZLIB_VERNUM to 0 (you MUST do this)" >&2
+	@echo "a new one simply make 'scripts/pnglibconf/pnglibconf.out'," >&2
+	@echo "copy that AND set PNG_ZLIB_VERNUM to 0 (you MUST do this)" >&2
 	@exit 1
 
 # The following is necessary to ensure that the local pnglibconf.h is used, not
@@ -311,52 +262,60 @@ endif
 .c.out:
 	rm -f $@ $*.tf[12]
 	test -d scripts || mkdir scripts || test -d scripts
+	test -d scripts/pnglibconf || mkdir scripts/pnglibconf || test -d scripts/pnglibconf
 	$(DFNCPP) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES)\
 	    $(CPPFLAGS) $(SYMBOL_CFLAGS) $< > $*.tf1
-	$(AWK) -f "${srcdir}/scripts/dfn.awk" out="$*.tf2" $*.tf1 1>&2
+	$(AWK) -f "${srcdir}/scripts/pnglibconf/dfn.awk"\
+	    out=$*.tf2 $*.tf1 1>&2
 	rm -f $*.tf1
 	mv $*.tf2 $@
 
 # The .c file for pnglibconf.h is machine generated
-pnglibconf.c: scripts/pnglibconf.dfa scripts/options.awk pngconf.h pngusr.dfa $(DFA_XTRA)
+pnglibconf.c: scripts/pnglibconf/pnglibconf.dfa scripts/pnglibconf/options.awk pngconf.h \
+              pngusr.dfa $(DFA_XTRA)
 	rm -f $@ $*.tf[45]
-	$(AWK) -f ${srcdir}/scripts/options.awk out=$*.tf4 version=search\
-	    ${srcdir}/pngconf.h ${srcdir}/scripts/pnglibconf.dfa\
-	    ${srcdir}/pngusr.dfa $(DFA_XTRA) 1>&2
-	$(AWK) -f ${srcdir}/scripts/options.awk out=$*.tf5 $*.tf4 1>&2
+	$(AWK) -f "${srcdir}/scripts/pnglibconf/options.awk"\
+	    out=$*.tf4 version=search\
+	    "${srcdir}/pngconf.h" "${srcdir}/scripts/pnglibconf/pnglibconf.dfa"\
+	    "${srcdir}/pngusr.dfa" $(DFA_XTRA) 1>&2
+	$(AWK) -f "${srcdir}/scripts/pnglibconf/options.awk"\
+	    out=$*.tf5 $*.tf4 1>&2
 	rm $*.tf4
 	mv $*.tf5 $@
 
 # Symbol checks (.def and .out files should match)
-scripts/symbols.chk: scripts/checksym.awk scripts/symbols.def scripts/symbols.out
+scripts/pnglibconf/symbols.chk: scripts/pnglibconf/checksym.awk scripts/symbols.def \
+                                scripts/pnglibconf/symbols.out
 
 .out.chk:
 	rm -f $@ $*.new
-	$(AWK) -f ${srcdir}/scripts/checksym.awk ${srcdir}/scripts/${*F}.def\
-	    of="$*.new" $< >&2
+	$(AWK) -f "${srcdir}/scripts/pnglibconf/checksym.awk"\
+	    of=$*.new ${srcdir}/scripts/${*F}.def $*.out >&2
 	mv $*.new $@
 
 # used on demand to regenerate the standard header, CPPFLAGS should
 # be empty - no non-standard defines
-scripts/pnglibconf.c: scripts/pnglibconf.dfa scripts/options.awk pngconf.h
+scripts/pnglibconf/pnglibconf.c: scripts/pnglibconf/pnglibconf.dfa scripts/pnglibconf/options.awk \
+                                 pngconf.h
 	rm -f $@ pnglibconf.tf[67]
 	test -z "$(CPPFLAGS)"
 	echo "com @PNGLIB_VERSION@ STANDARD API DEFINITION" |\
-	$(AWK) -f ${srcdir}/scripts/options.awk out=pnglibconf.tf6\
-	    logunsupported=1 version=search ${srcdir}/pngconf.h -\
-	    ${srcdir}/scripts/pnglibconf.dfa 1>&2
-	$(AWK) -f ${srcdir}/scripts/options.awk out=pnglibconf.tf7\
-	    pnglibconf.tf6 1>&2
+	$(AWK) -f "${srcdir}/scripts/pnglibconf/options.awk"\
+	    out=pnglibconf.tf6 logunsupported=1 version=search\
+	    "${srcdir}/pngconf.h" -\
+	    "${srcdir}/scripts/pnglibconf/pnglibconf.dfa" 1>&2
+	$(AWK) -f "${srcdir}/scripts/pnglibconf/options.awk"\
+	    out=pnglibconf.tf7 pnglibconf.tf6 1>&2
 	rm pnglibconf.tf6
 	mv pnglibconf.tf7 $@
 
-$(libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_OBJECTS): png.h pngconf.h \
-	pnglibconf.h pngpriv.h pngdebug.h pnginfo.h pngstruct.h pngprefix.h
+$(libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_OBJECTS): png.h pngconf.h pnglibconf.h pngpriv.h \
+                                                  pngdebug.h pnginfo.h pngstruct.h pngprefix.h
 
 test: check-am
 
 # Extra checks
-check: scripts/symbols.chk
+check: scripts/pnglibconf/symbols.chk
 
 # Don't distribute the generated script files
 dist-hook:

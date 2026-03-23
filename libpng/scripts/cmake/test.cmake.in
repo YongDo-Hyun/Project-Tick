@@ -21,19 +21,9 @@ endforeach()
 
 # Add the directory containing libpng to the PATH (Windows only)
 if(WIN32)
-  set(TEST_RUNTIME_LIBRARY_DIRS "${TEST_LIBRARY_DIRS}")
   get_filename_component(LIBPNG_DIR "${LIBPNG}" PATH)
-  list(APPEND TEST_RUNTIME_LIBRARY_DIRS "${LIBPNG_DIR}")
-  list(FILTER TEST_RUNTIME_LIBRARY_DIRS EXCLUDE REGEX "^$")
-  list(REMOVE_DUPLICATES TEST_RUNTIME_LIBRARY_DIRS)
-
-  foreach(lib_dir IN LISTS TEST_RUNTIME_LIBRARY_DIRS)
-    file(TO_NATIVE_PATH "${lib_dir}" native_lib_dir)
-    list(APPEND NATIVE_TEST_LIBRARY_DIRS "${native_lib_dir}")
-  endforeach()
-
-  list(JOIN NATIVE_TEST_LIBRARY_DIRS ";" TEST_PATH_PREFIX)
-  set(ENV{PATH} "${TEST_PATH_PREFIX};$ENV{PATH}")
+  file(TO_NATIVE_PATH "${LIBPNG_DIR}" LIBPNG_DIR)
+  set(ENV{PATH} "${LIBPNG_DIR};$ENV{PATH}")
 endif()
 
 string(JOIN " " TEST_COMMAND_STRING "${TEST_COMMAND}" ${TEST_OPTIONS} ${NATIVE_TEST_FILES})

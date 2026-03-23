@@ -9,14 +9,12 @@
  * For conditions of distribution and use, see the disclaimer
  * and license in png.h
  */
+#define png_target_impl "intel-sse"
 
-#include "../pngpriv.h"
+#include "filter_sse2_intrinsics.c"
 
-#ifdef PNG_READ_SUPPORTED
-#if PNG_INTEL_SSE_IMPLEMENTATION > 0
-
-void
-png_init_filter_functions_sse2(png_structp pp, unsigned int bpp)
+static void
+png_init_filter_functions_sse2(png_struct *pp, unsigned int bpp)
 {
    /* The techniques used to implement each of these filters in SSE operate on
     * one pixel at a time.
@@ -47,5 +45,4 @@ png_init_filter_functions_sse2(png_structp pp, unsigned int bpp)
     */
 }
 
-#endif /* PNG_INTEL_SSE_IMPLEMENTATION > 0 */
-#endif /* PNG_READ_SUPPORTED */
+#define png_target_init_filter_functions_impl png_init_filter_functions_sse2

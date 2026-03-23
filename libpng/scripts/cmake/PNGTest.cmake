@@ -37,7 +37,6 @@ function(png_add_test)
   add_test(NAME "${_PAT_NAME}"
            COMMAND "${CMAKE_COMMAND}"
                    "-DLIBPNG=$<TARGET_FILE:png_shared>"
-                   "-DTEST_LIBRARY_DIRS=${PNG_TEST_LIBRARY_DIRS}"
                    "-DTEST_COMMAND=$<TARGET_FILE:${_PAT_COMMAND}>"
                    -P "${CMAKE_CURRENT_BINARY_DIR}/tests/${_PAT_NAME}.cmake")
 endfunction()
