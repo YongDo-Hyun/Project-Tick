@@ -22,21 +22,7 @@ function(projt_add_libpng)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../libpng libpng)
     projt_pop_autogen_disabled()
     projt_pop_output_dirs()
-    foreach(_projt_png_target png_shared png_static png_framework)
-        if(TARGET ${_projt_png_target})
-            target_compile_definitions(
-                ${_projt_png_target}
-                PRIVATE adler32=ptpng_adler32
-                        crc32=ptpng_crc32
-                        deflate=ptpng_deflate
-                        deflateInit2_=ptpng_deflateInit2_
-                        deflateReset=ptpng_deflateReset
-                        inflate=ptpng_inflate
-                        inflateInit2_=ptpng_inflateInit2_
-                        inflateReset=ptpng_inflateReset
-                        inflateReset2=ptpng_inflateReset2)
-        endif()
-    endforeach()
+
     if(UNIX AND NOT APPLE)
         if(DEFINED Launcher_BUNDLED_INCLUDEDIR AND NOT Launcher_BUNDLED_INCLUDEDIR STREQUAL "")
             projt_pop_install_includedir()

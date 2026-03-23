@@ -805,19 +805,7 @@
 
 #include "pngstruct.h"
 
-/* ptpng_ shim declarations (implemented in png.c) */
-ZEXTERN uLong ZEXPORT ptpng_adler32 OF((uLong adler, const Bytef *buf, uInt len));
-ZEXTERN uLong ZEXPORT ptpng_crc32 OF((uLong crc, const Bytef *buf, uInt len));
-ZEXTERN int ZEXPORT ptpng_deflate OF((z_streamp strm, int flush));
-ZEXTERN int ZEXPORT ptpng_deflateInit2_ OF((z_streamp strm, int level, int method,
-                                 int windowBits, int memLevel, int strategy,
-                                 const char *version, int stream_size));
-ZEXTERN int ZEXPORT ptpng_deflateReset OF((z_streamp strm));
-ZEXTERN int ZEXPORT ptpng_inflate OF((z_streamp strm, int flush));
-ZEXTERN int ZEXPORT ptpng_inflateInit2_ OF((z_streamp strm, int windowBits,
-                                 const char *version, int stream_size));
-ZEXTERN int ZEXPORT ptpng_inflateReset OF((z_streamp strm));
-ZEXTERN int ZEXPORT ptpng_inflateReset2 OF((z_streamp strm, int windowBits));
+
 #include "pnginfo.h"
 
 /* Validate the include paths - the include path used to generate pnglibconf.h

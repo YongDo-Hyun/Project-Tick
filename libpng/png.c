@@ -12,60 +12,6 @@
 
 #include "pngpriv.h"
 
-/* Undefine zlib macros to prevent infinite recursion in the shims below */
-#undef adler32
-#undef crc32
-#undef deflate
-#undef deflateInit2_
-#undef deflateReset
-#undef inflate
-#undef inflateInit2_
-#undef inflateReset
-#undef inflateReset2
-#undef inflateResetKeep
-#undef deflateResetKeep
-
-/* ptpng_ shim implementations to avoid dependency on external shims */
-uLong ZEXPORT ptpng_adler32(uLong adler, const Bytef *buf, uInt len) {
-    return adler32(adler, buf, len);
-}
-
-uLong ZEXPORT ptpng_crc32(uLong crc, const Bytef *buf, uInt len) {
-    return crc32(crc, buf, len);
-}
-
-int ZEXPORT ptpng_deflate(z_streamp strm, int flush) {
-    return deflate(strm, flush);
-}
-
-int ZEXPORT ptpng_deflateInit2_(z_streamp strm, int level, int method,
-                                int windowBits, int memLevel, int strategy,
-                                const char *version, int stream_size) {
-    return deflateInit2_(strm, level, method, windowBits, memLevel, strategy,
-                         version, stream_size);
-}
-
-int ZEXPORT ptpng_deflateReset(z_streamp strm) {
-    return deflateReset(strm);
-}
-
-int ZEXPORT ptpng_inflate(z_streamp strm, int flush) {
-    return inflate(strm, flush);
-}
-
-int ZEXPORT ptpng_inflateInit2_(z_streamp strm, int windowBits,
-                                const char *version, int stream_size) {
-    return inflateInit2_(strm, windowBits, version, stream_size);
-}
-
-int ZEXPORT ptpng_inflateReset(z_streamp strm) {
-    return inflateReset(strm);
-}
-
-int ZEXPORT ptpng_inflateReset2(z_streamp strm, int windowBits) {
-    return inflateReset2(strm, windowBits);
-}
-
 
 /* Generate a compiler error if there is an old png.h in the search path. */
 typedef png_libpng_version_1_8_0_git Your_png_h_is_not_version_1_8_0_git;
