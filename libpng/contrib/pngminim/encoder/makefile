@@ -32,14 +32,14 @@ ZSRCS  = adler32$(C) compress$(C) crc32$(C) deflate$(C) \
 	 trees$(C) zutil$(C)
 
 # Standard headers
-#ZH     = zlib.h crc32.h deflate.h trees.h zutil.h
-ZH     = zlib.h crc32.h deflate.h trees.h zutil.h
+#ZH     = ptlibzippy.h crc32.h deflate.h trees.h zutil.h
+ZH     = ptlibzippy.h crc32.h deflate.h trees.h zutil.h
 
 # Machine generated headers
 ZCONF  = zconf.h
 
 # Headers callers use
-ZINC   = zlib.h $(ZCONF)
+ZINC   = ptlibzippy.h $(ZCONF)
 
 # Headers the Zlib source uses
 ZHDRS  = $(ZH) $(ZCONF)

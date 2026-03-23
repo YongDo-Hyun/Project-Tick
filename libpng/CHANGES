@@ -837,7 +837,7 @@ Version 1.0.7beta11 [May 7, 2000]
   Made PNG_NO_READ|WRITE_iTXt the default setting, to avoid memory
     overrun when old applications fill the info_ptr->text structure directly.
   Added PNGAPI macro, and added it to the definitions of all exported functions.
-  Relocated version macro definitions ahead of the includes of zlib.h and
+  Relocated version macro definitions ahead of the includes of ptlibzippy.h and
     pngconf.h in png.h.
 
 Version 1.0.7beta12 [May 12, 2000]
@@ -2951,7 +2951,7 @@ Version 1.5.0beta36 [July 29, 2010]
     works in the FP case too.)
   Most floating point APIs now simply call the fixed point APIs after
     converting the values to the fixed point form used in the PNG file.
-  The standard headers no longer include zlib.h, which is currently only
+  The standard headers no longer include ptlibzippy.h, which is currently only
     required for pngstruct.h and can therefore be internal.
   Revised png_get_int_32 to undo the PNG two's complement representation of
     negative numbers.
@@ -3170,8 +3170,8 @@ Version 1.5.1beta03 [January 14, 2011]
 
 Version 1.5.1beta04 [January 16, 2011]
   Updated documentation of png_set|get_tRNS() (Thomas Klausner).
-  Mentioned in the documentation that applications must #include "zlib.h"
-    if they need access to anything in zlib.h, and that a number of
+  Mentioned in the documentation that applications must #include "ptlibzippy.h"
+    if they need access to anything in ptlibzippy.h, and that a number of
     macros such as png_memset() are no longer accessible by applications.
   Corrected pngvalid gamma test "sample" function to access all of the color
     samples of each pixel, instead of sampling the red channel three times.

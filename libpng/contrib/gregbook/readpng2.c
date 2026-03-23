@@ -63,7 +63,7 @@
 #include <stdlib.h>     /* for exit() prototype */
 #include <setjmp.h>
 
-#include <zlib.h>
+#include <ptlibzippy.h>
 #include "png.h"        /* libpng header from the local directory */
 #include "readpng2.h"   /* typedefs, common macros, public prototypes */
 

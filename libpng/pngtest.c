@@ -48,6 +48,23 @@
 #  define ZLIB_VERNUM PTLIBZIPPY_VERNUM
 #endif
 
+/* Redefine zlib symbols to use ptpng_ shims from ptlibzippy */
+#define adler32 ptpng_adler32
+#define crc32 ptpng_crc32
+#define deflate ptpng_deflate
+#define deflateInit2_ ptpng_deflateInit2_
+#define deflateReset ptpng_deflateReset
+#define inflate ptpng_inflate
+#define inflateInit2_ ptpng_inflateInit2_
+#define inflateReset ptpng_inflateReset
+#define inflateReset2 ptpng_inflateReset2
+#ifndef inflateResetKeep
+#  define inflateResetKeep ptpng_inflateReset
+#endif
+#ifndef deflateResetKeep
+#  define deflateResetKeep ptpng_deflateReset
+#endif
+
 #include "png.h"
 
 /* This hack was introduced for historical reasons, and we are

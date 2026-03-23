@@ -12,7 +12,7 @@ For a detailed description on using libpng, read `libpng-manual.txt`.
 For examples of libpng in a program, see `example.c` and `pngtest.c`.
 For usage information and restrictions (what little they are) on libpng,
 see `png.h`.  For a description on using zlib (the compression library
-used by libpng) and zlib's restrictions, see `zlib.h`.
+used by libpng) and zlib's restrictions, see `ptlibzippy.h`.
 
 You should use zlib 1.0.4 or later to run this, but it _may_ work with
 versions as old as zlib 0.95.  Even so, there are bugs in older zlib

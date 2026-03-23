@@ -82,7 +82,7 @@ wherever you got libpng; otherwise go to https://zlib.net/.  You can
 place zlib in the same directory as libpng or in another directory.
 
 If your system already has a preinstalled zlib you will still need
-to have access to the zlib.h and zconf.h include files that
+to have access to the ptlibzippy.h and zconf.h include files that
 correspond to the version of zlib that's installed.
 
 If you wish to test with a particular zlib that is not first in the
@@ -203,7 +203,7 @@ Officially, the support for 16-bit platforms has been removed.
 
 For DOS users who only have access to the lower 640K, you will
 have to limit zlib's memory usage via a png_set_compression_mem_level()
-call.  See zlib.h or zconf.h in the zlib library for more information.
+call.  See ptlibzippy.h or zconf.h in the zlib library for more information.
 
 You may be or may not be in luck if you target the "large" memory model,
 but all the smaller models ("small", "compact" and "medium") are known

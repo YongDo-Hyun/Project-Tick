@@ -657,7 +657,7 @@ And while I'm on the topic, make sure you include the libpng header file:
 
 and also (as of libpng-1.5.0) the zlib header file, if you need it:
 
-#include <zlib.h>
+#include <ptlibzippy.h>
 
 .SS Types
 
@@ -3406,10 +3406,10 @@ The png_set_compression_*() functions interface to the zlib compression
 library, and should mostly be ignored unless you really know what you are
 doing.  The only generally useful call is png_set_compression_level()
 which changes how much time zlib spends on trying to compress the image
-data.  See the Compression Library (zlib.h and algorithm.txt, distributed
+data.  See the Compression Library (ptlibzippy.h and algorithm.txt, distributed
 with zlib) for details on the compression levels.
 
-    #include zlib.h
+    #include ptlibzippy.h
 
     /* Set the zlib compression level */
     png_set_compression_level(png_ptr,
@@ -4861,7 +4861,7 @@ specify no compression (Z_NO_COMPRESSION = 0), but this would create
 files larger than just storing the raw bitmap.  You can specify the
 compression level by calling:
 
-    #include zlib.h
+    #include ptlibzippy.h
     png_set_compression_level(png_ptr, level);
 
 Another useful one is to reduce the memory level used by the library.
@@ -4872,14 +4872,14 @@ other things, lower levels will result in sections of incompressible
 data being emitted in smaller stored blocks, with a correspondingly
 larger relative overhead of up to 15% in the worst case.
 
-    #include zlib.h
+    #include ptlibzippy.h
     png_set_compression_mem_level(png_ptr, level);
 
 The other functions are for configuring zlib.  They are not recommended
 for normal use and may result in writing an invalid PNG file.  See
-zlib.h for more information on what these mean.
+ptlibzippy.h for more information on what these mean.
 
-    #include zlib.h
+    #include ptlibzippy.h
     png_set_compression_strategy(png_ptr,
         strategy);
 
@@ -4896,7 +4896,7 @@ As of libpng version 1.5.4, additional APIs became
 available to set these separately for non-IDAT
 compressed chunks such as zTXt, iTXt, and iCCP:
 
-    #include zlib.h
+    #include ptlibzippy.h
     #if PNG_LIBPNG_VER >= 10504
     png_set_text_compression_level(png_ptr, level);
 
@@ -5189,7 +5189,7 @@ with an even number of lower-case hex digits, and to make them unsigned
 (e.g., 0xffffUL).
 
 We prefer to use underscores rather than camelCase in names, except
-for a few type names that we inherit from zlib.h.
+for a few type names that we inherit from ptlibzippy.h.
 
 We prefer "if (something != 0)" and "if (something == 0)" over
 "if (something)" and if "(!something)", respectively, and for pointers

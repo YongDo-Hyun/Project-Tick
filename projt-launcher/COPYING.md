@@ -23,12 +23,12 @@ ProjT Launcher
          This project includes a modified version of the Prism Launcher logo.
 
          Original logo:
-         Prism Launcher Logo
+         Prism Launcher Icons
          © Prism Launcher Contributors
          Licensed under CC BY-SA 4.0
 
          Modified version:
-         ProjT Launcher Logo
+         ProjT Launcher Icons
          © 2026 Project Tick
          Licensed under CC BY-SA 4.0
 

@@ -31,11 +31,28 @@
 #  define ZLIB_VERNUM PTLIBZIPPY_VERNUM
 #endif
 #ifdef const
-   /* zlib.h sometimes #defines const to nothing, undo this. */
+   /* ptlibzippy.h sometimes #defines const to nothing, undo this. */
 #  undef const
 #endif
 
-/* zlib.h declares a magic type 'uInt' that limits the amount of data that zlib
+/* Redefine zlib symbols to use ptpng_ shims from ptlibzippy */
+#define adler32 ptpng_adler32
+#define crc32 ptpng_crc32
+#define deflate ptpng_deflate
+#define deflateInit2_ ptpng_deflateInit2_
+#define deflateReset ptpng_deflateReset
+#define inflate ptpng_inflate
+#define inflateInit2_ ptpng_inflateInit2_
+#define inflateReset ptpng_inflateReset
+#define inflateReset2 ptpng_inflateReset2
+#ifndef inflateResetKeep
+#  define inflateResetKeep ptpng_inflateReset
+#endif
+#ifndef deflateResetKeep
+#  define deflateResetKeep ptpng_deflateReset
+#endif
+
+/* ptlibzippy.h declares a magic type 'uInt' that limits the amount of data that zlib
  * can handle at once.  This type need be no larger than 16 bits (so maximum of
  * 65535), this define allows us to discover how big it is, but limited by the
  * maximum for size_t.  The value can be overridden in a library build

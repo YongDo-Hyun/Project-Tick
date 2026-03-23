@@ -7,7 +7,7 @@
 # For conditions of distribution and use, see the disclaimer
 # and license in png.h
 #
-# Assumes that zlib.lib, zconf.h, and zlib.h have been copied to ..\zlib
+# Assumes that zlib.lib, zconf.h, and ptlibzippy.h have been copied to ..\zlib
 # To use, do "nmake /f scripts\makefile.vcwin-arm64"
 
 # -------- Microsoft Visual C++ 2.0 and later --------

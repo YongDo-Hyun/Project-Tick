@@ -34,14 +34,14 @@ ZSRCS  = adler32$(C) crc32$(C) \
 	 zutil$(C)
 
 # Standard headers
-ZH     = zlib.h crc32.h inffast.h inffixed.h \
+ZH     = ptlibzippy.h crc32.h inffast.h inffixed.h \
 	 inflate.h inftrees.h zutil.h
 
 # Machine generated headers
 ZCONF  = zconf.h
 
 # Headers callers use
-ZINC   = zlib.h $(ZCONF)
+ZINC   = ptlibzippy.h $(ZCONF)
 
 # Headers the Zlib source uses
 ZHDRS  = $(ZH) $(ZCONF)

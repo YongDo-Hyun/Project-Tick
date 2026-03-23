@@ -105,7 +105,7 @@ $# The libpng project is incompletely configured.  To complete configuration
 $# please complete the following steps:
 $#
 $#   1) Edit the 'before' rule of libpng.wpj (from the IDE) to define the
-$#      locations of the zlib include file zlib.h and the built zlib library,
+$#      locations of the zlib include file ptlibzippy.h and the built zlib library,
 $#      zlib.lib.
 $#
 $#   2) If you want to change libpng to a non-standard configuration also

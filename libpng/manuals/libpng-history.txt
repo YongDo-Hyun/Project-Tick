@@ -376,9 +376,9 @@ deprecated in earlier versions of libpng, has been completely removed from
 libpng 1.5, and new private "pngstruct.h", "pnginfo.h", and "pngdebug.h"
 header files were created.
 
-We no longer include zlib.h in png.h.  The include statement has been moved
+We no longer include ptlibzippy.h in png.h.  The include statement has been moved
 to pngstruct.h, where it is not accessible by applications. Applications that
-need access to information in zlib.h will need to add the '#include "zlib.h"'
+need access to information in ptlibzippy.h will need to add the '#include "ptlibzippy.h"'
 directive.  It does not matter whether this is placed prior to or after
 the '"#include png.h"' directive.
 

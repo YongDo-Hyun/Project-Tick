@@ -1434,7 +1434,7 @@ PNG_EXPORT(void, png_set_crc_action,
  * mainly useful for testing, as the defaults should work with most users.
  * Those users who are tight on memory or want faster performance at the
  * expense of compression can modify them.  See the compression library
- * header file (zlib.h) for an explanation of the compression functions.
+ * header file (ptlibzippy.h) for an explanation of the compression functions.
  */
 
 /* Set the filtering method(s) used by libpng.  Currently, the only valid

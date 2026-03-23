@@ -13,5 +13,14 @@
 PNG_DFN "@" PNGLIB_LIBNAME "@ {global:"
 
 #include "../../png.h"
+PNG_DFN "  ptpng_adler32;"
+PNG_DFN "  ptpng_crc32;"
+PNG_DFN "  ptpng_deflate;"
+PNG_DFN "  ptpng_deflateInit2_;"
+PNG_DFN "  ptpng_deflateReset;"
+PNG_DFN "  ptpng_inflate;"
+PNG_DFN "  ptpng_inflateInit2_;"
+PNG_DFN "  ptpng_inflateReset;"
+PNG_DFN "  ptpng_inflateReset2;"
 
 PNG_DFN "local: *; };"

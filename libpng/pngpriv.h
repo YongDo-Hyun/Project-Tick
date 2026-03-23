@@ -804,15 +804,29 @@
 #ifndef PNG_VERSION_INFO_ONLY
 
 #include "pngstruct.h"
+
+/* ptpng_ shim declarations (implemented in png.c) */
+ZEXTERN uLong ZEXPORT ptpng_adler32 OF((uLong adler, const Bytef *buf, uInt len));
+ZEXTERN uLong ZEXPORT ptpng_crc32 OF((uLong crc, const Bytef *buf, uInt len));
+ZEXTERN int ZEXPORT ptpng_deflate OF((z_streamp strm, int flush));
+ZEXTERN int ZEXPORT ptpng_deflateInit2_ OF((z_streamp strm, int level, int method,
+                                 int windowBits, int memLevel, int strategy,
+                                 const char *version, int stream_size));
+ZEXTERN int ZEXPORT ptpng_deflateReset OF((z_streamp strm));
+ZEXTERN int ZEXPORT ptpng_inflate OF((z_streamp strm, int flush));
+ZEXTERN int ZEXPORT ptpng_inflateInit2_ OF((z_streamp strm, int windowBits,
+                                 const char *version, int stream_size));
+ZEXTERN int ZEXPORT ptpng_inflateReset OF((z_streamp strm));
+ZEXTERN int ZEXPORT ptpng_inflateReset2 OF((z_streamp strm, int windowBits));
 #include "pnginfo.h"
 
 /* Validate the include paths - the include path used to generate pnglibconf.h
  * must match that used in the build, or we must be using pnglibconf.h.prebuilt:
  */
-#if PNG_ZLIB_VERNUM != 0 && PNG_ZLIB_VERNUM != ZLIB_VERNUM && \
+#if PNG_PTLIBZIPPY_VERNUM != 0 && PNG_PTLIBZIPPY_VERNUM != ZLIB_VERNUM && \
     !defined(PTLIBZIPPY_VERSION)
-#  error The include path of <zlib.h> is incorrect
-   /* When pnglibconf.h was built, the copy of zlib.h that it used was not the
+#  error The include path of <ptlibzippy.h> is incorrect
+   /* When pnglibconf.h was built, the copy of ptlibzippy.h that it used was not the
     * same as the one being used here.  Considering how libpng makes decisions
     * to use the zlib API based on the zlib version number, the -I options must
     * match.

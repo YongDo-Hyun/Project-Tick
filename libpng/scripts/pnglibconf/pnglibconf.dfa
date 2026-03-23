@@ -199,21 +199,21 @@ setting PREFIX
 # strategy is as defined by the implementors of zlib. It describes the input
 # data and modifies the zlib parameters in an attempt to optimize the balance
 # between search and huffman encoding in the zlib algorithms.  The defaults are
-# the zlib.h defaults - the apparently recursive definition does not arise
+# the ptlibzippy.h defaults - the apparently recursive definition does not arise
 # because the name of the setting is prefixed by PNG_
 #
 # The TEXT values are the defaults when writing compressed text (all forms)
 
 # Include the zlib header so that the defaults below are known
-@#  include <zlib.h>
+@#  include <ptlibzippy.h>
 
 # The '@' here means to substitute the value when pnglibconf.h is built
 setting Z_DEFAULT_COMPRESSION default @Z_DEFAULT_COMPRESSION
-# TODO: why aren't these Z_RLE; zlib.h says that Z_RLE, specifically, is
+# TODO: why aren't these Z_RLE; ptlibzippy.h says that Z_RLE, specifically, is
 # appropriate for PNG images, maybe it doesn't exist in all versions?
 setting Z_DEFAULT_STRATEGY default @Z_FILTERED
 setting Z_DEFAULT_NOFILTER_STRATEGY default @Z_DEFAULT_STRATEGY
-setting ZLIB_VERNUM default @ZLIB_VERNUM
+setting PTLIBZIPPY_VERNUM default @PTLIBZIPPY_VERNUM
 
 # Linkage of:
 #
@@ -294,10 +294,10 @@ option BENIGN_READ_ERRORS requires BENIGN_ERRORS
 # option were turned on.
 option DISABLE_ADLER32_CHECK requires READ disabled
 
-# ZLIB_VERNUM must be used here, not PNG_ZLIB_VERNUM, because
+# PTLIBZIPPY_VERNUM must be used here, not PNG_PTLIBZIPPY_VERNUM, because
 # scripts/options.awk ends up putting this test adhead of the setting of
-# PNG_ZLIB_VERNUM (apparently above, but not because of the two-pass processing)
-@#if ZLIB_VERNUM < 0x1290
+# PNG_PTLIBZIPPY_VERNUM (apparently above, but not because of the two-pass processing)
+@#if PTLIBZIPPY_VERNUM < 0x1290
 @#   define PNG_NO_DISABLE_ADLER32_CHECK
 @#endif
 

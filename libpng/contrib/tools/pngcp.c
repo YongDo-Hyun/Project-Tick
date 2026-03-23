@@ -74,7 +74,7 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
-#include <zlib.h>
+#include <ptlibzippy.h>
 
 #ifndef PNG_SETJMP_SUPPORTED
 #  include <setjmp.h> /* because png.h did *not* include this */

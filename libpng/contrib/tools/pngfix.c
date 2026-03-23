@@ -38,7 +38,7 @@
    (defined(PNG_READ_DEINTERLACE_SUPPORTED) ||\
     defined(PNG_READ_INTERLACING_SUPPORTED))
 
-/* zlib.h defines the structure z_stream, an instance of which is included
+/* ptlibzippy.h defines the structure z_stream, an instance of which is included
  * in this structure and is required for decompressing the LZ compressed
  * data in PNG files.
  */
@@ -46,9 +46,9 @@
    /* We must ensure that zlib uses 'const' in declarations. */
 #  define ZLIB_CONST
 #endif
-#include <zlib.h>
+#include <ptlibzippy.h>
 #ifdef const
-   /* zlib.h sometimes #defines const to nothing, undo this. */
+   /* ptlibzippy.h sometimes #defines const to nothing, undo this. */
 #  undef const
 #endif
 
@@ -3798,7 +3798,7 @@ usage(const char *prog)
 "               string {warning,libpng,zlib,invalid,read,write,unexpected}.",
 "   file-bits:  The zlib window bits recorded in the file.",
 "$5 read-errno: A system errno value from a read translated by strerror(3).",
-"   zlib-rc:    A zlib return code as a string (see zlib.h).",
+"   zlib-rc:    A zlib return code as a string (see ptlibzippy.h).",
 "   ok-bits:    The smallest zlib window bits value that works.",
 "$6 write-errno:A system errno value from a write translated by strerror(3).",
 "   compressed: The count of compressed bytes in the zlib stream, when the",
